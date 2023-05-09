@@ -1,0 +1,108 @@
+[
+    {
+        "id": 1,
+        "firstName": "Stefan",
+        "lastName": "Csomor",
+        "gender": "female",
+        "birthDate":  "1978-09-15",
+        "birthPlace": "Želiezovce",
+        "socialSecNumber": 7809156685,
+        "idCardNumber": "OP123456",
+        "country": "Slovakia",
+        "nationality": "SK",
+        "maritalStatus": "married",
+        "landLinePhone": "+421268203114",
+        "mobilePhone": "0910194888",
+        "email": "stefan.csomor@kfc.co.at",
+        "password": "nuendoes",
+        "street": "Hlavne namestie",
+        "houseNumber": 2,
+        "city": "Dvory nad Zitavou",
+        "postalCode": 82109,
+        "children": [
+            {
+                "id": 1,
+                "childName": "Viktoria",
+                "childSurname": "Csomorova",
+                "childDateOfBirth": "2007-11-02",
+                "childSocialSecNumber": 7809156685
+
+            },
+            {
+                "id": 2,
+                "childName": "Adam",
+                "childSurname": "Csomor",
+                "childDateOfBirth": "2025-07-03",
+                "childSocialSecNumber": 2507035678
+            }
+        ],
+        "spouseName": "Andrea",
+        "spouseSurname": "Csomorova",
+        "SpouseDateOfBirth": "1995-07-14",
+        "spouseSocialSecNumber": 8506145678,
+        "publicHealthInsuranceName": "Dvovera",
+        "gastroHealthCard": "indefinite",
+        "bankName": "VUB",
+        "accountNumber": "SK110012340000000043211234",
+        "bankCode": 1100,
+        "contractStartDate": "2023-05-02",
+        "contractEndDate": "indefinite",
+        "contractSalaryType": "hourlyRate",
+        "contractSalary": "Є6.00",
+        "contractType": "TPP",
+        "contractWeeklyHours": "39.75"
+    },
+    {
+        "id": 2,
+        "firstName": "Viktória",
+        "lastName": "Csomorová",
+        "gender": "female",
+        "birthDate":  "2007-11-02",
+        "birthPlace": "Nové Zámkz",
+        "socialSecNumber": 1234567,
+        "idCardNumber": "OP123456",
+        "country": "Slovakia",
+        "nationality": "SK",
+        "maritalStatus": "single",
+        "landLinePhone": "+421268203114",
+        "mobilePhone": "0910194888",
+        "email": "viktoria.csomorova@kfc.co.at",
+        "password": "nuendoes",
+        "street": "Dolna",
+        "houseNumber": 2,
+        "city": "Nove Zamky",
+        "postalCode": 82109,
+        "children": [
+            {
+                "id": 1,
+                "childName": "Holy",
+                "childSurname": "Csomorova",
+                "childDateOfBirth": "2007-11-02",
+                "childSocialSecNumber": 7809156685
+
+            },
+            {
+                "id": 2,
+                "childName": "Peter",
+                "childSurname": "Csomor",
+                "childDateOfBirth": "2025-07-03",
+                "childSocialSecNumber": 2507035678
+            }
+        ],
+        "spouseName": "Zoltan",
+        "spouseSurname": "Vadkerty",
+        "SpouseDateOfBirth": "1995-07-14",
+        "spouseSocialSecNumber": 8506145678,
+        "publicHealthInsuranceName": "Dvovera",
+        "gastroHealthCard": "2024-09-15",
+        "bankName": "VUB",
+        "accountNumber": "SK1100 1234 0000 0000 4321 1234",
+        "bankCode": 1100,
+        "contractStartDate": "2023-05-02",
+        "contractEndDate": "2024-05-02",
+        "contractSalaryType": "hourlyRate",
+        "contractSalary": "Є6.00",
+        "contractType": "TPP",
+        "contractWeeklyHours": "39.75"
+    }
+]

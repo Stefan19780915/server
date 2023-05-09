@@ -1,0 +1,131 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %>
+  <section>
+    <div class="container">
+      <input
+        class="search"
+        type="text"
+        name="searchEmployee"
+        id=""
+        placeholder="Find employee..."
+      />
+    </div>
+  </section>
+  <section class="secondary-section">
+    <div class="container flow">
+      <div class="new-employee">
+        <h4>CREATE NEW EMPLOYEE</h4>
+      </div>
+      <form
+        method="POST"
+        class="employee-form flow"
+        action="/employee/personal"
+        style="max-height: 0px"
+      >
+        <div class="flow">
+          <div>
+            <input type="hidden" value="<%= data.id%>" name="id" />
+            <label for="firstName">First name</label>
+            <input type="text" name="firstName" value="<%= data.firstName %>" />
+          </div>
+          <div>
+            <label for="lastName">Last name</label>
+            <input type="text" name="lastName" value="<%= data.lastName %>" />
+          </div>
+
+          <div class="d-flex-visible gap">
+            <div class="d-flex-visible gap">
+              <label for="male">Male</label>
+              <input type="radio" name="gender" value="male" <% if(data.gender
+              === 'male') { %> checked <% } else { %> <% } %> />
+            </div>
+            <div class="d-flex-visible gap">
+              <label for="male">Female</label>
+              <input type="radio" name="gender" value="female" <% if(data.gender
+              === 'female') { %> checked <% } else { %> <% } %> />
+            </div>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div>
+            <label for="birthDate">Date of birth</label>
+            <input type="date" name="birthDate" value="<%= data.birthDate %>" />
+          </div>
+          <div>
+            <label for="birthPlace">Place of birth</label>
+            <input
+              type="text"
+              name="birthPlace"
+              value="<%= data.birthPlace %>"
+            />
+          </div>
+          <div>
+            <label for="socialSecNumber">Social security number</label>
+            <input
+              type="number"
+              name="socialSecNumber"
+              value="<%= data.socialSecNumber %>"
+            />
+          </div>
+          <div>
+            <label for="idCardNumber">Identification card number</label>
+            <input
+              type="text"
+              name="idCardNumber"
+              value="<%= data.idCardNumber %>"
+            />
+          </div>
+        </div>
+
+        <div class="flow">
+          <div>
+            <label for="country">Country</label>
+            <input type="text" name="country" value="<%= data.country %>" />
+          </div>
+          <div>
+            <label for="nationality">Nationality</label>
+            <input
+              type="text"
+              name="nationality"
+              value="<%= data.nationality %>"
+            />
+          </div>
+
+          <label for="maritalStatus">Marital status</label>
+          <div class="d-flex-visible gap">
+            <div class="d-flex-visible gap">
+              <label for="single">Single</label>
+              <input type="radio" name="maritalStatus" value="single" <%
+              if(data.maritalStatus === 'single') { %> checked <% } else { %> <%
+              } %> />
+            </div>
+            <div class="d-flex-visible gap">
+              <label for="married">Married</label>
+              <input type="radio" name="maritalStatus" value="married" <%
+              if(data.maritalStatus === 'married') { %> checked <% } else { %>
+              <% } %> />
+            </div>
+          </div>
+          <div class="d-flex-visible space-between">
+            <button class="btn-primary dark-outline">Create Employee</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section class="head">
+    <div class="container">
+      <% data.forEach((employee)=> {%>
+      <h2 class="name">
+        <a href="/employee/<%= employee._id %> "
+          ><%= employee.firstName %> <%= employee.lastName %>
+        </a>
+      </h2>
+      <% }); %>
+    </div>
+  </section>
+  <script src="/js/employees.js"></script>
+</body>
+<%- include('../partials/footer') %>

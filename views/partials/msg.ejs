@@ -1,0 +1,11 @@
+<% if(msg) { %>
+<section class="msg">
+  <div class="container flow">
+    <h4><%= msg%></h4>
+    <p><%= body%></p>
+    <form action="/employee">
+      <button class="add-child btn-primary">OK</button>
+    </form>
+  </div>
+</section>
+<% } %>

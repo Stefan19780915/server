@@ -1,0 +1,625 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %>
+  <section class="head">
+    <div class="container">
+      <h2 class="name">
+        <a><%= data.firstName %> <%= data.lastName %></a>
+      </h2>
+      <div class="icon-bar row">
+        <img class="col profile" src="/imgs/profi1.svg" alt="" />
+        <img class="col contacts" src="/imgs/cont1.svg" alt="" />
+        <img class="col calendar" src="/imgs/cal1.svg" alt="" />
+        <img class="col settings" src="/imgs/sett1.svg" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-tab flow tab">
+    <div class="container flow">
+      <span></span>
+      <h3>Personal data</h3>
+      <p>
+        Here you can manage all persoal data of the given employee. You can
+        update edit and save the following information.
+      </p>
+      <form
+        method="POST"
+        class="personal-data-form flow"
+        action="/employee/personal/<%= data.id %>?_method=PUT"
+      >
+        <div class="flow">
+          <div>
+            <input type="hidden" value="<%= data.id%>" name="id" />
+            <label for="firstName">First name</label>
+            <input type="text" name="firstName" value="<%= data.firstName %>" />
+          </div>
+          <div>
+            <label for="lastName">Last name</label>
+            <input type="text" name="lastName" value="<%= data.lastName %>" />
+          </div>
+
+          <div class="d-flex-visible gap">
+            <div class="d-flex-visible gap">
+              <label for="male">Male</label>
+              <input type="radio" name="gender" value="male" <% if(data.gender
+              === 'male') { %> checked <% } else { %> <% } %> />
+            </div>
+            <div class="d-flex-visible gap">
+              <label for="male">Female</label>
+              <input type="radio" name="gender" value="female" <% if(data.gender
+              === 'female') { %> checked <% } else { %> <% } %> />
+            </div>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div>
+            <label for="birthDate">Date of birth</label>
+            <input type="date" name="birthDate" value="<%=
+            data.birthDate.toISOString().split("T")[0]%>" />
+          </div>
+          <div>
+            <label for="birthPlace">Place of birth</label>
+            <input
+              type="text"
+              name="birthPlace"
+              value="<%= data.birthPlace %>"
+            />
+          </div>
+          <div>
+            <label for="socialSecNumber">Social security number</label>
+            <input
+              type="number"
+              name="socialSecNumber"
+              value="<%= data.socialSecNumber %>"
+            />
+          </div>
+          <div>
+            <label for="idCardNumber">Identification card number</label>
+            <input
+              type="text"
+              name="idCardNumber"
+              value="<%= data.idCardNumber %>"
+            />
+          </div>
+        </div>
+
+        <div class="flow">
+          <div>
+            <label for="country">Country</label>
+            <input type="text" name="country" value="<%= data.country %>" />
+          </div>
+          <div>
+            <label for="nationality">Nationality</label>
+            <input
+              type="text"
+              name="nationality"
+              value="<%= data.nationality %>"
+            />
+          </div>
+
+          <label for="maritalStatus">Marital status</label>
+          <div class="d-flex-visible gap">
+            <div class="d-flex-visible gap">
+              <label for="single">Single</label>
+              <input type="radio" name="maritalStatus" value="single" <%
+              if(data.maritalStatus === 'single') { %> checked <% } else { %> <%
+              } %> />
+            </div>
+            <div class="d-flex-visible gap">
+              <label for="married">Married</label>
+              <input type="radio" name="maritalStatus" value="marrid" <%
+              if(data.maritalStatus === 'married') { %> checked <% } else { %>
+              <% } %> />
+            </div>
+          </div>
+          <div class="d-flex-visible space-between">
+            <button class="add-child btn-primary">Update</button>
+            <a class="btn-primary" href="/employee/personal/<%= data.id %>"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="contact-tab flow tab">
+    <div class="container flow">
+      <span></span>
+      <h3>Contatcs</h3>
+      <p>
+        Here you can manage all contact details of the given employee. You can
+        update edit and save the following information.
+      </p>
+      <form
+        action="/employee/contact/<%= data.id %>?_method=PUT"
+        class="contatc-data-form flow"
+        method="POST"
+      >
+        <div>
+          <label for="landLinePhone">Land line</label>
+          <input
+            type="tel"
+            name="landLinePhone"
+            value="<%= data.landLinePhone %>"
+          />
+          <label for="mobilePhone">Mobile</label>
+          <input
+            type="tel"
+            name="mobilePhone"
+            value="<%= data.mobilePhone %>"
+          />
+          <label for="email">Email</label>
+          <input type="email" name="email" value="<%= data.email %>" />
+          <label for="password">Pay slip pass</label>
+          <input type="password" name="password" value="<%= data.password %>" />
+        </div>
+        <h4>Address</h4>
+        <p>
+          Here you can update the address of the give employee. Please orivide a
+          valid addres since this will be used for all correspondence towards
+          the employee.
+        </p>
+        <div>
+          <label for="street">Street</label>
+          <input type="text" name="street" value="<%= data.street %>" />
+          <label for="houseNnumber">House number</label>
+          <input
+            type="number"
+            name="houseNnumber"
+            value="<%= data.houseNumber %>"
+          />
+          <label for="city">City/Town</label>
+          <input type="text" name="city" value="<%= data.city %>" />
+          <label for="postalCode">Postal code</label>
+          <input
+            type="number"
+            name="postalCode"
+            value="<%= data.postalCode%>"
+          />
+        </div>
+        <button class="add-child btn-primary">Update</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="calendar-tab flow tab">
+    <div class="container flow">
+      <span></span>
+      <h3>Calendar</h3>
+      <p>
+        Here you can check the given porson calendar days - see vacations and
+        days the porson worked on. You can also add vacations or remove other
+        absences and edit the calendar.
+      </p>
+      <div class="calendar">
+        <div class="decrement">Previous</div>
+        <div class="month" value="1">September</div>
+        <div class="increment">Next</div>
+        <div class="week-day">Mon</div>
+        <div class="week-day">Tue</div>
+        <div class="week-day">Wed</div>
+        <div class="week-day">Thr</div>
+        <div class="week-day">Fri</div>
+        <div class="week-day">Sat</div>
+        <div class="week-day">Sun</div>
+        <div class="day">
+          <div class="day-num">1</div>
+          <div class="day-con">PN</div>
+        </div>
+        <div class="day">
+          <div class="day-num">2</div>
+          <div class="day-con">PN</div>
+        </div>
+        <div class="day">
+          <div class="day-num">3</div>
+          <div class="day-con">PN</div>
+        </div>
+        <div class="day">
+          <div class="day-num">4</div>
+          <div class="day-con">PN</div>
+        </div>
+        <div class="day">
+          <div class="day-num">5</div>
+          <div class="day-con">PN</div>
+        </div>
+        <div class="day"><div class="day-num">6</div></div>
+        <div class="day"><div class="day-num">7</div></div>
+        <div class="day">
+          <div class="day-num">8</div>
+          <div class="day-con">OČR</div>
+        </div>
+        <div class="day">
+          <div class="day-num">9</div>
+          <div class="day-con">OČR</div>
+        </div>
+        <div class="day"><div class="day-num">10</div></div>
+        <div class="day"><div class="day-num">11</div></div>
+        <div class="day"><div class="day-num">12</div></div>
+        <div class="day"><div class="day-num">13</div></div>
+        <div class="day"><div class="day-num">14</div></div>
+        <div class="day"><div class="day-num">15</div></div>
+        <div class="day"><div class="day-num">16</div></div>
+        <div class="day">
+          <div class="day-num">17</div>
+          <div class="day-con">8.5</div>
+        </div>
+        <div class="day">
+          <div class="day-num">18</div>
+          <div class="day-con">4.5</div>
+        </div>
+        <div class="day">
+          <div class="day-num">19</div>
+          <div class="day-con">7.5</div>
+        </div>
+        <div class="day"><div class="day-num">20</div></div>
+        <div class="day"><div class="day-num">21</div></div>
+        <div class="day"><div class="day-num">22</div></div>
+        <div class="day"><div class="day-num">23</div></div>
+        <div class="day">
+          <div class="day-num">24</div>
+          <div class="day-con">D</div>
+        </div>
+        <div class="day">
+          <div class="day-num">25</div>
+          <div class="day-con">D</div>
+        </div>
+        <div class="day">
+          <div class="day-num">26</div>
+          <div class="day-con">D</div>
+        </div>
+        <div class="day"><div class="day-num">27</div></div>
+        <div class="day"><div class="day-num">28</div></div>
+        <div class="day"><div class="day-num">29</div></div>
+        <div class="day"><div class="day-num">30</div></div>
+        <div class="day"><div class="day-num">31</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="settings-tab tab">
+    <div class="container flow">
+      <span></span>
+      <h3>Profile Settings</h3>
+      <p class="mgb">
+        Here you can set all settings regarding the given person profile,
+        eployment type salary and other settins related to his role and
+        position.
+      </p>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container flow">
+        <h4><a>Children</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <% data.children.forEach( (child)=> { %>
+
+      <div class="childList">
+        <div><%= child.childName %> <%= child.childSurname %></div>
+        <a
+          class="btn-secondary"
+          href="/employee/child/<%= data.id %>/<%= child.id %>"
+          >Delete</a
+        >
+      </div>
+
+      <% }); %>
+
+      <p>
+        Please give information about the employees children for tax
+        reimbruisement.
+      </p>
+      <form
+        method="POST"
+        action="/employee/child/<%= data.id%>"
+        class="children-data-form flow"
+      >
+        <div>
+          <label for="childName">Name</label>
+          <input
+            type="text"
+            name="childName"
+            value="<%= data.childName %>"
+            required
+          />
+          <label for="childSurname">Surname</label>
+          <input
+            type="text"
+            name="childSurname"
+            value="<%= data.childSurname %>"
+            required
+          />
+          <label for="childDateOfBirth">Date of birth</label>
+          <input
+            type="date"
+            name="childDateOfBirth"
+            value="<%= data.childDateOfBirth %>"
+            required
+          />
+          <label for="childSocialSecNumber">Social security number</label>
+          <input
+            type="number"
+            name="childSocialSecNumber"
+            value="<%= data.childSocialSecNumber %>"
+            required
+          />
+        </div>
+        <button class="add-child btn-primary">Add Child</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container flow">
+        <h4><a>Spouse</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <p>
+        Please give information about the employees spouse for tax
+        reimbruisement.
+      </p>
+      <form
+        method="POST"
+        action="/employee/spouse/<%= data.id%>?_method=PUT"
+        class="spouse-data-form flow"
+      >
+        <div>
+          <label for="spouseName">Name</label>
+          <input type="text" name="spouseName" value="<%=data.spouseName%>" />
+          <label for="spouseSurname">Surname</label>
+          <input
+            type="text"
+            name="spouseSurname"
+            value="<%=data.spouseSurname%>"
+          />
+          <label for="spouseDateOfBirth">Date of birth</label>
+          <input
+            type="date"
+            name="spouseDateOfBirth"
+            value="<%=data.spouseDateOfBirth%>"
+          />
+          <label for="spouseSocialSecNumber">Social security number</label>
+          <input
+            type="number"
+            name="spouseSocialSecNumber"
+            value="<%=data.spouseSocialSecNumber%>"
+          />
+        </div>
+        <button class="add-spouse btn-primary">Update</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container flow">
+        <h4><a>Public health isurance company</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <p>
+        What is the name of the public health insurance company in which the
+        employee is registered at?
+      </p>
+      <form
+        class="public-health-data-form flow"
+        method="POST"
+        action="/employee/health/<%= data.id%>?_method=PUT"
+      >
+        <div>
+          <label for="publicHealthInsuranceName"
+            >Public health insurance company name</label
+          >
+          <input
+            type="text"
+            name="publicHealthInsuranceName"
+            value="<%= data.publicHealthInsuranceName %>"
+          />
+
+          <label for="gastroHealthCard">Gastro health card validity</label>
+          <i style="font-size: small"
+            >(please leave blank if employee has no gastro card)</i
+          >
+          <input type="date" name="gastroHealthCard" id="cardEndDate" value="<%=
+          data.gastroHealthCard %>" <% if (data.gastroHealthCard ==
+          'indefinite') { %> disabled <% } %> />
+          <label for="indefiniteHealthCard"
+            >Gastro card idefinite period of time</label
+          >
+
+          <input type="checkbox" id="checkHealth" value="<% if
+          (data.gastroHealthCard == 'indefinite') { %> 0 <% } else { %> 1 <% }
+          %> " <% if (data.gastroHealthCard == 'indefinite') { %> checked <% }
+          %> />
+          <input
+            type="hidden"
+            id="hiddenHealth"
+            name="gastroHealthCard"
+            value="0"
+            disabled
+          />
+        </div>
+        <button class="add-public-health-insurance btn-primary">Update</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container flow">
+        <h4><a>Bank account information</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <p>
+        Please provide the bank account number to which the employee salary will
+        be set to.
+      </p>
+      <form
+        class="bank-data-form flow"
+        method="POST"
+        action="/employee/bank/<%= data.id%>?_method=PUT"
+      >
+        <div>
+          <label for="bankName">Bank Name</label>
+          <input type="text" name="bankName" value="<%= data.bankName %>" />
+        </div>
+        <div>
+          <label for="accountNumber">Account number</label>
+          <input
+            type="text"
+            name="accountNumber"
+            value=" <%= data.accountNumber %> "
+          />
+        </div>
+        <div>
+          <label for="bankCode">Bank code</label>
+          <input type="number" name="bankCode" value="<%= data.bankCode %>" />
+        </div>
+        <button class="add-bank btn-primary">Update</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container flow">
+        <h4><a>Cotract settings</a></h4>
+      </div>
+    </section>
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <p>Please set the employment type and start and end tades.</p>
+      <form
+        class="employent-form flow"
+        method="POST"
+        action="/employee/contract/<%= data.id%>?_method=PUT"
+      >
+        <div>
+          <label for="contractStartDate">Start date</label>
+          <input
+            type="date"
+            name="contractStartDate"
+            value="<%= data.contractStartDate%>"
+          />
+        </div>
+        <div>
+          <label for="endDate">End date</label>
+          <input id="endDate" type="date" name="contractEndDate" value="<%=
+          data.contractEndDate%>" <% if (data.contractEndDate == 'indefinite') {
+          %> disabled <% } %> required />
+
+          <label for="indefinite">Idefinite period of time</label>
+          <input type="checkbox" id="check" value=" <% if (data.contractEndDate
+          == 'indefinite') { %> 0 <% } else { %> 1 <% } %> " <% if
+          (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
+          <input
+            type="hidden"
+            id="hidden"
+            name="contractEndDate"
+            value="0"
+            disabled
+          />
+        </div>
+        <div class="flow">
+          <p>Please choose the salary type for the employee.</p>
+          <div class="d-flex-visible gap">
+            <input type="radio" name="contractSalaryType" value="hourlyRate" <%
+            if(data.contractSalaryType === 'hourlyRate') { %> checked <% } else
+            { %> <% } %>/>
+            <label for="hourlyRate">Hourly rate</label>
+          </div>
+          <div class="d-flex-visible gap">
+            <input type="radio" name="contractSalaryType" value="monthlySalary"
+            <% if(data.contractSalaryType === 'monthlySalary') { %> checked <% }
+            else { %> <% } %> />
+            <label for="monthlySalary">Monthly salary</label>
+          </div>
+          <div class="d-flex-visible gap">
+            <input type="radio" name="contractSalaryType" value="taskBased" <%
+            if(data.contractSalaryType === 'taskBased') { %> checked <% } else {
+            %> <% } %>/>
+            <label for="taskBased">Task based salary</label>
+          </div>
+          <div>
+            <label for="rate">Rate</label>
+            <input
+              type="text"
+              name="contractSalary"
+              id="currency-field"
+              pattern="^\Є\d{1,3}(,\d{3})*(\.\d+)?Є"
+              value="<%= data.contractSalary%>"
+              data-type="currency"
+              placeholder="€1.00"
+              required
+            />
+          </div>
+        </div>
+        <div class="flow">
+          <p>Please choose the contract type for the employee</p>
+          <div class="d-flex-visible gap">
+            <input type="radio" name="contractType" value="TPP" <%
+            if(data.contractType === 'TPP') { %> checked <% } else { %> <% }
+            %>/>
+            <label for="TPP">Full Time Contract</label>
+          </div>
+          <div class="d-flex-visible gap">
+            <input type="radio" name="contractType" value="DOBPS" <%
+            if(data.contractType === 'DOBPS') { %> checked <% } else { %> <% }
+            %>/>
+            <label for="DOBPS">Student Contract</label>
+          </div>
+          <div class="d-flex-visible gap">
+            <input type="radio" name="contractType" value="DOPC" <%
+            if(data.contractType === 'DOPC') { %> checked <% } else { %> <% }
+            %>/>
+            <label for="DOPC">Work Agreement</label>
+          </div>
+          <div>
+            <label for="contractWeeklyHours">Weekly hours</label>
+            <input
+              type="number"
+              step="00.01"
+              value="<%= data.contractWeeklyHours%>"
+              placeholder="00.00"
+              name="weeklyHours"
+              required
+            />
+          </div>
+        </div>
+        <button class="add-bank btn-primary">Update</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Sub category</a></h4>
+      </div>
+    </section>
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit,
+        dignissimos?
+      </p>
+      <div class="flex-container">
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+      </div>
+    </div>
+  </section>
+  <script src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="/js/employee.js"></script>
+</body>
+<%- include('../partials/footer') %>

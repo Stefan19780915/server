@@ -1,0 +1,1269 @@
+01/05/2023	17:30:23	12c72d69-06e4-4b64-96bf-837fed795025	Error: Not allowed by CORS
+01/05/2023	18:30:24	ebc3d301-ffca-45d2-a36d-b66a99eb0d05	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:26
+    24|         <div class="flow">
+    25|           <div>
+ >> 26|             <input type="hidden" value="<%= id%>" name="id" />
+    27|             <label for="firstName">First name</label>
+    28|             <input type="text" name="firstName" />
+    29|           </div>
+
+id is not defined
+03/05/2023	21:54:57	d3768c37-50d9-4148-a5cb-28dff372ebce	Error: Not allowed by CORS
+03/05/2023	21:54:57	d654b497-44aa-466c-a40c-9abae8203c3c	Error: Not allowed by CORS
+03/05/2023	21:59:48	c4ada202-d121-4e1f-8649-ca9d9444e664	Error: Not allowed by CORS
+03/05/2023	21:59:48	2c26cd24-5995-4aaf-98db-d37bae8d67d5	Error: Not allowed by CORS
+03/05/2023	22:41:21	dbb7e7ab-803b-41f6-a117-3c19c9b5fa47	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:31
+    29|         <div class="flow">
+    30|           <div>
+ >> 31|             <input type="hidden" value="<%= id%>" name="id" />
+    32|             <label for="firstName">First name</label>
+    33|             <input type="text" name="firstName" />
+    34|           </div>
+
+id is not defined
+04/05/2023	15:02:30	641c6fe3-60c0-4674-9a88-5dd661478a1e	Error: Failed to lookup view "../views/pages/employee " in views directory "/Users/queensway/Downloads/server/views"
+04/05/2023	15:05:18	60ee8e0e-74f1-4fcd-954f-53ab1bda6af1	Error: Failed to lookup view "../views/pages/employee " in views directory "/Users/queensway/Downloads/server/views"
+04/05/2023	15:05:44	0fcca9ee-7350-4455-89f0-20f7a5c20da1	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:07:24	c089f85a-b3ae-4578-8a7f-3b98e602f121	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:07:46	393a1f05-e8f6-4cc9-97da-05ff3b64bafd	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:09:35	9a24a73d-980e-4f02-bc5c-88074c2adb16	TypeError: Cannot read properties of undefined (reading '0')
+04/05/2023	15:09:51	5d9015a7-0c53-4ab6-bd7f-9ea68c712573	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:13:32	7dab4444-7e43-41d6-85c4-5f329fec9fb7	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:13:58	a4878895-e4e4-456a-b8a1-36fbbd8f1d97	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:14:35	92f3391a-c037-4642-8e99-08196168146c	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:14:55	4f326d15-332c-4b04-ac38-37250c71499c	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:14:56	a36099a0-45ef-4848-8469-4faa21028750	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:17:09	707e948d-8a72-43f7-880f-b97648d89581	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="#"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	15:48:14	09e06ca8-2bfe-4067-bcb7-3ffdad25d062	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	16:20:42	7efc9216-67ab-4372-8ea7-4a269de83ef0	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="img/profi.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	16:30:27	5d5299b9-f22a-41f7-ac8e-27264d8d96eb	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="imgs/profi1.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	16:43:59	f74b89d4-da82-4904-9eb8-48f53a8fe677	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="/imgs/profi1.svg" alt="" />
+
+data is not defined
+04/05/2023	16:45:08	5d22f2db-1db6-45ff-a1f5-ad762c636211	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="/imgs/profi1.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	16:45:20	cd69cd33-094e-4574-a29b-6e964904509f	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="/employee"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|     </div>
+    10|   </section>
+
+data is not defined
+04/05/2023	16:47:47	bc547b1a-a65e-43de-830f-b72fce587223	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a href="/employee"><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|     </div>
+    10|   </section>
+
+data is not defined
+04/05/2023	18:11:34	4fb64eb3-bf43-48a1-826a-2e7f3204b651	ReferenceError: Cannot access 'data' before initialization
+04/05/2023	18:11:38	b638464d-071f-498c-8134-40f59a0ed16a	ReferenceError: Cannot access 'data' before initialization
+04/05/2023	18:14:04	56690a59-c72b-4160-a41f-2f2f7d285886	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= result.firstName%> <%= result.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="/imgs/profi1.svg" alt="" />
+
+result is not defined
+04/05/2023	18:15:31	6339d97f-52b1-4b97-bcec-0ce8cf6a253c	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:7
+    5|     <div class="container">
+    6|       <h2 class="name">
+ >> 7|         <a><%= data.firstName%> <%= data.lastName%></a>
+    8|       </h2>
+    9|       <div class="icon-bar row">
+    10|         <img class="col profile" src="/imgs/profi1.svg" alt="" />
+
+Cannot read properties of undefined (reading 'firstName')
+04/05/2023	18:16:51	77b6b62e-51ab-47d8-8f62-3ef89ce21d88	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:16:54	39ed016c-c271-43f4-a4a4-996931299138	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <p>Id number is: <%= id%></p>
+    7|     <form action="/employee">
+    8|       <button class="add-child btn-primary">OK</button>
+
+body is not defined
+04/05/2023	18:16:54	74347817-ef0c-47af-84ea-b2d28bf1febe	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:18:04	28e69141-fd01-427b-983f-9c567acf082c	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:18:06	5727f2d0-08fc-42ad-9cf8-4f2abe98bab9	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:18:07	488bcee7-2f80-49ac-b500-09f3a90bb288	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:19:23	5959812f-06d7-49df-a165-decb40c81e78	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:19:26	0b16169a-0d8d-478e-9ce4-5a154a5729a2	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:19:26	f87713f2-d2cf-4e68-a2c8-7c3e8581ddf7	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:19:31	43b3a487-ef98-4ef2-95ad-cc4cb8183909	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:19:33	50080e09-0690-4502-8e1b-84280ec890f7	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:20:53	7cfe5aa4-dcd0-4746-a352-90504555f97b	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:22:08	b9c73d3c-a513-44d4-b908-2a32d139e37c	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:22:19	8dfc2d8d-a27d-42fb-9297-094b2fc32778	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:22:49	25d0b506-0173-45cf-aba5-d4a02b43fcd8	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:23:20	8f3d2a2a-ddf6-44fc-93ab-b0139d10d6c2	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:24:41	7d105897-3c35-4d10-ae8e-2bcb8d05aecf	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:26:56	75afb27e-c500-4152-b9fa-95adbfbd7bf7	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:26:56	c2f50c45-41be-4ffe-8f4b-ee98024eb7df	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:28:10	3c934822-fafb-46e7-bc53-aaed165d6e51	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:29:06	cf5af167-ee2b-47bb-95e5-c21c8e80d415	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:29:07	cd5f1ead-9112-4988-bf52-1123a56fc54f	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:29:22	b03c9ea2-ed08-4063-abd6-7194882574d1	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:29:22	0295f5b2-b596-48a5-b086-cc1fedd1308f	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:29:38	28245ccd-1c1b-4cdc-8959-8643a0f58244	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:29:46	6aadf235-9ea2-483c-af60-c5d370d6ceac	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:29:46	96861180-eebb-4e82-a2fd-2d0b36cd3601	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:31:05	85a21e9f-06fb-40f3-862b-33764da8a17a	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:31:06	b0c34c73-d506-4f9a-9465-e12a2de0867c	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:31:07	99c21dca-2732-43a3-9a91-a8809358f7d7	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:31:07	9589ccba-abc0-4bae-a54b-86c59f75449a	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:31:28	555f4530-d60c-43f3-a7cb-5b7d1a0d485d	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:31:38	1420772f-3e00-4422-bb01-697f8e328086	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:31:38	faf73d11-e89c-44ec-b2f0-c33aa1120995	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:32:03	084507bf-6062-4af6-aae1-4ccd288e95f0	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:32:03	2e66d3dc-fd8c-494e-984b-a4a88e2b2bf6	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:32:33	8deb0130-9842-4d76-a1dc-332cafb57e39	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:32:33	8147501a-c915-4007-bde4-ebce6af33c30	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:32:54	28627d61-dba7-4301-a282-37ce0f25e109	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:32:54	23bcd0af-cb1b-41d1-96d3-221ec695258a	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:32:56	e3b65999-bdca-4d5b-99c1-c7e2cbbcc7c3	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:32:56	428035f9-a4af-48b4-8efe-83c988faecd1	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:34:49	3c93e793-011d-4f1a-b344-124f2d063ec6	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:34:51	2d4c0e37-65f1-42bc-94e1-46d537f98aa6	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:34:55	94d78826-89a2-4143-a7a2-461bbbb87d72	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:35:42	604cfc38-300b-474a-98a2-0c31c32c554f	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:36:30	d7868b3e-9cfc-444a-903d-9b32081359d0	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:38:57	0acd42ca-bf77-409f-8e43-4a304b9eddd0	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:39:23	dc936eec-17df-455c-96b1-be55564bc846	TypeError: Cannot read properties of undefined (reading 'id')
+04/05/2023	18:42:07	3afef1d8-9ef1-4180-9764-429e6e484870	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:42:08	e346a2da-a234-42b0-a611-471dfd978eaa	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:42:10	958d9598-d258-4317-8be4-a8b31f2563f3	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:42:28	771c6fe6-19ce-4fe9-960d-4f124657dea5	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:42:46	c58401ea-ae43-42f3-b68e-95eb97b35851	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:43:39	19d43fb6-42ee-4e30-95bd-63a519f80ca3	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:43:44	f25cb038-e762-4147-98b6-173211554339	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:44:06	422b49ee-67e3-4588-9851-7442a87a8583	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:51:23	9a66ea2e-2508-46e3-ab6b-2c69b62f6a46	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+04/05/2023	18:51:24	0127e6ab-c542-4d6e-a3d3-abbf27fd86da	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	18:52:56	df0bbe53-1948-48d7-889a-f800abfaf7a3	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%= msg%> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+msg is not defined
+04/05/2023	18:52:56	b374d3d0-eb79-42b5-ae57-38a48547a69a	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%= msg%> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+msg is not defined
+04/05/2023	18:53:20	c338b907-8879-4e01-b66a-306695b7e16c	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%= msg%> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+msg is not defined
+04/05/2023	18:54:17	99a04fd1-a5c3-4af3-866d-602271583222	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%= msg%> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+msg is not defined
+04/05/2023	18:57:37	559b3215-7f6a-4711-bc8f-a9752d4bede5	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:12
+    10|   <%- include('../partials/head') %>
+    11|   <body>
+ >> 12|     <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    13|     <section>
+    14|       <div class="container">
+    15|         <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	19:23:49	8ceee368-18c9-477b-94cb-a2bc910de600	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+04/05/2023	19:29:08	9f41958c-e01a-4744-88b2-68fd6c87b94a	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+04/05/2023	19:57:16	b722d50b-1d52-406e-a3f3-93679a07efaf	SyntaxError: Unexpected token 'if' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+04/05/2023	19:59:59	eb29f611-5910-42ba-873f-d6457e4695c9	Error: Could not find matching close tag for "<%".
+04/05/2023	20:36:42	ede3795e-e26a-491c-9af7-14029fe0ce5f	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:6
+    4|   <section class="head">
+    5|     <div class="container">
+ >> 6|       <% data.forEach((employee)=> {%>
+    7| 
+    8|       <h2 class="name">
+    9|         <a href="/employee/<%= employee.id %> "
+
+data is not defined
+04/05/2023	20:39:20	56d7685f-0133-4d7e-8f48-ef7b62bae572	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="head">
+    5|     <div class="container">
+    6|       <% data.forEach((employee)=> {%>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+06/05/2023	17:34:10	537b0135-3808-4d5d-aae6-4e12687bdcc7	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="head">
+    5|     <div class="container">
+    6|       <h2 class="name">
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+06/05/2023	20:25:24	94ec5578-811f-4779-b12a-5b06c729ee59	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:79
+    77|           <div>
+    78|             <label for="idCardNumber">Identification card number</label>
+ >> 79|             <input type="text" name="idCardNumber" value="<%= idCardNumber%>" />
+    80|           </div>
+    81|         </div>
+    82| 
+
+idCardNumber is not defined
+07/05/2023	10:49:07	bc295ec5-f9aa-4a68-9f66-f1da9ef9a49b	Error: Could not find matching close tag for "<%=".
+07/05/2023	10:51:39	de99c517-b965-41a2-a37a-a116c456f748	Error: Could not find matching close tag for "<%=".
+07/05/2023	10:51:40	d078d76f-5a9d-41e6-af4b-0bbfbd575819	Error: Could not find matching close tag for "<%=".
+07/05/2023	10:52:10	3dd1cdef-01e8-41d3-9dcf-0d6ecbe2bc98	Error: Could not find matching close tag for "<%=".
+07/05/2023	10:53:40	1c41829a-b923-46d3-a95d-383326e53319	Error: Could not find matching close tag for "<%=".
+07/05/2023	14:20:51	cd08a790-2b71-444d-8554-28356d983032	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:21:51	2244c154-a660-4b73-bab9-4029c21dcdb6	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:21:52	2a88f4a8-cfb9-4e04-a012-a52278280ac9	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:22:37	39170e65-869c-4f7f-84b0-2e93e3575911	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:22:38	c5c8de90-efea-43d8-ad85-0fc0ae720b84	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:24:55	a1ef0d62-b114-44ff-861d-e8b37e96d6f7	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:25:29	abbaae1b-8ae0-4c00-b6bb-5d6baf12a4b1	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	14:27:44	fcd87c3a-a8f1-483b-aab4-93aa9787e644	Error: Could not find matching close tag for "<%".
+07/05/2023	14:28:19	cdc9fcc6-e6b3-4f66-a7eb-960b514c728b	SyntaxError: Unexpected token ')' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	15:00:54	ee534e21-0916-4ee7-91cb-e6bfa055e654	TypeError: Cannot read properties of undefined (reading 'childName')
+07/05/2023	15:03:30	d23002b9-024f-4b3c-b29b-8aebf01affdd	TypeError: Cannot read properties of undefined (reading 'childName')
+07/05/2023	16:21:47	64684432-e0f2-4ee3-90c2-0e99fa6aba14	SyntaxError: Unexpected identifier in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/05/2023	22:41:59	775aa04d-2913-4941-845b-ef86d75db670	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="head">
+    5|     <div class="container">
+    6|       <h2 class="name">
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+08/05/2023	17:44:32	9af6b105-e0cf-4ac0-b328-a91ac7bed1a5	TypeError: data.setEmployees is not a function
+08/05/2023	17:49:30	82eee807-d09c-4fa0-9146-e910a6ad889e	TypeError: data.setEmployees is not a function
+08/05/2023	17:51:06	145582e5-39f0-4d59-a578-448ab91df5cd	TypeError: data.setEmployees is not a function
+08/05/2023	18:03:17	3def2f5f-e07e-4d72-888a-405fa9596a3b	TypeError: data.setEmployees is not a function
+08/05/2023	19:17:20	9b651f57-86d3-4232-97cc-6744c24bf9ce	TypeError: data.setEmployees is not a function
+08/05/2023	19:30:56	8ec7a79c-ef36-4227-8b13-0a89499ff486	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:6
+    4|   <section class="head">
+    5|     <div class="container">
+ >> 6|       <% data.forEach((employee)=> {%>
+    7|       <h2 class="name">
+    8|         <a href="/employee/<%= employee.id %> "
+    9|           ><%= employee.firstName %> <%= employee.lastName %>
+
+Cannot read properties of undefined (reading 'forEach')
+08/05/2023	19:43:53	f611ed02-3b98-44de-8386-3ea4c08e68c9	TypeError: data.setEmployees is not a function
+08/05/2023	19:45:50	45eb82db-5ed7-4ac2-9c97-a12b02646a1a	TypeError: Cannot read properties of undefined (reading 'id')
+08/05/2023	19:49:26	e874c335-05c5-48c9-8897-cc9342c7a7cb	TypeError: Cannot read properties of undefined (reading 'id')
+08/05/2023	19:53:11	85595ca7-660f-432e-a99f-0cb5a7403b31	TypeError: Cannot read properties of undefined (reading 'id')
+08/05/2023	19:56:42	8d91cff9-43b9-4cb1-99d7-f5a55743bb58	TypeError: data.setEmployees is not a function
+08/05/2023	21:14:51	b3f746fa-8216-41e3-9f12-e5b4a8fb32e6	ReferenceError: result is not defined
+08/05/2023	21:16:03	10f60c5e-1dae-43a7-b098-51cb8377f52e	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:299
+    297| 
+    298|     <div class="container flow sub-cat-content">
+ >> 299|       <% data.children.forEach( (child)=> { %>
+    300| 
+    301|       <div class="childList">
+    302|         <div><%= child.childName %> <%= child.childSurname %></div>
+
+Cannot read properties of undefined (reading 'forEach')
+09/05/2023	23:18:59	1d741f1b-d5c1-4224-8943-060aa3069ef1	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:62
+    60|               type="date"
+    61|               name="birthDate"
+ >> 62|               value="<%= birthDate.birthDate %>"
+    63|             />
+    64|           </div>
+    65|           <div>
+
+birthDate is not defined
+09/05/2023	23:22:54	d0fc38bc-c5d1-4e61-b27f-1de2e6a3a87d	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date.birthDate %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+09/05/2023	23:26:54	b44ee725-4068-4d58-b182-86ca1dd7001f	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date.birthDate %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+09/05/2023	23:31:54	521a818d-225d-46ad-af16-4b6853930c0f	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date.birthDate %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+09/05/2023	23:35:37	f953aa7b-a66d-48f7-9271-c8cd99d5e333	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date.birthDate %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+09/05/2023	23:57:27	a0205800-b215-446a-8dc9-7b5d0c0b6de6	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:62
+    60|               type="date"
+    61|               name="birthDate"
+ >> 62|               value="<%= date.formatedDate %>"
+    63|             />
+    64|           </div>
+    65|           <div>
+
+date is not defined
+09/05/2023	23:58:26	d561bef1-82fa-4dfb-a303-182b1c3536cc	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:62
+    60|               type="date"
+    61|               name="birthDate"
+ >> 62|               value="<%= date.formatedDate %>"
+    63|             />
+    64|           </div>
+    65|           <div>
+
+date is not defined
+09/05/2023	23:58:34	3cb3553a-6112-4e13-a324-52dc337f947d	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:62
+    60|               type="date"
+    61|               name="birthDate"
+ >> 62|               value="<%= date.formatedDate %>"
+    63|             />
+    64|           </div>
+    65|           <div>
+
+date is not defined
+09/05/2023	23:59:52	46b5385f-f8d5-4a7b-9ce7-c2f30aedf63c	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+10/05/2023	00:03:36	a59d3fde-8edf-42c5-a6a0-0f24641706d0	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+10/05/2023	00:04:41	e6f5b4c5-133d-490b-ad0f-e20a08116c9e	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+10/05/2023	00:06:04	c20489f4-1797-418c-8ed9-fc6d955484af	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+10/05/2023	00:08:40	993ed5f8-0154-4fec-ba3e-aeaba7d829a3	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:59
+    57|           <div>
+    58|             <label for="birthDate">Date of birth</label>
+ >> 59|             <input type="date" name="birthDate" value="<%= date.date %>" />
+    60|           </div>
+    61|           <div>
+    62|             <label for="birthPlace">Place of birth</label>
+
+date is not defined
+10/05/2023	00:12:08	e9122bbe-ede4-4e8d-939a-533d0ced8a0f	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <input
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+10/05/2023	00:12:24	96c06332-c0ab-48ba-8c41-132997b26861	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <input
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
