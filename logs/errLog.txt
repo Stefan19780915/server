@@ -1267,3 +1267,6 @@ body is not defined
     8|     </form>
 
 body is not defined
+10/05/2023	20:55:02	121fe2f6-0eeb-4cb5-a0eb-25b008647d85	Error: Not allowed by CORS
+10/05/2023	20:55:10	5c532424-bc2e-4c26-b243-3ebf9e5fc990	Error: Not allowed by CORS
+10/05/2023	20:56:48	aac2b07b-f483-4706-b525-2ab7b37f92d7	Error: Not allowed by CORS

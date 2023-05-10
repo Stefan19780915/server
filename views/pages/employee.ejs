@@ -549,12 +549,10 @@
           <div>
             <label for="rate">Rate</label>
             <input
-              type="text"
+              type="number"
+              step="0.01"
               name="contractSalary"
-              id="currency-field"
-              pattern="^\Є\d{1,3}(,\d{3})*(\.\d+)?Є"
               value="<%= data.contractSalary%>"
-              data-type="currency"
               placeholder="€1.00"
               required
             />
@@ -584,10 +582,10 @@
             <label for="contractWeeklyHours">Weekly hours</label>
             <input
               type="number"
-              step="00.01"
               value="<%= data.contractWeeklyHours%>"
               placeholder="00.00"
               name="weeklyHours"
+              step="0.01"
               required
             />
           </div>
@@ -619,7 +617,7 @@
       </div>
     </div>
   </section>
-  <script src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+
   <script src="/js/employee.js"></script>
 </body>
 <%- include('../partials/footer') %>
