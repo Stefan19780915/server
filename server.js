@@ -1,4 +1,4 @@
-require("dotenv-extended").load();
+require("dotenv").config();
 const path = require("path");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
