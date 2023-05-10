@@ -37,9 +37,9 @@ const allNames = document.querySelectorAll(".name");
 allNames.forEach((item) => {
   item.addEventListener("click", (e) => {
     //e.currentTarget.nextElementSibling.classList.toggle("d-flex-visible");
-    e.currentTarget.nextElementSibling.style.maxHeight === "100%"
+    e.currentTarget.nextElementSibling.style.maxHeight === "600px"
       ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-      : (e.currentTarget.nextElementSibling.style.maxHeight = "100%");
+      : (e.currentTarget.nextElementSibling.style.maxHeight = "600px");
     Array.from(
       e.currentTarget.parentElement.parentElement.parentElement.children
     )
