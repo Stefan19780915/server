@@ -197,6 +197,7 @@ input[type=text], input[type=number], input[type=date], input[type=tel], input[t
 
 .search{
     border-radius: 100vh;
+    
 }
 
 .name a{
