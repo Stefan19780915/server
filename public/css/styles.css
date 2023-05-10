@@ -215,7 +215,7 @@ input[type=text], input[type=number], input[type=date], input[type=tel], input[t
 .sub-cat-content{
     display: block;
     overflow: hidden;
-    max-height: 0;
+    height: 0;
     transition: all 1s ease-in-out;
 }
 
@@ -237,7 +237,7 @@ input[type=text], input[type=number], input[type=date], input[type=tel], input[t
 
 .icon-bar{
     display: flex;
-    max-height: 0;
+    height: 0;
     transition: all 1s ease-in-out;
     overflow: hidden;
 }
@@ -270,7 +270,7 @@ input[type=text], input[type=number], input[type=date], input[type=tel], input[t
 }
 
 .profile-tab, .contact-tab , .calendar-tab , .settings-tab{
-    max-height: 0px;
+    height: 0px;
     overflow: hidden;
     display: block;
     padding: 0;

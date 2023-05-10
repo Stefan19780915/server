@@ -37,15 +37,15 @@ const allNames = document.querySelectorAll(".name");
 allNames.forEach((item) => {
   item.addEventListener("click", (e) => {
     //e.currentTarget.nextElementSibling.classList.toggle("d-flex-visible");
-    e.currentTarget.nextElementSibling.style.maxHeight === "600px"
-      ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-      : (e.currentTarget.nextElementSibling.style.maxHeight = "600px");
+    e.currentTarget.nextElementSibling.style.height === "60px"
+      ? (e.currentTarget.nextElementSibling.style.height = "0px")
+      : (e.currentTarget.nextElementSibling.style.height = "60px");
     Array.from(
       e.currentTarget.parentElement.parentElement.parentElement.children
     )
       .filter((tab) => tab.classList.contains("tab"))
       .forEach((item) => {
-        item.style.maxHeight = "0px";
+        item.style.height = "0px";
       });
     Array.from(e.currentTarget.nextElementSibling.children).forEach((item) => {
       item.classList.remove("selected");
@@ -59,10 +59,10 @@ allSubCat.forEach((item) => {
   item.addEventListener("click", (e) => {
     allSubCat.forEach((item) => {
       item == e.currentTarget
-        ? e.currentTarget.nextElementSibling.style.maxHeight === "1500px"
-          ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-          : (e.currentTarget.nextElementSibling.style.maxHeight = "1500px")
-        : (item.nextElementSibling.style.maxHeight = "0px");
+        ? e.currentTarget.nextElementSibling.style.height === "1500px"
+          ? (e.currentTarget.nextElementSibling.style.height = "0px")
+          : (e.currentTarget.nextElementSibling.style.height = "1500px")
+        : (item.nextElementSibling.style.height = "0px");
     });
   });
 });
@@ -76,10 +76,10 @@ const toggleVisibility = (e, trigClass, tarClass) => {
         .forEach((item) => {
           //console.log(item);
           item.classList.contains(tarClass)
-            ? item.style.maxHeight === "1500px"
-              ? (item.style.maxHeight = "0px")
-              : (item.style.maxHeight = "1500px")
-            : (item.style.maxHeight = "0px");
+            ? item.style.height === "1500px"
+              ? (item.style.height = "0px")
+              : (item.style.height = "1500px")
+            : (item.style.height = "0px");
         })
     : "";
 };
