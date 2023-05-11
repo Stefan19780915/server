@@ -11,12 +11,13 @@ const data = {
 
 //DONE
 const getAllEmployees = async (req, res) => {
-  console.log(req.query);
   const allEmployees = await Employee.find();
-
-  const birthDate = moment(allEmployees.birthDate).format();
-  const formatedDate = `${birthDate.split("T")[0]}`;
-  console.log(formatedDate);
+  if (allEmployees === []) {
+    return res.render("../views/pages/employees", {
+      msg: "There are no employees created yet. Click on create employee.",
+      data: "",
+    });
+  }
   res.render("../views/pages/employees", {
     msg: false,
     data: allEmployees,
@@ -25,7 +26,12 @@ const getAllEmployees = async (req, res) => {
 
 //DONE
 const getEmployee = async (req, res) => {
-  const result = data.employees.find((item) => item.id == req.params.id);
+  if (!req.params.id) {
+    return res.render("../views/pages/404", {
+      msg: "Employee was not deleted.",
+      body: "Please pprovide the correct ID",
+    });
+  }
   const oneEmployee = await Employee.findOne({ _id: req.params.id });
   if (oneEmployee != undefined) {
     res.render("../views/pages/employee", {
@@ -73,66 +79,60 @@ const createEmployee = async (req, res) => {
     });
   }
 
-  const result = await Employee.create(newEmployee);
+  try {
+    const result = await Employee.create(newEmployee);
+    const allEmployees = await Employee.find();
+    console.log(result);
+    res.render("../views/pages/employees", {
+      msg: `Employee was created successfully`,
+      body: `${result.firstName} ${result.lastName}`,
+      data: allEmployees,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//DONE
+const deleteEmployee = async (req, res) => {
+  if (!req.params.id) {
+    return res.render("../views/pages/404", {
+      msg: "Employee was not deleted.",
+      body: "Please pprovide the correct ID",
+    });
+  }
+
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+
+  if (!employee) {
+    return res.render("../views/pages/404", {
+      msg: "No employee found.",
+      body: "Please provide the correct ID.",
+    });
+  }
+
+  const result = await employee.deleteOne({ _id: req.params.id });
 
   const allEmployees = await Employee.find();
 
-  const unsortedArray = [...data.employees, newEmployee];
-  data.setEmployees(
-    unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
-
-  console.log(result);
+  if (!allEmployees) {
+    return res.render("../views/pages/employees", {
+      msg: "There are no employees created yet. Click on create employee.",
+      body: "",
+      data: "",
+    });
+  }
 
   res.render("../views/pages/employees", {
-    msg: "Personal data of the employee was saved",
-    body: "",
+    msg: `Personal data of the employee was deleted.`,
+    body: `${result.firstName} ${result.lastName}`,
     data: allEmployees,
   });
 };
 
 //DONE
-const deleteEmployee = (req, res) => {
-  const result = data.employees.find((item) => item.id == req.params.id);
-  if (!result) {
-    return res.render("../views/pages/404", {
-      msg: "User not found",
-      body: "",
-    });
-  }
-  const filtereddArray = data.employees.filter(
-    (emp) => emp.id !== parseInt(req.params.id)
-  );
-
-  data.setEmployees(
-    filtereddArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
-
-  console.log(
-    filtereddArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
-
-  if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Personal data of employee ${result.firstName} ${result.lastName} was DELETED.`,
-      body: "",
-      data: result,
-    });
-  } else {
-    res.render("../views/pages/404", {
-      msg: "User not found",
-      body: "",
-    });
-  }
-};
-
-//DONE
-const createChild = (req, res) => {
-  const result = data.employees.find((item) => item.id == req.params.id);
+const createChild = async (req, res) => {
   const newChild = {
-    id: result.children[result.children.length - 1].id
-      ? result.children[result.children.length - 1].id + 1 || 1
-      : 1,
     childName: req.body.childName,
     childSurname: req.body.childSurname,
     childDateOfBirth: req.body.childDateOfBirth,
@@ -152,129 +152,141 @@ const createChild = (req, res) => {
     });
   }
 
-  const newChildren = [...result.children, newChild];
+  try {
+    const oneEmployee = await Employee.findOne({ _id: req.params.id });
+    oneEmployee.children.push(newChild);
+    await oneEmployee.save();
 
-  result.children = newChildren;
-
-  const filtereddArray = data.employees.filter(
-    (emp) => emp.id !== parseInt(req.body.id)
-  );
-
-  const unsortedArray = [...filtereddArray, result];
-  data.setEmployees(
-    unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
-
-  console.log(
-    unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
-
-  res.status(201).render("../views/pages/employees", {
-    msg: `Child data ${req.body.childName} ${req.body.childSurname} of employee ${result.firstName} ${result.lastName} was added`,
-    body: "",
-    data: data.employees,
-  });
+    const allEmployees = await Employee.find();
+    res.status(201).render("../views/pages/employees", {
+      msg: `Child ${newChild.childName} ${newChild.childSurname} data was saved`,
+      body: "By clicking OK you may proceed.",
+      data: allEmployees,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 //DONE
-const deleteChild = (req, res) => {
-  const result = data.employees.find((item) => item.id == req.params.id);
-  const child = result.children.find((item) => item.id == req.params.child);
+const deleteChild = async (req, res) => {
+  //const result = data.employees.find((item) => item.id == req.params.id);
+  //const child = result.children.find((item) => item.id == req.params.child);
 
-  const children = result.children.filter(
-    (child) => child.id !== parseInt(req.params.child)
-  );
-
-  result.children = children;
-
-  const filtereddArray = data.employees.filter(
-    (emp) => emp.id !== parseInt(req.params.id)
-  );
-
-  const unsortedArray = [...filtereddArray, result];
-
-  console.log(
-    unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
-
-  if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Child ${child.childName} ${child.childSurname} data of employee ${result.firstName} ${result.lastName} was DELETED.`,
-      body: "",
-      data: result,
-    });
-  } else {
-    res.render("../views/pages/404", {
-      msg: "User not found",
-      body: "",
+  if (!req.params.id) {
+    return res.render("../views/pages/404", {
+      msg: "Employee was not deleted.",
+      body: "Please pprovide the correct ID",
     });
   }
+
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+  const deletedChild = employee.children.id(req.params.child);
+  deletedChild.deleteOne();
+  const result = await employee.save();
+
+  const allEmployees = await Employee.find();
+
+  if (!allEmployees) {
+    return res.render("../views/pages/employees", {
+      msg: "There are no employees created yet. Click on create employee.",
+      body: "",
+      data: "",
+    });
+  }
+
+  res.render("../views/pages/employees", {
+    msg: `Child ${deletedChild.childName} ${deletedChild.childSurname} of the employee ${result.firstName} ${result.lastName} was deleted.`,
+    body: "Clicking OK you may proceed",
+    data: allEmployees,
+  });
 };
 
 //ALL UPDATES
 
 //DONE
-const updateEmployeePersonal = (req, res) => {
-  const result = data.employees.find((item) => item.id == req.params.id);
-
-  if (!result) {
+const updateEmployeePersonal = async (req, res) => {
+  if (!req.params.id) {
     return res.render("../views/pages/404", {
-      msg: "User not found",
+      msg: "Id parameter is rewuired",
       body: "",
     });
   }
 
-  if (req.body.firstName) result.firstName = req.body.firstName;
-  if (req.body.lastName) result.lastName = req.body.lastName;
-  if (req.body.gender) result.gender = req.body.gender;
-  if (req.body.birthDate) result.birthDate = req.body.birthDate;
-  if (req.body.birthPlace) result.birthPlace = req.body.birthPlace;
-  if (req.body.socislSecNumber)
-    result.socislSecNumber = req.body.socislSecNumber;
-  if (req.body.idCardNumber) result.idCardNumber = req.body.idCardNumber;
-  if (req.body.country) result.country = req.body.country;
-  if (req.body.nationality) result.nationality = req.body.nationality;
-  if (req.body.maritalStatus) result.maritalStatus = req.body.maritalStatus;
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
-  const filtereddArray = data.employees.filter(
-    (emp) => emp.id !== parseInt(req.body.id)
-  );
+  if (!employee) {
+    return res.render("../views/pages/404", {
+      msg: "No employee found.",
+      body: "Please provide the correct ID.",
+    });
+  }
 
-  const unsortedArray = [...filtereddArray, result];
-  data.setEmployees(
-    unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
+  if (req.body.firstName) employee.firstName = req.body.firstName;
+  if (req.body.lastName) employee.lastName = req.body.lastName;
+  if (req.body.gender) employee.gender = req.body.gender;
+  if (req.body.birthDate) employee.birthDate = req.body.birthDate;
+  if (req.body.birthPlace) employee.birthPlace = req.body.birthPlace;
+  if (req.body.socialSecNumber)
+    employee.socialSecNumber = req.body.socialSecNumber;
+  if (req.body.idCardNumber) employee.idCardNumber = req.body.idCardNumber;
+  if (req.body.country) employee.country = req.body.country;
+  if (req.body.nationality) employee.nationality = req.body.nationality;
+  if (req.body.maritalStatus) employee.maritalStatus = req.body.maritalStatus;
 
-  console.log(
-    unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-  );
+  const result = await employee.save();
 
   if (result != undefined) {
     res.render("../views/pages/employee", {
-      msg: `Personal data of employee ${result.firstName} ${result.lastName} was UPDATED.`,
-      body: "",
+      msg: `Personal data was updated successfully.`,
+      body: `${result.firstName} ${result.lastName}`,
       data: result,
     });
   } else {
     res.render("../views/pages/404", {
-      msg: "User not found",
+      msg: "Personal data was not updated.",
       body: "",
     });
   }
 };
 
-const updateEmployeeContact = (req, res) => {
-  console.log(req.params.id, req.body);
-  const result = data.employees.find((item) => item.id == req.params.id);
+const updateEmployeeContact = async (req, res) => {
+  if (!req.params.id) {
+    return res.render("../views/pages/404", {
+      msg: "Id parameter is rewuired",
+      body: "",
+    });
+  }
+
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+
+  if (!employee) {
+    return res.render("../views/pages/404", {
+      msg: "No employee found.",
+      body: "Please provide the correct ID.",
+    });
+  }
+
+  if (req.body.landLinePhone) employee.landLinePhone = req.body.landLinePhone;
+  if (req.body.mobilePhone) employee.mobilePhone = req.body.mobilePhone;
+  if (req.body.email) employee.email = req.body.email;
+  if (req.body.password) employee.password = req.body.password;
+  if (req.body.street) employee.street = req.body.street;
+  if (req.body.houseNumber) employee.houseNumber = req.body.houseNumber;
+  if (req.body.city) employee.city = req.body.city;
+  if (req.body.postalCode) employee.postalCode = req.body.postalCode;
+
+  const result = await employee.save();
+
   if (result != undefined) {
     res.render("../views/pages/employee", {
-      msg: `Contact data of employee ${result.firstName} ${result.lastName} was UPDATED.`,
-      body: "",
+      msg: `Contacts data was updated successfully.`,
+      body: `${result.firstName} ${result.lastName}`,
       data: result,
     });
   } else {
     res.render("../views/pages/404", {
-      msg: "User not found",
+      msg: "Personal data was not updated.",
       body: "",
     });
   }

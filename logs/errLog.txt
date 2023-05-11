@@ -1270,3 +1270,23 @@ body is not defined
 10/05/2023	20:55:02	121fe2f6-0eeb-4cb5-a0eb-25b008647d85	Error: Not allowed by CORS
 10/05/2023	20:55:10	5c532424-bc2e-4c26-b243-3ebf9e5fc990	Error: Not allowed by CORS
 10/05/2023	20:56:48	aac2b07b-f483-4706-b525-2ab7b37f92d7	Error: Not allowed by CORS
+10/05/2023	22:27:33	4cd18a1c-1ff5-4448-af10-8598be550743	ReferenceError: es is not defined
+10/05/2023	22:27:50	a1c2f8f9-afca-4b2b-9f7c-229e54fcc900	ReferenceError: es is not defined
+10/05/2023	22:28:55	380c3a9f-d95a-4326-9746-b81a4a411b2f	ReferenceError: result is not defined
+10/05/2023	22:33:40	a639c037-9bb9-46f0-b33c-e1d5a7527ab4	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <input
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined

@@ -121,7 +121,7 @@ const employeesSchema = new Schema({
     type: String,
   },
   contractSalary: {
-    type: String,
+    type: mongoose.Decimal128,
   },
   contractType: {
     type: String,
