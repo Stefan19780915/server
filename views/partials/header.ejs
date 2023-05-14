@@ -1,9 +1,23 @@
 <header>
   <section>
     <div class="container">
-      <h1>
-        <a href="/employee">HEADER</a>
-      </h1>
+      <div class="d-flex-visible space-between">
+        <h1>
+          <a href="/employee">HEADER</a>
+        </h1>
+        <% if (user) { %>
+        <p><%= user.userName%></p>
+        <form action="/logout?_method=DELETE" method="POST">
+          <button
+            type="submit"
+            class="btn-primary dark-outline"
+            style="margin: 0px"
+          >
+            Logout
+          </button>
+        </form>
+        <% } %>
+      </div>
     </div>
   </section>
 </header>

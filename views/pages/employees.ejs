@@ -25,7 +25,20 @@
       >
         <div class="flow">
           <div>
-            <input type="hidden" value="<%= data.id%>" name="id" />
+            <div class="d-flex-visible space-between">
+              <label for="employeeState">Employee state</label>
+              <input name="employeeState" type="checkbox" />
+            </div>
+          </div>
+          <div>
+            <label for="personalNumber">Personal number</label>
+            <input
+              type="number"
+              name="personalNumber"
+              value="<%= data.personalNumber %>"
+              required
+            />
+
             <label for="firstName">First name</label>
             <input type="text" name="firstName" value="<%= data.firstName %>" />
           </div>
@@ -111,6 +124,7 @@
           <div class="d-flex-visible space-between">
             <button class="btn-primary dark-outline">Create Employee</button>
           </div>
+          <div style="height: 25px"></div>
         </div>
       </form>
     </div>

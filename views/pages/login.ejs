@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %>
+  <section class="secondary-section d-flex-center">
+    <div class="container flow">
+      <span></span>
+      <div class="login">
+        <h2>Login</h2>
+        <% if (messages.error) { %>
+        <p><%= messages.error %></p>
+        <% } %>
+      </div>
+      <form method="POST" class="login-form flow" action="/">
+        <div class="flow">
+          <div>
+            <label for="userEmail">Email</label>
+            <input type="email" name="userEmail" value="" required />
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" value="" required />
+          </div>
+        </div>
+        <div class="flow">
+          <div class="d-flex-visible space-between">
+            <button class="btn-primary dark-outline">Login</button>
+            <a class="btn-primary dark-outline" href="/register">Register</a>
+          </div>
+          <div style="height: 25px"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</body>
+<%- include('../partials/footer') %>

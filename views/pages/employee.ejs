@@ -30,13 +30,37 @@
       >
         <div class="flow">
           <div>
-            <input type="hidden" value="<%= data.id%>" name="id" />
+            <div class="d-flex-visible space-between">
+              <label for="employeeState">Employee state</label>
+              <input type="checkbox" name="employeeState" <%
+              if(data.employeeState == true) { %> checked <% } else { %> <% } %>
+              />
+            </div>
+          </div>
+          <div>
+            <label for="personalNumber">Personal number</label>
+            <input
+              type="number"
+              name="personalNumber"
+              value="<%= data.personalNumber %>"
+              required
+            />
             <label for="firstName">First name</label>
-            <input type="text" name="firstName" value="<%= data.firstName %>" />
+            <input
+              type="text"
+              name="firstName"
+              value="<%= data.firstName %>"
+              required
+            />
           </div>
           <div>
             <label for="lastName">Last name</label>
-            <input type="text" name="lastName" value="<%= data.lastName %>" />
+            <input
+              type="text"
+              name="lastName"
+              value="<%= data.lastName %>"
+              required
+            />
           </div>
 
           <div class="d-flex-visible gap">
@@ -57,7 +81,7 @@
           <div>
             <label for="birthDate">Date of birth</label>
             <input type="date" name="birthDate" value="<%=
-            data.birthDate.toISOString().split("T")[0]%>" />
+            data.birthDate.toISOString().split("T")[0]%>" required/>
           </div>
           <div>
             <label for="birthPlace">Place of birth</label>
@@ -65,6 +89,7 @@
               type="text"
               name="birthPlace"
               value="<%= data.birthPlace %>"
+              required
             />
           </div>
           <div>
@@ -73,6 +98,7 @@
               type="number"
               name="socialSecNumber"
               value="<%= data.socialSecNumber %>"
+              required
             />
           </div>
           <div>
@@ -81,6 +107,7 @@
               type="text"
               name="idCardNumber"
               value="<%= data.idCardNumber %>"
+              required
             />
           </div>
         </div>
@@ -88,7 +115,12 @@
         <div class="flow">
           <div>
             <label for="country">Country</label>
-            <input type="text" name="country" value="<%= data.country %>" />
+            <input
+              type="text"
+              name="country"
+              value="<%= data.country %>"
+              required
+            />
           </div>
           <div>
             <label for="nationality">Nationality</label>
@@ -96,6 +128,7 @@
               type="text"
               name="nationality"
               value="<%= data.nationality %>"
+              required
             />
           </div>
 
@@ -120,6 +153,7 @@
               >Delete</a
             >
           </div>
+          <div style="height: 25px"></div>
         </div>
       </form>
     </div>
@@ -181,6 +215,7 @@
           />
         </div>
         <button class="add-child btn-primary">Update</button>
+        <div style="height: 25px"></div>
       </form>
     </div>
   </section>
@@ -277,6 +312,7 @@
         <div class="day"><div class="day-num">31</div></div>
       </div>
     </div>
+    <div style="height: 25px"></div>
   </section>
 
   <section class="settings-tab tab">
@@ -360,11 +396,9 @@
             value="<%=data.spouseSurname%>"
           />
           <label for="spouseDateOfBirth">Date of birth</label>
-          <input
-            type="date"
-            name="spouseDateOfBirth"
-            value="<%=data.spouseDateOfBirth%>"
-          />
+          <input type="date" name="spouseDateOfBirth" value="<%=
+          data.spouseDateOfBirth ?
+          data.spouseDateOfBirth.toISOString().split("T")[0]: ''%>" />
           <label for="spouseSocialSecNumber">Social security number</label>
           <input
             type="number"
@@ -408,8 +442,8 @@
             >(please leave blank if employee has no gastro card)</i
           >
           <input type="date" name="gastroHealthCard" id="cardEndDate" value="<%=
-          data.gastroHealthCard %>" <% if (data.gastroHealthCard ==
-          'indefinite') { %> disabled <% } %> />
+          data.gastroHealthCard%>" <% if (data.gastroHealthCard == 'indefinite')
+          { %> disabled <% } %> />
           <label for="indefiniteHealthCard"
             >Gastro card idefinite period of time</label
           >
@@ -482,11 +516,9 @@
       >
         <div>
           <label for="contractStartDate">Start date</label>
-          <input
-            type="date"
-            name="contractStartDate"
-            value="<%= data.contractStartDate%>"
-          />
+          <input type="date" name="contractStartDate" value="<%=
+          data.contractStartDate ?
+          data.contractStartDate.toISOString().split("T")[0]: ''%>" />
         </div>
         <div>
           <label for="endDate">End date</label>
@@ -564,7 +596,7 @@
               type="number"
               value="<%= data.contractWeeklyHours%>"
               placeholder="00.00"
-              name="weeklyHours"
+              name="contractWeeklyHours"
               step="0.01"
               required
             />

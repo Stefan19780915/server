@@ -1,0 +1,34 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %>
+  <section class="secondary-section d-flex-center">
+    <div class="container flow">
+      <div class="register">
+        <h2>Register</h2>
+      </div>
+      <form method="POST" class="register-form flow" action="/register">
+        <div class="flow">
+          <div>
+            <label for="userName">User name</label>
+            <input type="text" name="userName" value="" required />
+          </div>
+          <div>
+            <label for="userEmail">Email</label>
+            <input type="email" name="userEmail" value="" required />
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" value="" required />
+          </div>
+        </div>
+        <div class="flow">
+          <div class="d-flex-visible space-between">
+            <button class="btn-primary dark-outline">Register</button>
+          </div>
+          <div style="height: 25px"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</body>
+<%- include('../partials/footer') %>

@@ -17,6 +17,12 @@ const childSchema = new Schema({
 });
 
 const employeesSchema = new Schema({
+  employeeState: {
+    type: Boolean,
+  },
+  personalNumber: {
+    type: Number,
+  },
   firstName: {
     type: String,
     required: true,
@@ -115,7 +121,7 @@ const employeesSchema = new Schema({
     type: Date,
   },
   contractEndDate: {
-    type: Date,
+    type: String,
   },
   contractSalaryType: {
     type: String,
