@@ -42,14 +42,6 @@ app.use(passport.session());
 //ROUTES
 app.use("/employee", checkAuthUser, require("./routes/employee"));
 app.use("/", require("./routes/user"));
-app.delete("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
 
 app.all("*", (req, res) => {
   res.render("pages/404", {

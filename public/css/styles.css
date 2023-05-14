@@ -7,6 +7,7 @@
 :root{
     --clr-table-primary: #616161;
     --clr-table-secondary: hsl(0, 0%, 25%);
+    --clr-table-mid: hsl(0, 0%, 68%);
     --clr-table-dark: #eee;   
     --clr-table-black: hsl(0, 0%, 0%);
 
@@ -102,11 +103,7 @@ button{
 }
 
 #search{
-    border-radius: 100vh;
-    margin-top: 0;
-    margin-bottom: var(--flow-space);
-
-    
+    border-radius: 100vh;    
 }
 
 input[type=text], input[type=date], input[type=number], input[type=date], input[type=tel], input[type=email], input[type=password]{
@@ -146,7 +143,7 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
 
 
 
-.new-employee{
+.new-employee, .admin{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,7 +152,7 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     padding: 1.5em 0;
 }
 
-.employee-form{
+.employee-form, .admin-area{
     margin: 0;
     max-height: 0px;
     overflow: hidden;
@@ -168,6 +165,9 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     color: var(--clr-table-secondary);
 }
 
+.mid-section{
+    background-color: var(--clr-table-mid);
+}
 
 
 .btn-primary{
@@ -264,6 +264,11 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     justify-content: space-between;
     align-items: center;
     
+}
+
+.center{
+    justify-content: center;
+    align-items: center;
 }
 
 .d-flex-center{

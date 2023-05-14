@@ -74,7 +74,6 @@ const toggleVisibility = (e, trigClass, tarClass) => {
       )
         .filter((tab) => tab.classList.contains("tab"))
         .forEach((item) => {
-          //console.log(item);
           item.classList.contains(tarClass)
             ? item.style.maxHeight === "1500px"
               ? (item.style.maxHeight = "0px")

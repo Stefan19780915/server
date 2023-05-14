@@ -16,7 +16,7 @@ const userSchema = new Schema({
   },
   roles: {
     type: String,
-    default: "Manager",
+    default: "User",
   },
   active: {
     type: Boolean,

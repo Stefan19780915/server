@@ -1,8 +1,166 @@
 <%- include('../partials/head') %>
 <body>
-  <%- include('../partials/msg') %> <%- include('../partials/header') %>
-  <section>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %> <% if
+  (user.roles == 'Manager') { %>
+  <section class="head">
     <div class="container">
+      <h2 class="name" style="text-align: center"><a>ADMIN AREA</a></h2>
+      <div class="icon-bar row">
+        <img class="col profile" src="/imgs/staf.png" alt="" />
+        <img class="col contacts" src="/imgs/shop.png" alt="" />
+        <img class="col calendar" src="/imgs/stat.png" alt="" />
+        <img class="col settings" src="/imgs/db.png" alt="" />
+      </div>
+    </div>
+  </section>
+  <section class="profile-tab tab">
+    <div class="container flow">
+      <span></span>
+      <h3 style="margin-bottom: 16px">Users</h3>
+    </div>
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>User 1</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>User 2</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="contact-tab tab">
+    <div class="container flow">
+      <span></span>
+      <h3 style="margin-bottom: 16px">Stores</h3>
+    </div>
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Store 1</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Store 2</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="calendar-tab tab">
+    <div class="container flow">
+      <span></span>
+      <h3 style="margin-bottom: 16px">Statistics</h3>
+    </div>
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Employees</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Users</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="settings-tab tab">
+    <div class="container flow">
+      <span></span>
+      <h3 style="margin-bottom: 16px">Databases</h3>
+    </div>
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Emplyoees</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Users</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <form action="">
+        <label for="storeName">User name</label>
+        <input type="text" name="storeName" id="" />
+        <button class="btn-primary">Save</button>
+      </form>
+    </div>
+  </section>
+
+  <% } %>
+  <section class="mid-section">
+    <div class="container d-flex-visible center flow">
+      <span></span>
       <input
         id="search"
         type="text"

@@ -24,6 +24,15 @@ router.post(
   })
 );
 
+router.delete("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 router.post("/register", usersController.registerUser);
 
 module.exports = router;
