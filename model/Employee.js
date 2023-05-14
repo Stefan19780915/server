@@ -21,7 +21,7 @@ const employeesSchema = new Schema({
     type: Boolean,
   },
   personalNumber: {
-    type: Number,
+    type: String,
   },
   firstName: {
     type: String,
