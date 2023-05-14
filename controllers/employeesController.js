@@ -344,6 +344,7 @@ const updateEmployeeSpouse = async (req, res) => {
     return res.render("../views/pages/404", {
       msg: "No employee found.",
       body: "Please provide the correct ID.",
+      user: req.user,
     });
   }
 
@@ -361,11 +362,13 @@ const updateEmployeeSpouse = async (req, res) => {
       msg: `Spouse ${result.spouseName} ${result.spouseSurname} data was updated successfully.`,
       body: `${result.firstName} ${result.lastName}`,
       data: result,
+      user: req.user,
     });
   } else {
     res.render("../views/pages/404", {
       msg: "Personal data was not updated.",
       body: "",
+      user: req.user,
     });
   }
 };
@@ -376,6 +379,7 @@ const updateEmployeeHealth = async (req, res) => {
     return res.render("../views/pages/404", {
       msg: "Id parameter is rewuired",
       body: "",
+      user: req.user,
     });
   }
 
@@ -385,6 +389,7 @@ const updateEmployeeHealth = async (req, res) => {
     return res.render("../views/pages/404", {
       msg: "No employee found.",
       body: "Please provide the correct ID.",
+      user: req.user,
     });
   }
 
@@ -400,21 +405,24 @@ const updateEmployeeHealth = async (req, res) => {
       msg: `Health card ${result.publicHealthInsuranceName} was updated successfully.`,
       body: `${result.firstName} ${result.lastName}`,
       data: result,
+      user: req.user,
     });
   } else {
     res.render("../views/pages/404", {
       msg: "Personal data was not updated.",
       body: "",
+      user: req.user,
     });
   }
 };
 
-// NOT DONE
+//DONE
 const updateEmployeeBank = async (req, res) => {
   if (!req.params.id) {
     return res.render("../views/pages/404", {
       msg: "Id parameter is rewuired",
       body: "",
+      user: req.user,
     });
   }
 
@@ -424,6 +432,7 @@ const updateEmployeeBank = async (req, res) => {
     return res.render("../views/pages/404", {
       msg: "No employee found.",
       body: "Please provide the correct ID.",
+      user: req.user,
     });
   }
 
@@ -437,21 +446,24 @@ const updateEmployeeBank = async (req, res) => {
       msg: `Bank account ${result.accountNumber} was updated successfully.`,
       body: `${result.firstName} ${result.lastName}`,
       data: result,
+      user: req.user,
     });
   } else {
     res.render("../views/pages/404", {
       msg: "Personal data was not updated.",
       body: "",
+      user: req.user,
     });
   }
 };
 
-//NOT DONE
+//DONE
 const updateEmployeeContract = async (req, res) => {
   if (!req.params.id) {
     return res.render("../views/pages/404", {
       msg: "Id parameter is rewuired",
       body: "",
+      user: req.user,
     });
   }
 
@@ -461,6 +473,7 @@ const updateEmployeeContract = async (req, res) => {
     return res.render("../views/pages/404", {
       msg: "No employee found.",
       body: "Please provide the correct ID.",
+      user: req.user,
     });
   }
 
@@ -483,11 +496,13 @@ const updateEmployeeContract = async (req, res) => {
       msg: `Contract data for ${result.firstName} ${result.lastName} was updated successfully.`,
       body: `Contract Type: ${result.contractType} with ${result.contractSalaryType} rate/salary ${result.contractSalary}`,
       data: result,
+      user: req.user,
     });
   } else {
     res.render("../views/pages/404", {
       msg: "Personal data was not updated.",
       body: "",
+      user: req.user,
     });
   }
 };
