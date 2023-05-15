@@ -1696,3 +1696,111 @@ user is not defined
 14/05/2023	01:37:31	1a968bac-d3f7-411d-93f0-c71fd374a3d3	Error: req#logout requires a callback function
 14/05/2023	01:41:06	8490cb64-69cc-4315-a401-26ff7e05720b	Error: req#logout requires a callback function
 14/05/2023	02:36:38	77e2424b-a160-4924-b8e3-6fd506f7c5cf	Error: Cannot set headers after they are sent to the client
+15/05/2023	17:38:42	d55432e0-b537-4476-81ae-c91648fd781f	SyntaxError: Unexpected token '{' in /Users/queensway/Downloads/server/views/pages/employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+15/05/2023	20:11:04	6765816f-57e1-4d52-8377-63ee7f6954cd	ReferenceError: /Users/queensway/Downloads/server/views/pages/login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+message is not defined
+15/05/2023	20:11:04	f0e5ccd9-0d50-4ac4-86fe-eed19073fa5b	ReferenceError: /Users/queensway/Downloads/server/views/pages/login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+message is not defined
+15/05/2023	20:11:04	3c0fd9de-ccbe-4a16-ab8b-5ca48f517208	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:11
+    9|   </div>
+    10| </section>
+ >> 11| <% } %> <% if(message) { %>
+    12| <section class="msg">
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+
+message is not defined
+15/05/2023	20:13:57	dd7e4621-c10c-4444-928d-8cc44a60610d	ReferenceError: /Users/queensway/Downloads/server/views/pages/login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+message is not defined
+15/05/2023	20:13:57	52ae86be-cf13-4ff8-af29-6634510cb386	ReferenceError: /Users/queensway/Downloads/server/views/pages/404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:11
+    9|   </div>
+    10| </section>
+ >> 11| <% } %> <% if(message === undefined) { %> <% } else { %>
+    12| <section class="msg">
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+
+message is not defined
+15/05/2023	21:02:10	471222b3-116e-4252-9aad-5784f8757098	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:301
+    299|   <section class="head">
+    300|     <div class="container">
+ >> 301|       <% data.forEach((employee)=> {%>
+    302|       <h2 class="name">
+    303|         <a href="/employee/<%= employee._id %> "
+    304|           ><%= employee.firstName %> <%= employee.lastName %>
+
+data.forEach is not a function
+15/05/2023	21:04:30	e4384413-80e8-4780-98a1-6b6249610256	ReferenceError: /Users/queensway/Downloads/server/views/pages/employee.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="head">
+    5|     <div class="container">
+    6|       <h2 class="name">
+
+/Users/queensway/Downloads/server/views/partials/msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+message is not defined

@@ -48,6 +48,7 @@ app.all("*", (req, res) => {
     msg: "Not Found.",
     body: "",
     user: "",
+    message: req.flash("message"),
   });
 });
 app.use(errorHandler);

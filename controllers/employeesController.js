@@ -1,25 +1,31 @@
+const User = require("../model/User");
 const Employee = require("../model/Employee");
 const moment = require("moment");
 moment.locale("en");
 
-//DONE
+//DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
+  const allUsers = req.user.roles == "Admin" ? await User.find() : "";
   const allEmployees = await Employee.find();
   if (allEmployees === []) {
     return res.render("../views/pages/employees", {
       msg: "There are no employees created yet. Click on create employee.",
       data: "",
+      users: req.user.roles == "Admin" ? allUsers : "",
       user: req.user,
+      message: req.flash("message"),
     });
   }
   res.render("../views/pages/employees", {
     msg: false,
     data: allEmployees,
     user: req.user,
+    users: req.user.roles == "Admin" ? allUsers : "",
+    message: req.flash("message"),
   });
 };
 
-//DONE
+//DONE RENDER READ ONE EMPLOYEE
 const getEmployee = async (req, res) => {
   if (!req.params.id) {
     return res.render("../views/pages/404", {
@@ -34,6 +40,7 @@ const getEmployee = async (req, res) => {
       msg: false,
       data: oneEmployee,
       user: req.user,
+      message: req.flash("message"),
     });
   } else {
     res.render("../views/pages/404", {
@@ -44,6 +51,7 @@ const getEmployee = async (req, res) => {
   }
 };
 
+// CREATE EMPLOYEE AND REDIRECT TO EMPLOYEE ROUTE
 const createEmployee = async (req, res) => {
   const newEmployee = {
     employeeState: req.body.employeeState,
@@ -81,71 +89,45 @@ const createEmployee = async (req, res) => {
     !newEmployee.nationality ||
     !newEmployee.maritalStatus
   ) {
-    return res.render("../views/pages/employees", {
-      msg: "All fields are required",
-      body: "",
-      data: data.employees,
-      user: req.user,
-    });
+    req.flash("message", "All fields are required.");
+    res.redirect("/employee");
   }
-
   try {
     const result = await Employee.create(newEmployee);
-    const allEmployees = await Employee.find();
-    console.log(result);
-    res.render("../views/pages/employees", {
-      msg: `Employee was created successfully`,
-      body: `${result.firstName} ${result.lastName}`,
-      data: allEmployees,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Employee ${result.firstName} ${result.lastName} was created successfully.`
+    );
+    res.redirect("/employee");
   } catch (err) {
     console.log(err);
   }
 };
 
-//DONE
+// DELETE EMPLOYEE AND REDIRECT TO EMPLOYEE ROUTE
 const deleteEmployee = async (req, res) => {
   if (!req.params.id) {
     return res.render("../views/pages/404", {
       msg: "Employee was not deleted.",
       body: "Please pprovide the correct ID",
       user: req.user,
+      message: req.flash("message"),
     });
   }
-
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
-
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "Please provide the correct ID.");
+    return res.redirect("/pages/404");
   }
-
   const result = await employee.deleteOne({ _id: req.params.id });
-
-  const allEmployees = await Employee.find();
-
-  if (!allEmployees) {
-    return res.render("../views/pages/employees", {
-      msg: "There are no employees created yet. Click on create employee.",
-      body: "",
-      data: "",
-      user: req.user,
-    });
-  }
-
-  res.render("../views/pages/employees", {
-    msg: `Personal data of the employee was deleted.`,
-    body: `${result.firstName} ${result.lastName}`,
-    data: allEmployees,
-    user: req.user,
-  });
+  req.flash(
+    "message",
+    `Personal data of ${result.firstName} ${result.lastName} was deleted.`
+  );
+  res.redirect("/employee");
 };
 
-//DONE
+// CREATE CHILD AND REDIRECT TO EMPLOYEE ROUTE
 const createChild = async (req, res) => {
   const newChild = {
     childName: req.body.childName,
@@ -160,12 +142,8 @@ const createChild = async (req, res) => {
     !newChild.childDateOfBirth ||
     !newChild.childSocialSecNumber
   ) {
-    return res.render("../views/pages/employee", {
-      msg: "All fields are required",
-      body: "",
-      data: result,
-      user: req.user,
-    });
+    req.flash("message", "All fields are required");
+    return res.redirect("/employee");
   }
 
   try {
@@ -173,75 +151,47 @@ const createChild = async (req, res) => {
     oneEmployee.children.push(newChild);
     await oneEmployee.save();
 
-    const allEmployees = await Employee.find();
-    res.status(201).render("../views/pages/employees", {
-      msg: `Child ${newChild.childName} ${newChild.childSurname} data was saved`,
-      body: "By clicking OK you may proceed.",
-      data: allEmployees,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Child ${newChild.childName} ${newChild.childSurname} data was saved`
+    );
+    res.redirect("/employee");
   } catch (err) {
     console.log(err);
   }
 };
 
-//DONE
+// DELETE CHILD AND REDIRECT TO EMPLOYEE ROUTE
 const deleteChild = async (req, res) => {
-  //const result = data.employees.find((item) => item.id == req.params.id);
-  //const child = result.children.find((item) => item.id == req.params.child);
-
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Employee was not deleted.",
-      body: "Please pprovide the correct ID",
-      user: req.user,
-    });
+    req.flash("message", "Child not found.");
+    return res.redirect("/pages/404");
   }
 
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
   const deletedChild = employee.children.id(req.params.child);
   deletedChild.deleteOne();
   const result = await employee.save();
-
-  const allEmployees = await Employee.find();
-
-  if (!allEmployees) {
-    return res.render("../views/pages/employees", {
-      msg: "There are no employees created yet. Click on create employee.",
-      body: "",
-      data: "",
-      user: req.user,
-    });
-  }
-
-  res.render("../views/pages/employees", {
-    msg: `Child ${deletedChild.childName} ${deletedChild.childSurname} of the employee ${result.firstName} ${result.lastName} was deleted.`,
-    body: "Clicking OK you may proceed",
-    data: allEmployees,
-    user: req.user,
-  });
+  req.flash(
+    "message",
+    `Child ${deletedChild.childName} ${deletedChild.childSurname} of the employee ${result.firstName} ${result.lastName} was deleted.`
+  );
+  res.redirect("/employee");
 };
 
 //ALL UPDATES
-
-//DONE
+// UPDATE PERSONAL AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeePersonal = async (req, res) => {
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Id parameter is rewuired",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
   }
 
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
   }
 
   if (!req.body.employeeState) {
@@ -266,39 +216,28 @@ const updateEmployeePersonal = async (req, res) => {
   const result = await employee.save();
 
   if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Personal data was updated successfully.`,
-      body: `${result.firstName} ${result.lastName}`,
-      data: result,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Personal data of ${result.firstName} ${result.lastName} was updated successfully.`
+    );
+    res.redirect("/employee");
   } else {
-    res.render("../views/pages/404", {
-      msg: "Personal data was not updated.",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Personal data eas not updated.");
+    return res.redirect("/pages/404");
   }
 };
 
-//DONE
+// UPDATE CONTACT AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeContact = async (req, res) => {
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Id parameter is rewuired",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
   }
-
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
   }
 
   if (req.body.landLinePhone) employee.landLinePhone = req.body.landLinePhone;
@@ -313,39 +252,28 @@ const updateEmployeeContact = async (req, res) => {
   const result = await employee.save();
 
   if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Contacts data was updated successfully.`,
-      body: `${result.firstName} ${result.lastName}`,
-      data: result,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Contacts data of ${result.firstName} ${result.lastName} was updated successfully.`
+    );
+    res.redirect("/employee");
   } else {
-    res.render("../views/pages/404", {
-      msg: "Personal data was not updated.",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Contact data was not updated..");
+    return res.redirect("/pages/404");
   }
 };
 
-//DONE
+// UPDATE SPOUSE AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeSpouse = async (req, res) => {
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Id parameter is rewuired",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
   }
-
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
   }
 
   if (req.body.spouseName) employee.spouseName = req.body.spouseName;
@@ -358,39 +286,28 @@ const updateEmployeeSpouse = async (req, res) => {
   const result = await employee.save();
 
   if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Spouse ${result.spouseName} ${result.spouseSurname} data was updated successfully.`,
-      body: `${result.firstName} ${result.lastName}`,
-      data: result,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Spouse ${result.spouseName} ${result.spouseSurname} data was updated successfully.`
+    );
+    res.redirect("/employee");
   } else {
-    res.render("../views/pages/404", {
-      msg: "Personal data was not updated.",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Spouse data was not updated..");
+    return res.redirect("/pages/404");
   }
 };
 
-//DONE
+// UPDATE HEALTH AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeHealth = async (req, res) => {
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Id parameter is rewuired",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
   }
-
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
   }
 
   if (req.body.publicHealthInsuranceName)
@@ -401,39 +318,28 @@ const updateEmployeeHealth = async (req, res) => {
   const result = await employee.save();
 
   if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Health card ${result.publicHealthInsuranceName} was updated successfully.`,
-      body: `${result.firstName} ${result.lastName}`,
-      data: result,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Health card ${result.publicHealthInsuranceName} was updated successfully.`
+    );
+    res.redirect("/employee");
   } else {
-    res.render("../views/pages/404", {
-      msg: "Personal data was not updated.",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Health data was not updated..");
+    return res.redirect("/pages/404");
   }
 };
 
-//DONE
+// UPDATE BANK AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeBank = async (req, res) => {
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Id parameter is rewuired",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
   }
-
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
   }
 
   if (req.body.bankName) employee.bankName = req.body.bankName;
@@ -442,39 +348,28 @@ const updateEmployeeBank = async (req, res) => {
   const result = await employee.save();
 
   if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Bank account ${result.accountNumber} was updated successfully.`,
-      body: `${result.firstName} ${result.lastName}`,
-      data: result,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Bank account ${result.accountNumber} was updated successfully.`
+    );
+    res.redirect("/pages/employee");
   } else {
-    res.render("../views/pages/404", {
-      msg: "Personal data was not updated.",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Bank account data was not updated..");
+    return res.redirect("/pages/404");
   }
 };
 
-//DONE
+// UPDATE CONTRACT AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeContract = async (req, res) => {
   if (!req.params.id) {
-    return res.render("../views/pages/404", {
-      msg: "Id parameter is rewuired",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
   }
-
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
-    return res.render("../views/pages/404", {
-      msg: "No employee found.",
-      body: "Please provide the correct ID.",
-      user: req.user,
-    });
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
   }
 
   if (req.body.contractStartDate)
@@ -492,18 +387,14 @@ const updateEmployeeContract = async (req, res) => {
   const result = await employee.save();
 
   if (result != undefined) {
-    res.render("../views/pages/employee", {
-      msg: `Contract data for ${result.firstName} ${result.lastName} was updated successfully.`,
-      body: `Contract Type: ${result.contractType} with ${result.contractSalaryType} rate/salary ${result.contractSalary}`,
-      data: result,
-      user: req.user,
-    });
+    req.flash(
+      "message",
+      `Contract data for ${result.firstName} ${result.lastName} was updated successfully.`
+    );
+    res.redirect("/employee");
   } else {
-    res.render("../views/pages/404", {
-      msg: "Personal data was not updated.",
-      body: "",
-      user: req.user,
-    });
+    req.flash("message", "Contract data was not updated..");
+    return res.redirect("/pages/404");
   }
 };
 

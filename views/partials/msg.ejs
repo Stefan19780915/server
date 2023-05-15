@@ -8,4 +8,13 @@
     </form>
   </div>
 </section>
+<% } %> <% if(message.length > 0) { %>
+<section class="msg">
+  <div class="container flow">
+    <h4><%= message%></h4>
+    <form action="/employee">
+      <button class="add-child btn-primary">OK</button>
+    </form>
+  </div>
+</section>
 <% } %>

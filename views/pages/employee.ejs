@@ -449,9 +449,8 @@
           >
 
           <input type="checkbox" id="checkHealth" value="<% if
-          (data.gastroHealthCard == 'indefinite') { %> 0 <% } else { %> 1 <% }
-          %> " <% if (data.gastroHealthCard == 'indefinite') { %> checked <% }
-          %> />
+          (data.gastroHealthCard == 'indefinite') { %>0<% } else { %>1<% } %>"
+          <% if (data.gastroHealthCard == 'indefinite') { %> checked <% } %> />
           <input
             type="hidden"
             id="hiddenHealth"
@@ -490,7 +489,7 @@
           <input
             type="text"
             name="accountNumber"
-            value=" <%= data.accountNumber %> "
+            value="<%= data.accountNumber %>"
           />
         </div>
         <div>
@@ -528,7 +527,7 @@
 
           <label for="indefinite">Idefinite period of time</label>
           <input type="checkbox" id="check" value=" <% if (data.contractEndDate
-          == 'indefinite') { %> 0 <% } else { %> 1 <% } %> " <% if
+          == 'indefinite') { %>0<% } else { %>1<% } %> " <% if
           (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
           <input
             type="hidden"

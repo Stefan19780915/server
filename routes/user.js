@@ -35,4 +35,6 @@ router.delete("/logout", (req, res, next) => {
 
 router.post("/register", usersController.registerUser);
 
+router.put("/user/:id", usersController.updateUser);
+
 module.exports = router;
