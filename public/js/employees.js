@@ -1,10 +1,13 @@
 // CREATE NEW EMPLOYEE DROP DOWN
-const newEmploye = document.querySelector(".new-employee");
-const employeeForm = document.querySelector(".employee-form");
-newEmploye.addEventListener("click", (e) => {
-  employeeForm.style.maxHeight == "0px"
-    ? (employeeForm.style.maxHeight = "1500px")
-    : (employeeForm.style.maxHeight = "0px");
+const dropDowns = document.querySelectorAll(".new-employee");
+
+dropDowns.forEach((dropDown) => {
+  dropDown.addEventListener("click", (e) => {
+    console.log(e.currentTarget.nextElementSibling.style.maxHeight);
+    e.currentTarget.nextElementSibling.style.maxHeight == "0px"
+      ? (e.currentTarget.nextElementSibling.style.maxHeight = "1500px")
+      : (e.currentTarget.nextElementSibling.style.maxHeight = "0px");
+  });
 });
 
 const allNames = document.querySelectorAll(".name");

@@ -1804,3 +1804,14 @@ data.forEach is not a function
     4|     <h4><%= msg%></h4>
 
 message is not defined
+16/05/2023	21:11:18	f2731c2a-acc4-4e5f-93c3-de74a3e8012b	Error: Could not find matching close tag for "<%".
+16/05/2023	21:16:07	87340797-1006-44d4-b71d-66eb15884785	SyntaxError: Unexpected token '===' in /Users/queensway/Downloads/server/views/pages/employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+16/05/2023	21:16:50	c4de3dde-b292-4c1c-8b89-188ef37b87f4	SyntaxError: Unexpected token '===' in /Users/queensway/Downloads/server/views/pages/employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

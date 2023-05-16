@@ -5,6 +5,13 @@ function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (userEmail, password, done) => {
     const user = await getUserByEmail(userEmail);
 
+    if (!user.active) {
+      return done(null, false, {
+        message:
+          "Your account is not active. Please contact the administrator.",
+      });
+    }
+
     if (user == null) {
       return done(null, false, {
         message: "No user found with provided email.",

@@ -40,12 +40,8 @@
         <input type="text" name="roles" value="<%= user.roles%>" />
         <div class="d-flex-visible space-between">
           <label for="ctive">Active</label>
-          <input
-            type="checkbox"
-            name="active"
-            id=""
-            checked="<%= user.active%>"
-          />
+          <input type="checkbox" name="active" <% if(user.active === true) { %>
+          checked <% } else { %> <% } %> />
         </div>
         <div class="d-flex-visible space-between">
           <button class="btn-primary">Update</button>
@@ -63,33 +59,37 @@
       <span></span>
       <h3 style="margin-bottom: 16px">Stores</h3>
     </div>
+
+    <section class="secondary-section">
+      <div class="container flow">
+        <div class="new-employee">
+          <h4>CREATE NEW STORE</h4>
+        </div>
+        <form
+          method="POST"
+          class="employee-form flow"
+          action="/store"
+          style="max-height: 0px"
+        >
+          <label for="storeName">Store name</label>
+          <input type="text" name="storeName" id="" />
+          <button class="btn-primary dark-outline">Save</button>
+        </form>
+      </div>
+    </section>
+
     <section class="sub-cat">
       <div class="container">
-        <h4><a>Store 1</a></h4>
+        <h4><a>KFC Aupark</a></h4>
       </div>
     </section>
 
     <div class="container flow sub-cat-content">
       <span></span>
       <form action="">
-        <label for="storeName">User name</label>
-        <input type="text" name="storeName" id="" />
-        <button class="btn-primary">Save</button>
-      </form>
-    </div>
-
-    <section class="sub-cat">
-      <div class="container">
-        <h4><a>Store 2</a></h4>
-      </div>
-    </section>
-
-    <div class="container flow sub-cat-content">
-      <span></span>
-      <form action="">
-        <label for="storeName">User name</label>
-        <input type="text" name="storeName" id="" />
-        <button class="btn-primary">Save</button>
+        <label for="storeName">Store name</label>
+        <input type="text" name="storeName" id="" value="KFC Aupark" />
+        <button class="btn-primary">Update</button>
       </form>
     </div>
   </section>
