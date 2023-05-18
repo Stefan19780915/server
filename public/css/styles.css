@@ -307,7 +307,7 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     cursor: pointer;
 }
 
-.sub-cat:hover.sub-cat a, p{
+.sub-cat:hover.sub-cat a{
     color: var(--clr-table-secondary);
 }
 

@@ -25,9 +25,7 @@
         <h4>
           <div class="d-flex-visible space-between">
             <a><%= user.userName %></a>
-            <p style="font-size: 16px">
-              <a><small><%= user.roles%></small></a>
-            </p>
+            <a style="font-size: 16px"><small><%= user.roles%></small></a>
           </div>
         </h4>
       </div>
@@ -416,14 +414,13 @@
           <a href="/employee/<%= employee._id %>"
             ><%= employee.lastName %> <%= employee.firstName %>
           </a>
-          <p style="font-size: 16px">
-            <a
-              ><small>
-                <%= stores.storeName %> <%= user.roles == "Admin" ?
-                employee.store.storeName : ''%>
-              </small>
-            </a>
-          </p>
+
+          <a style="font-size: 16px"
+            ><small>
+              <%= stores.storeName %> <%= user.roles == "Admin" ?
+              employee.store.storeName : ''%>
+            </small>
+          </a>
         </div>
       </h2>
     </div>
