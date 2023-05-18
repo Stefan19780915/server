@@ -1,10 +1,10 @@
 <%- include('../partials/head') %>
 <body>
   <%- include('../partials/msg') %> <%- include('../partials/header') %>
-  <section class="head">
+  <a style="display: block" class="head">
     <div class="container">
       <h2 class="name">
-        <a><%= data.firstName %> <%= data.lastName %></a>
+        <div class="atag"><%= data.firstName %> <%= data.lastName %></div>
       </h2>
       <div class="icon-bar row">
         <img class="col profile" src="/imgs/profi1.svg" alt="" />
@@ -13,7 +13,7 @@
         <img class="col settings" src="/imgs/sett1.svg" alt="" />
       </div>
     </div>
-  </section>
+  </a>
 
   <section class="profile-tab flow tab">
     <div class="container flow">

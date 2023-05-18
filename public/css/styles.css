@@ -71,7 +71,7 @@ a {
     color: var(--clr-table-secondary);
 }
 
-.head-employee:hover a{
+.head-employee:hover .atag{
     color: var(--clr-table-secondary);
 }
 
@@ -283,7 +283,7 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
 
 
 
-.name a{
+.name .atag{
     color: var(--clr-table-dark);
     display: block;
     text-decoration: none;
