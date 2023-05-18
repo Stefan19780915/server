@@ -1,12 +1,30 @@
 const User = require("../model/User");
 const Employee = require("../model/Employee");
+const Store = require("../model/Store");
 const moment = require("moment");
 moment.locale("en");
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
   const allUsers = req.user.roles == "Admin" ? await User.find() : "";
-  const allEmployees = await Employee.find();
+
+  const allStores =
+    req.user.roles == "Admin"
+      ? await Store.find().populate("user")
+      : req.user.roles == "Manager"
+      ? await Store.findOne({ user: req.user._id })
+      : "";
+  console.log(allStores);
+
+  const allEmployees =
+    req.user.roles == "Admin"
+      ? await Employee.find().populate("store")
+      : req.user.roles == "Manager"
+      ? await Employee.find({ store: allStores._id }).populate("store")
+      : "";
+
+  console.log(allEmployees);
+
   if (allEmployees === []) {
     return res.render("../views/pages/employees", {
       msg: "There are no employees created yet. Click on create employee.",
@@ -21,6 +39,11 @@ const getAllEmployees = async (req, res) => {
     data: allEmployees,
     user: req.user,
     users: req.user.roles == "Admin" ? allUsers : "",
+    managers:
+      req.user.roles == "Admin"
+        ? allUsers.filter((user) => user.active && user.roles == "Manager")
+        : "",
+    stores: allStores,
     message: req.flash("message"),
   });
 };
@@ -54,6 +77,7 @@ const getEmployee = async (req, res) => {
 // CREATE EMPLOYEE AND REDIRECT TO EMPLOYEE ROUTE
 const createEmployee = async (req, res) => {
   const newEmployee = {
+    store: req.body.store,
     employeeState: req.body.employeeState,
     personalNumber: req.body.personalNumber,
     firstName: req.body.firstName,
@@ -77,6 +101,7 @@ const createEmployee = async (req, res) => {
   }
 
   if (
+    !newEmployee.store ||
     !newEmployee.personalNumber ||
     !newEmployee.firstName ||
     !newEmployee.lastName ||
@@ -92,6 +117,7 @@ const createEmployee = async (req, res) => {
     req.flash("message", "All fields are required.");
     res.redirect("/employee");
   }
+
   try {
     const result = await Employee.create(newEmployee);
     req.flash(

@@ -22,7 +22,14 @@
     <% users.forEach((user)=>{ %>
     <section class="sub-cat">
       <div class="container">
-        <h4><a><%= user.userName %></a></h4>
+        <h4>
+          <div class="d-flex-visible space-between">
+            <a><%= user.userName %></a>
+            <p style="font-size: 16px">
+              <a><small><%= user.roles%></small></a>
+            </p>
+          </div>
+        </h4>
       </div>
     </section>
     <div class="container flow sub-cat-content">
@@ -71,27 +78,113 @@
           action="/store"
           style="max-height: 0px"
         >
+          <label for="storeUser">Store user</label>
+          <div class="custom-select" style="width: 200px">
+            <select name="user" id="">
+              <option value="0">Select user:</option>
+              <% managers.forEach((user)=>{ %>
+              <option value="<%= user._id %>"><%= user.userName %></option>
+              <% }) %>
+            </select>
+          </div>
+
           <label for="storeName">Store name</label>
           <input type="text" name="storeName" id="" />
+
+          <label for="storeStreet">Store street</label>
+          <input type="text" name="storeStreet" id="" />
+
+          <label for="storeStreetNumber">Street number</label>
+          <input type="text" name="storeStreetNumber" id="" />
+
+          <label for="storeCity">Store city</label>
+          <input type="text" name="storeCity" id="" />
+
+          <label for="storeRGM">Store RGM</label>
+          <input type="text" name="storeRGM" id="" />
+
           <button class="btn-primary dark-outline">Save</button>
         </form>
       </div>
     </section>
 
+    <% stores.forEach((store)=>{ %>
     <section class="sub-cat">
       <div class="container">
-        <h4><a>KFC Aupark</a></h4>
+        <h4>
+          <div class="d-flex-visible space-between">
+            <a> <%= store.storeName %> </a>
+            <a> <%= store.user.userName %> </a>
+          </div>
+        </h4>
       </div>
     </section>
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <form action="">
+      <form
+        action="/store/<%= store._id%>?_method=PUT"
+        class="flow"
+        method="POST"
+      >
+        <div class="custom-select" style="width: 200px">
+          <select name="user" id="">
+            <option value="0">Select user:</option>
+            <% managers.forEach((user)=>{ %>
+            <option value="<%= user._id %>"><%= user.userName %></option>
+            <% }) %>
+          </select>
+        </div>
+
         <label for="storeName">Store name</label>
-        <input type="text" name="storeName" id="" value="KFC Aupark" />
-        <button class="btn-primary">Update</button>
+        <input
+          type="text"
+          name="storeName"
+          id=""
+          value="<%= store.storeName %>"
+        />
+
+        <label for="storeStreet">Store street</label>
+        <input
+          type="text"
+          name="storeStreet"
+          id=""
+          value="<%= store.storeStreet %>"
+        />
+
+        <label for="storeStreetNumber">Street number</label>
+        <input
+          type="text"
+          name="storeStreetNumber"
+          id=""
+          value="<%= store.storeStreetNumber %>"
+        />
+
+        <label for="storeCity">Store city</label>
+        <input
+          type="text"
+          name="storeCity"
+          id=""
+          value="<%= store.storeCity %>"
+        />
+
+        <label for="storeRGM">Store RGM</label>
+        <input
+          type="text"
+          name="storeRGM"
+          id=""
+          value="<%= store.storeRGM %>"
+        />
+
+        <div class="d-flex-visible space-between">
+          <button class="btn-primary">Update</button>
+          <a class="btn-primary" href="/user/<%= store._id%>?_method=DELETE"
+            >Delete</a
+          >
+        </div>
       </form>
     </div>
+    <% }) %>
   </section>
 
   <section class="calendar-tab tab">
@@ -182,7 +275,10 @@
   <section class="secondary-section">
     <div class="container flow">
       <div class="new-employee">
-        <h4>CREATE NEW EMPLOYEE</h4>
+        <h4>
+          CREATE NEW EMPLOYEE <%= user.roles == 'Manager' ? stores.storeName :
+          '' %>
+        </h4>
       </div>
       <form
         method="POST"
@@ -195,8 +291,24 @@
             <div class="d-flex-visible space-between">
               <label for="employeeState">Employee state</label>
               <input name="employeeState" type="checkbox" />
+              <% if(user.roles == 'Manager') { %>
+              <input type="hidden" value="<%= stores._id %>" name="store" />
+              <% } %>
             </div>
           </div>
+          <div>
+            <% if(user.roles == 'Admin') { %>
+            <div class="custom-select" style="width: 200px">
+              <select name="store" id="">
+                <option value="0">Select store:</option>
+                <% stores.forEach((store)=>{ %>
+                <option value="<%= store._id %>"><%= store.storeName %></option>
+                <% }) %>
+              </select>
+            </div>
+            <% } %>
+          </div>
+
           <div>
             <label for="personalNumber">Personal number</label>
             <input
@@ -296,17 +408,28 @@
       </form>
     </div>
   </section>
-  <section class="head">
+  <% data.forEach((employee)=> {%>
+  <section class="head-employee">
     <div class="container">
-      <% data.forEach((employee)=> {%>
       <h2 class="name">
-        <a href="/employee/<%= employee._id %>"
-          ><%= employee.firstName %> <%= employee.lastName %>
-        </a>
+        <div class="d-flex-visible space-between">
+          <a href="/employee/<%= employee._id %>"
+            ><%= employee.lastName %> <%= employee.firstName %>
+          </a>
+          <p style="font-size: 16px">
+            <a
+              ><small>
+                <%= stores.storeName %> <%= user.roles == "Admin" ?
+                employee.store.storeName : ''%>
+              </small>
+            </a>
+          </p>
+        </div>
       </h2>
-      <% }); %>
     </div>
   </section>
+  <% }); %>
+
   <script src="/js/employees.js"></script>
 </body>
 <%- include('../partials/footer') %>

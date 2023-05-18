@@ -1815,3 +1815,48 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+17/05/2023	17:06:20	d615ebd2-6290-4ac6-bd78-2072aed0d9fa	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:79
+    77|             <select name="user" id="">
+    78|               <option value="0">Select user:</option>
+ >> 79|               <% users.fiter((user)=> user.active && user.roles ==
+    80|               'Manager').forEach((user)=>{ %>
+    81|               <option value="<%= user._id%>"><%= user.userName%></option>
+    82|               <% }) %>
+
+users.fiter is not a function
+17/05/2023	17:07:15	97989c48-ee28-48c3-b8f7-1279459f3d52	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:79
+    77|             <select name="user" id="">
+    78|               <option value="0">Select user:</option>
+ >> 79|               <% users.fiter((user)=> {user.active && user.roles ==
+    80|               'Manager'}).forEach((user)=>{ %>
+    81|               <option value="<%= user._id%>"><%= user.userName%></option>
+    82|               <% }) %>
+
+users.fiter is not a function
+17/05/2023	17:07:55	70ebd288-0427-4e4a-b8c9-52e898acc1a3	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:79
+    77|             <select name="user" id="">
+    78|               <option value="0">Select user:</option>
+ >> 79|               <% users.fiter((user)=> {user.roles ==
+    80|               'Manager'}).forEach((user)=>{ %>
+    81|               <option value="<%= user._id%>"><%= user.userName%></option>
+    82|               <% }) %>
+
+users.fiter is not a function
+17/05/2023	17:09:33	1bce8341-d553-4f35-a567-e6ff7eb57e31	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:79
+    77|             <select name="user" id="">
+    78|               <option value="0">Select user:</option>
+ >> 79|               <% const managers = users.fiter((user)=> {user.roles ==
+    80|               'Manager'}); managers.forEach((user)=>{ %>
+    81|               <option value="<%= user._id%>"><%= user.userName%></option>
+    82|               <% }) %>
+
+users.fiter is not a function
+17/05/2023	17:17:39	af2343a4-b1aa-4376-844e-5583082f65ee	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:79
+    77|             <select name="user" id="">
+    78|               <option value="0">Select user:</option>
+ >> 79|               <% managers.forEach((user)=>{ %>
+    80|               <option value="<%= user._id%>"><%= user.userName%></option>
+    81|               <% }) %>
+    82|             </select>
+
+managers is not defined

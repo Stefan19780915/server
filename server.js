@@ -42,6 +42,7 @@ app.use(passport.session());
 //ROUTES
 app.use("/employee", checkAuthUser, require("./routes/employee"));
 app.use("/", require("./routes/user"));
+app.use("/store", checkAuthUser, require("./routes/store"));
 
 app.all("*", (req, res) => {
   res.render("pages/404", {
