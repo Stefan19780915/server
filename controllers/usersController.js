@@ -45,7 +45,7 @@ const registerUser = async (req, res) => {
       "message",
       `Account with name ${result.userName} has been created.`
     );
-    res.redirect("/login");
+    res.redirect("/");
   } catch (err) {
     req.flash("message");
     res.redirect("/register");
