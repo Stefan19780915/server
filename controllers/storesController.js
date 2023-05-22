@@ -23,8 +23,6 @@ const createStore = async (req, res) => {
     res.redirect("/employee");
   }
 
-  console.log(newStore);
-
   try {
     const result = await Store.create(newStore);
     req.flash(
@@ -37,9 +35,39 @@ const createStore = async (req, res) => {
   }
 };
 
-const deleteStore = async (req, res) => {};
+const updateStore = async (req, res) => {
+  if (!req.params.id) {
+    req.flash("message", "Id is required.");
+    return res.redirect("/pages/404");
+  }
 
-const updateStore = async (req, res) => {};
+  const store = await Store.findOne({ _id: req.params.id }).exec();
+
+  if (!store) {
+    req.flash("message", "Store not found.");
+    return req.redirect("/pages/404");
+  }
+
+  if (req.body.user) store.user = req.body.user;
+  if (req.body.storeName) store.storeName = req.body.storeName;
+  if (req.body.storeStreet) store.storeStreet = req.body.storeStreet;
+  if (req.body.storeStreetNumber)
+    store.storeStreetNumber = req.body.storeStreetNumber;
+  if (req.body.storeCity) store.storeCity = req.body.storeCity;
+  if (req.body.storeRGM) store.storeRGM = req.body.storeRGM;
+
+  const result = await store.save();
+
+  if (result != undefined) {
+    req.flash("message", `Store ${store.storeName} was updated.`);
+    res.redirect("/employee");
+  } else {
+    req.flash("message", `Store ${store.storeName} was not updated.`);
+    res.redirect("/pages/404");
+  }
+};
+
+const deleteStore = async (req, res) => {};
 
 module.exports = {
   createStore,

@@ -1860,3 +1860,44 @@ users.fiter is not a function
     82|             </select>
 
 managers is not defined
+19/05/2023	01:33:44	ea0d2c22-4744-409b-9ea9-ab9ece34903b	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:410
+    408|     </div>
+    409|   </section>
+ >> 410|   <% data.forEach((employee)=> {%>
+    411|   <a
+    412|     style="display: block"
+    413|     href="/employee/<%= employee._id %>"
+
+data.forEach is not a function
+21/05/2023	20:53:32	ce31b38f-5db5-4314-92a5-e61ff270bcd7	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:281
+    279|       <div class="new-employee">
+    280|         <h4>
+ >> 281|           CREATE NEW EMPLOYEE <%= user.roles == 'Manager' ? stores.storeName :
+    282|           '' %>
+    283|         </h4>
+    284|       </div>
+
+Cannot read properties of null (reading 'storeName')
+21/05/2023	21:00:27	81fa5faa-5e7c-43f3-b255-8eac8b7b9e77	SyntaxError: Unexpected identifier in /Users/queensway/Downloads/server/views/pages/employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+21/05/2023	21:01:43	d138c9e5-ba89-4927-a276-7cbe9ae895e7	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:277
+    275|   </section>
+    276| 
+ >> 277|   <% if (stores.length != 0) { %>
+    278|   <section class="secondary-section">
+    279|     <div class="container flow">
+    280|       <div class="new-employee">
+
+Cannot read properties of null (reading 'length')
+21/05/2023	21:03:25	cde95cb0-a485-4613-bb9a-31ef7f2da528	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:277
+    275|   </section>
+    276| 
+ >> 277|   <% if (stores.length != 0) { %>
+    278|   <section class="secondary-section">
+    279|     <div class="container flow">
+    280|       <div class="new-employee">
+
+Cannot read properties of null (reading 'length')

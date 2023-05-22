@@ -1,3 +1,4 @@
+const Store = require("../model/Store");
 const User = require("../model/User");
 const bcrypt = require("bcrypt");
 
@@ -71,6 +72,20 @@ const updateUser = async (req, res) => {
   if (req.body.userName) user.userName = req.body.userName;
   if (req.body.userEmail) user.userEmail = req.body.userEmail;
   if (req.body.roles) user.roles = req.body.roles;
+
+  //HERE WE SHOULD NOT ALLOW TO UPDATEå ROLE TO MNG IF NO STORE IS ASSIGNED TO THAT USER
+
+  // const store = await Store.findOne({ user: user._id });
+
+  // console.log(store);
+
+  // if (!store && user.roles == "Manager") {
+  //   req.flash(
+  //     "message",
+  //     "The user cannot be set to Manager role because it does not have a store assigned."
+  //   );
+  //   return res.redirect("/employee");
+  // }
 
   const resultUser = await user.save();
 

@@ -6,30 +6,32 @@ moment.locale("en");
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
-  const allUsers = req.user.roles == "Admin" ? await User.find() : "";
+  const allUsers =
+    req.user.roles == "Admin"
+      ? await User.find().sort({ userName: "asc" })
+      : "";
 
   const allStores =
     req.user.roles == "Admin"
-      ? await Store.find().populate("user")
+      ? await Store.find().populate("user").sort({ storeName: "asc" })
       : req.user.roles == "Manager"
       ? await Store.findOne({ user: req.user._id })
-      : "";
-  console.log(allStores);
+      : [];
 
   const allEmployees =
     req.user.roles == "Admin"
-      ? await Employee.find().populate("store")
-      : req.user.roles == "Manager"
-      ? await Employee.find({ store: allStores._id }).populate("store")
-      : "";
-
-  console.log(allEmployees);
+      ? await Employee.find().populate("store").sort({ lastName: "asc" })
+      : req.user.roles == "Manager" && !allStores == []
+      ? await Employee.find({ store: allStores._id })
+          .populate("store")
+          .sort({ lastName: "asc" })
+      : [];
 
   if (allEmployees === []) {
     return res.render("../views/pages/employees", {
-      msg: "There are no employees created yet. Click on create employee.",
+      msg: "There are no employees created yet or no store is assigned to this account.",
       data: "",
-      users: req.user.roles == "Admin" ? allUsers : "",
+      users: req.user.roles == "Admin" ? allUsers : [],
       user: req.user,
       message: req.flash("message"),
     });
@@ -38,12 +40,12 @@ const getAllEmployees = async (req, res) => {
     msg: false,
     data: allEmployees,
     user: req.user,
-    users: req.user.roles == "Admin" ? allUsers : "",
+    users: req.user.roles == "Admin" ? allUsers : [],
     managers:
       req.user.roles == "Admin"
         ? allUsers.filter((user) => user.active && user.roles == "Manager")
-        : "",
-    stores: allStores,
+        : [],
+    stores: allStores == null ? [] : allStores,
     message: req.flash("message"),
   });
 };

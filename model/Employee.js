@@ -24,6 +24,7 @@ const employeesSchema = new Schema({
   },
   employeeState: {
     type: Boolean,
+    default: true,
   },
   personalNumber: {
     type: String,

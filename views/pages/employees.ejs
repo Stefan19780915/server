@@ -2,9 +2,11 @@
 <body>
   <%- include('../partials/msg') %> <%- include('../partials/header') %> <% if
   (user.roles == 'Admin') { %>
-    <a style="display: block" class="head">
+  <a style="display: block" class="head">
     <div class="container">
-      <h2 class="name" style="text-align: center"><div class="atag">ADMIN AREA</div></h2>
+      <h2 class="name" style="text-align: center">
+        <div class="atag">ADMIN AREA</div>
+      </h2>
       <div class="icon-bar row">
         <img class="col profile" src="/imgs/staf.png" alt="" />
         <img class="col contacts" src="/imgs/shop.png" alt="" />
@@ -177,7 +179,7 @@
 
         <div class="d-flex-visible space-between">
           <button class="btn-primary">Update</button>
-          <a class="btn-primary" href="/user/<%= store._id%>?_method=DELETE"
+          <a class="btn-primary" href="/<%= store._id%>?_method=DELETE"
             >Delete</a
           >
         </div>
@@ -258,7 +260,7 @@
     </div>
   </section>
 
-  <% } %>
+  <% } %> <% if(user.roles == 'Manager' || user.roles == 'Admin') { %>
   <section class="mid-section">
     <div class="container d-flex-visible center flow">
       <span></span>
@@ -271,6 +273,8 @@
       />
     </div>
   </section>
+
+  <% if (stores.length != 0) { %>
   <section class="secondary-section">
     <div class="container flow">
       <div class="new-employee">
@@ -289,7 +293,7 @@
           <div>
             <div class="d-flex-visible space-between">
               <label for="employeeState">Employee state</label>
-              <input name="employeeState" type="checkbox" />
+              <input name="employeeState" type="checkbox" checked />
               <% if(user.roles == 'Manager') { %>
               <input type="hidden" value="<%= stores._id %>" name="store" />
               <% } %>
@@ -407,7 +411,7 @@
       </form>
     </div>
   </section>
-  <% data.forEach((employee)=> {%>
+  <% } %> <% } %> <% data.forEach((employee)=> {%>
   <a
     style="display: block"
     href="/employee/<%= employee._id %>"
@@ -418,8 +422,8 @@
           <div class="atag">
             <%= employee.lastName %> <%= employee.firstName %>
           </div>
-          <div class="atag"></div>
-            <small style="font-size: 13px;">
+          <div class="atag">
+            <small style="font-size: 13px">
               <%= stores.storeName %> <%= user.roles == "Admin" ?
               employee.store.storeName : ''%>
             </small>
