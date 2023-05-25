@@ -23,6 +23,10 @@
         Here you can manage all persoal data of the given employee. You can
         update edit and save the following information.
       </p>
+      <p style="font-weight: bolder">
+        <%= ` ${data.firstName} ${data.lastName} is currently assigned to store
+        - ${data.store.storeName}.` %>
+      </p>
       <form
         method="POST"
         class="personal-data-form flow"
@@ -31,12 +35,26 @@
         <div class="flow">
           <div>
             <div class="d-flex-visible space-between">
-              <label for="employeeState">Employee state</label>
+              <label for="employeeState">Employee active state</label>
               <input type="checkbox" name="employeeState" <%
               if(data.employeeState == true) { %> checked <% } else { %> <% } %>
               />
             </div>
           </div>
+
+          <div>
+            <% if(user.roles == 'Admin') { %>
+            <div class="custom-select" style="width: 200px">
+              <select name="store" id="">
+                <option value="0">Select store:</option>
+                <% stores.forEach((store)=>{ %>
+                <option value="<%= store._id %>"><%= store.storeName %></option>
+                <% }) %>
+              </select>
+            </div>
+            <% } %>
+          </div>
+
           <div>
             <label for="personalNumber">Personal number</label>
             <input

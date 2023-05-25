@@ -54,18 +54,27 @@ const getAllEmployees = async (req, res) => {
 const getEmployee = async (req, res) => {
   if (!req.params.id) {
     return res.render("../views/pages/404", {
-      msg: "Employee was not deleted.",
+      msg: "Employee was not found.",
       body: "Please pprovide the correct ID",
       user: req.user,
     });
   }
-  const oneEmployee = await Employee.findOne({ _id: req.params.id });
+
+  const allStores =
+    req.user.roles == "Admin"
+      ? await Store.find().populate("user").sort({ storeName: "asc" })
+      : [];
+
+  const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate(
+    "store"
+  );
   if (oneEmployee != undefined) {
     res.render("../views/pages/employee", {
       msg: false,
       data: oneEmployee,
       user: req.user,
       message: req.flash("message"),
+      stores: allStores,
     });
   } else {
     res.render("../views/pages/404", {
@@ -210,6 +219,7 @@ const deleteChild = async (req, res) => {
 //ALL UPDATES
 // UPDATE PERSONAL AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeePersonal = async (req, res) => {
+  console.log(req.body);
   if (!req.params.id) {
     req.flash("message", "Id parameter is rewuired");
     return res.redirect("/pages/404");
@@ -220,6 +230,10 @@ const updateEmployeePersonal = async (req, res) => {
   if (!employee) {
     req.flash("message", "No employee found.");
     return res.redirect("/pages/404");
+  }
+
+  if (req.body.store) {
+    employee.store = req.body.store;
   }
 
   if (!req.body.employeeState) {
