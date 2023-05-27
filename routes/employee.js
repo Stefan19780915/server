@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const employeeController = require("../controllers/employeesController");
+const { createUser } = require("../middleware/registerUserHandler");
 
 router.get("/", employeeController.getAllEmployees);
 
@@ -16,7 +17,11 @@ router.get("/child/:id/:child", employeeController.deleteChild);
 
 router.put("/personal/:id", employeeController.updateEmployeePersonal);
 
-router.put("/contact/:id", employeeController.updateEmployeeContact);
+router.put(
+  "/contact/:id",
+  createUser,
+  employeeController.updateEmployeeContact
+);
 
 router.put("/spouse/:id", employeeController.updateEmployeeSpouse);
 

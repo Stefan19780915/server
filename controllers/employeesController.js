@@ -6,17 +6,19 @@ moment.locale("en");
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
-  const allUsers =
-    req.user.roles == "Admin"
-      ? await User.find().sort({ userName: "asc" })
-      : "";
-
   const allStores =
     req.user.roles == "Admin"
       ? await Store.find().populate("user").sort({ storeName: "asc" })
       : req.user.roles == "Manager"
       ? await Store.findOne({ user: req.user._id })
       : [];
+
+  const allUsers =
+    req.user.roles == "Admin"
+      ? await User.find().sort({ userName: "asc" })
+      : req.user.roles == "Manager"
+      ? await User.find({ store: allStores.id })
+      : "";
 
   const allEmployees =
     req.user.roles == "Admin"
@@ -40,7 +42,8 @@ const getAllEmployees = async (req, res) => {
     msg: false,
     data: allEmployees,
     user: req.user,
-    users: req.user.roles == "Admin" ? allUsers : [],
+    users:
+      req.user.roles == "Admin" || req.user.roles == "Manager" ? allUsers : [],
     managers:
       req.user.roles == "Admin"
         ? allUsers.filter((user) => user.active && user.roles == "Manager")
@@ -232,8 +235,10 @@ const updateEmployeePersonal = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
-  if (req.body.store) {
+  if (req.body.store != 0) {
     employee.store = req.body.store;
+  } else {
+    employee.store;
   }
 
   if (!req.body.employeeState) {
@@ -281,6 +286,8 @@ const updateEmployeeContact = async (req, res) => {
     req.flash("message", "No employee found.");
     return res.redirect("/pages/404");
   }
+
+  //HERE WE SHOULD ALSO REGISTER THE EMPLOYEE AS USER AND SEND AN EMAIL TO THE USERS EMAIL WITH THE LINK.
 
   if (req.body.landLinePhone) employee.landLinePhone = req.body.landLinePhone;
   if (req.body.mobilePhone) employee.mobilePhone = req.body.mobilePhone;

@@ -13,4 +13,13 @@ function checkNotAuthUser(req, res, next) {
   next();
 }
 
-module.exports = { checkAuthUser, checkNotAuthUser };
+function checkAdmin(req, res, next) {
+  if (req.user.roles == "Admin" || req.user.roles == "Manager") {
+    next();
+  } else {
+    req.flash("message", "You are not authorised.");
+    return res.redirect("/employee");
+  }
+}
+
+module.exports = { checkAuthUser, checkNotAuthUser, checkAdmin };

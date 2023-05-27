@@ -84,6 +84,42 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  if (!req.params.id) {
+    req.flash("message", "Please provide correct ID");
+    return res.redirect("pages/404");
+  }
+  const user = await User.findOne({ _id: req.params.id }).exec();
+
+  const store = await Store.findOne({ user: req.params.id });
+
+  if (store) {
+    req.flash(
+      "message",
+      `User ${user.userName} cannot be deleted bacause it is assigned to store ${store.storeName}.`
+    );
+    return res.redirect("/employee");
+  }
+
+  const users = await User.find({ roles: "Admin" });
+
+  if (users.length < 2 && user.roles == "Admin") {
+    req.flash(
+      "message",
+      `The user ${user.userName} cannot be deleted because the user is the only Administrator. Please assign another users Admin rights as well.`
+    );
+    return res.redirect("/employee");
+  }
+
+  if (!user) {
+    req.flash("message", "Please provide the correct ID.");
+    return res.redirect("/pages/404");
+  }
+  const result = await user.deleteOne({ _id: req.params.id });
+  req.flash("message", `Personal data of ${result.userName} was deleted.`);
+  res.redirect("/employee");
+};
+
 module.exports = {
   register,
   login,
@@ -91,4 +127,5 @@ module.exports = {
   getUserByEmail,
   getUserById,
   updateUser,
+  deleteUser,
 };

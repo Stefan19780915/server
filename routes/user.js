@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const usersController = require("../controllers/usersController");
-const { checkNotAuthUser } = require("../middleware/authHandler");
+const {
+  checkNotAuthUser,
+  checkAuthUser,
+  checkAdmin,
+} = require("../middleware/authHandler");
 const passport = require("passport");
 const initializePassport = require("../config/passportConfig");
 
@@ -35,6 +39,8 @@ router.delete("/logout", (req, res, next) => {
 
 router.post("/register", usersController.registerUser);
 
-router.put("/user/:id", usersController.updateUser);
+router.put("/user/:id", checkAuthUser, checkAdmin, usersController.updateUser);
+
+router.get("/user/:id", checkAuthUser, checkAdmin, usersController.deleteUser);
 
 module.exports = router;

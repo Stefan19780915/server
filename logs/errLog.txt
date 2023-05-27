@@ -1901,3 +1901,58 @@ Cannot read properties of null (reading 'length')
     280|       <div class="new-employee">
 
 Cannot read properties of null (reading 'length')
+25/05/2023	21:30:41	39089966-3b8d-4677-beed-a29552120f8b	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:116
+    114|           <div class="d-flex-visible space-between">
+    115|             <a> <%= store.storeName %> </a>
+ >> 116|             <a> <%= store.user.userName %> </a>
+    117|           </div>
+    118|         </h4>
+    119|       </div>
+
+Cannot read properties of null (reading 'userName')
+25/05/2023	21:55:43	ced3b432-1c9f-4c64-97e3-7381488a79c5	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:116
+    114|           <div class="d-flex-visible space-between">
+    115|             <a> <%= store.storeName %> </a>
+ >> 116|             <a> <%= store.user.userName %> </a>
+    117|           </div>
+    118|         </h4>
+    119|       </div>
+
+Cannot read properties of null (reading 'userName')
+25/05/2023	21:57:14	54fd4afe-0f97-4433-b232-f72c747ba123	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:425
+    423|           <div class="atag">
+    424|             <small style="font-size: 13px">
+ >> 425|               <%= stores.storeName %> <%= user.roles == "Admin" ?
+    426|               employee.store.storeName : ''%>
+    427|             </small>
+    428|           </div>
+
+Cannot read properties of null (reading 'storeName')
+27/05/2023	11:16:45	ef5a57e4-bb56-40af-bc9a-da8f456354b0	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:110
+    108|     </section>
+    109| 
+ >> 110|     <% stores.forEach((store)=>{ %>
+    111|     <section class="sub-cat">
+    112|       <div class="container">
+    113|         <h4>
+
+stores.forEach is not a function
+27/05/2023	11:36:53	2a2d6b1f-df93-463a-8f8f-6f088e9e3428	Error: Could not find matching close tag for "<%".
+27/05/2023	11:38:14	1d6808a9-9e8b-4a31-91d2-41d3c6576867	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:66
+    64|     <div class="container flow">
+    65|       <span></span>
+ >> 66|       <% if(req.user.roles == 'Admin') { %>
+    67|       <h3 style="margin-bottom: 16px">Stores</h3>
+    68|       <% } %> <% if(req.user.roles == 'Manager') { %>
+    69|       <h3 style="margin-bottom: 16px"><%= stores.storeName %></h3>
+
+req is not defined
+27/05/2023	11:39:46	75d8882b-7c67-454c-9fd0-46ebc77136de	ReferenceError: /Users/queensway/Downloads/server/views/pages/employees.ejs:66
+    64|     <div class="container flow">
+    65|       <span></span>
+ >> 66|       <% if(req.user.roles == 'Admin') { %>
+    67|       <h3 style="margin-bottom: 16px">Stores</h3>
+    68|       <% } %> <% if(req.user.roles == 'Manager') { %>
+    69|       <h3 style="margin-bottom: 16px"><%= stores.storeName %></h3>
+
+req is not defined
