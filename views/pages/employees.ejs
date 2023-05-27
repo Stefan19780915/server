@@ -26,13 +26,13 @@
       <h3 style="margin-bottom: 16px">Users</h3>
     </div>
 
-    <% users.forEach((user)=>{ %>
+    <% users.forEach((userHere)=>{ %>
     <section class="sub-cat">
       <div class="container">
         <h4>
           <div class="d-flex-visible space-between">
-            <a><%= user.userName %></a>
-            <a style="font-size: 16px"><small><%= user.roles%></small></a>
+            <a><%= userHere.userName %></a>
+            <a style="font-size: 16px"><small><%= userHere.roles%></small></a>
           </div>
         </h4>
       </div>
@@ -40,28 +40,37 @@
     <div class="container flow sub-cat-content">
       <span></span>
       <form
-        action="/user/<%= user._id%>?_method=PUT"
+        action="/user/<%= userHere._id%>?_method=PUT"
         method="POST"
         class="flow"
       >
         <label for="userName">User name</label>
-        <input type="text" name="userName" id="" value="<%= user.userName %>" />
+        <input
+          type="text"
+          name="userName"
+          id=""
+          value="<%= userHere.userName %>"
+        />
         <label for="userEmail">User email</label>
-        <input type="email" name="userEmail" value="<%= user.userEmail %>" />
+        <input
+          type="email"
+          name="userEmail"
+          value="<%= userHere.userEmail %>"
+        />
         <% if(user.roles == 'Admin') { %>
         <label for="roles">Role</label>
-        <input type="text" name="roles" value="<%= user.roles%>" />
+        <input type="text" name="roles" value="<%= userHere.roles%>" />
 
         <% } %>
 
         <div class="d-flex-visible space-between">
           <label for="ctive">Active</label>
-          <input type="checkbox" name="active" <% if(user.active === true) { %>
-          checked <% } else { %> <% } %> />
+          <input type="checkbox" name="active" <% if(userHere.active === true) {
+          %> checked <% } else { %> <% } %> />
         </div>
         <div class="d-flex-visible space-between">
           <button class="btn-primary">Update</button>
-          <a class="btn-primary" href="/user/<%= user._id%>">Delete</a>
+          <a class="btn-primary" href="/user/<%= userHere._id%>">Delete</a>
         </div>
       </form>
     </div>
