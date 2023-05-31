@@ -1,11 +1,12 @@
 <%- include('../partials/head') %>
 <body>
   <%- include('../partials/msg') %> <%- include('../partials/header') %> <% if
-  (user.roles == 'Admin' || user.roles == 'Manager') { %>
+  (user.roles == 'Admin' || user.roles == 'Manager' || user.roles == 'Owner') {
+  %>
   <a style="display: block" class="head">
     <div class="container">
       <h2 class="name" style="text-align: center">
-        <% if(user.roles == 'Admin') { %>
+        <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
         <div class="atag">ADMIN AREA</div>
         <% } %> <% if(user.roles == 'Manager') { %>
         <div class="atag">MANAGER AREA</div>
@@ -57,7 +58,7 @@
           name="userEmail"
           value="<%= userHere.userEmail %>"
         />
-        <% if(user.roles == 'Admin') { %>
+        <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
         <label for="roles">Role</label>
         <input type="text" name="roles" value="<%= userHere.roles%>" />
 
@@ -80,7 +81,7 @@
   <section class="contact-tab tab">
     <div class="container flow">
       <span></span>
-      <% if(user.roles == 'Admin') { %>
+      <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
       <h3 style="margin-bottom: 16px">Stores</h3>
       <% } %> <% if(user.roles == 'Manager') { %>
       <h3 style="margin-bottom: 16px">Store details</h3>
@@ -153,7 +154,7 @@
       </form>
     </div>
 
-    <% } %> <% if(user.roles == 'Admin') { %>
+    <% } %> <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
 
     <section class="secondary-section">
       <div class="container flow">
@@ -166,6 +167,7 @@
           action="/store"
           style="max-height: 0px"
         >
+          <input type="hidden" name="admin" value="<%=user.id%>" />
           <label for="storeUser">Store user</label>
           <div class="custom-select" style="width: 200px">
             <select name="user" id="">
@@ -345,7 +347,8 @@
     </div>
   </section>
 
-  <% } %> <% if(user.roles == 'Manager' || user.roles == 'Admin') { %>
+  <% } %> <% if(user.roles == 'Manager' || user.roles == 'Admin' || user.roles
+  == 'Owner') { %>
   <section class="mid-section">
     <div class="container d-flex-visible center flow">
       <span></span>
@@ -359,13 +362,14 @@
     </div>
   </section>
 
-  <% if (stores.length != 0) { %>
+  <% if (user.roles == 'Manager' || user.roles == 'Admin' || user.roles ==
+  'Owner') { %>
   <section class="secondary-section">
     <div class="container flow">
       <div class="new-employee">
         <h4>
-          CREATE NEW EMPLOYEE <%= user.roles == 'Manager' ? stores.storeName :
-          '' %>
+          CREATE NEW EMPLOYEE <%= user.roles == 'Manager' || user.roles ==
+          'Owner' ? stores.storeName : '' %>
         </h4>
       </div>
       <form
@@ -385,7 +389,7 @@
             </div>
           </div>
           <div>
-            <% if(user.roles == 'Admin') { %>
+            <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
             <div class="custom-select" style="width: 200px">
               <select name="store" id="">
                 <option value="0">Select store:</option>
@@ -509,8 +513,8 @@
           </div>
           <div class="atag">
             <small style="font-size: 13px">
-              <%= stores.storeName %> <%= user.roles == "Admin" ?
-              employee.store.storeName : ''%>
+              <%= user.roles == "Admin" || user.roles == "Owner" &&
+              employee.store != null ? employee.store.storeName : 'No Store'%>
             </small>
           </div>
         </div>

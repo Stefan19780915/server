@@ -13,6 +13,7 @@ async function createUser(req, res, next) {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const newUser = {
+        admin: req.user._id,
         store: employee.store.id,
         userName: `${employee.firstName} ${employee.lastName}`,
         userEmail: req.body.email,

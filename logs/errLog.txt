@@ -1956,3 +1956,84 @@ req is not defined
     69|       <h3 style="margin-bottom: 16px"><%= stores.storeName %></h3>
 
 req is not defined
+30/05/2023	20:19:13	19821755-153d-4d40-988a-74fe8119ec3c	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:513
+    511|           <div class="atag">
+    512|             <small style="font-size: 13px">
+ >> 513|               <%= stores.storeName %> <%= user.roles == "Admin" ?
+    514|               employee.store.storeName : ''%>
+    515|             </small>
+    516|           </div>
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:25:03	ba657735-0362-4bbc-bda0-da39a546817a	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:514
+    512|             <small style="font-size: 13px">
+    513|               <%= stores.storeName == null ? 'No Store' : stores.storeName %>
+ >> 514|               <%= user.roles == "Admin" ? employee.store.storeName : ''%>
+    515|             </small>
+    516|           </div>
+    517|         </div>
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:25:23	6a569d04-9ede-4932-abfc-5f6f338c410a	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:513
+    511|           <div class="atag">
+    512|             <small style="font-size: 13px">
+ >> 513|               <%= !stores.storeName ? 'No Store' : stores.storeName %> <%=
+    514|               user.roles == "Admin" ? employee.store.storeName : ''%>
+    515|             </small>
+    516|           </div>
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:27:10	48edf8c4-7870-4784-af98-ec5d810122f3	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:513
+    511|           <div class="atag">
+    512|             <small style="font-size: 13px">
+ >> 513|               <%= user.roles == "Admin" ? employee.store.storeName : ''%>
+    514|             </small>
+    515|           </div>
+    516|         </div>
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:28:42	90dd4922-9476-4088-a51a-9ec0e9503a9d	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:513
+    511|           <div class="atag">
+    512|             <small style="font-size: 13px">
+ >> 513|               <%= user.roles == "Admin" && employee.store != [] ?
+    514|               employee.store.storeName : ''%>
+    515|             </small>
+    516|           </div>
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:29:38	5391ae8b-65f7-46b6-b5ba-ff7f1ba18081	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:513
+    511|           <div class="atag">
+    512|             <small style="font-size: 13px">
+ >> 513|               <%= user.roles == "Admin" && employee.store != [] ?
+    514|               employee.store.storeName : ''%>
+    515|             </small>
+    516|           </div>
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:30:28	1ed5c12b-c74d-430d-8a4f-2e9a7de52fb2	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:27
+    25|       </p>
+    26|       <p style="font-weight: bolder">
+ >> 27|         <%= ` ${data.firstName} ${data.lastName} is currently assigned to store
+    28|         - ${data.store.storeName}.` %>
+    29|       </p>
+    30|       <form
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:50:25	b6f71087-7fa1-4577-ba01-69094ccb422e	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:27
+    25|       </p>
+    26|       <p style="font-weight: bolder">
+ >> 27|         <%= ` ${data.firstName} ${data.lastName} is currently assigned to store
+    28|         - ${data.store.storeName}.` %>
+    29|       </p>
+    30|       <form
+
+Cannot read properties of null (reading 'storeName')
+30/05/2023	20:52:05	70a1c240-e872-45bf-b2a5-49d606d3d731	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:27
+    25|       </p>
+    26|       <p style="font-weight: bolder">
+ >> 27|         <%= ` ${data.firstName} ${data.lastName} is currently assigned to store
+    28|         - ${data.store.storeName}.` %>
+    29|       </p>
+    30|       <form
+
+Cannot read properties of null (reading 'storeName')

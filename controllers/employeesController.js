@@ -8,20 +8,28 @@ moment.locale("en");
 const getAllEmployees = async (req, res) => {
   const allStores =
     req.user.roles == "Admin"
-      ? await Store.find().populate("user").sort({ storeName: "asc" })
+      ? await Store.find({ admin: req.user.id })
+          .populate("user")
+          .sort({ storeName: "asc" })
       : req.user.roles == "Manager"
-      ? await Store.findOne({ user: req.user._id })
+      ? await Store.findOne({ user: req.user.id })
+      : req.user.roles == "Owner"
+      ? await Store.find().populate("user").sort({ storeName: "asc" })
       : [];
 
   const allUsers =
     req.user.roles == "Admin"
-      ? await User.find().sort({ userName: "asc" })
+      ? (await User.find().sort({ userName: "asc" })).filter(
+          (user) => user.admin == req.user.id || user.id == req.user.id
+        )
       : req.user.roles == "Manager"
       ? await User.find({ store: allStores.id })
+      : req.user.roles == "Owner"
+      ? await User.find().sort({ userName: "asc" })
       : "";
 
   const allEmployees =
-    req.user.roles == "Admin"
+    req.user.roles == "Admin" || req.user.roles == "Owner"
       ? await Employee.find().populate("store").sort({ lastName: "asc" })
       : req.user.roles == "Manager" && !allStores == []
       ? await Employee.find({ store: allStores._id })
@@ -29,24 +37,36 @@ const getAllEmployees = async (req, res) => {
           .sort({ lastName: "asc" })
       : [];
 
+  const adminEmployees = allEmployees.filter(
+    (emp) => emp.store.admin == req.user.id
+  );
+
   if (allEmployees === []) {
     return res.render("../views/pages/employees", {
       msg: "There are no employees created yet or no store is assigned to this account.",
       data: "",
-      users: req.user.roles == "Admin" ? allUsers : [],
+      users:
+        req.user.roles == "Admin" || req.user.roles == "Owner" ? allUsers : [],
       user: req.user,
       message: req.flash("message"),
     });
   }
   res.render("../views/pages/employees", {
     msg: false,
-    data: allEmployees,
+    data: req.user.roles == "Owner" ? allEmployees : adminEmployees,
     user: req.user,
     users:
-      req.user.roles == "Admin" || req.user.roles == "Manager" ? allUsers : [],
+      req.user.roles == "Admin" ||
+      req.user.roles == "Manager" ||
+      req.user.roles == "Owner"
+        ? allUsers
+        : [],
     managers:
-      req.user.roles == "Admin"
-        ? allUsers.filter((user) => user.active && user.roles == "Manager")
+      req.user.roles == "Admin" || req.user.roles == "Owner"
+        ? allUsers.filter(
+            (user) =>
+              (user.active && user.roles == "Manager") || user.roles == "Admin"
+          )
         : [],
     stores: allStores == null ? [] : allStores,
     message: req.flash("message"),
@@ -71,6 +91,7 @@ const getEmployee = async (req, res) => {
   const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
   );
+
   if (oneEmployee != undefined) {
     res.render("../views/pages/employee", {
       msg: false,
@@ -114,8 +135,15 @@ const createEmployee = async (req, res) => {
     return;
   }
 
+  if (newEmployee.store == 0) {
+    req.flash(
+      "message",
+      "Please create a store frist before creating employees."
+    );
+    return res.redirect("/employee");
+  }
+
   if (
-    !newEmployee.store ||
     !newEmployee.personalNumber ||
     !newEmployee.firstName ||
     !newEmployee.lastName ||

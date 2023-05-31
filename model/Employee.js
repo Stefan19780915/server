@@ -19,7 +19,6 @@ const childSchema = new Schema({
 const employeesSchema = new Schema({
   store: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: "Store",
   },
   employeeState: {

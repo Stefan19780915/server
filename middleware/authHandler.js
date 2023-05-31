@@ -14,7 +14,11 @@ function checkNotAuthUser(req, res, next) {
 }
 
 function checkAdmin(req, res, next) {
-  if (req.user.roles == "Admin" || req.user.roles == "Manager") {
+  if (
+    req.user.roles == "Admin" ||
+    req.user.roles == "Manager" ||
+    req.user.roles == "Owner"
+  ) {
     next();
   } else {
     req.flash("message", "You are not authorised.");

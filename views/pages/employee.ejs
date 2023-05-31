@@ -25,7 +25,7 @@
       </p>
       <p style="font-weight: bolder">
         <%= ` ${data.firstName} ${data.lastName} is currently assigned to store
-        - ${data.store.storeName}.` %>
+        - ${data.store == null ? 'No Store' : data.store.storeName}.` %>
       </p>
       <form
         method="POST"

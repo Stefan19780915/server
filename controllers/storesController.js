@@ -4,6 +4,7 @@ const Employee = require("../model/Employee");
 const createStore = async (req, res) => {
   console.log(req.body);
   const newStore = {
+    admin: req.body.admin,
     user: req.body.user,
     storeName: req.body.storeName,
     storeStreet: req.body.storeStreet,
@@ -12,7 +13,13 @@ const createStore = async (req, res) => {
     storeRGM: req.body.storeRGM,
   };
 
+  if (newStore.user == 0) {
+    req.flash("message", "Please select a store user.");
+    return res.redirect("/employee");
+  }
+
   if (
+    !newStore.admin ||
     !newStore.user ||
     !newStore.storeName ||
     !newStore.storeStreet ||
