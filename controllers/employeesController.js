@@ -53,7 +53,10 @@ const getAllEmployees = async (req, res) => {
   }
   res.render("../views/pages/employees", {
     msg: false,
-    data: req.user.roles == "Owner" ? allEmployees : adminEmployees,
+    data:
+      req.user.roles == "Owner" || req.user.roles == "Manager"
+        ? allEmployees
+        : adminEmployees,
     user: req.user,
     users:
       req.user.roles == "Admin" ||

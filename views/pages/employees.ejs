@@ -513,8 +513,8 @@
           </div>
           <div class="atag">
             <small style="font-size: 13px">
-              <%= user.roles == "Admin" || user.roles == "Owner" &&
-              employee.store != null ? employee.store.storeName : 'No Store'%>
+              <%= user.roles == "Admin" || user.roles == "Owner" || user.roles
+              == "Manager" ? employee.store.storeName : 'No Store'%>
             </small>
           </div>
         </div>
