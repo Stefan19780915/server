@@ -2,7 +2,9 @@ const User = require("../model/User");
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
 const moment = require("moment");
-moment.locale("en");
+moment.locale("sk");
+const nodeMailer = require("nodemailer");
+const { zhCN } = require("date-fns/locale");
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
@@ -478,6 +480,49 @@ const updateEmployeeContract = async (req, res) => {
   }
 };
 
+//GET ONE EMPLYEE AND SEND EMAIL
+
+const sendEmployeeEmail = async (req, res) => {
+  const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate(
+    "store"
+  );
+
+  const html = `
+      <h1>Hello</h1>
+      <p>This is the body of the email.</p>
+      <p>${oneEmployee.personalNumber}</p>
+      <p>${oneEmployee.firstName} ${oneEmployee.lastName}</p>`;
+
+  const transporter = nodeMailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "stefan_csomor@hotmail.com",
+      pass: "Nuendoes19780915",
+    },
+  });
+
+  try {
+    const info = await transporter.sendMail({
+      from: "Štefan Csomor <stefan_csomor@hotmail.com>",
+      to: "csomorstefan16@gmail.com",
+      subject: `Nástup - ${oneEmployee.lastName} ${oneEmployee.firstName} ${
+        oneEmployee.contractType
+      } ${oneEmployee.store.storeName} od: ${moment(
+        oneEmployee.contractStartDate
+      ).format("l")}`,
+      html: html,
+    });
+    console.log("Message send" + info.messageId);
+    req.flash(
+      "message",
+      `Employee ${oneEmployee.firstName} ${oneEmployee.lastName} was sent via email. Nessage ID = ${info.messageId}`
+    );
+    return res.redirect("/employee");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   getAllEmployees,
   getEmployee,
@@ -491,4 +536,5 @@ module.exports = {
   updateEmployeeHealth,
   updateEmployeeBank,
   updateEmployeeContract,
+  sendEmployeeEmail,
 };

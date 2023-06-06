@@ -31,4 +31,6 @@ router.put("/bank/:id", employeeController.updateEmployeeBank);
 
 router.put("/contract/:id", employeeController.updateEmployeeContract);
 
+router.get("/email/:id", employeeController.sendEmployeeEmail);
+
 module.exports = router;
