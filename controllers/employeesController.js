@@ -3,8 +3,10 @@ const Employee = require("../model/Employee");
 const Store = require("../model/Store");
 const moment = require("moment");
 moment.locale("sk");
+const bcrypt = require("bcrypt");
 const nodeMailer = require("nodemailer");
 const { zhCN } = require("date-fns/locale");
+const sendEmail = require("../utils/sendEmployeeEmail");
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
@@ -25,10 +27,10 @@ const getAllEmployees = async (req, res) => {
           (user) => user.admin == req.user.id || user.id == req.user.id
         )
       : req.user.roles == "Manager"
-      ? await User.find({ store: allStores.id })
+      ? await User.find({ store: allStores ? allStores.id : [] })
       : req.user.roles == "Owner"
       ? await User.find().sort({ userName: "asc" })
-      : "";
+      : [];
 
   const allEmployees =
     req.user.roles == "Admin" || req.user.roles == "Owner"
@@ -73,7 +75,7 @@ const getAllEmployees = async (req, res) => {
               (user.active && user.roles == "Manager") || user.roles == "Admin"
           )
         : [],
-    stores: allStores == null ? [] : allStores,
+    stores: allStores == null ? "" : allStores,
     message: req.flash("message"),
   });
 };
@@ -90,7 +92,9 @@ const getEmployee = async (req, res) => {
 
   const allStores =
     req.user.roles == "Admin"
-      ? await Store.find().populate("user").sort({ storeName: "asc" })
+      ? await Store.find({ admin: req.user.id })
+          .populate("user")
+          .sort({ storeName: "asc" })
       : [];
 
   const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate(
@@ -117,19 +121,12 @@ const getEmployee = async (req, res) => {
 // CREATE EMPLOYEE AND REDIRECT TO EMPLOYEE ROUTE
 const createEmployee = async (req, res) => {
   const newEmployee = {
-    store: req.body.store,
     employeeState: req.body.employeeState,
-    personalNumber: req.body.personalNumber,
+    store: req.body.store,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    gender: req.body.gender,
-    birthDate: req.body.birthDate,
-    birthPlace: req.body.birthPlace,
-    socialSecNumber: req.body.socialSecNumber,
-    idCardNumber: req.body.idCardNumber,
-    country: req.body.country,
-    nationality: req.body.nationality,
-    maritalStatus: req.body.maritalStatus,
+    email: req.body.email,
+    password: req.body.password,
   };
 
   if (newEmployee.employeeState == "on") {
@@ -141,35 +138,50 @@ const createEmployee = async (req, res) => {
   }
 
   if (newEmployee.store == 0) {
-    req.flash(
-      "message",
-      "Please create a store frist before creating employees."
-    );
+    req.flash("message", "Please assigne a store to the employee.");
     return res.redirect("/employee");
   }
 
   if (
-    !newEmployee.personalNumber ||
+    !newEmployee.store ||
+    !newEmployee.email ||
+    !newEmployee.password ||
     !newEmployee.firstName ||
-    !newEmployee.lastName ||
-    !newEmployee.gender ||
-    !newEmployee.birthDate ||
-    !newEmployee.birthPlace ||
-    !newEmployee.socialSecNumber ||
-    !newEmployee.idCardNumber ||
-    !newEmployee.country ||
-    !newEmployee.nationality ||
-    !newEmployee.maritalStatus
+    !newEmployee.lastName
   ) {
     req.flash("message", "All fields are required.");
-    res.redirect("/employee");
+    return res.redirect("/employee");
+  }
+
+  //CHECK WHO IS CREATING THE EMPLOYEE
+
+  const admin =
+    req.user.roles == "Admin" || req.user.roles == "Owner"
+      ? req.user.id
+      : req.user.admin;
+
+  const duplicateUser = await User.findOne({ userEmail: newEmployee.email });
+
+  if (duplicateUser) {
+    req.flash("message", "User already exists with provided email.");
+    return res.redirect("/employee");
   }
 
   try {
+    const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
+    const newUser = {
+      admin: admin,
+      store: newEmployee.store,
+      userName: `${newEmployee.firstName} ${newEmployee.lastName}`,
+      userEmail: newEmployee.email,
+      password: hashedPassword,
+    };
+    const resultUser = await User.create(newUser);
+
     const result = await Employee.create(newEmployee);
     req.flash(
       "message",
-      `Employee ${result.firstName} ${result.lastName} was created successfully.`
+      `Employee ${resultUser.userName} with email: ${result.email} was created successfully.`
     );
     res.redirect("/employee");
   } catch (err) {
@@ -310,7 +322,7 @@ const updateEmployeePersonal = async (req, res) => {
 // UPDATE CONTACT AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeContact = async (req, res) => {
   if (!req.params.id) {
-    req.flash("message", "Id parameter is rewuired");
+    req.flash("message", "Id parameter is required");
     return res.redirect("/pages/404");
   }
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
@@ -487,39 +499,46 @@ const sendEmployeeEmail = async (req, res) => {
     "store"
   );
 
+  const userAdmin = req.user.admin
+    ? await User.findOne({ _id: req.user.id }).populate("admin")
+    : "";
+
+  const userAdminEmail = !userAdmin
+    ? req.user.userEmail
+    : userAdmin.admin.userEmail;
+
   const html = `
       <h1>Hello</h1>
       <p>This is the body of the email.</p>
+      <label>Personal number</label>
       <p>${oneEmployee.personalNumber}</p>
+      <label>Name and Surname</label>
       <p>${oneEmployee.firstName} ${oneEmployee.lastName}</p>`;
 
-  const transporter = nodeMailer.createTransport({
-    service: "hotmail",
-    auth: {
-      user: "stefan_csomor@hotmail.com",
-      pass: "Nuendoes19780915",
-    },
-  });
+  const subject = `Nástup - ${oneEmployee.lastName} ${oneEmployee.firstName} ${
+    oneEmployee.store.storeName
+  } ${oneEmployee.contractType} od: ${moment(
+    oneEmployee.contractStartDate
+  ).format("LL")}`;
 
-  try {
-    const info = await transporter.sendMail({
-      from: "Štefan Csomor <stefan_csomor@hotmail.com>",
-      to: "csomorstefan16@gmail.com",
-      subject: `Nástup - ${oneEmployee.lastName} ${oneEmployee.firstName} ${
-        oneEmployee.contractType
-      } ${oneEmployee.store.storeName} od: ${moment(
-        oneEmployee.contractStartDate
-      ).format("l")}`,
-      html: html,
-    });
-    console.log("Message send" + info.messageId);
+  const info = await sendEmail(
+    req.user.userEmail,
+    [userAdminEmail, oneEmployee.store.storeEmail],
+    subject,
+    html
+  );
+
+  if (info.messageId) {
+    console.log("Message sent");
     req.flash(
       "message",
-      `Employee ${oneEmployee.firstName} ${oneEmployee.lastName} was sent via email. Nessage ID = ${info.messageId}`
+      `Employee ${oneEmployee.firstName} ${oneEmployee.lastName} was sent via email id: ${info.messageId}.`
     );
-    return res.redirect("/employee");
-  } catch (err) {
-    console.log(err);
+    res.redirect("/employee");
+  } else {
+    console.log("Message was not sent");
+    req.flash("message", `Employee was sent via email.`);
+    res.redirect("/employee");
   }
 };
 

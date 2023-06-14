@@ -34,6 +34,13 @@ const getUserById = async (id) => {
 
 // REGISTER USER AND REDIRECT TO EMPLOYEE ROUTE
 const registerUser = async (req, res) => {
+  const duplicateUser = await User.findOne({ userEmail: req.body.userEmail });
+
+  if (duplicateUser) {
+    req.flash("message", "User already exists with provided email.");
+    return res.redirect("/register");
+  }
+
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = {

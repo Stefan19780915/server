@@ -15,6 +15,9 @@ const storeSchema = new Schema({
   storeName: {
     type: String,
   },
+  storeEmail: {
+    type: String,
+  },
   storeStreet: {
     type: String,
   },

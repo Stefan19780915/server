@@ -7,6 +7,7 @@ const createStore = async (req, res) => {
     admin: req.body.admin,
     user: req.body.user,
     storeName: req.body.storeName,
+    storeEmail: req.body.storeEmail,
     storeStreet: req.body.storeStreet,
     storeStreetNumber: req.body.storeStreetNumber,
     storeCity: req.body.storeCity,
@@ -22,6 +23,7 @@ const createStore = async (req, res) => {
     !newStore.admin ||
     !newStore.user ||
     !newStore.storeName ||
+    !newStore.storeEmail ||
     !newStore.storeStreet ||
     !newStore.storeStreetNumber ||
     !newStore.storeCity ||
@@ -64,6 +66,7 @@ const updateStore = async (req, res) => {
   }
 
   if (req.body.storeName) store.storeName = req.body.storeName;
+  if (req.body.storeEmail) store.storeEmail = req.body.storeEmail;
   if (req.body.storeStreet) store.storeStreet = req.body.storeStreet;
   if (req.body.storeStreetNumber)
     store.storeStreetNumber = req.body.storeStreetNumber;

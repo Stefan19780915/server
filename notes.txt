@@ -1,0 +1,8 @@
+- add store email
+- do not allow to register a person if there is the same person in the DB and has no end contract specified
+- make roles selectable not writeable into input
+- add organiasation collection and schema + each admin should have organisation ObjectId
+- owner user should be able to create organisation - make a user Admin and assign the organisation to that Admin
+- pick a country froma listen
+- pick a nationality froma list
+- cannot make someonea manager if the store doeas not have him assigned to it....

@@ -30,43 +30,33 @@ const employeesSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   gender: {
     type: String,
-    required: true,
   },
   birthDate: {
     type: Date,
-    required: true,
   },
   birthPlace: {
     type: String,
-    required: true,
   },
   socialSecNumber: {
     type: Number,
-    required: true,
   },
   idCardNumber: {
     type: String,
-    required: true,
   },
   country: {
     type: String,
-    required: true,
   },
   nationality: {
     type: String,
-    required: true,
   },
   maritalStatus: {
     type: String,
-    required: true,
   },
   landLinePhone: {
     type: String,
@@ -76,9 +66,11 @@ const employeesSchema = new Schema({
   },
   email: {
     type: String,
+    require: true,
   },
   password: {
     type: String,
+    require: true,
   },
   street: {
     type: String,

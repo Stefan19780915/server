@@ -88,7 +88,7 @@
       <% } %>
     </div>
 
-    <% if(user.roles == 'Manager') { %>
+    <% if(user.roles == 'Manager' && stores) { %>
 
     <section class="sub-cat">
       <div class="container">
@@ -172,7 +172,7 @@
           <div class="custom-select" style="width: 200px">
             <select name="user" id="">
               <option value="0">Select user:</option>
-              <% managers.forEach((user)=>{ %>
+              <% users.forEach((user)=>{ %>
               <option value="<%= user._id %>"><%= user.userName %></option>
               <% }) %>
             </select>
@@ -180,6 +180,9 @@
 
           <label for="storeName">Store name</label>
           <input type="text" name="storeName" id="" />
+
+          <label for="storeEmail">Store email</label>
+          <input type="email" name="storeEmail" id="" />
 
           <label for="storeStreet">Store street</label>
           <input type="text" name="storeStreet" id="" />
@@ -220,7 +223,7 @@
         <div class="custom-select" style="width: 200px">
           <select name="user" id="">
             <option value="0">Select user:</option>
-            <% managers.forEach((user)=>{ %>
+            <% users.forEach((user)=>{ %>
             <option value="<%= user._id %>"><%= user.userName %></option>
             <% }) %>
           </select>
@@ -232,6 +235,14 @@
           name="storeName"
           id=""
           value="<%= store.storeName %>"
+        />
+
+        <label for="storeEmail">Store email</label>
+        <input
+          type="email"
+          name="storeEmail"
+          id=""
+          value="<%= store.storeEmail %>"
         />
 
         <label for="storeStreet">Store street</label>
@@ -362,8 +373,8 @@
     </div>
   </section>
 
-  <% if (user.roles == 'Manager' || user.roles == 'Admin' || user.roles ==
-  'Owner') { %>
+  <% if (user.roles == 'Manager' && stores || user.roles == 'Admin' ||
+  user.roles == 'Owner' ) { %>
   <section class="secondary-section">
     <div class="container flow">
       <div class="new-employee">
@@ -402,96 +413,35 @@
           </div>
 
           <div>
-            <label for="personalNumber">Personal number</label>
+            <label for="firstName">First name</label>
             <input
               type="text"
-              name="personalNumber"
-              value="<%= data.personalNumber %>"
+              name="firstName"
+              value="<%= data.firstName %>"
               required
             />
-
-            <label for="firstName">First name</label>
-            <input type="text" name="firstName" value="<%= data.firstName %>" />
           </div>
           <div>
             <label for="lastName">Last name</label>
-            <input type="text" name="lastName" value="<%= data.lastName %>" />
-          </div>
-
-          <div class="d-flex-visible gap">
-            <div class="d-flex-visible gap">
-              <label for="male">Male</label>
-              <input type="radio" name="gender" value="male" <% if(data.gender
-              === 'male') { %> checked <% } else { %> <% } %> />
-            </div>
-            <div class="d-flex-visible gap">
-              <label for="male">Female</label>
-              <input type="radio" name="gender" value="female" <% if(data.gender
-              === 'female') { %> checked <% } else { %> <% } %> />
-            </div>
-          </div>
-        </div>
-
-        <div class="flow">
-          <div>
-            <label for="birthDate">Date of birth</label>
-            <input type="date" name="birthDate" value="<%= data.birthDate %>" />
-          </div>
-          <div>
-            <label for="birthPlace">Place of birth</label>
             <input
               type="text"
-              name="birthPlace"
-              value="<%= data.birthPlace %>"
-            />
-          </div>
-          <div>
-            <label for="socialSecNumber">Social security number</label>
-            <input
-              type="number"
-              name="socialSecNumber"
-              value="<%= data.socialSecNumber %>"
-            />
-          </div>
-          <div>
-            <label for="idCardNumber">Identification card number</label>
-            <input
-              type="text"
-              name="idCardNumber"
-              value="<%= data.idCardNumber %>"
-            />
-          </div>
-        </div>
-
-        <div class="flow">
-          <div>
-            <label for="country">Country</label>
-            <input type="text" name="country" value="<%= data.country %>" />
-          </div>
-          <div>
-            <label for="nationality">Nationality</label>
-            <input
-              type="text"
-              name="nationality"
-              value="<%= data.nationality %>"
+              name="lastName"
+              value="<%= data.lastName %>"
+              required
             />
           </div>
 
-          <label for="maritalStatus">Marital status</label>
-          <div class="d-flex-visible gap">
-            <div class="d-flex-visible gap">
-              <label for="single">Single</label>
-              <input type="radio" name="maritalStatus" value="single" <%
-              if(data.maritalStatus === 'single') { %> checked <% } else { %> <%
-              } %> />
-            </div>
-            <div class="d-flex-visible gap">
-              <label for="married">Married</label>
-              <input type="radio" name="maritalStatus" value="married" <%
-              if(data.maritalStatus === 'married') { %> checked <% } else { %>
-              <% } %> />
-            </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" value="<%= data.email %>" />
+            <label for="password">Pay slip pass</label>
+            <input
+              type="password"
+              name="password"
+              value="<%= data.password %>"
+            />
           </div>
+
           <div class="d-flex-visible space-between">
             <button class="btn-primary dark-outline">Create Employee</button>
           </div>

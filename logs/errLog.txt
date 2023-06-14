@@ -2037,3 +2037,93 @@ Cannot read properties of null (reading 'storeName')
     30|       <form
 
 Cannot read properties of null (reading 'storeName')
+13/06/2023	23:40:35	35fee198-44fa-4ac5-9fe1-fa4095fd1625	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:101
+    99|           <div>
+    100|             <label for="birthDate">Date of birth</label>
+ >> 101|             <input type="date" name="birthDate" value="<%=
+    102|             data.birthDate.toISOString().split("T")[0]%>" required/>
+    103|           </div>
+    104|           <div>
+
+Cannot read properties of undefined (reading 'toISOString')
+13/06/2023	23:43:09	6b05b6f9-c7e5-4983-accf-cad59c96c9ab	TypeError: /Users/queensway/Downloads/server/views/pages/employee.ejs:101
+    99|           <div>
+    100|             <label for="birthDate">Date of birth</label>
+ >> 101|             <input type="date" name="birthDate" value="<%=
+    102|             data.birthDate.toISOString().split("T")[0]%>"/>
+    103|           </div>
+    104|           <div>
+
+Cannot read properties of undefined (reading 'toISOString')
+14/06/2023	00:41:17	cd4c560a-7c69-4bf2-9046-cd21ff6934ad	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:30
+    28|     </div>
+    29| 
+ >> 30|     <% users.forEach((userHere)=>{ %>
+    31|     <section class="sub-cat">
+    32|       <div class="container">
+    33|         <h4>
+
+users.forEach is not a function
+14/06/2023	00:42:59	b28747ba-731a-41d8-9d29-79914132b475	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+14/06/2023	00:45:07	c2e25653-e91b-477c-82b1-8166dbcbf690	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+14/06/2023	01:29:59	f7adbb8e-51cf-48ae-b7bc-3e171eef9fe7	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+14/06/2023	01:41:16	1c2c947d-51dd-43d5-9040-50e07b664fe9	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+14/06/2023	01:45:09	f2a379a7-a4ad-4e57-a79b-c81c1b639770	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+14/06/2023	01:45:42	de748d18-5b94-4168-830b-59b308fedc28	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+14/06/2023	01:48:16	3c832bea-e083-499d-aeee-33ab50798c9e	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:98
+    96|           <div class="d-flex-visible space-between">
+    97|             <a> <%= stores.storeName %> </a>
+ >> 98|             <a> <%= stores.user.userName %> </a>
+    99|           </div>
+    100|         </h4>
+    101|       </div>
+
+Cannot read properties of undefined (reading 'userName')
