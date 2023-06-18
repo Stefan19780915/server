@@ -181,19 +181,19 @@ const createEmployee = async (req, res) => {
     };
 
     const resultUser = await User.create(newUser);
-
     const result = await Employee.create(newEmployee);
 
     // CREATE THE TOKEN HERE
-
-    const token = await new Token({
-      userID: resultUser._id,
+    const token = {
+      userID: resultUser.id,
       token: crypto.randomBytes(32).toString("hex"),
-    }).save();
+    };
+
+    const resultToken = await Token.create(token);
 
     //SEND THE EMAIL VERIFICATION LINK
 
-    const link = `${process.env.BASE_URL}/verify/${resultUser._id}/${token.token}`;
+    const link = `${process.env.BASE_URL}/verify/${resultUser.id}/${resultToken.token}`;
 
     const html = `
     <h1>Hello</h1>

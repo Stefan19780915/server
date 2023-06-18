@@ -1,3 +1,4 @@
+const { verify } = require("crypto");
 const Store = require("../model/Store");
 const User = require("../model/User");
 const Token = require("../model/token");
@@ -39,7 +40,7 @@ const verifyUserEmail = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
     if (!user) {
-      req.flash("message", "Invalid link.");
+      req.flash("message", "Invalid link - user.");
       return res.redirect("/");
     }
     const token = await Token.findOne({
@@ -47,11 +48,12 @@ const verifyUserEmail = async (req, res) => {
       token: req.params.token,
     });
     if (!token) {
-      req.flash("message", "Invalid link.");
+      req.flash("message", "Invalid link - token.");
       return res.redirect("/");
     }
 
-    await User.updateOne({ _id: user.id, verified: true, active: true });
+    await User.updateOne({ _id: user._id }, { verified: true });
+    await User.updateOne({ _id: user._id }, { active: true });
     await Token.findByIdAndRemove(token._id);
 
     req.flash("message", "Email was verified successfully.");
