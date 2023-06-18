@@ -17,6 +17,12 @@ initializePassport(
 
 router.get("/register", checkNotAuthUser, usersController.register);
 
+router.get(
+  "/verify/:id/:token",
+  checkNotAuthUser,
+  usersController.verifyUserEmail
+);
+
 router.get("/", checkNotAuthUser, usersController.login);
 
 router.post(

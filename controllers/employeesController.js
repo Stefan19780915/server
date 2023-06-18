@@ -1,9 +1,11 @@
 const User = require("../model/User");
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Token = require("../model/token");
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const nodeMailer = require("nodemailer");
 const { zhCN } = require("date-fns/locale");
 const sendEmail = require("../utils/sendEmployeeEmail");
@@ -169,6 +171,7 @@ const createEmployee = async (req, res) => {
 
   try {
     const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
+
     const newUser = {
       admin: admin,
       store: newEmployee.store,
@@ -176,12 +179,40 @@ const createEmployee = async (req, res) => {
       userEmail: newEmployee.email,
       password: hashedPassword,
     };
+
     const resultUser = await User.create(newUser);
 
     const result = await Employee.create(newEmployee);
+
+    // CREATE THE TOKEN HERE
+
+    const token = await new Token({
+      userID: resultUser._id,
+      token: crypto.randomBytes(32).toString("hex"),
+    }).save();
+
+    //SEND THE EMAIL VERIFICATION LINK
+
+    const link = `${process.env.BASE_URL}/verify/${resultUser._id}/${token.token}`;
+
+    const html = `
+    <h1>Hello</h1>
+      <p>Please click on the link below, and verify your email account.</p>
+      <a href="${link}">${link}</a>
+      <p>Your temporary login password is: ${newEmployee.password}</p>
+      `;
+
+    const info = await sendEmail(
+      resultUser.userEmail,
+      [],
+      "Please verify your email",
+      html
+    );
+
     req.flash(
       "message",
-      `Employee ${resultUser.userName} with email: ${result.email} was created successfully.`
+      `Employee and user ${resultUser.userName} with email: ${result.email} was created successfully.
+      Email verification link was sent to ${resultUser.userEmail}`
     );
     res.redirect("/employee");
   } catch (err) {

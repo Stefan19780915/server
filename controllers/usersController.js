@@ -1,5 +1,6 @@
 const Store = require("../model/Store");
 const User = require("../model/User");
+const Token = require("../model/token");
 const bcrypt = require("bcrypt");
 
 //RENDER READ REGISTER PAGE
@@ -30,6 +31,36 @@ const getUserByEmail = async (email) => {
 const getUserById = async (id) => {
   const result = await User.findOne({ _id: id });
   return result;
+};
+
+// USER EMAIL VERYFICATION
+
+const verifyUserEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) {
+      req.flash("message", "Invalid link.");
+      return res.redirect("/");
+    }
+    const token = await Token.findOne({
+      userID: user.id,
+      token: req.params.token,
+    });
+    if (!token) {
+      req.flash("message", "Invalid link.");
+      return res.redirect("/");
+    }
+
+    await User.updateOne({ _id: user.id, verified: true, active: true });
+    await Token.findByIdAndRemove(token._id);
+
+    req.flash("message", "Email was verified successfully.");
+    res.redirect("/");
+  } catch (err) {
+    req.flash("message", "An error occured.");
+    res.redirect("/");
+    console.log(err);
+  }
 };
 
 // REGISTER USER AND REDIRECT TO EMPLOYEE ROUTE
@@ -135,4 +166,5 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
+  verifyUserEmail,
 };
