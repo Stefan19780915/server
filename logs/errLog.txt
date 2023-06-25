@@ -1,0 +1,1 @@
+18/06/2023	23:37:39	733c31aa-9886-4701-9332-4af729c6a372	TypeError: req.session.regenerate is not a function

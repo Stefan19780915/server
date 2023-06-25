@@ -1,8 +1,19 @@
 <%- include('../partials/head') %>
 <body>
-  <%- include('../partials/msg') %> <%- include('../partials/header') %> <% if
-  (user.roles == 'Admin' || user.roles == 'Manager' || user.roles == 'Owner') {
-  %>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %> <%
+  if(user.roles == "User") { %>
+  <section class="secondary-section">
+    <div class="container d-flex-col center gap">
+      <h1>Welcome to KFC</h1>
+      <h3>We are very happy to have you joining our team.</h3>
+      <p>
+        Please click on your name in the header section and update your personal
+        information.
+      </p>
+    </div>
+  </section>
+  <% } %> <% if (user.roles == 'Admin' || user.roles == 'Manager' || user.roles
+  == 'Owner') { %>
   <a style="display: block" class="head">
     <div class="container">
       <h2 class="name" style="text-align: center">

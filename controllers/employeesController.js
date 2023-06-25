@@ -170,18 +170,18 @@ const createEmployee = async (req, res) => {
   }
 
   try {
+    const result = await Employee.create(newEmployee);
     const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
-
     const newUser = {
       admin: admin,
-      store: newEmployee.store,
-      userName: `${newEmployee.firstName} ${newEmployee.lastName}`,
-      userEmail: newEmployee.email,
+      store: result.store,
+      employee: result._id,
+      userName: `${result.firstName} ${result.lastName}`,
+      userEmail: result.email,
       password: hashedPassword,
     };
 
     const resultUser = await User.create(newUser);
-    const result = await Employee.create(newEmployee);
 
     // CREATE THE TOKEN HERE
     const token = {

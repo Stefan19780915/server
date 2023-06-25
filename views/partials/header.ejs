@@ -6,7 +6,11 @@
           <a href="/employee">HEADER</a>
         </h1>
         <% if (user) { %>
-        <p><%= user.userName%></p>
+
+        <a class="btn-secondary" href="/employee/<%=user.employee%> "
+          ><%= user.userName%></a
+        >
+
         <form action="/logout?_method=DELETE" method="POST">
           <button
             type="submit"

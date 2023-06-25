@@ -336,6 +336,13 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     display: flex;
 }
 
+.d-flex-col{
+    display: flex;
+    flex-direction: column;
+    height: 50vh;
+    text-align: center;
+}
+
 .space-between{
     justify-content: space-between;
     align-items: center;
