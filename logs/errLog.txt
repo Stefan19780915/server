@@ -1,1 +1,24 @@
 18/06/2023	23:37:39	733c31aa-9886-4701-9332-4af729c6a372	TypeError: req.session.regenerate is not a function
+30/06/2023	23:30:40	d9432cea-e30f-40d9-8361-6a2196f344db	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:221
+    219|           <div class="d-flex-visible space-between">
+    220|             <a> <%= store.storeName %> </a>
+ >> 221|             <a> <%= store.user.userName %> </a>
+    222|           </div>
+    223|         </h4>
+    224|       </div>
+
+Cannot read properties of null (reading 'userName')
+01/07/2023	00:50:01	42219a07-a6a3-43df-b0f5-97552054d6ce	SyntaxError: Unexpected token ';' in /Users/queensway/Downloads/server/views/pages/employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+01/07/2023	01:44:23	8e554175-6944-4a73-81db-870a5357b4f0	TypeError: /Users/queensway/Downloads/server/views/pages/employees.ejs:221
+    219|           <div class="d-flex-visible space-between">
+    220|             <a> <%= store.storeName %> </a>
+ >> 221|             <a> <%= store.user.userName %> </a>
+    222|           </div>
+    223|         </h4>
+    224|       </div>
+
+Cannot read properties of null (reading 'userName')

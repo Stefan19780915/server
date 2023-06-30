@@ -311,10 +311,10 @@ const updateEmployeePersonal = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
-  if (req.body.store != 0) {
+  console.log(employee.store);
+
+  if (req.body.store && req.body.store != 0) {
     employee.store = req.body.store;
-  } else {
-    employee.store;
   }
 
   if (!req.body.employeeState) {

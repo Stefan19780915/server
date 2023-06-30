@@ -98,8 +98,8 @@
         <div class="flow">
           <div>
             <label for="birthDate">Date of birth</label>
-            <input type="date" name="birthDate" value="<% data.birthDate ?
-            data.birthDate.toISOString().split("T")[0] : ''%>"/>
+            <input type="date" name="birthDate" value="<%= data.birthDate ?
+            data.birthDate.toISOString().split("T")[0] : "" %>" />
           </div>
           <div>
             <label for="birthPlace">Place of birth</label>
