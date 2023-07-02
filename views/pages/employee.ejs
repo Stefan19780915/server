@@ -36,7 +36,7 @@
           <div>
             <div class="d-flex-visible space-between">
               <label for="employeeState">Employee active state</label>
-              <input type="checkbox" name="employeeState" <%
+              <input autocomplete="off" type="checkbox" name="employeeState" <%
               if(data.employeeState == true) { %> checked <% } else { %> <% } %>
               />
             </div>
@@ -58,6 +58,7 @@
           <div>
             <label for="personalNumber">Personal number</label>
             <input
+              autocomplete="off"
               type="number"
               name="personalNumber"
               value="<%= data.personalNumber %>"
@@ -65,6 +66,7 @@
             />
             <label for="firstName">First name</label>
             <input
+              autocomplete="off"
               type="text"
               name="firstName"
               value="<%= data.firstName %>"
@@ -74,6 +76,7 @@
           <div>
             <label for="lastName">Last name</label>
             <input
+              autocomplete="off"
               type="text"
               name="lastName"
               value="<%= data.lastName %>"
@@ -84,13 +87,15 @@
           <div class="d-flex-visible gap">
             <div class="d-flex-visible gap">
               <label for="male">Male</label>
-              <input type="radio" name="gender" value="male" <% if(data.gender
-              === 'male') { %> checked <% } else { %> <% } %> />
+              <input autocomplete="off" type="radio" name="gender" value="male"
+              <% if(data.gender === 'male') { %> checked <% } else { %> <% } %>
+              />
             </div>
             <div class="d-flex-visible gap">
               <label for="male">Female</label>
-              <input type="radio" name="gender" value="female" <% if(data.gender
-              === 'female') { %> checked <% } else { %> <% } %> />
+              <input autocomplete="off" type="radio" name="gender"
+              value="female" <% if(data.gender === 'female') { %> checked <% }
+              else { %> <% } %> />
             </div>
           </div>
         </div>
@@ -98,12 +103,14 @@
         <div class="flow">
           <div>
             <label for="birthDate">Date of birth</label>
-            <input type="date" name="birthDate" value="<%= data.birthDate ?
-            data.birthDate.toISOString().split("T")[0] : "" %>" />
+            <input autocomplete="off" type="date" name="birthDate" value="<%=
+            data.birthDate ? data.birthDate.toISOString().split("T")[0] : "" %>"
+            />
           </div>
           <div>
             <label for="birthPlace">Place of birth</label>
             <input
+              autocomplete="off"
               type="text"
               name="birthPlace"
               value="<%= data.birthPlace %>"
@@ -112,6 +119,7 @@
           <div>
             <label for="socialSecNumber">Social security number</label>
             <input
+              autocomplete="off"
               type="number"
               name="socialSecNumber"
               value="<%= data.socialSecNumber %>"
@@ -120,6 +128,7 @@
           <div>
             <label for="idCardNumber">Identification card number</label>
             <input
+              autocomplete="off"
               type="text"
               name="idCardNumber"
               value="<%= data.idCardNumber %>"
@@ -130,11 +139,17 @@
         <div class="flow">
           <div>
             <label for="country">Country</label>
-            <input type="text" name="country" value="<%= data.country %>" />
+            <input
+              autocomplete="off"
+              type="text"
+              name="country"
+              value="<%= data.country %>"
+            />
           </div>
           <div>
             <label for="nationality">Nationality</label>
             <input
+              autocomplete="off"
               type="text"
               name="nationality"
               value="<%= data.nationality %>"
@@ -145,15 +160,15 @@
           <div class="d-flex-visible gap">
             <div class="d-flex-visible gap">
               <label for="single">Single</label>
-              <input type="radio" name="maritalStatus" value="single" <%
-              if(data.maritalStatus === 'single') { %> checked <% } else { %> <%
-              } %> />
+              <input autocomplete="off" type="radio" name="maritalStatus"
+              value="single" <% if(data.maritalStatus === 'single') { %> checked
+              <% } else { %> <% } %> />
             </div>
             <div class="d-flex-visible gap">
               <label for="married">Married</label>
-              <input type="radio" name="maritalStatus" value="married" <%
-              if(data.maritalStatus === 'married') { %> checked <% } else { %>
-              <% } %> />
+              <input autocomplete="off" type="radio" name="maritalStatus"
+              value="married" <% if(data.maritalStatus === 'married') { %>
+              checked <% } else { %> <% } %> />
             </div>
           </div>
           <div class="d-flex-visible space-between">
@@ -184,20 +199,32 @@
         <div>
           <label for="landLinePhone">Land line</label>
           <input
+            autocomplete="off"
             type="tel"
             name="landLinePhone"
             value="<%= data.landLinePhone %>"
           />
           <label for="mobilePhone">Mobile</label>
           <input
+            autocomplete="off"
             type="tel"
             name="mobilePhone"
             value="<%= data.mobilePhone %>"
           />
           <label for="email">Email</label>
-          <input type="email" name="email" value="<%= data.email %>" />
+          <input
+            autocomplete="off"
+            type="email"
+            name="email"
+            value="<%= data.email %>"
+          />
           <label for="password">Pay slip pass</label>
-          <input type="password" name="password" value="<%= data.password %>" />
+          <input
+            autocomplete="off"
+            type="password"
+            name="password"
+            value="<%= data.password %>"
+          />
         </div>
         <h4>Address</h4>
         <p>
@@ -207,17 +234,29 @@
         </p>
         <div>
           <label for="street">Street</label>
-          <input type="text" name="street" value="<%= data.street %>" />
+          <input
+            autocomplete="off"
+            type="text"
+            name="street"
+            value="<%= data.street %>"
+          />
           <label for="houseNnumber">House number</label>
           <input
+            autocomplete="off"
             type="number"
             name="houseNumber"
             value="<%= data.houseNumber %>"
           />
           <label for="city">City/Town</label>
-          <input type="text" name="city" value="<%= data.city %>" />
+          <input
+            autocomplete="off"
+            type="text"
+            name="city"
+            value="<%= data.city %>"
+          />
           <label for="postalCode">Postal code</label>
           <input
+            autocomplete="off"
             type="number"
             name="postalCode"
             value="<%= data.postalCode%>"
@@ -366,13 +405,37 @@
       >
         <div>
           <label for="childName">Name</label>
-          <input type="text" name="childName" value="" required />
+          <input
+            autocomplete="off"
+            type="text"
+            name="childName"
+            value=""
+            required
+          />
           <label for="childSurname">Surname</label>
-          <input type="text" name="childSurname" value="" required />
+          <input
+            autocomplete="off"
+            type="text"
+            name="childSurname"
+            value=""
+            required
+          />
           <label for="childDateOfBirth">Date of birth</label>
-          <input type="date" name="childDateOfBirth" value="" required />
+          <input
+            autocomplete="off"
+            type="date"
+            name="childDateOfBirth"
+            value=""
+            required
+          />
           <label for="childSocialSecNumber">Social security number</label>
-          <input type="number" name="childSocialSecNumber" value="" required />
+          <input
+            autocomplete="off"
+            type="number"
+            name="childSocialSecNumber"
+            value=""
+            required
+          />
         </div>
         <button class="add-child btn-primary">Add Child</button>
       </form>
@@ -397,19 +460,26 @@
       >
         <div>
           <label for="spouseName">Name</label>
-          <input type="text" name="spouseName" value="<%=data.spouseName%>" />
+          <input
+            autocomplete="off"
+            type="text"
+            name="spouseName"
+            value="<%=data.spouseName%>"
+          />
           <label for="spouseSurname">Surname</label>
           <input
+            autocomplete="off"
             type="text"
             name="spouseSurname"
             value="<%=data.spouseSurname%>"
           />
           <label for="spouseDateOfBirth">Date of birth</label>
-          <input type="date" name="spouseDateOfBirth" value="<%=
-          data.spouseDateOfBirth ?
+          <input autocomplete="off" type="date" name="spouseDateOfBirth"
+          value="<%= data.spouseDateOfBirth ?
           data.spouseDateOfBirth.toISOString().split("T")[0]: ''%>" />
           <label for="spouseSocialSecNumber">Social security number</label>
           <input
+            autocomplete="off"
             type="number"
             name="spouseSocialSecNumber"
             value="<%=data.spouseSocialSecNumber%>"
@@ -441,6 +511,7 @@
             >Public health insurance company name</label
           >
           <input
+            autocomplete="off"
             type="text"
             name="publicHealthInsuranceName"
             value="<%= data.publicHealthInsuranceName %>"
@@ -450,17 +521,19 @@
           <i style="font-size: small"
             >(please leave blank if employee has no gastro card)</i
           >
-          <input type="date" name="gastroHealthCard" id="cardEndDate" value="<%=
-          data.gastroHealthCard%>" <% if (data.gastroHealthCard == 'indefinite')
-          { %> disabled <% } %> />
+          <input autocomplete="off" type="date" name="gastroHealthCard"
+          id="cardEndDate" value="<%= data.gastroHealthCard%>" <% if
+          (data.gastroHealthCard == 'indefinite') { %> disabled <% } %> />
           <label for="indefiniteHealthCard"
             >Gastro card idefinite period of time</label
           >
 
-          <input type="checkbox" id="checkHealth" value="<% if
-          (data.gastroHealthCard == 'indefinite') { %>0<% } else { %>1<% } %>"
-          <% if (data.gastroHealthCard == 'indefinite') { %> checked <% } %> />
+          <input autocomplete="off" type="checkbox" id="checkHealth" value="<%
+          if (data.gastroHealthCard == 'indefinite') { %>0<% } else { %>1<% }
+          %>" <% if (data.gastroHealthCard == 'indefinite') { %> checked <% } %>
+          />
           <input
+            autocomplete="off"
             type="hidden"
             id="hiddenHealth"
             name="gastroHealthCard"
@@ -491,11 +564,17 @@
       >
         <div>
           <label for="bankName">Bank Name</label>
-          <input type="text" name="bankName" value="<%= data.bankName %>" />
+          <input
+            autocomplete="off"
+            type="text"
+            name="bankName"
+            value="<%= data.bankName %>"
+          />
         </div>
         <div>
           <label for="accountNumber">Account number</label>
           <input
+            autocomplete="off"
             type="text"
             name="accountNumber"
             value="<%= data.accountNumber %>"
@@ -503,7 +582,12 @@
         </div>
         <div>
           <label for="bankCode">Bank code</label>
-          <input type="number" name="bankCode" value="<%= data.bankCode %>" />
+          <input
+            autocomplete="off"
+            type="number"
+            name="bankCode"
+            value="<%= data.bankCode %>"
+          />
         </div>
         <button class="add-bank btn-primary">Update</button>
       </form>
@@ -524,21 +608,23 @@
       >
         <div>
           <label for="contractStartDate">Start date</label>
-          <input type="date" name="contractStartDate" value="<%=
-          data.contractStartDate ?
+          <input autocomplete="off" type="date" name="contractStartDate"
+          value="<%= data.contractStartDate ?
           data.contractStartDate.toISOString().split("T")[0]: ''%>" />
         </div>
         <div>
           <label for="endDate">End date</label>
-          <input id="endDate" type="date" name="contractEndDate" value="<%=
-          data.contractEndDate%>" <% if (data.contractEndDate == 'indefinite') {
-          %> disabled <% } %> required />
+          <input autocomplete="off" id="endDate" type="date"
+          name="contractEndDate" value="<%= data.contractEndDate%>" <% if
+          (data.contractEndDate == 'indefinite') { %> disabled <% } %> required
+          />
 
           <label for="indefinite">Idefinite period of time</label>
-          <input type="checkbox" id="check" value=" <% if (data.contractEndDate
-          == 'indefinite') { %>0<% } else { %>1<% } %> " <% if
-          (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
+          <input autocomplete="off" type="checkbox" id="check" value=" <% if
+          (data.contractEndDate == 'indefinite') { %>0<% } else { %>1<% } %> "
+          <% if (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
           <input
+            autocomplete="off"
             type="hidden"
             id="hidden"
             name="contractEndDate"
@@ -549,26 +635,27 @@
         <div class="flow">
           <p>Please choose the salary type for the employee.</p>
           <div class="d-flex-visible gap">
-            <input type="radio" name="contractSalaryType" value="hourlyRate" <%
-            if(data.contractSalaryType === 'hourlyRate') { %> checked <% } else
-            { %> <% } %>/>
+            <input autocomplete="off" type="radio" name="contractSalaryType"
+            value="hourlyRate" <% if(data.contractSalaryType === 'hourlyRate') {
+            %> checked <% } else { %> <% } %>/>
             <label for="hourlyRate">Hourly rate</label>
           </div>
           <div class="d-flex-visible gap">
-            <input type="radio" name="contractSalaryType" value="monthlySalary"
-            <% if(data.contractSalaryType === 'monthlySalary') { %> checked <% }
-            else { %> <% } %> />
+            <input autocomplete="off" type="radio" name="contractSalaryType"
+            value="monthlySalary" <% if(data.contractSalaryType ===
+            'monthlySalary') { %> checked <% } else { %> <% } %> />
             <label for="monthlySalary">Monthly salary</label>
           </div>
           <div class="d-flex-visible gap">
-            <input type="radio" name="contractSalaryType" value="taskBased" <%
-            if(data.contractSalaryType === 'taskBased') { %> checked <% } else {
-            %> <% } %>/>
+            <input autocomplete="off" type="radio" name="contractSalaryType"
+            value="taskBased" <% if(data.contractSalaryType === 'taskBased') {
+            %> checked <% } else { %> <% } %>/>
             <label for="taskBased">Task based salary</label>
           </div>
           <div>
             <label for="rate">Rate</label>
             <input
+              autocomplete="off"
               type="number"
               step="0.01"
               name="contractSalary"
@@ -581,26 +668,27 @@
         <div class="flow">
           <p>Please choose the contract type for the employee</p>
           <div class="d-flex-visible gap">
-            <input type="radio" name="contractType" value="TPP" <%
-            if(data.contractType === 'TPP') { %> checked <% } else { %> <% }
-            %>/>
+            <input autocomplete="off" type="radio" name="contractType"
+            value="TPP" <% if(data.contractType === 'TPP') { %> checked <% }
+            else { %> <% } %>/>
             <label for="TPP">Full Time Contract</label>
           </div>
           <div class="d-flex-visible gap">
-            <input type="radio" name="contractType" value="DOBPS" <%
-            if(data.contractType === 'DOBPS') { %> checked <% } else { %> <% }
-            %>/>
+            <input autocomplete="off" type="radio" name="contractType"
+            value="DOBPS" <% if(data.contractType === 'DOBPS') { %> checked <% }
+            else { %> <% } %>/>
             <label for="DOBPS">Student Contract</label>
           </div>
           <div class="d-flex-visible gap">
-            <input type="radio" name="contractType" value="DOPC" <%
-            if(data.contractType === 'DOPC') { %> checked <% } else { %> <% }
-            %>/>
+            <input autocomplete="off" type="radio" name="contractType"
+            value="DOPC" <% if(data.contractType === 'DOPC') { %> checked <% }
+            else { %> <% } %>/>
             <label for="DOPC">Work Agreement</label>
           </div>
           <div>
             <label for="contractWeeklyHours">Weekly hours</label>
             <input
+              autocomplete="off"
               type="number"
               value="<%= data.contractWeeklyHours%>"
               placeholder="00.00"

@@ -58,27 +58,33 @@
       >
         <label for="userName">User name</label>
         <input
+          autocomplete="off"
           type="text"
           name="userName"
-          id=""
           value="<%= userHere.userName %>"
         />
         <label for="userEmail">User email</label>
         <input
+          autocomplete="off"
           type="email"
           name="userEmail"
           value="<%= userHere.userEmail %>"
         />
         <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
         <label for="roles">Role</label>
-        <input type="text" name="roles" value="<%= userHere.roles%>" />
+        <input
+          autocomplete="off"
+          type="text"
+          name="roles"
+          value="<%= userHere.roles%>"
+        />
 
         <% } %>
 
         <div class="d-flex-visible space-between">
           <label for="ctive">Active</label>
-          <input type="checkbox" name="active" <% if(userHere.active === true) {
-          %> checked <% } else { %> <% } %> />
+          <input autocomplete="off" type="checkbox" name="active" <%
+          if(userHere.active === true) { %> checked <% } else { %> <% } %> />
         </div>
         <div class="d-flex-visible space-between">
           <button class="btn-primary">Update</button>
@@ -121,41 +127,41 @@
       >
         <label for="storeName">Store name</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeName"
-          id=""
           value="<%= stores.storeName %>"
         />
 
         <label for="storeStreet">Store street</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeStreet"
-          id=""
           value="<%= stores.storeStreet %>"
         />
 
         <label for="storeStreetNumber">Street number</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeStreetNumber"
-          id=""
           value="<%= stores.storeStreetNumber %>"
         />
 
         <label for="storeCity">Store city</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeCity"
-          id=""
           value="<%= stores.storeCity %>"
         />
 
         <label for="storeRGM">Store RGM</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeRGM"
-          id=""
           value="<%= stores.storeRGM %>"
         />
 
@@ -178,10 +184,15 @@
           action="/store"
           style="max-height: 0px"
         >
-          <input type="hidden" name="admin" value="<%=user.id%>" />
+          <input
+            autocomplete="off"
+            type="hidden"
+            name="admin"
+            value="<%=user.id%>"
+          />
           <label for="storeUser">Store user</label>
           <div class="custom-select" style="width: 200px">
-            <select name="user" id="">
+            <select name="user">
               <option value="0">Select user:</option>
               <% users.forEach((user)=>{ %>
               <option value="<%= user._id %>"><%= user.userName %></option>
@@ -190,22 +201,22 @@
           </div>
 
           <label for="storeName">Store name</label>
-          <input type="text" name="storeName" id="" />
+          <input autocomplete="off" type="text" name="storeName" />
 
           <label for="storeEmail">Store email</label>
-          <input type="email" name="storeEmail" id="" />
+          <input autocomplete="off" type="email" name="storeEmail" />
 
           <label for="storeStreet">Store street</label>
-          <input type="text" name="storeStreet" id="" />
+          <input autocomplete="off" type="text" name="storeStreet" />
 
           <label for="storeStreetNumber">Street number</label>
-          <input type="text" name="storeStreetNumber" id="" />
+          <input autocomplete="off" type="text" name="storeStreetNumber" />
 
           <label for="storeCity">Store city</label>
-          <input type="text" name="storeCity" id="" />
+          <input autocomplete="off" type="text" name="storeCity" />
 
           <label for="storeRGM">Store RGM</label>
-          <input type="text" name="storeRGM" id="" />
+          <input autocomplete="off" type="text" name="storeRGM" />
 
           <button class="btn-primary dark-outline">Save</button>
         </form>
@@ -232,7 +243,7 @@
         method="POST"
       >
         <div class="custom-select" style="width: 200px">
-          <select name="user" id="">
+          <select name="user">
             <option value="0">Select user:</option>
             <% users.forEach((user)=>{ %>
             <option value="<%= user._id %>"><%= user.userName %></option>
@@ -242,49 +253,49 @@
 
         <label for="storeName">Store name</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeName"
-          id=""
           value="<%= store.storeName %>"
         />
 
         <label for="storeEmail">Store email</label>
         <input
+          autocomplete="off"
           type="email"
           name="storeEmail"
-          id=""
           value="<%= store.storeEmail %>"
         />
 
         <label for="storeStreet">Store street</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeStreet"
-          id=""
           value="<%= store.storeStreet %>"
         />
 
         <label for="storeStreetNumber">Street number</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeStreetNumber"
-          id=""
           value="<%= store.storeStreetNumber %>"
         />
 
         <label for="storeCity">Store city</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeCity"
-          id=""
           value="<%= store.storeCity %>"
         />
 
         <label for="storeRGM">Store RGM</label>
         <input
+          autocomplete="off"
           type="text"
           name="storeRGM"
-          id=""
           value="<%= store.storeRGM %>"
         />
 
@@ -312,7 +323,7 @@
       <span></span>
       <form action="">
         <label for="storeName">User name</label>
-        <input type="text" name="storeName" id="" />
+        <input autocomplete="off" type="text" name="storeName" />
         <button class="btn-primary">Save</button>
       </form>
     </div>
@@ -327,7 +338,7 @@
       <span></span>
       <form action="">
         <label for="storeName">User name</label>
-        <input type="text" name="storeName" id="" />
+        <input autocomplete="off" type="text" name="storeName" />
         <button class="btn-primary">Save</button>
       </form>
     </div>
@@ -348,7 +359,7 @@
       <span></span>
       <form action="">
         <label for="storeName">User name</label>
-        <input type="text" name="storeName" id="" />
+        <input autocomplete="off" type="text" name="storeName" />
         <button class="btn-primary">Save</button>
       </form>
     </div>
@@ -363,7 +374,7 @@
       <span></span>
       <form action="">
         <label for="storeName">User name</label>
-        <input type="text" name="storeName" id="" />
+        <input autocomplete="off" type="text" name="storeName" />
         <button class="btn-primary">Save</button>
       </form>
     </div>
@@ -375,10 +386,10 @@
     <div class="container d-flex-visible center flow">
       <span></span>
       <input
+        autocomplete="off"
         id="search"
         type="text"
         name="searchEmployee"
-        id=""
         placeholder="Find employee..."
       />
     </div>
@@ -404,16 +415,26 @@
           <div>
             <div class="d-flex-visible space-between">
               <label for="employeeState">Employee state</label>
-              <input name="employeeState" type="checkbox" checked />
+              <input
+                autocomplete="off"
+                name="employeeState"
+                type="checkbox"
+                checked
+              />
               <% if(user.roles == 'Manager') { %>
-              <input type="hidden" value="<%= stores._id %>" name="store" />
+              <input
+                autocomplete="off"
+                type="hidden"
+                value="<%= stores._id %>"
+                name="store"
+              />
               <% } %>
             </div>
           </div>
           <div>
             <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
             <div class="custom-select" style="width: 200px">
-              <select name="store" id="">
+              <select name="store">
                 <option value="0">Select store:</option>
                 <% stores.forEach((store)=>{ %>
                 <option value="<%= store._id %>"><%= store.storeName %></option>
@@ -426,6 +447,7 @@
           <div>
             <label for="firstName">First name</label>
             <input
+              autocomplete="off"
               type="text"
               name="firstName"
               value="<%= data.firstName %>"
@@ -435,6 +457,7 @@
           <div>
             <label for="lastName">Last name</label>
             <input
+              autocomplete="off"
               type="text"
               name="lastName"
               value="<%= data.lastName %>"
@@ -444,9 +467,15 @@
 
           <div>
             <label for="email">Email</label>
-            <input type="email" name="email" value="<%= data.email %>" />
+            <input
+              autocomplete="off"
+              type="email"
+              name="email"
+              value="<%= data.email %>"
+            />
             <label for="password">Pay slip pass</label>
             <input
+              autocomplete="off"
               type="password"
               name="password"
               value="<%= data.password %>"
@@ -485,5 +514,7 @@
   <% }); %>
 
   <script src="/js/employees.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
 </body>
 <%- include('../partials/footer') %>

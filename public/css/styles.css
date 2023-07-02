@@ -82,6 +82,24 @@ header{
     width: 100%;
 }
 
+.logout {
+    width: 100%;
+    cursor: pointer;
+    color: white;
+}
+
+.reset-btn{
+background-color: hsl(0, 0%, 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100vh;
+    width: 30px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
 .msg{
     position: fixed;
     top: 40vh;

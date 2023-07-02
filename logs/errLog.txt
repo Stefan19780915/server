@@ -22,3 +22,4 @@ Or, if you meant to create an async function, pass `async: true` as an option.
     224|       </div>
 
 Cannot read properties of null (reading 'userName')
+02/07/2023	15:07:12	e35f4f72-21f9-4130-b77c-2f30530c8f45	ReferenceError: io is not defined

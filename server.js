@@ -1,24 +1,44 @@
 require("dotenv").config();
 const path = require("path");
+const http = require("http");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const { logger, logEvents } = require("./middleware/logEvents");
 const { checkAuthUser } = require("./middleware/authHandler");
 const errorHandler = require("./middleware/errorHandler");
+const { sessionMiddleware, wrap } = require("./middleware/sessionHandler");
+const sharedSession = require("express-socket.io-session");
 const express = require("express");
+const socketio = require("socket.io");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
 const { connect } = require("http2");
 const flash = require("express-flash");
-const session = require("express-session");
 const passport = require("passport");
 const PORT = process.env.PORT || 3500;
 
 //Connect to MongoDB
 connectDB();
+
+//CHAT SOCKETIO
+io.on("connection", (socket) => {
+  if (socket.request.session.passport != undefined) {
+    const user = socket.request.session.passport.user.userName;
+    //Welcome message
+    socket.emit("message", `Welcome to the chat.`);
+    //Broadcast when a user connects
+    socket.broadcast.emit("message", `${user} has joined the chat.`);
+    //Runs when client disconnects
+    socket.on("disconnect", () => {
+      io.emit("message", `${user} has left the chat.`);
+    });
+  }
+});
 
 //MIDDLEWARE
 app.use(logger);
@@ -29,13 +49,8 @@ app.use(cors(corsOptions));
 app.use("/", express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.use(flash());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+app.use(sessionMiddleware);
+io.use(wrap(sessionMiddleware));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -56,5 +71,5 @@ app.use(errorHandler);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB.");
-  app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
+  server.listen(PORT, () => console.log(`Server started at port ${PORT}`));
 });
