@@ -130,6 +130,13 @@ header{
     color: white;
 }
 
+#chat-form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
 .reset-btn{
     background-color: var(--clr-table-secondary);
     display: flex;

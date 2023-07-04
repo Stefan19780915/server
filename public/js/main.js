@@ -4,7 +4,7 @@ const chatMessages = document.querySelector(".chat-messages");
 const socket = io();
 
 //join chatroom
-socket.emit("joinRoom", { room: "KFC" });
+socket.emit("joinRoom", { room: "FAQ" });
 
 //Message from serveer
 socket.on("message", (message) => {

@@ -21,7 +21,10 @@ const chat = function (socket) {
       //Welcome message
       socket.emit(
         "message",
-        formatMessage(chatAdmin, `Welcome to the ${user.room} chat.`)
+        formatMessage(
+          chatAdmin,
+          `Welcome to the ${user.room} chat. Here you can ask questions and talk to other users of the app.`
+        )
       );
       //Broadcast when a user connects
       socket.broadcast
