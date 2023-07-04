@@ -3,17 +3,20 @@
     <div class="container">
       <div class="d-flex-visible space-between">
         <h1>
-          <a href="/employee">HEADER</a>
+          <a href="/employee">HR</a>
         </h1>
         <% if (user) { %>
 
         <a class="btn-secondary" href="/employee/<%=user.employee%> "
           ><%= user.userName%></a
         >
+        <a href="/chat" class="chat">
+          <img src="/imgs/chatW.png" alt="" />
+        </a>
 
-        <form action="/logout?_method=DELETE" method="POST">
+        <form id="logout" action="/logout?_method=DELETE" method="POST">
           <button class="reset-btn" type="submit">
-            <img class="logout" src="/imgs/logout.png" alt="" />
+            <img class="logout" src="/imgs/logoutW.png" alt="" />
           </button>
         </form>
         <% } %>

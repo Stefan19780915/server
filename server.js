@@ -10,6 +10,7 @@ const { sessionMiddleware, wrap } = require("./middleware/sessionHandler");
 const sharedSession = require("express-socket.io-session");
 const express = require("express");
 const socketio = require("socket.io");
+const chatController = require("./controllers/chatController");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const app = express();
@@ -22,23 +23,11 @@ const flash = require("express-flash");
 const passport = require("passport");
 const PORT = process.env.PORT || 3500;
 
+//Start Chat
+io.sockets.on("connection", chatController.chat);
+
 //Connect to MongoDB
 connectDB();
-
-//CHAT SOCKETIO
-io.on("connection", (socket) => {
-  if (socket.request.session.passport != undefined) {
-    const user = socket.request.session.passport.user.userName;
-    //Welcome message
-    socket.emit("message", `Welcome to the chat.`);
-    //Broadcast when a user connects
-    socket.broadcast.emit("message", `${user} has joined the chat.`);
-    //Runs when client disconnects
-    socket.on("disconnect", () => {
-      io.emit("message", `${user} has left the chat.`);
-    });
-  }
-});
 
 //MIDDLEWARE
 app.use(logger);
@@ -51,12 +40,17 @@ app.set("view engine", "ejs");
 app.use(flash());
 app.use(sessionMiddleware);
 io.use(wrap(sessionMiddleware));
+// app.use((req, res, next) => {
+//   req.io = io;
+//   next();
+// });
 app.use(passport.initialize());
 app.use(passport.session());
 
 //ROUTES
-app.use("/employee", checkAuthUser, require("./routes/employee"));
 app.use("/", require("./routes/user"));
+app.use("/employee", checkAuthUser, require("./routes/employee"));
+app.use("/chat", checkAuthUser, require("./routes/chat"));
 app.use("/store", checkAuthUser, require("./routes/store"));
 
 app.all("*", (req, res) => {
