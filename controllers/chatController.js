@@ -15,6 +15,13 @@ const chat = function (socket) {
   if (socket.request.session.passport != undefined) {
     const user = socket.request.session.passport.user;
     socket.on("joinRoom", ({ room }) => {
+      room =
+        (!user.admin && user.roles == "User") ||
+        (!user.admin && user.roles == "Owner")
+          ? "public"
+          : !user.admin
+          ? user._id
+          : user.admin;
       user["room"] = room;
       socket.join(user.room);
 
@@ -23,7 +30,7 @@ const chat = function (socket) {
         "message",
         formatMessage(
           chatAdmin,
-          `Welcome to the ${user.room} chat. Here you can ask questions and talk to other users of the app.`
+          `Welcome to the chat. Here you can ask questions and talk to other users of the app.`
         )
       );
       //Broadcast when a user connects
@@ -31,10 +38,7 @@ const chat = function (socket) {
         .to(user.room)
         .emit(
           "message",
-          formatMessage(
-            chatAdmin,
-            `${user.userName} has joined the ${user.room} chat.`
-          )
+          formatMessage(chatAdmin, `${user.userName} has joined the chat.`)
         );
     });
 
@@ -48,10 +52,7 @@ const chat = function (socket) {
     socket.on("disconnect", () => {
       socket.broadcast.emit(
         "message",
-        formatMessage(
-          chatAdmin,
-          `${user.userName} has left the ${user.room} chat.`
-        )
+        formatMessage(chatAdmin, `${user.userName} has left the chat.`)
       );
     });
   }

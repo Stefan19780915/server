@@ -7,7 +7,6 @@ const { logger, logEvents } = require("./middleware/logEvents");
 const { checkAuthUser } = require("./middleware/authHandler");
 const errorHandler = require("./middleware/errorHandler");
 const { sessionMiddleware, wrap } = require("./middleware/sessionHandler");
-const sharedSession = require("express-socket.io-session");
 const express = require("express");
 const socketio = require("socket.io");
 const chatController = require("./controllers/chatController");
@@ -40,10 +39,6 @@ app.set("view engine", "ejs");
 app.use(flash());
 app.use(sessionMiddleware);
 io.use(wrap(sessionMiddleware));
-// app.use((req, res, next) => {
-//   req.io = io;
-//   next();
-// });
 app.use(passport.initialize());
 app.use(passport.session());
 
