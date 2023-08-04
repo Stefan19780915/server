@@ -28,10 +28,14 @@
     "nodemailer": "^6.9.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pdfmake": "^0.3.0-beta.1",
     "socketio": "^1.0.0",
+    "sp-download": "^2.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "node-sp-auth": "^3.0.7",
+    "nodemon": "^2.0.22",
+    "request-promise": "^4.2.6"
   }
 }

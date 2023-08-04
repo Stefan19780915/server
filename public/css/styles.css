@@ -266,11 +266,6 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
 
 }
 
-@media(min-width: 620px){
-    .flex-container{
-        flex-direction: row;
-    }
-}
 
 .flex-item{
     flex-basis: 20px;

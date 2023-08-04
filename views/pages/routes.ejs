@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/msg') %> <%- include('../partials/header') %>
+
+  <section class="secondary-section">
+    <div class="container">
+      <div class="chat-messages flow">
+      <% text.forEach((str)=>{ %>
+        <span><%= str%></span>
+        <% }) %>
+        <span> <p>Members in the Chat: <%= members%></p> </span>
+      </div>
+  </section>
+
+  <section class="primary-section absolute">
+    <div class="container">
+      <form id="chat-form" method="POST" action="/routes/send">
+        <input
+          name="message"
+          type="text"
+          id="msg"
+          placeholder="Enter Message..."
+          required
+          autocomplete="off"
+        />
+        <button id="chat-submit" class="btn-primary">Send</button>
+      </form>
+    </div>
+  </section>
+</body>
+<%- include('../partials/footer') %>

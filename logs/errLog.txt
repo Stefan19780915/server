@@ -23,3 +23,66 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 
 Cannot read properties of null (reading 'userName')
 02/07/2023	15:07:12	e35f4f72-21f9-4130-b77c-2f30530c8f45	ReferenceError: io is not defined
+03/08/2023	21:31:55	473d3966-d511-48c6-bc93-5654ace90c8d	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:12
+    10|   <section class="secondary-section">
+    11|     <div class="container">
+ >> 12|       <div class="chat-messages flow"><span><%= result%></span></div>
+    13|     </div>
+    14|   </section>
+    15| 
+
+result is not defined
+03/08/2023	21:31:57	28b2d0f0-3166-40fa-be2c-ba8c5b797ba2	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:12
+    10|   <section class="secondary-section">
+    11|     <div class="container">
+ >> 12|       <div class="chat-messages flow"><span><%= result%></span></div>
+    13|     </div>
+    14|   </section>
+    15| 
+
+result is not defined
+03/08/2023	21:33:25	6a6b21d6-7947-46d4-b402-3597125728fb	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:7
+    5|   <section class="secondary-section">
+    6|     <div class="container">
+ >> 7|       <div class="chat-messages flow"><span><%= text%></span></div>
+    8|     </div>
+    9|   </section>
+    10|   <section class="secondary-section">
+
+text is not defined
+03/08/2023	21:38:58	7c66d840-3fde-4c14-a225-85464a587d4e	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:7
+    5|   <section class="secondary-section">
+    6|     <div class="container">
+ >> 7|       <div class="chat-messages flow"><span><%= text%></span></div>
+    8|     </div>
+    9|   </section>
+    10|   <section class="secondary-section">
+
+text is not defined
+03/08/2023	21:38:59	83d992f9-eb83-45a3-9a35-a751ac6bbfb8	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:7
+    5|   <section class="secondary-section">
+    6|     <div class="container">
+ >> 7|       <div class="chat-messages flow"><span><%= text%></span></div>
+    8|     </div>
+    9|   </section>
+    10|   <section class="secondary-section">
+
+text is not defined
+03/08/2023	21:45:13	390a5146-057c-41c2-81cf-2f2054676cb5	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:7
+    5|   <section class="secondary-section">
+    6|     <div class="container">
+ >> 7|       <div class="chat-messages flow"><span><%= text%></span></div>
+    8|     </div>
+    9|   </section>
+    10|   <section class="secondary-section">
+
+text is not defined
+03/08/2023	21:45:14	447f8670-c497-45d2-b0a8-8e83c1fc7dde	ReferenceError: /Users/queensway/Downloads/server/views/pages/routes.ejs:7
+    5|   <section class="secondary-section">
+    6|     <div class="container">
+ >> 7|       <div class="chat-messages flow"><span><%= text%></span></div>
+    8|     </div>
+    9|   </section>
+    10|   <section class="secondary-section">
+
+text is not defined

@@ -46,6 +46,7 @@ app.use(passport.session());
 app.use("/", require("./routes/user"));
 app.use("/employee", checkAuthUser, require("./routes/employee"));
 app.use("/chat", checkAuthUser, require("./routes/chat"));
+app.use("/pdf", checkAuthUser, require("./routes/pdf"));
 app.use("/store", checkAuthUser, require("./routes/store"));
 
 app.all("*", (req, res) => {
