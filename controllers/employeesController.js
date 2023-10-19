@@ -47,7 +47,7 @@ const getAllEmployees = async (req, res) => {
     (emp) => emp.store.admin == req.user.id
   );
 
-  if (allEmployees === []) {
+  if (allEmployees == []) {
     return res.render("../views/pages/employees", {
       msg: "There are no employees created yet or no store is assigned to this account.",
       data: "",
@@ -558,6 +558,8 @@ const sendEmployeeEmail = async (req, res) => {
     subject,
     html
   );
+
+  console.log(info)
 
   if (info.messageId) {
     console.log("Message sent");

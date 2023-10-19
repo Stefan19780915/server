@@ -243,7 +243,7 @@
           <label for="houseNnumber">House number</label>
           <input
             autocomplete="off"
-            type="number"
+            type="text"
             name="houseNumber"
             value="<%= data.houseNumber %>"
           />
@@ -675,15 +675,15 @@
           </div>
           <div class="d-flex-visible gap">
             <input autocomplete="off" type="radio" name="contractType"
-            value="DOBPS" <% if(data.contractType === 'DOBPS') { %> checked <% }
+            value="DOBPŠ" <% if(data.contractType === 'DOBPŠ') { %> checked <% }
             else { %> <% } %>/>
-            <label for="DOBPS">Student Contract</label>
+            <label for="DOBPŠ">Student Contract</label>
           </div>
           <div class="d-flex-visible gap">
             <input autocomplete="off" type="radio" name="contractType"
-            value="DOPC" <% if(data.contractType === 'DOPC') { %> checked <% }
+            value="DOPČ" <% if(data.contractType === 'DOPČ') { %> checked <% }
             else { %> <% } %>/>
-            <label for="DOPC">Work Agreement</label>
+            <label for="DOPČ">Work Agreement</label>
           </div>
           <div>
             <label for="contractWeeklyHours">Weekly hours</label>

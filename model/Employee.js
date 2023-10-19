@@ -76,7 +76,7 @@ const employeesSchema = new Schema({
     type: String,
   },
   houseNumber: {
-    type: Number,
+    type: String,
   },
   city: {
     type: String,
