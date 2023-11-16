@@ -1,6 +1,9 @@
 const PdfPrinter = require('pdfmake');
 const fs = require('fs');
-const getData = require('./axios');
+const Employee = require("../model/Employee");
+const Store = require("../model/Store");
+const moment = require("moment");
+moment.locale("sk");
 
 const fonts = {
     Roboto: {
@@ -13,25 +16,33 @@ const fonts = {
 
 const printer = new PdfPrinter(fonts);
 
-async function contract (){
+async function contract (req, res){
     
-    const data = await getData();
+    const data = await Employee.findOne({ _id: req.params.id }).populate(
+      "store"
+    ).populate("position");
 
-    const allData = Object.keys(data.data).map((key)=>{
-        return `${key}: ${data.data[key]}\n`;
-    });
+    const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-    //console.log(allData.join("\r\n"));
+    let position = data.position ? data.position.position : "No position"
+
+    const newDate = new Date(data.contractStartDate);
+
+    let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+
+    let contractType = data.contractType == 'TPP' ? 'Pracovná zmluva' :
+                       data.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
+                       data.contractType == 'DOPŠ' ? 'Dohoda o pracovnej činnosti' : '';
 
     let docDefinition = {
-        content: [{text: `Pracovná zmluva (skrátený úväzok)`, style: 'header'},
+        content: [{text: contractType, style: 'header'},
         {text: `uzatvorena podľa Zákonníka práce medzi:`,alignment: 'center', style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         
-        {text: `Queensway Restaurants Slovakia, s.r.o.`,alignment: 'center',bold: true, style: 'text'},
-        {text: `EUROVEA Central 3, Pribinova 10`,alignment: 'center',bold: true, style: 'text'},
-        {text: `IČO: 35 852 143  OR: OS Bratislava I, 28229/B`,alignment: 'center',bold: true, style: 'text'},
-        {text: `zastúpený: ${data.data.firstName} ${data.data.lastName}`,alignment: 'center',bold: true, style: 'text'},
+        {text: company.storeCompany.companyName ,alignment: 'center',bold: true, style: 'text'},
+        {text: `${company.storeCompany.companyStreet}, ${company.storeCompany.companyStreetNumber}, ${company.storeCompany.companyCity}, ${company.storeCompany.companyCountry}`,alignment: 'center',bold: true, style: 'text'},
+        {text: `${company.storeCompany.companyBusinessRegister}, IČO: ${company.storeCompany.companyTaxId}`,alignment: 'center',bold: true, style: 'text'},
+        {text: `zastúpený: ${company.storeRGM}`,alignment: 'center',bold: true, style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         {text: `(ďalej len zamestnávateľ)`,alignment: 'center',bold: true, style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
@@ -47,7 +58,7 @@ async function contract (){
                 },
                 {
                   width: '50%',
-                  text: 'Miroslav Chovanec',
+                  text: `${data.firstName} ${data.lastName}`,
                   background: 'lightgray'
                 }
               ],
@@ -65,7 +76,7 @@ async function contract (){
                   },
                   {
                     width: '50%',
-                    text: '01/09/1978',
+                    text: `${moment(data.birthDate).format("LL")}`,
                     background: 'lightgray'
                   }
               ],
@@ -82,7 +93,7 @@ async function contract (){
                   },
                   {
                     width: '50%',
-                    text: 'Hlavé námesite 2 Dvory nad Žitavou 941 31',
+                    text: `${data.street} ${data.houseNumber} ${data.city} ${data.postalCode}`,
                     background: 'lightgray'
                   }
               ],
@@ -102,7 +113,7 @@ async function contract (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Deň nástupu do práce je '},{text: '1/6/2023.',bold:true, background: 'lightgray'},{text: ' Týmto dňom vzniká medzi zamestnávateľom a zamestnancom pracovný pomer.'}],
+                    text: [{text:'Deň nástupu do práce je '},{text: `${moment(data.contractStartDate).format("LL")}`,bold:true, background: 'lightgray'},{text: ' Týmto dňom vzniká medzi zamestnávateľom a zamestnancom pracovný pomer.'}],
                     alignment: 'justify'
                   }
               ],
@@ -119,7 +130,7 @@ async function contract (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Miestom výkonu práce sú reštauračné prevádzky zamestnávateľa: '},{text: ' v meste Bratislava.',bold:true, background: 'lightgray'},{text: ' Zamestnanec súhlasí s vycestovaním na pracovnú cestu podľa potrieb zamestnávateľa.'}],
+                    text: [{text:'Miestom výkonu práce sú reštauračné prevádzky zamestnávateľa: '},{text: `v meste: ${data.store.storeCity}`,bold:true, background: 'lightgray'},{text: ' Zamestnanec súhlasí s vycestovaním na pracovnú cestu podľa potrieb zamestnávateľa.'}],
                     alignment: 'justify'
                   }
               ],
@@ -153,7 +164,7 @@ async function contract (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Pracovný pomer sa dojednáva na dobu určitú do: '},{text: '31/7/2024',bold:true, background: 'lightgray'},{text: ' Skúšobná doba trvá 3 mesiace.'}],
+                    text: [{text:`Pracovný pomer sa dojednáva na dobu`}, { text: `${data.contractEndDate == 'indefinite'? ' neurčitú.' : ' určitú do: '}`,bold:true, background: 'lightgray'},{text: data.contractEndDate == 'indefinite' ? '' : moment(data.contractEndDate).format('LL'),bold:true, background: 'lightgray'},{text: ' Skúšobná doba trvá 3 mesiace.'}],
                     alignment: 'justify'
                   }
               ],
@@ -169,7 +180,7 @@ async function contract (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Hrubá hodinová mzda zamestnanca je dohodnutá vo výške: '},{text: '6 euro',bold:true, background: 'lightgray'},{text: ' a bude vyplácaná bezhotovostne mesačne do 15.dňa nasledujúceho kalendárneho mesiaca na zamestnancom zadaný osobný účet.'}],
+                    text: [{text:'Hrubá hodinová mzda zamestnanca je dohodnutá vo výške: '},{text: `${data.contractSalary} euro`,bold:true, background: 'lightgray'},{text: ' a bude vyplácaná bezhotovostne mesačne do 15.dňa nasledujúceho kalendárneho mesiaca na zamestnancom zadaný osobný účet.'}],
                     alignment: 'justify'
                   }
               ],
@@ -185,7 +196,7 @@ async function contract (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Pracovný čas mimo práce nadčas je: '},{text: '30 hodín.',bold:true, background: 'lightgray'},{text: ' Prestávka v práci na jedenie a oddych sa nezapočítava do pracovného času.'}],
+                    text: [{text:'Pracovný čas mimo práce nadčas je: '},{text: `${data.contractWeeklyHours} hodín.`,bold:true, background: 'lightgray'},{text: ' Prestávka v práci na jedenie a oddych sa nezapočítava do pracovného času.'}],
                     alignment: 'justify'
                   }
               ],
@@ -409,7 +420,7 @@ async function contract (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'V Košiciach: '},{text: ' 22/5/2023', bold:true}],
+                    text: [{text:`V ${data.store.storeCity} `},{text: signatureDate, bold:true}],
                     alignment: 'justify'
                   }
               ],
@@ -450,20 +461,27 @@ async function contract (){
 
     
 
-    
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
 
+   try {
 
-
-
-const options = {
-    
-    }
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition, options); 
-    pdfFile.pipe(fs.createWriteStream('pdfs/contract.pdf'));
+    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} contract.pdf`));
     pdfFile.end();
-    
-} 
+
+    req.flash(
+        "message",
+        `Contract for employee ${data.lastName} ${data.firstName} was created.`
+      );
+      res.redirect("/employee");
+
+      } catch (err) {
+        console.log(err);
+      }
+
+
+    }
+
+
 
 
 module.exports = {

@@ -29,8 +29,22 @@ router.put("/health/:id", employeeController.updateEmployeeHealth);
 
 router.put("/bank/:id", employeeController.updateEmployeeBank);
 
+router.put("/school-employer/:id", employeeController.updateEmployeeSchool);
+
 router.put("/contract/:id", employeeController.updateEmployeeContract);
 
 router.get("/email/:id", employeeController.sendEmployeeEmail);
+
+
+router.post("/position", employeeController.createPosition);
+router.get("/position", employeeController.readPosition);
+router.put("/position/:id", employeeController.updatePosition);
+router.get("/position/:id", employeeController.deletePosition);
+
+
+router.post("/company", employeeController.createCompany);
+router.put("/company/:id", employeeController.updateCompany);
+router.get("/company/:id", employeeController.deleteCompany);
+
 
 module.exports = router;

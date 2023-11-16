@@ -1,5 +1,7 @@
 const User = require("../model/User");
 const Employee = require("../model/Employee");
+const Position = require("../model/Positions");
+const Company = require("../model/Company");
 const Store = require("../model/Store");
 const Token = require("../model/token");
 const moment = require("moment");
@@ -15,13 +17,18 @@ const getAllEmployees = async (req, res) => {
   const allStores =
     req.user.roles == "Admin"
       ? await Store.find({ admin: req.user.id })
-          .populate("user")
+          .populate("user").populate('storeCompany')
           .sort({ storeName: "asc" })
       : req.user.roles == "Manager"
       ? await Store.findOne({ user: req.user.id })
       : req.user.roles == "Owner"
-      ? await Store.find().populate("user").sort({ storeName: "asc" })
+      ? await Store.find().populate("user").populate('storeCompany').sort({ storeName: "asc" })
       : [];
+
+  const allPositions = await Position.find().populate('admin');
+
+  const companies = await Company.find();
+  const adminCompanies = await Company.find({ admin: req.user.id })
 
   const allUsers =
     req.user.roles == "Admin"
@@ -46,6 +53,7 @@ const getAllEmployees = async (req, res) => {
   const adminEmployees = allEmployees.filter(
     (emp) => emp.store.admin == req.user.id
   );
+
 
   if (allEmployees == []) {
     return res.render("../views/pages/employees", {
@@ -78,6 +86,8 @@ const getAllEmployees = async (req, res) => {
           )
         : [],
     stores: allStores == null ? "" : allStores,
+    positions: allPositions,
+    companies: req.user.roles == 'Owner' ? companies : adminCompanies,
     message: req.flash("message"),
   });
 };
@@ -99,9 +109,9 @@ const getEmployee = async (req, res) => {
           .sort({ storeName: "asc" })
       : [];
 
-  const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate(
-    "store"
-  );
+  const allPositions = await Position.find().populate('admin');
+
+  const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate("store").populate("position");
 
   if (oneEmployee != undefined) {
     res.render("../views/pages/employee", {
@@ -110,12 +120,14 @@ const getEmployee = async (req, res) => {
       user: req.user,
       message: req.flash("message"),
       stores: allStores,
+      positions: allPositions,
+      position: oneEmployee.position ? oneEmployee.position.position : "No position"
     });
   } else {
     res.render("../views/pages/404", {
       msg: "User not found",
       body: "",
-      user: req.user,
+      user: req.user
     });
   }
 };
@@ -127,6 +139,7 @@ const createEmployee = async (req, res) => {
     store: req.body.store,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    birthName: req.body.birthName,
     email: req.body.email,
     password: req.body.password,
   };
@@ -208,6 +221,8 @@ const createEmployee = async (req, res) => {
       "Please verify your email",
       html
     );
+
+    console.log(info);
 
     req.flash(
       "message",
@@ -326,6 +341,7 @@ const updateEmployeePersonal = async (req, res) => {
     employee.personalNumber = req.body.personalNumber;
   if (req.body.firstName) employee.firstName = req.body.firstName;
   if (req.body.lastName) employee.lastName = req.body.lastName;
+  if (req.body.birthName) employee.birthName = req.body.birthName;
   if (req.body.gender) employee.gender = req.body.gender;
   if (req.body.birthDate) employee.birthDate = req.body.birthDate;
   if (req.body.birthPlace) employee.birthPlace = req.body.birthPlace;
@@ -373,6 +389,10 @@ const updateEmployeeContact = async (req, res) => {
   if (req.body.houseNumber) employee.houseNumber = req.body.houseNumber;
   if (req.body.city) employee.city = req.body.city;
   if (req.body.postalCode) employee.postalCode = req.body.postalCode;
+  if (req.body.streetTemp) employee.streetTemp = req.body.streetTemp;
+  if (req.body.houseNumberTemp) employee.houseNumberTemp = req.body.houseNumberTemp;
+  if (req.body.cityTemp) employee.cityTemp = req.body.cityTemp;
+  if (req.body.postalCodeTemp) employee.postalCodeTemp = req.body.postalCodeTemp;
 
   const result = await employee.save();
 
@@ -424,6 +444,7 @@ const updateEmployeeSpouse = async (req, res) => {
 
 // UPDATE HEALTH AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeeHealth = async (req, res) => {
+
   if (!req.params.id) {
     req.flash("message", "Id parameter is rewuired");
     return res.redirect("/pages/404");
@@ -439,6 +460,8 @@ const updateEmployeeHealth = async (req, res) => {
     employee.publicHealthInsuranceName = req.body.publicHealthInsuranceName;
   if (req.body.gastroHealthCard)
     employee.gastroHealthCard = req.body.gastroHealthCard;
+    if (req.body.ztpDochodca)
+    employee.ztpDochodca = req.body.ztpDochodca;
 
   const result = await employee.save();
 
@@ -477,9 +500,41 @@ const updateEmployeeBank = async (req, res) => {
       "message",
       `Bank account ${result.accountNumber} was updated successfully.`
     );
-    res.redirect("/pages/employee");
+    res.redirect("/employee");
   } else {
     req.flash("message", "Bank account data was not updated..");
+    return res.redirect("/pages/404");
+  }
+};
+
+
+// UPDATE EPLOYEE SCHOOL OR ODTHER EPLOYER
+
+const updateEmployeeSchool = async (req, res) => {
+  if (!req.params.id) {
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
+  }
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+
+  if (!employee) {
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
+  }
+
+  if (req.body.schoolName) employee.schoolName = req.body.schoolName;
+  if (req.body.employerName) employee.employerName = req.body.employerName;
+  
+  const result = await employee.save();
+
+  if (result != undefined) {
+    req.flash(
+      "message",
+      `School or Employer ${result.employerName, result.schoolName} was updated successfully.`
+    );
+    res.redirect("/employee");
+  } else {
+    req.flash("message", "School or Employer was not updated..");
     return res.redirect("/pages/404");
   }
 };
@@ -508,6 +563,11 @@ const updateEmployeeContract = async (req, res) => {
   if (req.body.contractType) employee.contractType = req.body.contractType;
   if (req.body.contractWeeklyHours)
     employee.contractWeeklyHours = req.body.contractWeeklyHours;
+    if (req.body.position != 0) {
+      employee.position = req.body.position;
+    } else {
+      employee.position;
+    }
 
   const result = await employee.save();
 
@@ -559,8 +619,6 @@ const sendEmployeeEmail = async (req, res) => {
     html
   );
 
-  console.log(info)
-
   if (info.messageId) {
     console.log("Message sent");
     req.flash(
@@ -574,6 +632,171 @@ const sendEmployeeEmail = async (req, res) => {
     res.redirect("/employee");
   }
 };
+
+// CRUD POSITION
+
+const createPosition = async (req, res)=>{
+  console.log(req.body);
+  console.log(req.user._id);
+
+  const newPosition = {
+    position: req.body.position,
+    admin: req.user._id
+  };
+
+  if (
+    !newPosition.position ||
+    !newPosition.admin
+  ) {
+    req.flash("message", "Please provide a position name.");
+    return res.redirect("/employee");
+  }
+
+  try {
+    const result = await Position.create(newPosition);
+
+    req.flash(
+      "message",
+      `Position was created.`
+    );
+    res.redirect("/employee");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const readPosition = async (req, res)=>{
+
+}
+
+const updatePosition = async (req, res)=>{
+
+}
+
+
+const deletePosition = async (req, res)=>{
+  
+  const onePosition = await Position.findOne({ _id: req.params.id }).exec();
+
+  if (!onePosition) {
+    req.flash("message", "Please provide the correct ID.");
+    return res.redirect("/pages/404");
+  }
+  const result = await Position.deleteOne({ _id: req.params.id });
+
+  req.flash(
+    "message",
+    `Position was deleted.`
+  );
+
+  res.redirect("/employee");
+
+}
+
+
+// CRUD COMPANY
+
+
+const createCompany = async (req, res)=>{
+  console.log(req.body);
+  console.log(req.user._id);
+
+  const newCompany = {
+    admin: req.user._id,
+    companyName: req.body.companyName,
+    companyStreet: req.body.companyStreet,
+    companyStreetNumber: req.body.companyStreetNumber,
+    companyCity: req.body.companyCity,
+    companyCountry: req.body.companyCountry,
+    companyBusinessRegister: req.body.companyBusinessRegister,
+    companyTaxId: req.body.companyTaxId
+  };
+
+  if (
+    !newCompany.companyName ||
+    !newCompany.admin ||
+    !newCompany.companyStreet ||
+    !newCompany.companyStreetNumber ||
+    !newCompany.companyCity ||
+    !newCompany.companyCountry ||
+    !newCompany.companyBusinessRegister ||
+    !newCompany.companyTaxId
+) {
+    req.flash("message", "Please fill in all fields.");
+    return res.redirect("/employee");
+  }
+
+  try {
+    const result = await Company.create(newCompany);
+
+    req.flash(
+      "message",
+      `Company was created.`
+    );
+    res.redirect("/employee");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+const updateCompany = async (req, res) => {
+  if (!req.params.id) {
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
+  }
+  const company = await Company.findOne({ _id: req.params.id }).exec();
+
+
+  if (!company) {
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
+  }
+
+  if (req.body.companyName) company.companyName = req.body.companyName;
+  if (req.body.companyStreet) company.companyStreet = req.body.companyStreet;
+  if (req.body.companyStreetNumber) company.companyStreetNumber= req.body.companyStreetNumber;
+  if (req.body.companyCity) company.companyCity= req.body.companyCity;
+  if (req.body.companyCountry) company.companyCountry= req.body.companyCountry;
+  if (req.body.companyBusinessRegister) company.companyBusinessRegister= req.body.companyBusinessRegister;
+  if (req.body.companyTaxId) company.companyTaxId= req.body.companyTaxId;
+
+  
+
+  const result = await company.save();
+
+  console.log(result)
+
+  if (result != undefined) {
+    req.flash(
+      "message",
+      `Company ${result.companyName} was updated successfully.`
+    );
+    return res.redirect("/employee");
+  } 
+};
+
+const deleteCompany = async (req, res)=>{
+  
+  const oneCompany = await Company.findOne({ _id: req.params.id }).exec();
+
+  if (!oneCompany) {
+    req.flash("message", "Please provide the correct ID.");
+    return res.redirect("/pages/404");
+  }
+  const result = await Company.deleteOne({ _id: req.params.id });
+
+  req.flash(
+    "message",
+    `Company was deleted.`
+  );
+
+  res.redirect("/employee");
+
+}
+
+
+
 
 module.exports = {
   getAllEmployees,
@@ -589,4 +812,12 @@ module.exports = {
   updateEmployeeBank,
   updateEmployeeContract,
   sendEmployeeEmail,
+  updateEmployeeSchool,
+  createPosition,
+  readPosition,
+  updatePosition,
+  deletePosition,
+  createCompany,
+  updateCompany,
+  deleteCompany
 };

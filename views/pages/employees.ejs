@@ -175,7 +175,9 @@
       </form>
     </div>
 
-    <% } %> <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+    <% } %> 
+    
+    <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
 
     <section class="secondary-section">
       <div class="container flow">
@@ -194,12 +196,24 @@
             name="admin"
             value="<%=user.id%>"
           />
-          <label for="storeUser">Store user</label>
+          <label for="storeUser">Store Manager</label>
           <div class="custom-select" style="width: 200px">
             <select name="user">
-              <option value="0">Select user:</option>
+              <option value="0">Select manager:</option>
               <% users.forEach((user)=>{ %>
               <option value="<%= user._id %>"><%= user.userName %></option>
+              <% }) %>
+            </select>
+          </div>
+
+        
+
+          <label for="storeCompany">Store Company</label>
+          <div class="custom-select" style="width: 200px">
+            <select name="storeCompany">
+              <option value="0">Select company:</option>
+              <% companies.forEach((company)=>{ %>
+              <option value="<%= company._id %>"><%= company.companyName %></option>
               <% }) %>
             </select>
           </div>
@@ -248,12 +262,26 @@
       >
         <div class="custom-select" style="width: 200px">
           <select name="user">
-            <option value="0">Select user:</option>
+            <option value="0">Upadate manager:</option>
             <% users.forEach((user)=>{ %>
             <option value="<%= user._id %>"><%= user.userName %></option>
             <% }) %>
           </select>
         </div>
+
+        <div class="custom-select" style="width: 200px">
+          <select name="storeCompany">
+            <option value="0">Update company:</option>
+            <% companies.forEach((company)=>{ %>
+            <option value="<%= company._id %>"><%= company.companyName %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <p style="font-weight: bolder">
+        <%= ` ${store.storeName} is currently assigned to
+        - ${store.storeCompany == null ? 'No Store' : store.storeCompany.companyName}.` %>
+      </p>
 
         <label for="storeName">Store name</label>
         <input
@@ -315,37 +343,180 @@
   <section class="calendar-tab tab">
     <div class="container flow">
       <span></span>
-      <h3 style="margin-bottom: 16px">Statistics</h3>
+      <h3 style="margin-bottom: 16px">Settings</h3>
     </div>
+
+
+   <%  if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+
+
+
+    <section class="secondary-section">
+      <div class="container flow">
+        <div class="new-employee">
+          <h4>CREATE NEW COMPANY</h4>
+        </div>
+        <form
+          method="POST"
+          class="employee-form flow"
+          action="/employee/company"
+          style="max-height: 0px"
+        >
+          <input
+            autocomplete="off"
+            type="hidden"
+            name="admin"
+            value="<%=user.id%>"
+          />
+
+          <label for="companyName">Company name</label>
+          <input autocomplete="off" type="text" name="companyName" />
+
+          <label for="companyStreet">Street</label>
+          <input autocomplete="off" type="text" name="companyStreet" />
+
+          <label for="companyStreetNumber">Street Number</label>
+          <input autocomplete="off" type="text" name="companyStreetNumber" />
+
+          <label for="companyCity">City</label>
+          <input autocomplete="off" type="text" name="companyCity" />
+
+          <label for="companyCountry">Country</label>
+          <input autocomplete="off" type="text" name="companyCountry" />
+
+          <label for="companyBusinessRegister">Business Register Information</label>
+          <input autocomplete="off" type="text" name="companyBusinessRegister" />
+
+          <label for="companyTaxId">Company Tax Id</label>
+          <input autocomplete="off" type="text" name="companyTaxId" />
+
+          <button class="btn-primary dark-outline">Save</button>
+        </form>
+      </div>
+    </section>
+
+
+
+
     <section class="sub-cat">
       <div class="container">
-        <h4><a>Employees</a></h4>
+        <h4><a>Work Positions</a></h4>
       </div>
     </section>
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <form action="">
-        <label for="storeName">User name</label>
-        <input autocomplete="off" type="text" name="storeName" />
+
+      <% positions.forEach( (position)=> { %>
+
+        <div class="childList">
+        <div><%= position.position %></div>
+        <a
+        class="btn-secondary"
+    href="/position/<%= position._id %>"
+    >Delete</a
+  >
+</div>
+
+<% }); %>
+
+      <form action="/position" method="POST">
+        <label for="position">Create Work Position</label>
+        <input autocomplete="off" type="text" name="position" />
         <button class="btn-primary">Save</button>
       </form>
     </div>
 
+
+    <% companies.forEach((company)=>{ %>
     <section class="sub-cat">
       <div class="container">
-        <h4><a>Users</a></h4>
+        <h4>
+          <div class="d-flex-visible space-between">
+            <a><%= company.companyName %></a>
+          </div>
+        </h4>
       </div>
     </section>
-
     <div class="container flow sub-cat-content">
       <span></span>
-      <form action="">
-        <label for="storeName">User name</label>
-        <input autocomplete="off" type="text" name="storeName" />
-        <button class="btn-primary">Save</button>
+      <form
+        action="employee/company/<%= company._id%>?_method=PUT"
+        method="POST"
+        class="flow"
+      >
+        <label for="companyName">Company name</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyName"
+          value="<%= company.companyName %>"
+        />
+        <label for="companyStreet">Company street</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyEmail"
+          value="<%= company.companyStreet %>"
+        />
+
+        <label for="companyStreetNumber">Street number</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyStreetNumber"
+          value="<%= company.companyStreetNumber %>"
+        />
+
+        <label for="companyCity">City</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyCity"
+          value="<%= company.companyCity %>"
+        />
+
+        <label for="companyCountry">Country</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyCountry"
+          value="<%= company.companyCountry %>"
+        />
+
+        <label for="companyBusinessRegister">Business Register</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyBusinessRegister"
+          value="<%= company.companyBusinessRegister %>"
+        />
+
+        <label for="companyTaxId">Tax Id</label>
+        <input
+          autocomplete="off"
+          type="text"
+          name="companyTaxId"
+          value="<%= company.companyTaxId %>"
+        />
+
+
+
+        <div class="d-flex-visible space-between">
+          <button class="btn-primary">Update</button>
+          <a class="btn-primary" href="employee/company/<%= company._id%>">Delete</a>
+        </div>
       </form>
     </div>
+    <% }) %>
+
+
+
+
+
+
+
+    <% } %>
   </section>
 
   <section class="settings-tab tab">
@@ -470,6 +641,17 @@
           </div>
 
           <div>
+            <label for="birthName">Birth name</label>
+            <input
+              autocomplete="off"
+              type="text"
+              name="birthName"
+              value="<%= data.birthName %>"
+              required
+            />
+          </div>
+
+          <div>
             <label for="email">Email</label>
             <input
               autocomplete="off"
@@ -477,7 +659,7 @@
               name="email"
               value="<%= data.email %>"
             />
-            <label for="password">Pay slip pass</label>
+            <label for="password">Temporary password</label>
             <input
               autocomplete="off"
               type="password"

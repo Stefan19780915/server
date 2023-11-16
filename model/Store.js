@@ -12,6 +12,11 @@ const storeSchema = new Schema({
     required: true,
     ref: "User",
   },
+  storeCompany: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Company",
+  },
   storeName: {
     type: String,
   },

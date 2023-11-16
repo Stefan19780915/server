@@ -1,6 +1,9 @@
 const PdfPrinter = require('pdfmake');
 const fs = require('fs');
-const getData = require('./axios');
+const Employee = require("../model/Employee");
+const Store = require("../model/Store");
+const moment = require("moment");
+moment.locale("sk");
 
 const fonts = {
     Roboto: {
@@ -13,25 +16,30 @@ const fonts = {
 
 const printer = new PdfPrinter(fonts);
 
-async function liability (){
+async function liability (req,res){
     
-    const data = await getData();
+  const data = await Employee.findOne({ _id: req.params.id }).populate(
+    "store"
+  ).populate("position");
 
-    const allData = Object.keys(data.data).map((key)=>{
-        return `${key}: ${data.data[key]}\n`;
-    });
+  const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-    //console.log(allData.join("\r\n"));
+  let position = data.position ? data.position.position : "No position"
+
+  const newDate = new Date(data.contractStartDate);
+
+  let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+
 
     let docDefinition = {
         content: [{text: `Dohoda o hmotnej zodpovednosti`, style: 'header'},
         {text: `uzatvorena podľa Zákonníka práce medzi:`,alignment: 'center', style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         
-        {text: `Queensway Restaurants Slovakia, s.r.o.`,alignment: 'center',bold: true, style: 'text'},
-        {text: `EUROVEA Central 3, Pribinova 10`,alignment: 'center',bold: true, style: 'text'},
-        {text: `IČO: 35 852 143  OR: OS Bratislava I, 28229/B`,alignment: 'center',bold: true, style: 'text'},
-        {text: `zastúpený: ${data.data.firstName} ${data.data.lastName}`,alignment: 'center',bold: true, style: 'text'},
+        {text: company.storeCompany.companyName,alignment: 'center',bold: true, style: 'text'},
+        {text: `${company.storeCompany.companyStreet}, ${company.storeCompany.companyStreetNumber}, ${company.storeCompany.companyCity}, ${company.storeCompany.companyCountry}`,alignment: 'center',bold: true, style: 'text'},
+        {text: `${company.storeCompany.companyBusinessRegister}, IČO: ${company.storeCompany.companyTaxId}`,alignment: 'center',bold: true, style: 'text'},
+        {text: `zastúpený: ${company.storeRGM}`,alignment: 'center',bold: true, style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         {text: `(ďalej len zamestnávateľ)`,alignment: 'center',bold: true, style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
@@ -47,7 +55,7 @@ async function liability (){
                 },
                 {
                   width: '50%',
-                  text: 'Miroslav Chovanec',
+                  text: `${data.firstName} ${data.lastName}`,
                   background: 'lightgray'
                 }
               ],
@@ -65,7 +73,7 @@ async function liability (){
                   },
                   {
                     width: '50%',
-                    text: '01/09/1978',
+                    text: `${moment(data.birthDate).format("LL")}`,
                     background: 'lightgray'
                   }
               ],
@@ -82,7 +90,7 @@ async function liability (){
                   },
                   {
                     width: '50%',
-                    text: 'Hlavé námesite 2 Dvory nad Žitavou 941 31',
+                    text: `${data.street} ${data.houseNumber} ${data.city} ${data.postalCode}`,
                     background: 'lightgray'
                   }
               ],
@@ -102,7 +110,7 @@ async function liability (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Zamestnanec podľa  pracovnej zmluvy, dohody o brigádnickej práci študenta alebo dohody o pracovnej činnosti uzatvorenej dňa  '},{text: '1/6/2023.',bold:true, background: 'lightgray'},{text: '  vykonáva prácu v pevádzkach zamestnávateľa na pozícii pracovník reštauračnejprevádzky.'}],
+                    text: [{text:`Zamestnanec podľa  pracovnej zmluvy, dohody o brigádnickej práci študenta alebo dohody o pracovnej činnosti uzatvorenej dňa: `},{text: signatureDate ,bold:true, background: 'lightgray'},{text: '  vykonáva prácu v pevádzkach zamestnávateľa na pozícii pracovník reštauračnejprevádzky.'}],
                     alignment: 'justify'
                   }
               ],
@@ -218,7 +226,7 @@ async function liability (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'V Košiciach: '},{text: ' 22/5/2023', bold:true}],
+                    text: [{text: {text:`V ${data.store.storeCity} `}},{text: signatureDate, bold:true}],
                     alignment: 'justify'
                   }
               ],
@@ -258,20 +266,23 @@ async function liability (){
     }
 
     
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
 
-    
-
-
-
-
-const options = {
-    
-    }
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition, options); 
-    pdfFile.pipe(fs.createWriteStream('pdfs/liability.pdf'));
-    pdfFile.end();
-    
+    try {
+ 
+     pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} liability.pdf`));
+     pdfFile.end();
+ 
+     req.flash(
+         "message",
+         `Liability file for employee ${data.lastName} ${data.firstName} was created.`
+       );
+       res.redirect("/employee");
+ 
+       } catch (err) {
+         console.log(err);
+       }
+ 
 } 
 
 

@@ -2,13 +2,11 @@ const nodeMailer = require("nodemailer");
 
 const sendEmail = async (to, cc, subject, html) => {
 
-
-
   try {
     const transporter = nodeMailer.createTransport({
       service: process.env.SERVICE,
       auth: {
-        user: process.env.USERNAME,
+        user: 'stefan_csomor@hotmail.com',
         pass: process.env.PASS,
       },
     });

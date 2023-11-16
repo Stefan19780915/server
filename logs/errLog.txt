@@ -86,3 +86,415 @@ text is not defined
     10|   <section class="secondary-section">
 
 text is not defined
+07/11/2023	14:11:45	c891d505-212a-48db-83d2-6dd724fb4f4c	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:331
+    329|       <span></span>
+    330| 
+ >> 331|       <% data.positions.forEach( (position)=> { %>
+    332| 
+    333| <div class="childList">
+    334|   <div><%= position.positionName %></div>
+
+Cannot read properties of undefined (reading 'forEach')
+07/11/2023	14:14:03	13b99941-0985-46ea-a7ec-7e06c4fddda3	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:331
+    329|       <span></span>
+    330| 
+ >> 331|       <% data.positions.forEach( (position)=> { %>
+    332| 
+    333| <div class="childList">
+    334|   <div><%= position.positionName %></div>
+
+Cannot read properties of undefined (reading 'forEach')
+07/11/2023	14:15:41	931e8481-b739-4f81-a465-4d33104d3510	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:331
+    329|       <span></span>
+    330| 
+ >> 331|       <% data.positions.forEach( (position)=> { %>
+    332| 
+    333| <div class="childList">
+    334|   <div><%= position.positionName %></div>
+
+Cannot read properties of undefined (reading 'forEach')
+07/11/2023	14:16:08	d3f48129-64db-49a4-b659-745c496ddb96	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:331
+    329|       <span></span>
+    330| 
+ >> 331|       <% data.positions.forEach( (position)=> { %>
+    332| 
+    333| <div class="childList">
+    334|   <div><%= position.positionName %></div>
+
+Cannot read properties of undefined (reading 'forEach')
+07/11/2023	14:20:55	7d1fd0ac-5817-476b-a6a7-97373824e271	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:331
+    329|       <span></span>
+    330| 
+ >> 331|       <% data.positions.forEach( (position)=> { %>
+    332| 
+    333| <div class="childList">
+    334|   <div><%= position.positionName %></div>
+
+Cannot read properties of undefined (reading 'forEach')
+07/11/2023	15:17:33	dab72ff0-450e-4bad-bc84-38f9219d9798	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:711
+    709|               <select name="positionName" id="">
+    710|                 <option value="0">Select Position:</option>
+ >> 711|                 <% positions.forEach((position)=>{ %>
+    712|                 <option value="<%= position._id %>"><%= positions.positionName %></option>
+    713|                 <% }) %>
+    714|               </select>
+
+positions is not defined
+07/11/2023	15:18:30	d69b165f-a8fa-42da-9b25-d5faeba6bdd9	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:711
+    709|               <select name="positionName" id="">
+    710|                 <option value="0">Select Position:</option>
+ >> 711|                 <% positions.forEach((position)=>{ %>
+    712|                 <option value="<%= position._id %>"><%= positions.positionName %></option>
+    713|                 <% }) %>
+    714|               </select>
+
+positions is not defined
+07/11/2023	15:19:00	194d5fed-ace7-4a80-9d93-ae3aa7717357	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:711
+    709|               <select name="positionName" id="">
+    710|                 <option value="0">Select Position:</option>
+ >> 711|                 <% positions.forEach((position)=>{ %>
+    712|                 <option value="<%= position._id %>"><%= positions.positionName %></option>
+    713|                 <% }) %>
+    714|               </select>
+
+positions is not defined
+07/11/2023	15:33:25	a82aa96a-8e12-4da0-9a01-574cf1f325de	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/11/2023	15:33:54	c96abf21-d9f8-4060-96f0-631bfce763ee	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/11/2023	15:34:15	86107fbb-296a-429d-8bc0-47adafba1c57	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/11/2023	15:34:54	2ce48702-1d64-48e7-b864-cd901ceb52ed	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/11/2023	15:35:17	d811c9aa-5d36-4077-a2d3-49ed4fd6a9d2	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/11/2023	15:58:55	018188a2-bd37-4608-818a-298d950aee68	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:337
+    335|   <a
+    336|     class="btn-secondary"
+ >> 337|     href="/position/<%= position._id %>"
+    338|     >Delete</a
+    339|   >
+    340| </div>
+
+position is not defined
+07/11/2023	16:08:10	4ec81c6f-535c-4bff-b704-969196d1898f	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:709
+    707|               <select name="position" id="">
+    708|                 <option value="0">Select store:</option>
+ >> 709|                 <% positions.forEach((position)=>{ %>
+    710|                 <option value="<%= position._id %>"><%= position.position %></option>
+    711|                 <% }) %>
+    712|               </select>
+
+positions is not defined
+07/11/2023	16:31:36	96bc6927-edf7-4951-819f-c543a1e84ad3	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:31:49	df293426-6ff3-4953-a44f-75393f469b51	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:32:33	b8d2e67f-7882-445f-be21-f205a5581b5f	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:35:55	b20d6c33-c040-4029-97cb-e3923455c849	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:35:56	aaf98769-8cbd-45e3-8e82-96951db13120	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:36:29	ac93412c-5293-40da-8f56-af79bfe46ccd	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:40:15	87430653-da32-4bdf-ab12-8f5ea05c2210	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:43:34	dff0382e-42ad-4ce8-965c-99698067f19a	SyntaxError: Unexpected token '>' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+07/11/2023	16:45:08	f35ca78e-facf-4e09-9821-86730352411d	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <% !data.position.position ? "No position"  : data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:45:29	240a29f6-b1ce-4a5e-bb7b-3d0e5f086669	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <% !data.position.position ? "No position"  : data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:46:10	fe534a56-1b88-4fe5-9e29-e362982be9b3	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <% data.position.position == null ? "No position"  : data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:46:41	767d9cd1-85a9-4ee4-be6c-162fe235ba9b	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <% data.position.position == null ? "No position"  : data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:49:23	5dbbac86-36cc-4ab6-8667-9158fc06a4a3	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <% typeof(data.position.position) == 'undefined' ? "No position"  : data.position.position%> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:51:40	b6ccdb7e-7d97-4407-9039-f43e19456e58	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= (!!locals.data.position.position)? data.position.position :'' %> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	16:51:59	f1cc57ce-4766-44f1-897b-fa7facc1075c	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name:  <%= (!!locals.data.position.position)? data.position.position :'' %> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	17:00:38	cdae99c0-462b-47e5-8003-57f428582171	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name: <% position.position.position %> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+Cannot read properties of undefined (reading 'position')
+07/11/2023	17:09:40	bd8e04d8-d211-4165-8800-af447e2578b0	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name: <%= position %> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+position is not defined
+07/11/2023	17:10:53	b962a01e-f86e-4379-b06f-fb1d5131ded9	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:704
+    702|         action="/employee/contract/<%= data.id%>?_method=PUT"
+    703|       >
+ >> 704|       <label for="positionName">Position Name: <%= position %> </label>
+    705| 
+    706|       <div class="custom-select" style="width: 200px">
+    707|               <select name="position" id="">
+
+position is not defined
+07/11/2023	17:15:51	3bef22b7-9c46-475a-a87e-b077617ce948	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employee.ejs:709
+    707|               <select name="position" id="">
+    708|                 <option value="0">Select store:</option>
+ >> 709|                 <% positions.forEach((position)=>{ %>
+    710|                 <option value="<%= position._id %>"><%= position.position %></option>
+    711|                 <% }) %>
+    712|               </select>
+
+positions is not defined
+08/11/2023	11:56:07	c9330ad7-3474-4f54-8a56-75bd9064017c	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\Downloads\node\server\views\partials\msg.ejs:11
+    9|   </div>
+    10| </section>
+ >> 11| <% } %> <% if(message.length > 0) { %>
+    12| <section class="msg">
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+
+message is not defined
+08/11/2023	11:58:18	50b85c81-9f82-48e3-bbbe-14c80808ce6f	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\Downloads\node\server\views\partials\msg.ejs:11
+    9|   </div>
+    10| </section>
+ >> 11| <% } %> <% if(message.length > 0) { %>
+    12| <section class="msg">
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+
+message is not defined
+08/11/2023	11:58:20	3f1def9c-56d0-4734-a120-8b614fd4176b	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\Downloads\node\server\views\partials\msg.ejs:11
+    9|   </div>
+    10| </section>
+ >> 11| <% } %> <% if(message.length > 0) { %>
+    12| <section class="msg">
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+
+message is not defined
+08/11/2023	12:42:59	ef08153a-9e12-44e1-a3c9-2333c99408a4	SyntaxError: Unexpected token 'catch' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+08/11/2023	12:47:10	661c56db-2cfb-4992-a06e-9546a293cd75	SyntaxError: Unexpected token 'catch' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+08/11/2023	12:48:47	a327b43f-7900-4d45-8249-c8f4d3e3f34d	SyntaxError: Unexpected token 'catch' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+08/11/2023	12:49:56	0de70e01-b9b2-4746-ba16-e754fcb53004	SyntaxError: Unexpected token 'catch' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+08/11/2023	12:51:10	f27cd409-448d-4397-982a-f0de663afa52	SyntaxError: Unexpected token 'catch' in C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+08/11/2023	13:01:15	97914458-a171-4e95-84b3-5842a91f5e40	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:387
+    385|           type="email"
+    386|           name="userEmail"
+ >> 387|           value="<%= company.companyEmail %>"
+    388|         />
+    389|        
+    390| 
+
+company is not defined
+08/11/2023	13:02:03	9f9986b7-5521-4572-8481-e6b4e71490cd	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:380
+    378|           type="text"
+    379|           name="userName"
+ >> 380|           value="<%= company.companyName %>"
+    381|         />
+    382|         <label for="userEmail">Company email</label>
+    383|         <input
+
+company is not defined
+08/11/2023	13:02:05	23f24705-49e6-4107-a199-b87940a53188	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:380
+    378|           type="text"
+    379|           name="userName"
+ >> 380|           value="<%= company.companyName %>"
+    381|         />
+    382|         <label for="userEmail">Company email</label>
+    383|         <input
+
+company is not defined
+08/11/2023	13:02:41	3bd0749d-3674-4922-a70d-0eb84ad3b7c2	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:380
+    378|           type="text"
+    379|           name="companyName"
+ >> 380|           value="<%= company.companyName %>"
+    381|         />
+    382|         <label for="userEmail">Company email</label>
+    383|         <input
+
+company is not defined
+08/11/2023	13:03:12	307d5694-6307-42fb-b787-02fe903e2246	ReferenceError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:363
+    361|         <h4>
+    362|           <div class="d-flex-visible space-between">
+ >> 363|             <a><%= comapany.comapanyName %></a>
+    364|           </div>
+    365|         </h4>
+    366|       </div>
+
+comapany is not defined
+09/11/2023	14:30:27	7ae609fc-59c8-4f6f-950e-86cb85c28206	TypeError: C:\Users\stefan.csomor\Downloads\node\server\views\pages\employees.ejs:282
+    280| 
+    281|         <p style="font-weight: bolder">
+ >> 282|         <%= ` ${store.storeCompany.companyName} is currently assigned to store
+    283|         - ${data.store == null ? 'No Store' : data.store.storeName}.` %>
+    284|       </p>
+    285| 
+
+Cannot read properties of undefined (reading 'companyName')

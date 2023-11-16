@@ -1,7 +1,6 @@
 const pdfmake = require('pdfmake');
 const fs = require('fs');
 const Employee = require("../model/Employee");
-const Store = require("../model/Store");
 const moment = require("moment");
 moment.locale("sk");
 
@@ -20,19 +19,20 @@ async function employeeRecord (req,res){
     
     const data = await Employee.findOne({ _id: req.params.id }).populate(
         "store"
-      );
+      ).populate("position");
 
-      console.log(data.contractSalary);
+    let position = data.position ? data.position.position : "No position"
 
-    const allStores =
-    req.user.roles == "Admin"
-      ? await Store.find({ admin: req.user.id })
-          .populate("user")
-          .sort({ storeName: "asc" })
-      : [];
+    const newDate = new Date(data.contractStartDate);
+
+    let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+
+    let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
+                       data.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
+                       data.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
 
     let docDefinition = {
-        content: [{text: `Dotazník pre Hlavný pracovný pomer`, style: 'header'},
+        content: [{text: `Dotazník pre ${contractType}`, style: 'header'},
         {
             table:{
                 headerRows: 0,
@@ -41,7 +41,7 @@ async function employeeRecord (req,res){
                     [{text: 'Meno:', bold:true, style: 'table'},{text:data.firstName, style: 'table'},
                     {text:'Priezvisko:', bold: true, style: 'table'},{text: data.lastName, style: 'table'}],
                     [{text:'',border:[true,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},
-                    {text:'Rodné priezvisko:', bold: true,style: 'table'},{text: 'ADD HERE NEW IMPUT', style: 'table'}],
+                    {text:'Rodné priezvisko:', bold: true,style: 'table'},{text: data.birthName, style: 'table'}],
                     [{text: 'Dátum narodenia:', bold:true,style: 'table'},{text: moment(data.birthDate).format("LL"), style:'table'},
                     {text:'Rodné číslo:', bold: true,style: 'table'},{text: data.socialSecNumber, style:'table'}],
                     [{text: 'Miesto narodenia:', bold:true,style: 'table'},{text: data.birthPlace, style:'table'},
@@ -60,18 +60,18 @@ async function employeeRecord (req,res){
 
                     [{text: 'Adresa trvalého bydliska:', bold:true,style: 'table'},{text: '', style:'table'},{text:'Prechodné bydlisko:', bold: true,style: 'table'},{text: '',style:'table'}],
 
-                    [{text: 'Ulica číslo domu:', bold:true,style: 'table'},{text: `${data.street} ${data.houseNumber}`, style:'table'},{text:'Ulica číslo domu:', bold: true,style: 'table'},{text: 'ADD HERE NEW INPUT',style:'table'}],
+                    [{text: 'Ulica číslo domu:', bold:true,style: 'table'},{text: `${data.street == undefined ? '' :data.street} ${data.houseNumber == undefined ? '' : data.houseNumber }`, style:'table'},{text:'Ulica číslo domu:', bold: true,style: 'table'},{text: `${data.streetTemp == undefined ? '' : data.streetTemp}  ${data.houseNumberTemp == undefined ? '' : data.houseNumberTemp}`,style:'table'}],
 
-                    [{text: 'Mesto/Obec:', bold:true,style: 'table'},{text: data.city, style:'table'},{text:'Mesto/Obec:', bold: true,style: 'table'},{text: 'ADD HERE NEW INPUT',style:'table'}],
+                    [{text: 'Mesto/Obec:', bold:true,style: 'table'},{text: data.city, style:'table'},{text:'Mesto/Obec:', bold: true,style: 'table'},{text: data.cityTemp ,style:'table'}],
 
-                    [{text: 'PSČ:', bold:true,style: 'table'},{text: data.postalCode, style:'table'},{text:'PSČ:', bold: true,style: 'table'},{text: 'ADD HERE NEW INPUT',style:'table'}],
+                    [{text: 'PSČ:', bold:true,style: 'table'},{text: data.postalCode, style:'table'},{text:'PSČ:', bold: true,style: 'table'},{text: data.postalCodeTemp ,style:'table'}],
 
                     [{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}],
 
                     [{text: 'Rodinný príslušníci:', bold:true,style: 'table'},{text: '', border: [false,false,false,false], style:'table'},{text:'',border:[false,false,false,false],style: 'table'},{text: '',border: [false,false,false,false],style:'table'}],
                     
-                    [{text: 'Manžel(ka):', bold:true,style: 'table'},{text: 'Zamestnaný(á), študuje - kde:', bold: true, style: 'table'},{text:'Dátum narodenia:', bold: true,style: 'table'},{text: 'Rodné číslo:',bold: true,style:'table'}],
-                    [{text: `${data.spouseName} ${data.spouseSurname}`,style: 'table'},{text: 'ADD HERE NEW INPUT SPOUSE JOB', style:'table'},{text: moment(data.spouseDateOfBirth).format("LL"),style: 'table'},{text: data.spouseSocialSecNumber,style:'table'}],
+                    [{text: 'Manžel(ka):', bold:true,style: 'table'},{text: '', bold: true, style: 'table'},{text:'Dátum narodenia:', bold: true,style: 'table'},{text: 'Rodné číslo:',bold: true,style:'table'}],
+                    [{text: `${data.spouseName == undefined? '' : data.spouseName} ${data.spouseSurname == undefined ? '' : data.spouseSurname}`,style: 'table'},{text: '', style:'table'},{text: !data.spouseDateOfBirth ? '' : moment(data.spouseDateOfBirth).format("LL") ,style: 'table'},{text: data.spouseSocialSecNumber,style:'table'}],
                     [{text: 'Deti:', bold:true,style: 'table'},{text: '', border: [false,false,false,false], style:'table'},{text:'',border:[false,false,false,false],style: 'table'},{text: '',border: [false,false,false,false],style:'table'}]
                 ],
                 style: 'table'
@@ -93,7 +93,7 @@ async function employeeRecord (req,res){
     
 
     for(let i = 0; i < data.children.length; i++){
-        docDefinition.content[1].table.body.push([{text: `${data.children[i].childName} ${data.children[i].childSurname}`,style: 'table'},{text: 'ADD HERE SCHOOL', style:'table'},{text: moment(data.children[i].childDateOfBirth).format("LL"),style: 'table'},{text: data.children[i].childSocialSecNumber,style:'table'}]);
+        docDefinition.content[1].table.body.push([{text: `${data.children[i].childName} ${data.children[i].childSurname}`,style: 'table'},{text: '', style:'table'},{text: moment(data.children[i].childDateOfBirth).format("LL"),style: 'table'},{text: data.children[i].childSocialSecNumber,style:'table'}]);
     }
 
 docDefinition.content[1].table.body.push([{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}]);
@@ -103,29 +103,29 @@ docDefinition.content[1].table.body.push([{text: 'Názov banky:', bold:true,styl
 docDefinition.content[1].table.body.push( [{text: 'Číslo účtu (IBAN):', bold:true,style: 'table'},{text:  data.accountNumber, style:'table'},
                                            {text:'Kód banky:', bold: true,style: 'table'},{text: data.bankCode,style:'table'}]);
 docDefinition.content[1].table.body.push([{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}]);
-docDefinition.content[1].table.body.push([{text: '(ZŤP / Dôchodca):', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'ADD HERE INPUT BOOLEAN ',border:[false,false,false,true],style: 'table'},{text: '',border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: '(ZŤP / Dôchodca):', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:data.ztpDochodca ,border:[false,false,false,true],style: 'table'},{text: '',border: [false,false,true,true],style:'table'}]);
 docDefinition.content[1].table.body.push([{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Študent - Názov a adresa školy, ktorú navštevujete:', bold:true,style: 'table'},{text: '', border: [false,false,false,true],style:'table'},{text:'ADD HERE SHOOL ADDRESS IPUT IF STUDENT',border:[false,false,false,true],style: 'table', colSpan: 2},{text: '',border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Študent - Názov a adresa školy, ktorú navštevujete:', bold:true,style: 'table'},{text: '', border: [false,false,false,true],style:'table'},{text:data.schoolName,border:[false,false,false,true],style: 'table', colSpan: 2},{text: '',border: [false,false,true,true],style:'table'}]);
 docDefinition.content[1].table.body.push([{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Ak ste zamestnaný v inej firme - Názov a adresa zamestnania:', bold:true,style: 'table'},{text: '', border: [false,false,false,true],style:'table'},{text:'ADD HERE IPUT OTHER EMPLOYERS',border:[false,false,false,true],style: 'table', colSpan: 2},{text: '',border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Ak ste zamestnaný v inej firme - Názov a adresa zamestnania:', bold:true,style: 'table'},{text: '', border: [false,false,false,true],style:'table'},{text:data.employerName,border:[false,false,false,true],style: 'table', colSpan: 2},{text: '',border: [false,false,true,true],style:'table'}]);
 docDefinition.content[1].table.body.push([{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}]);
 
 docDefinition.content[1].table.body.push( [{text: 'Doplňujúce údaje zamestnávateľa:', bold:true,style: 'table'},{text: '', style:'table'},{text:'Zastúpený RGM:', bold: true,style: 'table'},{text: data.store.storeRGM,style:'table'}]);
 docDefinition.content[1].table.body.push([{text: 'Dátum nástupu do zamestnania:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: moment(data.contractStartDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Dátum ukončenia:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: Date.contractEndDate = 'indefinite' ? 'neurčito' : moment(data.contractEndDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Dátum ukončenia:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: data.contractEndDate == 'indefinite' ? 'neurčito' : moment(data.contractEndDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
 docDefinition.content[1].table.body.push([{text: 'Predpokladaná výška mzdy:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: `${data.contractSalary ? data.contractSalary.toString(): ''} EUR`,border: [false,false,true,true],style:'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Druh mzdy (hodinová, mesačná, úkolová):', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: data.contractSalaryType,border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Druh mzdy (hodinová, mesačná, úkolová):', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: data.contractSalaryType == 'taskBased' ? 'Ukolová' : data.contractSalaryType == 'monthlySalary' ? 'Mesačná' : data.contractSalaryType == 'hourlyRate' ? 'Hodinová' : '',border: [false,false,true,true],style:'table'}]);
 docDefinition.content[1].table.body.push( [{text: 'Druh pracovného pomeru:', bold:true,style: 'table'},{text: data.contractType, style:'table'},{text:'Týždený počet hodín:', bold: true,style: 'table'},{text: data.contractWeeklyHours ? data.contractWeeklyHours.toString() : '',style:'table'}]);
 docDefinition.content[1].table.body.push([{text: 'Stredisko:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},
 
 {text: `${data.store.storeName}, ${data.store.storeStreet} ${data.store.storeStreetNumber}
         ${data.store.storeCity} `,border: [false,false,true,true],style:'table'}]);
 
-docDefinition.content[1].table.body.push([{text: 'Pracovné zaradenie:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: 'ADD HERE INPUT',border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Pracovné zaradenie:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: position ,border: [false,false,true,true],style:'table'}]);
 
 docDefinition.content[1].table.body.push([{text:'1',border:[false,false,false,false],color: 'white',style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
-docDefinition.content[1].table.body.push([{text:'Miesto podpisu:', bold: true,style: 'table'},{text: `V ${data.store.storeCity}`,style:'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
-docDefinition.content[1].table.body.push([{text:'Dátum podpisu:', bold: true,style: 'table'},{text: 'ADD HERE DATA OF SIGNATURE INPUT',style:'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
+docDefinition.content[1].table.body.push([{text:'Miesto podpisu:', bold: true,style: 'table'},{text: `${data.store.storeCity}`,style:'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
+docDefinition.content[1].table.body.push([{text:'Dátum podpisu:', bold: true,style: 'table'},{text: signatureDate,style:'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
 docDefinition.content[1].table.body.push([{text:'1',border:[false,false,false,false],color: 'white',style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
 docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 'center',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'Podpis zamestnávateľa',alignment: 'center',border:[false,false,false,false],style: 'table'}]);
 
@@ -137,13 +137,11 @@ docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 
     pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} personal data.pdf`));
     pdfFile.end();
 
-        res.render("../views/pages/employee", {
-            msg: false,
-            data: data,
-            user: req.user,
-            message: req.flash("message"),
-            stores: allStores,
-          });
+    req.flash(
+        "message",
+        `Employee Record for employee ${data.lastName} ${data.firstName} was created.`
+      );
+      res.redirect("/employee");
 
       } catch (err) {
         console.log(err);

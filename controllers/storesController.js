@@ -12,6 +12,7 @@ const createStore = async (req, res) => {
     storeStreetNumber: req.body.storeStreetNumber,
     storeCity: req.body.storeCity,
     storeRGM: req.body.storeRGM,
+    storeCompany: req.body.storeCompany,
   };
 
   if (newStore.user == 0) {
@@ -27,7 +28,8 @@ const createStore = async (req, res) => {
     !newStore.storeStreet ||
     !newStore.storeStreetNumber ||
     !newStore.storeCity ||
-    !newStore.storeRGM
+    !newStore.storeRGM ||
+    !newStore.storeCompany
   ) {
     req.flash("message", "All fields are required.");
     res.redirect("/employee");
@@ -63,6 +65,12 @@ const updateStore = async (req, res) => {
     store.user = req.body.user;
   } else {
     store.user;
+  }
+
+  if (req.body.storeCompany != 0) {
+    store.storeCompany = req.body.storeCompany;
+  } else {
+    store.storeCompany;
   }
 
   if (req.body.storeName) store.storeName = req.body.storeName;

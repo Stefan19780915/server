@@ -21,6 +21,10 @@ const employeesSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Store",
   },
+  position: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Position",
+  },
   employeeState: {
     type: Boolean,
     default: true,
@@ -35,6 +39,9 @@ const employeesSchema = new Schema({
     type: String,
   },
   gender: {
+    type: String,
+  },
+  birthName: {
     type: String,
   },
   birthDate: {
@@ -84,6 +91,18 @@ const employeesSchema = new Schema({
   postalCode: {
     type: String,
   },
+  streetTemp: {
+    type: String,
+  },
+  houseNumberTemp: {
+    type: String,
+  },
+  cityTemp: {
+    type: String,
+  },
+  postalCodeTemp: {
+    type: String,
+  },
 
   children: [childSchema],
 
@@ -102,6 +121,9 @@ const employeesSchema = new Schema({
   publicHealthInsuranceName: {
     type: String,
   },
+  ztpDochodca: {
+    type: String,
+  },
   gastroHealthCard: {
     type: String,
   },
@@ -113,6 +135,12 @@ const employeesSchema = new Schema({
   },
   bankCode: {
     type: Number,
+  },
+  schoolName: {
+    type: String,
+  },
+  employerName: {
+    type: String,
   },
   contractStartDate: {
     type: Date,

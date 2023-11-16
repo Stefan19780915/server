@@ -49,6 +49,7 @@ app.use("/chat", checkAuthUser, require("./routes/chat"));
 app.use("/pdf", checkAuthUser, require("./routes/pdf"));
 app.use("/store", checkAuthUser, require("./routes/store"));
 
+
 app.all("*", (req, res) => {
   res.render("pages/404", {
     msg: "Not Found.",
