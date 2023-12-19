@@ -825,20 +825,19 @@
         >Send Email</a
       >
       <div class="flex-container">
-        <div class="flex-item">
-          <a class="btn-secondary" href="/pdf/personal-data/<%= data.id %>"
-            >Record PDF</a
-          >
-        </div>
-        <div class="flex-item">
-          <a class="btn-secondary" href="/pdf/contract/<%= data.id %>"
-            >Contract PDF</a>
-        </div>
-        <div class="flex-item">
-          <a class="btn-secondary" href="/pdf/liability/<%= data.id %>"
-            >Liability PDF</a>
-          </div>
-        <div class="flex-item"></div>
+          <a class="btn-secondary" target="_blank" href="/pdf/personal-data/<%= data.id %>"
+            >Record PDF</a>
+            <a class="btn-secondary" target="_blank" href="/pdf/contract/<%= data.id %>"
+              >Contract PDF</a>
+              <a class="btn-secondary" target="_blank" href="/pdf/liability/<%= data.id %>"
+                >Liability PDF</a>
+                <a class="btn-secondary" target="_blank" href="/pdf/uniform/<%= data.id %>"
+                  >Uinform PDF</a>
+                  <a class="btn-secondary" target="_blank" href="/pdf/medical/<%= data.id %>"
+                    >Medical Record</a>
+                    <a class="btn-secondary" target="_blank" href="/pdf/health/<%= data.id %>"
+                      >Health and Safety</a>
+  
         <div class="flex-item"></div>
         <div class="flex-item"></div>
         <div class="flex-item"></div>

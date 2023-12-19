@@ -1,5 +1,6 @@
 const pdfmake = require('pdfmake');
 const fs = require('fs');
+const path = require('path');
 const Employee = require("../model/Employee");
 const moment = require("moment");
 moment.locale("sk");
@@ -141,7 +142,12 @@ docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 
         "message",
         `Employee Record for employee ${data.lastName} ${data.firstName} was created.`
       );
-      res.redirect("/employee");
+
+      let readyPdf =fs.readFileSync(path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`));
+       res.contentType("application/pdf");
+       res.send(readyPdf); 
+
+      //res.redirect("/employee");
 
       } catch (err) {
         console.log(err);

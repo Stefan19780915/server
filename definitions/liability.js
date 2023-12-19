@@ -1,5 +1,6 @@
 const PdfPrinter = require('pdfmake');
 const fs = require('fs');
+const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
 const moment = require("moment");
@@ -277,7 +278,13 @@ async function liability (req,res){
          "message",
          `Liability file for employee ${data.lastName} ${data.firstName} was created.`
        );
-       res.redirect("/employee");
+
+
+       let readyPdf =fs.readFileSync(path.join(__dirname,`../data/${data.lastName} ${data.firstName} liability.pdf`));
+       res.contentType("application/pdf");
+       res.send(readyPdf); 
+
+       //res.redirect("/employee");
  
        } catch (err) {
          console.log(err);

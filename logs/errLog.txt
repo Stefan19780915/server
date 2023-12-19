@@ -498,3 +498,8 @@ comapany is not defined
     285| 
 
 Cannot read properties of undefined (reading 'companyName')
+12/12/2023	15:31:36	93e828cd-b6e8-4222-b158-ee63c29a7ca9	Error: ENOENT: no such file or directory, stat 'C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\definitions\data\Csomor Štefan uniform.pdf'
+12/12/2023	15:35:18	8669a1bf-40f6-4c49-b654-b4658244097b	Error: ENOENT: no such file or directory, stat 'C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\definitions..\data\Csomor Štefan uniform.pdf'
+12/12/2023	15:38:57	367127d5-8820-4925-ba25-78171d582b20	Error: ENOENT: no such file or directory, stat 'C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\definitions..\data\Csomor Štefan uniform.pdf'
+12/12/2023	15:51:33	cafe5c77-6c33-4893-823a-ce4090d09ae7	RangeNotSatisfiableError: Range Not Satisfiable
+12/12/2023	15:52:23	fe359cf2-2341-47a2-a97d-e377198d4998	RangeNotSatisfiableError: Range Not Satisfiable
