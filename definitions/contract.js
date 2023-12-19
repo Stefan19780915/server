@@ -474,9 +474,13 @@ async function contract (req, res){
         `Contract for employee ${data.lastName} ${data.firstName} was created.`
       );
 
-      let readyPdf =fs.readFileSync(path.join(__dirname,`../data/${data.lastName} ${data.firstName} contract.pdf`));
+     //Openning the PDF straigh in a new TAB
+     let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} contract.pdf`);
+ 
+     fs.readFile(filePath, function(err, data){
        res.contentType("application/pdf");
-       res.send(readyPdf); 
+       res.send(data);
+     });
 
 
       //res.redirect("/employee");

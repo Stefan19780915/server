@@ -143,9 +143,13 @@ docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 
         `Employee Record for employee ${data.lastName} ${data.firstName} was created.`
       );
 
-      let readyPdf =fs.readFileSync(path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`));
-       res.contentType("application/pdf");
-       res.send(readyPdf); 
+      //Openning the PDF straigh in a new TAB
+      let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`);
+ 
+      fs.readFile(filePath, function(err, data){
+        res.contentType("application/pdf");
+        res.send(data);
+      });
 
       //res.redirect("/employee");
 

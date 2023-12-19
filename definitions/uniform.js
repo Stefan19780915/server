@@ -407,10 +407,12 @@ async function uniform (req,res){
        );
 
        //Openning the PDF straigh in a new TAB
-
-       let readyPdf =fs.readFileSync(path.join(__dirname,`../data/${data.lastName} ${data.firstName} uniform.pdf`));
-       res.contentType("application/pdf");
-       res.send(readyPdf); 
+      let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} uniform.pdf`);
+ 
+      fs.readFile(filePath, function(err, data){
+        res.contentType("application/pdf");
+        res.send(data);
+      });
        
       // res.redirect("/employee");
  
