@@ -512,10 +512,13 @@ async function health (req,res){
         );
  
         //Openning the PDF straigh in a new TAB
+        let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} health.pdf`);
  
-        let readyPdf =fs.readFileSync(path.join(__dirname,`../data/${data.lastName} ${data.firstName} health.pdf`));
-        res.contentType("application/pdf");
-        res.send(readyPdf); 
+        fs.readFile(filePath, function(err, data){
+          res.contentType("application/pdf");
+          res.send(data);
+        });
+         
         
        // res.redirect("/employee");
   
