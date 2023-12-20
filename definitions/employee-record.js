@@ -130,38 +130,35 @@ docDefinition.content[1].table.body.push([{text:'Dátum podpisu:', bold: true,st
 docDefinition.content[1].table.body.push([{text:'1',border:[false,false,false,false],color: 'white',style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
 docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 'center',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'Podpis zamestnávateľa',alignment: 'center',border:[false,false,false,false],style: 'table'}]);
 
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`);
 
-   const pdfFile = printer.createPdfKitDocument(docDefinition); 
-
-    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} personal data.pdf`));
-    pdfFile.end();
-
-    /*
-    req.flash(
-        "message",
-        `Employee Record for employee ${data.lastName} ${data.firstName} was created.`
-      );
-      */
-
-      //Openning the PDF straigh in a new TAB
-      let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`);
+    //Creating the PDF
+    await createPdf(pdfFile, data);
         
-      try {
-        const readyPdf = fs.readFileSync(filePath);
-        res.contentType("application/pdf");
-        res.send(readyPdf);
-        } catch (err){
-            console.error(err);
-        }
-      
-      
-
-      //res.redirect("/employee");
-
-     
-
+   //Openning the PDF straigh in a new TAB
+    await displayPdf(filePath, res);
 
 } 
+
+async function createPdf (pdfFile, data) {
+    try {
+      pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} personal data.pdf`));
+      pdfFile.end();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+  async function displayPdf (filePath, res){
+    try {
+      const readyPdf = fs.readFileSync(filePath);
+      res.contentType("application/pdf");
+      res.send(readyPdf);
+      } catch (err){
+          console.error(err);
+      }
+  }
 
 
 module.exports = {

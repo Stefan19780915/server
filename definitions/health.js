@@ -498,25 +498,34 @@ async function health (req,res){
     }
 
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} health.pdf`);
 
-    
- 
-      pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} health.pdf`));
-      pdfFile.end();
- 
-     //Openning the PDF straigh in a new TAB
-   let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} health.pdf`);
+    //Creating the PDF
+    await createPdf(pdfFile, data);
         
-   try {
-     const readyPdf = fs.readFileSync(filePath);
-     res.contentType("application/pdf");
-     res.send(readyPdf);
-     } catch (err){
-         console.error(err);
-     }
+   //Openning the PDF straigh in a new TAB
+    await displayPdf(filePath, res);
 
-    
 } 
+
+async function createPdf (pdfFile, data) {
+  try {
+    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} health.pdf`));
+    pdfFile.end();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function displayPdf (filePath, res){
+  try {
+    const readyPdf = fs.readFileSync(filePath);
+    res.contentType("application/pdf");
+    res.send(readyPdf);
+    } catch (err){
+        console.error(err);
+    }
+}
 
 
 module.exports = {
