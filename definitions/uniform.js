@@ -392,34 +392,20 @@ async function uniform (req,res){
     }
 
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} uniform.pdf`));
+    pdfFile.end();
     const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} uniform.pdf`);
 
-    //Creating the PDF
-    await createPdf(pdfFile, data);
-        
-   //Openning the PDF straigh in a new TAB
-    await displayPdf(filePath, res);
+    const file = fs.createReadStream(`${filePath}`);
+    const stat = fs.statSync(`${filePath}`);
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename=personal data.pdf');
+    file.pipe(res);
     
 } 
 
-async function createPdf (pdfFile, data) {
-  try {
-    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} uniform.pdf`));
-    pdfFile.end();
-  } catch (err) {
-    console.log(err);
-  }
-}
 
-async function displayPdf (filePath, res){
-  try {
-    const readyPdf = fs.readFileSync(filePath);
-    res.contentType("application/pdf");
-    res.send(readyPdf);
-    } catch (err){
-        console.error(err);
-    }
-}
 
 
 module.exports = {
