@@ -393,32 +393,21 @@ async function uniform (req,res){
 
 
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
-
-    try {
  
      pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} uniform.pdf`));
      pdfFile.end();
 
+    //Openning the PDF straigh in a new TAB
+   let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} uniform.pdf`);
+        
+   try {
+     const readyPdf = await fs.readFileSync(filePath);
+     res.contentType("application/pdf");
+     res.send(readyPdf);
+     } catch (err){
+         console.error(err);
+     }
 
- 
-     req.flash(
-         "message",
-         `Uniform file for employee ${data.lastName} ${data.firstName} was created.`
-       );
-
-       //Openning the PDF straigh in a new TAB
-      let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} uniform.pdf`);
- 
-      fs.readFile(filePath, function(err, data){
-        res.contentType("application/pdf");
-        res.send(data);
-      });
-       
-      // res.redirect("/employee");
- 
-       } catch (err) {
-         console.log(err);
-       }
 
     
 } 

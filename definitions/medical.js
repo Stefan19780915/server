@@ -393,37 +393,22 @@ async function medical (req, res){
 
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
 
-    try {
+    
  
       pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} medical.pdf`));
       pdfFile.end();
  
- 
-  
-      req.flash(
-          "message",
-          `Medical Record file for employee ${data.lastName} ${data.firstName} was created.`
-        );
- 
-        //Openning the PDF straigh in a new TAB
-      let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} medical.pdf`);
- 
-      fs.readFile(filePath, function(err, data){
-        res.contentType("application/pdf");
-        res.send(data);
-      });
+    //Openning the PDF straigh in a new TAB
+   let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} medical.pdf`);
         
-       // res.redirect("/employee");
-  
-        } catch (err) {
-          console.log(err);
-        }
+   try {
+     const readyPdf = await fs.readFileSync(filePath);
+     res.contentType("application/pdf");
+     res.send(readyPdf);
+     } catch (err){
+         console.error(err);
+     }
 
-
-
-
-
-    
     
     
 } 

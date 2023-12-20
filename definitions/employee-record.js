@@ -133,29 +133,32 @@ docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 
 
    const pdfFile = printer.createPdfKitDocument(docDefinition); 
 
-   try {
-
     pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} personal data.pdf`));
     pdfFile.end();
 
+    /*
     req.flash(
         "message",
         `Employee Record for employee ${data.lastName} ${data.firstName} was created.`
       );
+      */
 
       //Openning the PDF straigh in a new TAB
       let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`);
- 
-      fs.readFile(filePath, function(err, data){
+        
+      try {
+        const readyPdf = await fs.readFileSync(filePath);
         res.contentType("application/pdf");
-        res.send(data);
-      });
+        res.send(readyPdf);
+        } catch (err){
+            console.error(err);
+        }
+      
+      
 
       //res.redirect("/employee");
 
-      } catch (err) {
-        console.log(err);
-      }
+     
 
 
 } 
