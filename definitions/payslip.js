@@ -1,6 +1,9 @@
-const PdfPrinter = require('pdfmake');
+const pdfmake = require('pdfmake');
 const fs = require('fs');
-const getData = require('./axios');
+const path = require('path');
+const Employee = require("../model/Employee");
+const moment = require("moment");
+moment.locale("sk");
 
 const fonts = {
     Roboto: {
@@ -11,17 +14,23 @@ const fonts = {
       }
 }
 
-const printer = new PdfPrinter(fonts);
+const printer = new pdfmake(fonts);
 
-async function payslip (){
+async function payslip (req, res){
     
-    const data = await getData();
+  const data = await Employee.findOne({ _id: req.params.id }).populate(
+    "store"
+  ).populate("position");
 
-    const allData = Object.keys(data.data).map((key)=>{
-        return `${key}: ${data.data[key]}\n`;
-    });
+let position = data.position ? data.position.position : "No position"
 
-    //console.log(allData.join("\r\n"));
+const newDate = new Date(data.contractStartDate);
+
+let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+
+let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
+                   data.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
+                   data.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
 
     let docDefinition = {
         content: [{text: `Súhlas so zasielaním výplatnej pásky elektronickou formou`, style: 'header'},
@@ -46,7 +55,7 @@ async function payslip (){
                 },
                 {
                   width: '50%',
-                  text: 'Miroslav Chovanec',
+                  text: `${data.firstName} ${data.lastName}`,
                   background: 'lightgray'
                 }
               ],
@@ -64,7 +73,7 @@ async function payslip (){
                   },
                   {
                     width: '50%',
-                    text: '01/09/1978',
+                    text: moment(data.birthDate).format("LL"),
                     background: 'lightgray'
                   }
               ],
@@ -81,7 +90,7 @@ async function payslip (){
                   },
                   {
                     width: '50%',
-                    text: 'Hlavé námesite 2 Dvory nad Žitavou 941 31',
+                    text: `${data.street} ${data.houseNumber} ${data.city} ${data.postalCode}`,
                     background: 'lightgray'
                   }
               ],
@@ -143,14 +152,21 @@ async function payslip (){
               },
               {
 
-                width: '90%',
-                ul: [{text:'Výplatnú pásku žiadam zasielať na mailovú adresu: miro@hotmail.com'}],
+                width: '50%',
+                ul: [`Výplatnú pásku žiadam zasielať na mailovú adresu:`],
                 alignment: 'justify',
-                fontSize: 8
+                fontSize: 10
+              },
+              {
+
+                width: '50%',
+                text: data.email, bold: true,
+                alignment: 'justify',
+                fontSize: 10
               }
             ],
           },
-          {text: `1`,color: 'white',alignment: 'center', style: 'text'},
+          {text: `1`,color: 'white',alignment: 'left', style: 'text'},
           {
             columns: [
               {
@@ -160,10 +176,16 @@ async function payslip (){
             fontSize: 8
               },
               {
-                width: '90%',
-                ul: [{text:'V zmysle ochrany osobných údajov bude chránená heslom: 123'}],
-                alignment: 'justify',
-                fontSize: 8
+                width: '50%',
+                ul: [`Výplatná páska bude chránená heslom:`],
+                alignment: 'left',
+                fontSize: 10
+              },
+              {
+                width: '50%',
+                text: data.password, bold: true,
+                alignment: 'left',
+                fontSize: 10
               }
             ],
           },
@@ -189,7 +211,7 @@ async function payslip (){
             columns:[
                 {
                     width: '50%',
-                    text: `Datum: 27/8/2023 `,
+                    text: `Datum: ${signatureDate} `,
                     alignment: 'center'
                 },
                 {
@@ -238,19 +260,17 @@ async function payslip (){
     }
 
     
-
-    
-
-
-
-
-const options = {
-    
-    }
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition, options); 
-    pdfFile.pipe(fs.createWriteStream('pdfs/payslip.pdf'));
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} payslip.pdf`));
     pdfFile.end();
+    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} payslip.pdf`);
+
+    const file = fs.createReadStream(`${filePath}`);
+    const stat = fs.statSync(`${filePath}`);
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename=payslip.pdf');
+    file.pipe(res);
     
 } 
 

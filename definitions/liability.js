@@ -275,7 +275,7 @@ async function liability (req,res){
     const stat = fs.statSync(`${filePath}`);
     res.setHeader('Content-Length', stat.size);
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'inline; filename=personal data.pdf');
+    res.setHeader('Content-Disposition', 'inline; filename=liability.pdf');
     file.pipe(res);
 
 } 

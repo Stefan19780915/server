@@ -1,6 +1,9 @@
-const PdfPrinter = require('pdfmake');
+const pdfmake = require('pdfmake');
 const fs = require('fs');
-const getData = require('./axios');
+const path = require('path');
+const Employee = require("../model/Employee");
+const moment = require("moment");
+moment.locale("sk");
 
 const fonts = {
     Roboto: {
@@ -11,17 +14,23 @@ const fonts = {
       }
 }
 
-const printer = new PdfPrinter(fonts);
+const printer = new pdfmake(fonts);
 
-async function gdpr (){
+async function gdpr (req, res){
     
-    const data = await getData();
+  const data = await Employee.findOne({ _id: req.params.id }).populate(
+    "store"
+  ).populate("position");
 
-    const allData = Object.keys(data.data).map((key)=>{
-        return `${key}: ${data.data[key]}\n`;
-    });
+let position = data.position ? data.position.position : "No position"
 
-    //console.log(allData.join("\r\n"));
+const newDate = new Date(data.contractStartDate);
+
+let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+
+let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
+                   data.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
+                   data.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
 
     let docDefinition = {
         content: [{text: `Oznámenie informácií dotknutej osobe o spracúvaní osobných údajov`, style: 'header'},
@@ -368,7 +377,7 @@ async function gdpr (){
               {
 
                 width: '45%',
-                columns: [{text:`V Košiciach: ${data.data.firstName}`,bold: true}],
+                columns: [{text:`V ${data.store.storeCity}: ${signatureDate}`,bold: true}],
                 alignment: 'left',
                 fontSize: 8
               }
@@ -387,7 +396,7 @@ async function gdpr (){
               {
 
                 width: '90%',
-                columns: [{text:`Meno a Priezvisko: Miroslav Chovanec`,bold: true}],
+                columns: [{text:`Meno a Priezvisko: ${data.firstName} ${data.lastName}`,bold: true}],
                 alignment: 'left',
                 fontSize: 8
               }
@@ -405,7 +414,8 @@ async function gdpr (){
               {
 
                 width: '90%',
-                columns: [{text:`Stredisko: KFC Aupark`,bold: true}],
+                columns: [{text:`Stredisko: ${data.store.storeName}, ${data.store.storeStreet} ${data.store.storeStreetNumber}
+                ${data.store.storeCity} `,bold: true}],
                 alignment: 'left',
                 fontSize: 8
               }
@@ -442,19 +452,18 @@ async function gdpr (){
     }
 
     
-
-    
-
-
-
-
-const options = {
-    
-    }
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition, options); 
-    pdfFile.pipe(fs.createWriteStream('pdfs/gdpr.pdf'));
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} gdpr.pdf`));
     pdfFile.end();
+    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} gdpr.pdf`);
+
+    const file = fs.createReadStream(`${filePath}`);
+    const stat = fs.statSync(`${filePath}`);
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename=gdpr.pdf');
+    file.pipe(res);
+    
     
 } 
 
