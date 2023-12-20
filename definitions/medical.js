@@ -402,7 +402,7 @@ async function medical (req, res){
    let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} medical.pdf`);
         
    try {
-     const readyPdf = await fs.readFileSync(filePath);
+     const readyPdf = fs.readFileSync(filePath);
      res.contentType("application/pdf");
      res.send(readyPdf);
      } catch (err){

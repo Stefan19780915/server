@@ -147,7 +147,7 @@ docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 
       let filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`);
         
       try {
-        const readyPdf = await fs.readFileSync(filePath);
+        const readyPdf = fs.readFileSync(filePath);
         res.contentType("application/pdf");
         res.send(readyPdf);
         } catch (err){
