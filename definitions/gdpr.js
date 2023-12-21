@@ -16,7 +16,7 @@ const fonts = {
 
 const printer = new pdfmake(fonts);
 
-async function gdpr (req, res){
+async function gdpr (req, res, next){
     
   const data = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
@@ -451,19 +451,21 @@ let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
     }
     }
 
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition); 
-    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} gdpr.pdf`));
-    pdfFile.end();
     const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} gdpr.pdf`);
-
-    const file = fs.createReadStream(`${filePath}`);
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(filePath));
+    pdfFile.end();
+    next();
+    
+    /*
+    const file = fs.readFileSync(`${filePath}`);
     const stat = fs.statSync(`${filePath}`);
     res.setHeader('Content-Length', stat.size);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename=gdpr.pdf');
-    file.pipe(res);
-    
+    res.send(file);
+    res.end();
+    */
     
 } 
 

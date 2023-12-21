@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const moment = require("moment");
+const { nextDay } = require('date-fns');
 moment.locale("sk");
 
 const fonts = {
@@ -16,7 +17,7 @@ const fonts = {
 
 const printer = new pdfmake(fonts);
 
-async function payslip (req, res){
+async function payslip (req, res, next){
     
   const data = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
@@ -259,18 +260,21 @@ let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
     }
     }
 
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition); 
-    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} payslip.pdf`));
-    pdfFile.end();
     const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} payslip.pdf`);
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(filePath));
+    pdfFile.end();
+    next();
 
-    const file = fs.createReadStream(`${filePath}`);
+    /*  
+    const file = fs.readFileSync(`${filePath}`);
     const stat = fs.statSync(`${filePath}`);
     res.setHeader('Content-Length', stat.size);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename=payslip.pdf');
-    file.pipe(res);
+    res.send(file);
+    res.end();
+    */
     
 } 
 

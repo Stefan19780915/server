@@ -17,7 +17,7 @@ const fonts = {
 
 const printer = new PdfPrinter(fonts);
 
-async function contract (req, res){
+async function contract (req, res, next){
     
     const data = await Employee.findOne({ _id: req.params.id }).populate(
       "store"
@@ -460,17 +460,21 @@ async function contract (req, res){
     }
     }
 
-    const pdfFile = printer.createPdfKitDocument(docDefinition); 
-    pdfFile.pipe(fs.createWriteStream(`data/${data.lastName} ${data.firstName} contract.pdf`));
-    pdfFile.end();
     const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} contract.pdf`);
-
-    const file = fs.createReadStream(`${filePath}`);
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(filePath));
+    pdfFile.end();
+    next();
+    
+/*
+    const file = fs.readFileSync(`${filePath}`);
     const stat = fs.statSync(`${filePath}`);
     res.setHeader('Content-Length', stat.size);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename=contract.pdf');
-    file.pipe(res);
+    res.send(file);
+    res.end();
+    */
 
  
 }
