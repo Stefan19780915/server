@@ -503,3 +503,22 @@ Cannot read properties of undefined (reading 'companyName')
 12/12/2023	15:38:57	367127d5-8820-4925-ba25-78171d582b20	Error: ENOENT: no such file or directory, stat 'C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\definitions..\data\Csomor Štefan uniform.pdf'
 12/12/2023	15:51:33	cafe5c77-6c33-4893-823a-ce4090d09ae7	RangeNotSatisfiableError: Range Not Satisfiable
 12/12/2023	15:52:23	fe359cf2-2341-47a2-a97d-e377198d4998	RangeNotSatisfiableError: Range Not Satisfiable
+11/01/2024	00:06:58	55091893-50c3-4fde-b77d-326dc34e07b7	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:536
+    534|       <span></span>
+    535|       <div>
+ >> 536|         <p> <%= mapal.title %> </p>
+    537|         </div>
+    538|       <form action="">
+    539|         <label for="storeName">User name</label>
+
+Cannot read properties of undefined (reading 'title')
+11/01/2024	00:24:03	c24ef2cc-0323-419a-b307-f03320b45fed	SyntaxError: Unexpected token ';' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+11/01/2024	00:24:49	706baf30-0cd8-4db0-9c9f-945f9644aa78	SyntaxError: Unexpected token ';' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

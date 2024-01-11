@@ -510,19 +510,15 @@
     </div>
     <% }) %>
 
-
-
-
-
-
-
     <% } %>
   </section>
+
+
 
   <section class="settings-tab tab">
     <div class="container flow">
       <span></span>
-      <h3 style="margin-bottom: 16px">Databases</h3>
+      <h3 style="margin-bottom: 16px">API</h3>
     </div>
     <section class="sub-cat">
       <div class="container">
@@ -532,6 +528,14 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
+      <div>
+        <% mapal.forEach((emp)=>{ %>
+          
+            <p> <%= emp.name  %> </p>
+
+          <% }) %>
+        
+        </div>
       <form action="">
         <label for="storeName">User name</label>
         <input autocomplete="off" type="text" name="storeName" />
@@ -554,6 +558,8 @@
       </form>
     </div>
   </section>
+
+
 
   <% } %> <% if(user.roles == 'Manager' || user.roles == 'Admin' || user.roles
   == 'Owner') { %>

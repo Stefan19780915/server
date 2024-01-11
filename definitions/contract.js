@@ -33,7 +33,7 @@ async function contract (req, res, next){
 
     let contractType = data.contractType == 'TPP' ? 'Pracovná zmluva' :
                        data.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
-                       data.contractType == 'DOPŠ' ? 'Dohoda o pracovnej činnosti' : '';
+                       data.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
 
     let docDefinition = {
         content: [{text: contractType, style: 'header'},

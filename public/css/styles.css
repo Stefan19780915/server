@@ -261,7 +261,8 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     display: flex;
     flex-direction: column;
     gap: 2em;
-    height: 500px;
+    height: 500wh;
+    margin-bottom: 60px;
    
 
 }

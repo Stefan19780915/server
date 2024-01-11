@@ -1,6 +1,10 @@
 const PdfPrinter = require('pdfmake');
 const fs = require('fs');
-const getData = require('./axios');
+const path = require('path');
+const Employee = require("../model/Employee");
+const Store = require("../model/Store");
+const moment = require("moment");
+moment.locale("sk");
 
 const fonts = {
     Roboto: {
@@ -13,28 +17,47 @@ const fonts = {
 
 const printer = new PdfPrinter(fonts);
 
-async function contractEnd (){
+async function contractEnd (req, res, next){
     
-    const data = await getData();
+  const data = await Employee.findOne({ _id: req.params.id }).populate(
+    "store"
+  ).populate("position");
 
-    const allData = Object.keys(data.data).map((key)=>{
-        return `${key}: ${data.data[key]}\n`;
-    });
+  const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-    //console.log(allData.join("\r\n"));
+  let position = data.position ? data.position.position : "No position"
+
+  const newDate = new Date(data.contractStartDate);
+  const newDateEnd = new Date(data.contractEndDate);
+
+  let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+
+  let signatureDateEnd = !data.contractEndDate ? '' : moment(newDateEnd.setDate(newDateEnd.getDate()-1)).format('LL');
+
+  let terminationType = data.contractType == 'TPP' ? 'Dohoda o skončení pracovného pomeru' :
+                     data.contractType == 'DOBPŠ' ? 'Dohoda o zrušení Dohody o brigádnickej práci študenta' :
+                     data.contractType == 'DOPČ' ? 'Dohoda o zrušení Dohody o pracovnej činnosti' : '';
+
+  let terminationText = data.contractType == 'TPP' ? 
+  `Podľa § 60 Zákonníka práce sa pracovný vzťah dohodnutý medzi zamestnávateľom a zamestnancom pracovnou zmluvou zo dňa ${signatureDate} s nástupom do práce dňa ${moment(data.contractStartDate).format("LL")} skončí po vzájomnej dohode dňa ${moment(data.contractEndDate).format('LL')}` :
+  data.contractType == 'DOBPŠ' ? 
+  `Podľa § 228 Zákonníka práce sa pracovný vzťah dohodnutý medzi zamestnávateľom a zamestnancom dohodou o brigádnickej práci študenta zo dňa ${signatureDate} s nástupom do práce dňa ${moment(data.contractStartDate).format("LL")} skončí po vzájomnej dohode dňa ${moment(data.contractEndDate).format('LL')}` :
+  data.contractType == 'DOPČ' ?
+  `Podľa § 228 Zákonníka práce sa pracovný vzťah dohodnutý medzi zamestnávateľom a zamestnancom dohodou o pracovnej činnosti zo dňa ${signatureDate} s nástupom do práce dňa ${moment(data.contractStartDate).format("LL")} skončí po vzájomnej dohode dňa ${moment(data.contractEndDate).format('LL')}` : '';
+
 
     let docDefinition = {
-        content: [{text: `Dohoda o skončení pracovného pomeru`, style: 'header'},
+        content: [{text: terminationType, style: 'header'},
         {text: `uzatvorena podľa Zákonníka práce medzi:`,alignment: 'center', style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         
-        {text: `Queensway Restaurants Slovakia, s.r.o.`,alignment: 'center',bold: true, style: 'text'},
-        {text: `EUROVEA Central 3, Pribinova 10`,alignment: 'center',bold: true, style: 'text'},
-        {text: `IČO: 35 852 143  OR: OS Bratislava I, 28229/B`,alignment: 'center',bold: true, style: 'text'},
-        {text: `zastúpený: ${data.data.firstName} ${data.data.lastName}`,alignment: 'center',bold: true, style: 'text'},
+        {text: company.storeCompany.companyName ,alignment: 'center',bold: true, style: 'text'},
+        {text: `${company.storeCompany.companyStreet}, ${company.storeCompany.companyStreetNumber}, ${company.storeCompany.companyCity}, ${company.storeCompany.companyCountry}`,alignment: 'center',bold: true, style: 'text'},
+        {text: `${company.storeCompany.companyBusinessRegister}, IČO: ${company.storeCompany.companyTaxId}`,alignment: 'center',bold: true, style: 'text'},
+        {text: `zastúpený: ${company.storeRGM}`,alignment: 'center',bold: true, style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
         {text: `(ďalej len zamestnávateľ)`,alignment: 'center',bold: true, style: 'text'},
         {text: `1`,color: 'white',alignment: 'center', style: 'text'},
@@ -50,7 +73,7 @@ async function contractEnd (){
                 },
                 {
                   width: '50%',
-                  text: 'Miroslav Chovanec',
+                  text: `${data.firstName} ${data.lastName}`,
                   background: 'lightgray'
                 }
               ],
@@ -68,7 +91,7 @@ async function contractEnd (){
                   },
                   {
                     width: '50%',
-                    text: '01/09/1978',
+                    text: `${moment(data.birthDate).format("LL")}`,
                     background: 'lightgray'
                   }
               ],
@@ -85,7 +108,7 @@ async function contractEnd (){
                   },
                   {
                     width: '50%',
-                    text: 'Hlavé námesite 2 Dvory nad Žitavou 941 31',
+                    text: `${data.street} ${data.houseNumber} ${data.city} ${data.postalCode}`,
                     background: 'lightgray'
                   }
               ],
@@ -109,7 +132,7 @@ async function contractEnd (){
                   },
                   {
                     width: '90%',
-                    text: [{text: `Podľa § 60 Zákonníka práce sa pracovný vzťah dohodnutý medzi zamestnávateľom a zamestnancom pracovnou zmluvou zo dňa 10/10/2023 s nástupom do práce dňa 15/10/2023 skončí po vzájomnej dohode dňa 15/11/2023`}],
+                    text: [{text: terminationText}],
                     alignment: 'justify'
                   }
               ],
@@ -131,7 +154,7 @@ async function contractEnd (){
                   },
                   {
                     width: '90%',
-                    text: [{text:'V Košiciach: '},{text: ' 22/5/2023', bold:true}],
+                    text: [{text:`V ${data.store.storeCity} `}, {text: signatureDateEnd, bold:true}],
                     alignment: 'justify'
                   }
               ],
@@ -174,20 +197,24 @@ async function contractEnd (){
     }
     }
 
-    
+    if (data.contractEndDate == 'indefinite'){
 
-    
+    req.flash("message", 
+    `No contract end date spcified.
+     Please set the end date in the contract settings.`);
+    return res.redirect("/employee");
 
+    } else {
 
-
-
-const options = {
-    
-    }
-    
-    const pdfFile = printer.createPdfKitDocument(docDefinition, options); 
-    pdfFile.pipe(fs.createWriteStream('pdfs/contract-end.pdf'));
+    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} contract end.pdf`);
+    const pdfFile = printer.createPdfKitDocument(docDefinition); 
+    pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();
+    next();
+
+    }
+
+    
     
 } 
 

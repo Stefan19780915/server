@@ -11,9 +11,15 @@ const crypto = require("crypto");
 const nodeMailer = require("nodemailer");
 const { zhCN } = require("date-fns/locale");
 const sendEmail = require("../utils/sendEmployeeEmail");
+const mapal = require('../api/apiController')
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
+
+  const mapalEmployees = await mapal.getMapalEmployees();
+
+  console.log(mapalEmployees.data);
+
   const allStores =
     req.user.roles == "Admin"
       ? await Store.find({ admin: req.user.id })
@@ -88,6 +94,7 @@ const getAllEmployees = async (req, res) => {
     stores: allStores == null ? "" : allStores,
     positions: allPositions,
     companies: req.user.roles == 'Owner' ? companies : adminCompanies,
+    mapal: mapalEmployees.data, 
     message: req.flash("message"),
   });
 };
@@ -568,6 +575,16 @@ const updateEmployeeContract = async (req, res) => {
     } else {
       employee.position;
     }
+
+    if (!req.body.studentCompensation) {
+      employee.studentCompensation = false;
+    } else {
+      employee.studentCompensation = true;
+    }
+
+  if(req.body.compensationDateStart) employee.compensationDateStart = req.body.compensationDateStart;
+
+  console.log(req.body.studentCompensation);
 
   const result = await employee.save();
 

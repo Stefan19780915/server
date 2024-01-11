@@ -803,7 +803,26 @@
               step="0.01"
               required
             />
+            </div>
+
+            <div>
+            <p>If the student would like to apply for deductive contribution, then please tick the checkbox and specify the date the application should be valid.</p>
+            <label for="studentCompensation">Student Deductive Contribution Announcement</label>
+            <input autocomplete="off" type="checkbox" name="studentCompensation"
+             <% if(data.studentCompensation === true) { %> checked <% } else { %> <% } %>/>
+            </div>
+
+            <div>
+            <label for="compensationDateStart">Compensation Date Start</label>
+            <input
+              autocomplete="off"
+              type="date"
+              value="<%= data.compensationDateStart ?
+              data.compensationDateStart.toISOString().split("T")[0]: ''%>"
+              name="compensationDateStart"
+            />
           </div>
+
         </div>
         <button class="add-bank btn-primary">Update</button>
       </form>
@@ -826,13 +845,13 @@
       >
       <div class="flex-container">
           <a class="btn-secondary" target="_blank" href="/pdf/personal-data/<%= data.id %>"
-            >Record PDF</a>
+            >Record</a>
             <a class="btn-secondary" target="_blank" href="/pdf/contract/<%= data.id %>"
-              >Contract PDF</a>
+              >Contract</a>
               <a class="btn-secondary" target="_blank" href="/pdf/liability/<%= data.id %>"
-                >Liability PDF</a>
+                >Liability</a>
                 <a class="btn-secondary" target="_blank" href="/pdf/uniform/<%= data.id %>"
-                  >Uinform PDF</a>
+                  >Uinform</a>
                   <a class="btn-secondary" target="_blank" href="/pdf/medical/<%= data.id %>"
                     >Medical Record</a>
                     <a class="btn-secondary" target="_blank" href="/pdf/health/<%= data.id %>"
@@ -841,8 +860,15 @@
                         >G.D.P.R.</a>
                         <a class="btn-secondary" target="_blank" href="/pdf/payslip/<%= data.id %>"
                           >Payslip Agreement</a>
+                          <a class="btn-secondary" target="_blank" href="/pdf/contract-end/<%= data.id %>"
+                            >Contract End</a>
+                            <a class="btn-secondary" target="_blank" href="/pdf/contract-end-probation/<%= data.id %>"
+                              >Contract End By Probation Or By Post</a>
+                              <a class="btn-secondary" target="_blank" href="/pdf/student/<%= data.id %>"
+                                >Student Announcement On Deductive Contribution</a>
   
       </div>
+      
     </div>
   </section>
 
