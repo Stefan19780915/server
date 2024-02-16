@@ -522,3 +522,29 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+22/01/2024	15:12:21	dfe2331a-0e91-467d-9781-dbbc45a2ca89	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:532
+    530|       <span></span>
+    531|       <div>
+ >> 532|         <% mapal.forEach((emp)=>{ %>
+    533|           
+    534|             <p> <%= emp.name  %> </p>
+    535| 
+
+mapal.forEach is not a function
+13/02/2024	22:30:27	2464e2e1-c8df-4253-a092-c833e938efba	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:11
+    9|   </div>
+    10| </section>
+ >> 11| <% } %> <% if(message.length > 0) { %>
+    12| <section class="msg">
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+
+message is not defined

@@ -615,7 +615,7 @@
           <div>
             <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
             <div class="custom-select" style="width: 200px">
-              <select name="store">
+              <select name="store" required>
                 <option value="0">Select store:</option>
                 <% stores.forEach((store)=>{ %>
                 <option value="<%= store._id %>"><%= store.storeName %></option>
@@ -631,7 +631,6 @@
               autocomplete="off"
               type="text"
               name="firstName"
-              value="<%= data.firstName %>"
               required
             />
           </div>
@@ -641,7 +640,6 @@
               autocomplete="off"
               type="text"
               name="lastName"
-              value="<%= data.lastName %>"
               required
             />
           </div>
@@ -652,10 +650,34 @@
               autocomplete="off"
               type="text"
               name="birthName"
-              value="<%= data.birthName %>"
               required
             />
           </div>
+
+          <div>
+          <label for="contractStartDate">Start date</label>
+          <input autocomplete="off" type="date" name="contractStartDate" />
+        </div>
+
+        <div>
+          <label for="endDate">End date</label>
+          <input autocomplete="off" id="endDate" type="date"
+          name="contractEndDate" required
+          />
+
+          <label for="indefinite">Idefinite period of time</label>
+          <input autocomplete="off" type="checkbox" id="check" value=" <% if
+          (data.contractEndDate == 'indefinite') { %>0<% } else { %>1<% } %> "
+          <% if (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
+          <input
+            autocomplete="off"
+            type="hidden"
+            id="hidden"
+            name="contractEndDate"
+            value="0"
+            disabled
+          />
+        </div>
 
           <div>
             <label for="email">Email</label>
@@ -663,14 +685,12 @@
               autocomplete="off"
               type="email"
               name="email"
-              value="<%= data.email %>"
             />
             <label for="password">Temporary password</label>
             <input
               autocomplete="off"
               type="password"
               name="password"
-              value="<%= data.password %>"
             />
           </div>
 

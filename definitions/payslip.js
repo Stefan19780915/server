@@ -260,7 +260,7 @@ let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
     }
     }
 
-    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} payslip.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} payslip.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

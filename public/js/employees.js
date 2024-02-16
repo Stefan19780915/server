@@ -176,3 +176,17 @@ then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
 
 
+//Haldle Contract End Date
+document.getElementById("check").addEventListener("change", (e) => {
+  //console.log(e.target.value);
+  if (e.target.value == 1) {
+    document.getElementById("hidden").disabled = false;
+    document.getElementById("hidden").value = "indefinite";
+    document.getElementById("endDate").disabled = true;
+    e.target.value = 0;
+  } else {
+    e.target.value = 1;
+    document.getElementById("endDate").disabled = false;
+    document.getElementById("hidden").disabled = true;
+  }
+});

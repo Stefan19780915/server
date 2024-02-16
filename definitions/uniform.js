@@ -391,21 +391,12 @@ async function uniform (req,res, next){
     }
     }
 
-    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} uniform.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} uniform.pdf`);
+
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();
     next();
-    
-    /*
-    const file = fs.readFileSync(`${filePath}`);
-    const stat = fs.statSync(`${filePath}`);
-    res.setHeader('Content-Length', stat.size);
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'inline; filename=uniform.pdf');
-    res.send(file);
-    res.end();
-    */
     
 } 
 

@@ -11,14 +11,15 @@ const crypto = require("crypto");
 const nodeMailer = require("nodemailer");
 const { zhCN } = require("date-fns/locale");
 const sendEmail = require("../utils/sendEmployeeEmail");
-const mapal = require('../api/apiController')
+const {getToken} = require('../api/apiController');
+const fs = require('fs');
+const path = require('path');
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
 
-  const mapalEmployees = await mapal.getMapalEmployees();
+ // const mapalEmployees = await getToken();
 
-  console.log(mapalEmployees.data);
 
   const allStores =
     req.user.roles == "Admin"
@@ -94,7 +95,7 @@ const getAllEmployees = async (req, res) => {
     stores: allStores == null ? "" : allStores,
     positions: allPositions,
     companies: req.user.roles == 'Owner' ? companies : adminCompanies,
-    mapal: mapalEmployees.data, 
+    mapal: [], 
     message: req.flash("message"),
   });
 };
@@ -147,6 +148,8 @@ const createEmployee = async (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     birthName: req.body.birthName,
+    contractStartDate: req.body.contractStartDate,
+    contractEndDate: req.body.contractEndDate, 
     email: req.body.email,
     password: req.body.password,
   };
@@ -169,6 +172,8 @@ const createEmployee = async (req, res) => {
     !newEmployee.email ||
     !newEmployee.password ||
     !newEmployee.firstName ||
+    !newEmployee.contractStartDate ||
+    !newEmployee.contractEndDate ||
     !newEmployee.lastName
   ) {
     req.flash("message", "All fields are required.");
@@ -189,8 +194,19 @@ const createEmployee = async (req, res) => {
     return res.redirect("/employee");
   }
 
+  const duplicateStartDate = await Employee.findOne({ contractStartDate: newEmployee.contractStartDate });
+
+  if (duplicateStartDate) {
+    req.flash("message", "Employee already exists with provided contract start date.");
+    return res.redirect("/employee");
+  }
+
   try {
+    
+    //create employee
     const result = await Employee.create(newEmployee);
+
+    //creat user
     const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
     const newUser = {
       admin: admin,
@@ -200,8 +216,14 @@ const createEmployee = async (req, res) => {
       userEmail: result.email,
       password: hashedPassword,
     };
-
     const resultUser = await User.create(newUser);
+
+    //update employee with user ID
+    const getNewEmployyee = await Employee.findOne({ _id: result.id });
+    if(result.id){
+      getNewEmployyee.user = resultUser._id;
+    }
+    const resultUpdatedEmployee = await getNewEmployyee.save();
 
     // CREATE THE TOKEN HERE
     const token = {
@@ -233,7 +255,7 @@ const createEmployee = async (req, res) => {
 
     req.flash(
       "message",
-      `Employee and user ${resultUser.userName} with email: ${result.email} was created successfully.
+      `Employee and user ${resultUser.userName} with email: ${resultUpdatedEmployee.email} was created successfully.
       Email verification link was sent to ${resultUser.userEmail}`
     );
     res.redirect("/employee");
@@ -252,17 +274,31 @@ const deleteEmployee = async (req, res) => {
       message: req.flash("message"),
     });
   }
-  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+  //GETTING EMPLOYEE WITH USER REFERENCE
+  const employee = await Employee.findOne({ _id: req.params.id }).populate("user");
+
   if (!employee) {
     req.flash("message", "Please provide the correct ID.");
     return res.redirect("/pages/404");
   }
+// HERE NEED TO DELETE THE ASSOCIATED USER AS WELL 
+// GET THE USER
+  const user = await User.findOne({ _id: employee.user._id });
+
+  try{
   const result = await employee.deleteOne({ _id: req.params.id });
+  const resultUser = await user.deleteOne({ _id: employee.user._id});
   req.flash(
     "message",
-    `Personal data of ${result.firstName} ${result.lastName} was deleted.`
+    `Personal data of ${result.firstName} ${result.lastName} and its associated user with ID ${resultUser._id} was deleted.` 
+  
   );
   res.redirect("/employee");
+  } catch (err){
+    req.flash("message", `Employee was not deleted becasue of the following error - ${err}`);
+    return res.redirect("/pages/404");
+  } 
+  
 };
 
 // CREATE CHILD AND REDIRECT TO EMPLOYEE ROUTE
@@ -542,6 +578,38 @@ const updateEmployeeSchool = async (req, res) => {
     res.redirect("/employee");
   } else {
     req.flash("message", "School or Employer was not updated..");
+    return res.redirect("/pages/404");
+  }
+};
+
+
+// UPDATE TAX
+
+const updateTax = async (req, res) => {
+  if (!req.params.id) {
+    req.flash("message", "Id parameter is rewuired");
+    return res.redirect("/pages/404");
+  }
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+
+  if (!employee) {
+    req.flash("message", "No employee found.");
+    return res.redirect("/pages/404");
+  }
+
+
+  if (req.body.taxStartDate) employee.taxStartDate = req.body.taxStartDate;
+  
+  const result = await employee.save();
+
+  if (result != undefined) {
+    req.flash(
+      "message",
+      `Employee ${result.firstName} ${ result.lastName} TAX infirmation was updated successfully.`
+    );
+    res.redirect("/employee");
+  } else {
+    req.flash("message", "Tax information was not updated..");
     return res.redirect("/pages/404");
   }
 };
@@ -836,5 +904,6 @@ module.exports = {
   deletePosition,
   createCompany,
   updateCompany,
-  deleteCompany
+  deleteCompany,
+  updateTax
 };

@@ -25,6 +25,10 @@ const employeesSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Position",
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   employeeState: {
     type: Boolean,
     default: true,
@@ -143,6 +147,9 @@ const employeesSchema = new Schema({
     type: String,
   },
   contractStartDate: {
+    type: Date,
+  },
+  taxStartDate: {
     type: Date,
   },
   contractEndDate: {

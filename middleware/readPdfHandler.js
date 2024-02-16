@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
+const moment = require("moment");
+moment.locale("sk");
 
 
 function pdfRead (fileName){
@@ -11,7 +13,8 @@ function pdfRead (fileName){
             "store"
           ).populate("position");
     
-        const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} ${fileName}.pdf`);
+        const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} ${fileName}.pdf`);
+        
     
         const file = fs.readFileSync(`${filePath}`);
         const stat = fs.statSync(`${filePath}`);

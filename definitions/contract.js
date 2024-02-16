@@ -459,8 +459,8 @@ async function contract (req, res, next){
         }
     }
     }
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} contract.pdf`);
 
-    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} contract.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

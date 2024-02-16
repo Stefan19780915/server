@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const employeeController = require("../controllers/employeesController");
 const { createUser } = require("../middleware/registerUserHandler");
+const { deleteDir } = require('../middleware/deleteDirHandler');
 
 router.get("/", employeeController.getAllEmployees);
 
@@ -9,7 +10,7 @@ router.get("/:id", employeeController.getEmployee);
 
 router.post("/personal", employeeController.createEmployee);
 
-router.get("/personal/:id", employeeController.deleteEmployee);
+router.get("/personal/:id",  deleteDir, employeeController.deleteEmployee);
 
 router.post("/child/:id", employeeController.createChild);
 
@@ -30,6 +31,8 @@ router.put("/health/:id", employeeController.updateEmployeeHealth);
 router.put("/bank/:id", employeeController.updateEmployeeBank);
 
 router.put("/school-employer/:id", employeeController.updateEmployeeSchool);
+
+router.put("/employee-tax/:id", employeeController.updateTax);
 
 router.put("/contract/:id", employeeController.updateEmployeeContract);
 

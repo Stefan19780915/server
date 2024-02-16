@@ -497,7 +497,7 @@ async function health (req,res,next){
     }
     }
 
-    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} health.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} health.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

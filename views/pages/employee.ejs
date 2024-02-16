@@ -45,7 +45,7 @@
           <div>
             <% if(user.roles == 'Admin') { %>
             <div class="custom-select" style="width: 200px">
-              <select name="store" id="">
+              <select name="store" >
                 <option value="0">Select store:</option>
                 <% stores.forEach((store)=>{ %>
                 <option value="<%= store._id %>"><%= store.storeName %></option>
@@ -688,6 +688,41 @@
     </div>
 
 
+
+    <section class="sub-cat">
+      <div class="container flow">
+        <h4><a>Tax bonus - NZDČ</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <p>
+        In case the employee would like to papply for TAX bonus or TAX bonus after children then please specify here and select the appropriote box.
+      </p>
+      <form
+        class="bank-data-form flow"
+        method="POST"
+        action="/employee/employee-tax/<%= data.id%>?_method=PUT"
+      >
+        <div>
+          <label for="schoolName">NZDČ TICK</label>
+          
+
+        </div>
+
+        <div>
+          <label for="taxStartDate">Tax bonus start day</label>
+          <input autocomplete="off" type="date" name="taxStartDate"
+          value="<%= data.taxStartDate ?
+          data.taxStartDate.toISOString().split("T")[0]: ''%>" />
+        </div>
+
+        <button class="add-bank btn-primary">Update</button>
+      </form>
+    </div>
+
+
     <section class="sub-cat">
       <div class="container flow">
         <h4><a>Cotract settings</a></h4>
@@ -704,13 +739,13 @@
       <label for="positionName" style="font-weight: bolder">Employee's current position: <%= position %> </label>
 
       <div class="custom-select" style="width: 200px">
-              <select name="position" id="">
+              <select name="position" >
                 <option value="0">Select position:</option>
                 <% positions.forEach((position)=>{ %>
                 <option value="<%= position._id %>"><%= position.position %></option>
                 <% }) %>
               </select>
-            </div>
+      </div>
             
       
         <div>
@@ -719,6 +754,7 @@
           value="<%= data.contractStartDate ?
           data.contractStartDate.toISOString().split("T")[0]: ''%>" />
         </div>
+        
         <div>
           <label for="endDate">End date</label>
           <input autocomplete="off" id="endDate" type="date"
@@ -739,6 +775,7 @@
             disabled
           />
         </div>
+        
         <div class="flow">
           <p>Please choose the salary type for the employee.</p>
           <div class="d-flex-visible gap">
@@ -866,6 +903,8 @@
                               >Contract End By Probation Or By Post</a>
                               <a class="btn-secondary" target="_blank" href="/pdf/student/<%= data.id %>"
                                 >Student Announcement On Deductive Contribution</a>
+                                <a class="btn-secondary" target="_blank" href="/pdf/nzdc/<%= data.id %>"
+                                >TAX Bonus NZDČ</a>
   
       </div>
       

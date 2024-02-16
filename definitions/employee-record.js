@@ -130,21 +130,14 @@ docDefinition.content[1].table.body.push([{text:'Dátum podpisu:', bold: true,st
 docDefinition.content[1].table.body.push([{text:'1',border:[false,false,false,false],color: 'white',style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'}]);
 docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 'center',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'Podpis zamestnávateľa',alignment: 'center',border:[false,false,false,false],style: 'table'}]);
 
-    const filePath = path.join(__dirname,`../data/${data.lastName} ${data.firstName} personal data.pdf`);
+
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} personal data.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();
     next();
     
-    /*
-    const file = fs.readFileSync(`${filePath}`);
-    const stat = fs.statSync(`${filePath}`);
-    res.setHeader('Content-Length', stat.size);
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'inline; filename=personal data.pdf');
-    res.send(file);
-    res.end();
-    */
+
 } 
 
 module.exports = {
