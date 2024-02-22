@@ -531,7 +531,8 @@
       <div>
         <% mapal.forEach((emp)=>{ %>
           
-            <p> <%= emp.name  %> </p>
+            <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
+            
 
           <% }) %>
         
@@ -587,6 +588,7 @@
         </h4>
       </div>
       <form
+        autocomplete="off"
         method="POST"
         class="employee-form flow"
         action="/employee/personal"
@@ -682,15 +684,20 @@
           <div>
             <label for="email">Email</label>
             <input
-              autocomplete="off"
+            readonly
+            onfocus="this.removeAttribute('readonly');"
+            autocomplete="false"
               type="email"
               name="email"
+              value=" "
             />
             <label for="password">Temporary password</label>
             <input
-              autocomplete="off"
+              readonly
+              onfocus="this.removeAttribute('readonly');"
               type="password"
               name="password"
+              value=""
             />
           </div>
 

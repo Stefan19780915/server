@@ -20,6 +20,9 @@ const connectDB = require("./config/dbConn");
 const { connect } = require("http2");
 const flash = require("express-flash");
 const passport = require("passport");
+const { apiToken } = require('./middleware/apiToken');
+
+
 const PORT = process.env.PORT || 3500;
 
 //Start Chat
@@ -41,6 +44,7 @@ app.use(sessionMiddleware);
 io.use(wrap(sessionMiddleware));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 //ROUTES
 app.use("/", require("./routes/user"));

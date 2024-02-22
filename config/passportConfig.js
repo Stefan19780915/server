@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (userEmail, password, done) => {
-    const user = await getUserByEmail(userEmail);
+    let user = await getUserByEmail(userEmail);
 
     if (user == null) {
       return done(null, false, {
@@ -43,7 +43,8 @@ function initialize(passport, getUserByEmail, getUserById) {
 
   passport.deserializeUser(async (id, done) => {
     const user = await getUserById(id);
-    return done(null, user);
+      return done(null, user);
+    
   });
 }
 

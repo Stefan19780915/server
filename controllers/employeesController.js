@@ -4,6 +4,7 @@ const Position = require("../model/Positions");
 const Company = require("../model/Company");
 const Store = require("../model/Store");
 const Token = require("../model/token");
+const { getMapalEmployees } = require('../api/Mapal');
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
@@ -11,15 +12,14 @@ const crypto = require("crypto");
 const nodeMailer = require("nodemailer");
 const { zhCN } = require("date-fns/locale");
 const sendEmail = require("../utils/sendEmployeeEmail");
-const {getToken} = require('../api/apiController');
 const fs = require('fs');
 const path = require('path');
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
 
- // const mapalEmployees = await getToken();
-
+  //const mapalEmp = await getMapalEmployees();
+  //console.log(mapalEmp.data);
 
   const allStores =
     req.user.roles == "Admin"

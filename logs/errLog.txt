@@ -548,3 +548,12 @@ C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\p
     14|     <h4><%= message%></h4>
 
 message is not defined
+22/02/2024	14:40:14	56363f21-3c31-4721-8bbb-8e6304deb0b2	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:532
+    530|       <span></span>
+    531|       <div>
+ >> 532|         <% mapal.forEach((emp)=>{ %>
+    533|           
+    534|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
+    535|             
+
+Cannot read properties of undefined (reading 'forEach')
