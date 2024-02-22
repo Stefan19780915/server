@@ -18,7 +18,7 @@ const path = require('path');
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
 
-  //const mapalEmp = await getMapalEmployees();
+  const mapalEmp = await getMapalEmployees();
   //console.log(mapalEmp.data);
 
   const allStores =
@@ -95,7 +95,7 @@ const getAllEmployees = async (req, res) => {
     stores: allStores == null ? "" : allStores,
     positions: allPositions,
     companies: req.user.roles == 'Owner' ? companies : adminCompanies,
-    mapal: [], 
+    mapal: mapalEmp.data, 
     message: req.flash("message"),
   });
 };

@@ -48,7 +48,7 @@ app.use(passport.session());
 
 //ROUTES
 app.use("/", require("./routes/user"));
-app.use("/employee", checkAuthUser, require("./routes/employee"));
+app.use("/employee", checkAuthUser, apiToken, require("./routes/employee"));
 app.use("/chat", checkAuthUser, require("./routes/chat"));
 app.use("/pdf", checkAuthUser, require("./routes/pdf"));
 app.use("/store", checkAuthUser, require("./routes/store"));
