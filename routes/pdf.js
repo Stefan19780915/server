@@ -14,6 +14,7 @@ const { contractEnd } = require("../definitions/contract-end");
 const { contractEndProbationPost } = require("../definitions/contract-end-probation");
 const { student } = require("../definitions/student");
 const { nzdc } = require("../definitions/nzdc");
+const { zdep } = require("../definitions/zdep");
 
 
 router.get("/personal-data/:id", createDir, employeeRecord, pdfRead('personal data'));
@@ -27,6 +28,7 @@ router.get("/payslip/:id", createDir, payslip, pdfRead('payslip'));
 router.get("/contract-end/:id", createDir, contractEnd, pdfRead('contract end'))
 router.get("/contract-end-probation/:id", createDir, contractEndProbationPost, pdfRead('contract end probation post'))
 router.get("/student/:id", createDir, student, pdfRead('student announcement'))
-router.get("/nzdc/:id", createDir, nzdc, pdfRead('nzdc'))
+router.get("/nzdc/:id", createDir, nzdc, pdfRead('nzdc'));
+router.get("/zdep/:id", createDir, zdep, pdfRead('zdep'));
 
 module.exports = router;

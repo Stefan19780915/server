@@ -41,194 +41,197 @@ async function nzdc (req, res, next){
 
 
   const existingPdfBytes = fs.readFileSync('./definitions/nzdc.pdf');
-  try{
-      const pdfDoc = await PDFDocument.load(existingPdfBytes);
-
-      pdfDoc.registerFontkit(fontkit);
-      const fontBytes = fs.readFileSync(fonts.Roboto.normal);
-      const customFont = await pdfDoc.embedFont(fontBytes)
-
-      const helveticaFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
-      const timesRomanFont = customFont;
 
 
-      const pages = pdfDoc.getPages();
-      const firstPage = pages[0]
-      const { width, height } = firstPage.getSize();
+  if(data.children.length == 0 && data.childBonus == true ) {
+
+    req.flash("message", `There are no children specified for the child tax bonus. Please add children in the Employee children section.`);
+    return res.redirect("/employee");
+
+    } else {
+
+
+
+        try{
+            const pdfDoc = await PDFDocument.load(existingPdfBytes);
+      
+            pdfDoc.registerFontkit(fontkit);
+            const fontBytes = fs.readFileSync(fonts.Roboto.normal);
+            const customFont = await pdfDoc.embedFont(fontBytes)
+      
+            const helveticaFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
+            const timesRomanFont = customFont;
+      
+      
+            const pages = pdfDoc.getPages();
+            const firstPage = pages[0]
+            const { width, height } = firstPage.getSize();
+        
+            firstPage.drawText(`${data.lastName}`, {
+                x: 82,
+                y: 640,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${data.firstName}`, {
+                x: 265,
+                y: 640,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${data.socialSecNumber == undefined ? '' :data.socialSecNumber}`, {
+                x: 375,
+                y: 640,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            
+            firstPage.drawText(`${data.street == undefined ? '' :data.street}`, {
+                x: 110,
+                y: 603,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${data.houseNumber == undefined ? '' : data.houseNumber }`, {
+                x: 385,
+                y: 603,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${data.postalCode == undefined ? '' : data.postalCode }`, {
+                x: 485,
+                y: 603,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${company.storeCompany.companyName}`, {
+                x: 110,
+                y: 568,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+            
+            firstPage.drawText(`${company.storeCompany.companyStreet}, ${company.storeCompany.companyStreetNumber}, ${company.storeCompany.companyCity}, ${company.storeCompany.companyCountry}`, {
+                x: 110,
+                y: 558,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${data.city == undefined ? '' : data.city }`, {
+                x: 110,
+                y: 590,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${data.country == undefined ? '' : data.country }`, {
+                x: 300,
+                y: 590,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${ data.taxBonus == true ? 'X' : '' }`, {
+                x: 509,
+                y: 497,
+                size: 15,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${ data.pensioner == true ? 'X' : '' }`, {
+                x: 509,
+                y: 457,
+                size: 15,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            firstPage.drawText(`${ data.childBonus == true ? 'X' : '' }`, {
+                x: 509,
+                y: 383,
+                size: 15,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+            //CREATE A LOOP - to add the children
+           // console.log(data.children);
+            function children(h, i, e = data.children.length){
+                  let x = h;
+                  let y = 325;
+      
+                  for(i; i< e; i++){
+      
+                      firstPage.drawText(`${data.children[i].childName} ${data.children[i].childSurname}`, {
+                          x: x,
+                          y: y,
+                          size: 10,
+                          font: timesRomanFont,
+                          color: rgb(0.1, 0.1, 0.1)
+                      });
+                      x += 135;
+                
+                      firstPage.drawText(`${data.children[i].childSocialSecNumber}`, {
+                          x: x,
+                          y: y,
+                          size: 10,
+                          font: timesRomanFont,
+                          color: rgb(0.1, 0.1, 0.1)
+                      });
+                      x = 110;
+                      y -= 12
+                  }
+            }
+      
+            data.children.length < 5 ? children(110, 0) : (children(110, 0, 5), children(340, 5));
+      
+            //TAX START DAY
+      
+            firstPage.drawText(`${moment(data.taxStartDate).format('LL')}`, {
+                x: 110,
+                y: 80,
+                size: 10,
+                font: timesRomanFont,
+                color: rgb(0.1, 0.1, 0.1)
+            });
+      
+      
+      const pdfBytes = await pdfDoc.save();
+      
+          const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} nzdc.pdf`);
+         fs.writeFileSync(filePath,pdfBytes);
+          next();
+      
+      
+      
+      
+        } catch (err){
+            console.log(err)
+        }
+
+
+    }
+
+
   
-      firstPage.drawText(`${data.lastName}`, {
-          x: 82,
-          y: 640,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${data.firstName}`, {
-          x: 265,
-          y: 640,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${data.socialSecNumber == undefined ? '' :data.socialSecNumber}`, {
-          x: 375,
-          y: 640,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      
-      firstPage.drawText(`${data.street == undefined ? '' :data.street}`, {
-          x: 110,
-          y: 603,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${data.houseNumber == undefined ? '' : data.houseNumber }`, {
-          x: 385,
-          y: 603,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${data.postalCode == undefined ? '' : data.postalCode }`, {
-          x: 485,
-          y: 603,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${company.storeCompany.companyName}`, {
-          x: 110,
-          y: 568,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-      
-      firstPage.drawText(`${company.storeCompany.companyStreet}, ${company.storeCompany.companyStreetNumber}, ${company.storeCompany.companyCity}, ${company.storeCompany.companyCountry}`, {
-          x: 110,
-          y: 558,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${data.city == undefined ? '' : data.city }`, {
-          x: 110,
-          y: 590,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${data.country == undefined ? '' : data.country }`, {
-          x: 300,
-          y: 590,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText('X', {
-          x: 509,
-          y: 497,
-          size: 15,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText('X', {
-          x: 509,
-          y: 457,
-          size: 15,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText('X', {
-          x: 509,
-          y: 383,
-          size: 15,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`Viktoria Csomorova`, {
-          x: 110,
-          y: 325,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`235689/8956`, {
-          x: 245,
-          y: 325,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`Viktoria Csomorova`, {
-          x: 110,
-          y: 314,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`235689/8956`, {
-          x: 245,
-          y: 314,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`Viktoria Csomorova`, {
-          x: 110,
-          y: 302,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`235689/8956`, {
-          x: 245,
-          y: 302,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-      firstPage.drawText(`${moment(data.taxStartDate).format('LL')}`, {
-          x: 110,
-          y: 80,
-          size: 10,
-          font: timesRomanFont,
-          color: rgb(0.1, 0.1, 0.1)
-      });
-
-
-const pdfBytes = await pdfDoc.save();
-
-const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} nzdc.pdf`);
-
-   fs.writeFileSync(filePath,pdfBytes);
-    next();
-
-
-  } catch (err){
-      console.log(err)
-  }
 
 
 

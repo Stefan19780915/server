@@ -59,9 +59,9 @@ allSubCat.forEach((item) => {
   item.addEventListener("click", (e) => {
     allSubCat.forEach((item) => {
       item == e.currentTarget
-        ? e.currentTarget.nextElementSibling.style.maxHeight === "1600px"
+        ? e.currentTarget.nextElementSibling.style.maxHeight === "1700px"
           ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-          : (e.currentTarget.nextElementSibling.style.maxHeight = "1600px")
+          : (e.currentTarget.nextElementSibling.style.maxHeight = "1700px")
         : (item.nextElementSibling.style.maxHeight = "0px");
     });
   });

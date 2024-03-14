@@ -116,6 +116,7 @@
             <input autocomplete="off" type="date" name="birthDate" value="<%=
             data.birthDate ? data.birthDate.toISOString().split("T")[0] : "" %>"
             />
+            <p> <%= age%> </p>
           </div>
           <div>
             <label for="birthPlace">Place of birth</label>
@@ -705,11 +706,23 @@
         method="POST"
         action="/employee/employee-tax/<%= data.id%>?_method=PUT"
       >
-        <div>
-          <label for="schoolName">NZDČ TICK</label>
-          
+            <div class="d-flex-visible space-between">
+            <label for="taxBonus">The non-taxable part of the tax base.</label>
+            <input autocomplete="off" type="checkbox" name="taxBonus"
+             <% if(data.taxBonus === true) { %> checked <% } else { %> <% } %>/>
+            </div>
 
-        </div>
+            <div class="d-flex-visible space-between">
+            <label for="pensioner">I am a pensioner.</label>
+            <input autocomplete="off" type="checkbox" name="pensioner"
+             <% if(data.pensioner === true) { %> checked <% } else { %> <% } %>/>
+            </div>
+
+            <div class="d-flex-visible space-between">
+            <label for="childBonus">I claim the tax bonus for children.</label>
+            <input autocomplete="off" type="checkbox" name="childBonus"
+             <% if(data.childBonus === true) { %> checked <% } else { %> <% } %>/>
+            </div>
 
         <div>
           <label for="taxStartDate">Tax bonus start day</label>
@@ -905,6 +918,8 @@
                                 >Student Announcement On Deductive Contribution</a>
                                 <a class="btn-secondary" target="_blank" href="/pdf/nzdc/<%= data.id %>"
                                 >TAX Bonus NZDČ</a>
+                                <a class="btn-secondary" target="_blank" href="/pdf/zdep/<%= data.id %>"
+                                >Electronic Communication Agreement</a>
   
       </div>
       

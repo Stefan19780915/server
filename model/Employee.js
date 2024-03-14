@@ -149,6 +149,18 @@ const employeesSchema = new Schema({
   contractStartDate: {
     type: Date,
   },
+  taxBonus: {
+    type: Boolean,
+    default: false,
+  },
+  pensioner: {
+    type: Boolean,
+    default: false,
+  },
+  childBonus: {
+    type: Boolean,
+    default: false,
+  },
   taxStartDate: {
     type: Date,
   },

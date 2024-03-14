@@ -18,7 +18,7 @@ const path = require('path');
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
 
-  const mapalEmp = await getMapalEmployees();
+  //const mapalEmp = await getMapalEmployees();
   //console.log(mapalEmp.data);
 
   const allStores =
@@ -95,7 +95,7 @@ const getAllEmployees = async (req, res) => {
     stores: allStores == null ? "" : allStores,
     positions: allPositions,
     companies: req.user.roles == 'Owner' ? companies : adminCompanies,
-    mapal: mapalEmp.data, 
+    mapal: [], 
     message: req.flash("message"),
   });
 };
@@ -121,10 +121,14 @@ const getEmployee = async (req, res) => {
 
   const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate("store").populate("position");
 
+  const date = Date.now();
+  const employeeAge = Math.abs( new Date(date - new Date(oneEmployee.birthDate)).getUTCFullYear() - 1970 );
+
   if (oneEmployee != undefined) {
     res.render("../views/pages/employee", {
       msg: false,
       data: oneEmployee,
+      age: `${oneEmployee.firstName} ${oneEmployee.lastName} is ${employeeAge} years old.`,
       user: req.user,
       message: req.flash("message"),
       stores: allStores,
@@ -587,7 +591,7 @@ const updateEmployeeSchool = async (req, res) => {
 
 const updateTax = async (req, res) => {
   if (!req.params.id) {
-    req.flash("message", "Id parameter is rewuired");
+    req.flash("message", "Id parameter is required");
     return res.redirect("/pages/404");
   }
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
@@ -597,7 +601,11 @@ const updateTax = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
+  !req.body.taxBonus ? employee.taxBonus = false : employee.taxBonus = true;
+  !req.body.pensioner ? employee.pensioner = false : employee.pensioner = true;
+  !req.body.childBonus ? employee.childBonus = false : employee.childBonus = true;
 
+ 
   if (req.body.taxStartDate) employee.taxStartDate = req.body.taxStartDate;
   
   const result = await employee.save();
