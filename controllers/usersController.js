@@ -1,6 +1,7 @@
 const { verify } = require("crypto");
 const Store = require("../model/Store");
 const User = require("../model/User");
+const Employee = require("../model/Employee");
 const Token = require("../model/token");
 const bcrypt = require("bcrypt");
 
@@ -131,7 +132,20 @@ const deleteUser = async (req, res) => {
   }
   const user = await User.findOne({ _id: req.params.id }).exec();
 
+
+  const employee = await Employee.findOne({ user: req.params.id });
+
+  if (employee) {
+    req.flash(
+      "message",
+      `User ${user.userName} cannot be deleted bacause it is assigned to Employee ${employee.firstName} ${employee.lastName}.`
+    );
+    return res.redirect("/employee");
+  }
+
+
   const store = await Store.findOne({ user: req.params.id });
+
 
   if (store) {
     req.flash(
