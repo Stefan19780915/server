@@ -557,3 +557,198 @@ message is not defined
     535|             
 
 Cannot read properties of undefined (reading 'forEach')
+19/03/2024	14:33:01	22efb413-ce39-4174-b6c8-8163dbff009f	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.store.admin }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of undefined (reading 'admin')
+19/03/2024	14:38:19	cd04d0d6-8c4f-4b7a-b506-b6c7bb992704	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	14:41:26	b7bde4c1-ff66-4a68-afa3-31a497c15689	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.user.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'user')
+19/03/2024	14:45:06	3a01bb83-0202-4eab-a3d1-987e3a0b051f	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	14:47:43	bb184669-2972-4c06-857a-14851feb5c2a	SyntaxError: Unexpected token '}' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+19/03/2024	14:47:57	b1dbe50c-12aa-4d29-be76-41051d2be6ad	SyntaxError: Unexpected token '}' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+19/03/2024	14:53:14	c8b04ee8-87d7-4745-a6e9-22b4b9a3665b	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.user.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'user')
+19/03/2024	14:55:45	1d3b784f-7c36-45a0-bf5b-923636e1222e	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.storeCompany.admin.user.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of undefined (reading 'userName')
+19/03/2024	14:56:12	6971eff9-931d-45d0-a899-c74b2c17d881	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.user.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'user')
+19/03/2024	14:56:13	71910972-2b61-4278-a401-084e297ea329	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.user.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'user')
+19/03/2024	14:56:25	860788d2-cb20-4d99-a4a5-3c79f66e6ec0	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	14:57:00	3012f135-c457-4dd6-a4ac-65b11e4a38d8	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:22:04	1689a9d7-6c30-44a6-86fa-12e366385af9	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:25:15	f2c0ee4a-8741-43cc-a4df-6e18be2ad2a1	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ !store.admin.userName ? "Not assigned." : store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:25:46	dd340c8e-f423-4317-8460-35dfaef15c27	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${ store.admin.userName == null ? "Not assigned." : store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:26:43	7b58fb11-5c6b-4a63-ba95-87af61d38b6b	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${  store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:27:15	10c5c950-6977-4816-9808-1b8a029d5b73	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:286
+    284|       </p>
+    285|       <p style="font-weight: bolder">
+ >> 286|            <%= `The Area Coach of the store is ${  store.admin.userName }.` %>
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+    289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:47:20	0e510878-3658-4450-adaa-951d460c4af3	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:49:21	069f27a3-f7f0-4db2-8c2c-a03fef3442bf	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:49:28	0b8303f8-d7a7-409f-bfa1-3ac9d0c1b3d5	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:49:50	5b75d4e9-ee55-4663-881e-ccb175071239	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:52:06	f27a02aa-b666-47d0-9dbe-7ac37ad0bc61	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:289
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+ >> 289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+    290|       </p>
+    291| 
+    292|         <label for="storeName">Store name</label>
+
+Cannot read properties of null (reading 'userName')
+19/03/2024	15:52:27	235eaa4a-0a5b-4d83-bd08-f12eb16ce17a	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

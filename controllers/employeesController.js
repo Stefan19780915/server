@@ -24,12 +24,12 @@ const getAllEmployees = async (req, res) => {
   const allStores =
     req.user.roles == "Admin"
       ? await Store.find({ admin: req.user.id })
-          .populate("user").populate('storeCompany')
+          .populate("user").populate('storeCompany').populate('admin')
           .sort({ storeName: "asc" })
       : req.user.roles == "Manager"
-      ? await Store.findOne({ user: req.user.id })
+      ? await Store.findOne({ user: req.user.id }).populate('admin')
       : req.user.roles == "Owner"
-      ? await Store.find().populate("user").populate('storeCompany').sort({ storeName: "asc" })
+      ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" })
       : [];
 
   const allPositions = await Position.find().populate('admin');
@@ -128,7 +128,7 @@ const getEmployee = async (req, res) => {
     res.render("../views/pages/employee", {
       msg: false,
       data: oneEmployee,
-      age: `${oneEmployee.firstName} ${oneEmployee.lastName} is ${employeeAge} years old.`,
+      age: !employeeAge ? "" : `${oneEmployee.firstName} ${oneEmployee.lastName} is ${employeeAge} years old.`,
       user: req.user,
       message: req.flash("message"),
       stores: allStores,
@@ -186,11 +186,6 @@ const createEmployee = async (req, res) => {
 
   //CHECK WHO IS CREATING THE EMPLOYEE
 
-  const admin =
-    req.user.roles == "Admin" || req.user.roles == "Owner"
-      ? req.user.id
-      : req.user.admin;
-
   const duplicateUser = await User.findOne({ userEmail: newEmployee.email });
 
   if (duplicateUser) {
@@ -209,11 +204,13 @@ const createEmployee = async (req, res) => {
     
     //create employee
     const result = await Employee.create(newEmployee);
+    const store = await Store.findOne( {_id: result.store._id} ).populate('admin');
+    //console.log(store.admin._id);
 
     //creat user
     const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
     const newUser = {
-      admin: admin,
+      admin: store.admin._id,
       store: result.store,
       employee: result._id,
       userName: `${result.firstName} ${result.lastName}`,

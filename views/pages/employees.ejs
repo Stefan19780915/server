@@ -246,7 +246,7 @@
       <div class="container">
         <h4>
           <div class="d-flex-visible space-between">
-            <a> <%= store.storeName %> </a>
+            <a> <%= store.storeName %> </a>  
             <a> <%= store.user.userName %> </a>
           </div>
         </h4>
@@ -281,6 +281,12 @@
         <p style="font-weight: bolder">
         <%= ` ${store.storeName} is currently assigned to
         - ${store.storeCompany == null ? 'No Store' : store.storeCompany.companyName}.` %>
+      </p>
+      <p style="font-weight: bolder">
+           <%= `The Area Coach of the store is ${  store.admin.userName }.` %>
+      </p>
+      <p style="font-weight: bolder">
+           <%= `The manager of the store is ${ store.user.userName }.` %>
       </p>
 
         <label for="storeName">Store name</label>
