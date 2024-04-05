@@ -43,7 +43,7 @@
           </div>
 
           <div>
-            <% if(user.roles == 'Admin') { %>
+            <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
             <div class="custom-select" style="width: 200px">
               <select name="store" >
                 <option value="0">Select store:</option>

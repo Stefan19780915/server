@@ -74,7 +74,7 @@ const getAllEmployees = async (req, res) => {
     (emp) => emp.store.admin == req.user.id
   );
 
-  console.log(loggedUser.storeCompany);
+  //console.log(loggedUser.storeCompany);
 
   if (allEmployees == []) {
     return res.render("../views/pages/employees", {
@@ -118,6 +118,9 @@ const getAllEmployees = async (req, res) => {
 
 //DONE RENDER READ ONE EMPLOYEE
 const getEmployee = async (req, res) => {
+
+  const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
+
   if (!req.params.id) {
     return res.render("../views/pages/404", {
       msg: "Employee was not found.",
@@ -131,6 +134,10 @@ const getEmployee = async (req, res) => {
       ? await Store.find({ admin: req.user.id })
           .populate("user")
           .sort({ storeName: "asc" })
+      : req.user.roles == "Owner" || req.user.roles == "Super" 
+      ?  await Store.find({ storeCompany: loggedUser.storeCompany })
+      .populate("user")
+      .sort({ storeName: "asc" })
       : [];
 
   const allPositions = await Position.find().populate('storeCompany');
@@ -385,7 +392,7 @@ const deleteChild = async (req, res) => {
 //ALL UPDATES
 // UPDATE PERSONAL AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeePersonal = async (req, res) => {
-  console.log(req.body);
+  
   if (!req.params.id) {
     req.flash("message", "Id parameter is rewuired");
     return res.redirect("/pages/404");
@@ -398,7 +405,6 @@ const updateEmployeePersonal = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
-  console.log(employee.store);
 
   if (req.body.store && req.body.store != 0) {
     employee.store = req.body.store;
