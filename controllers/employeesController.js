@@ -21,6 +21,14 @@ const getAllEmployees = async (req, res) => {
   //const mapalEmp = await getMapalEmployees();
   //console.log(mapalEmp.data);
 
+  const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
+
+  const companies = await Company.find();
+  const adminCompanies = loggedUser.roles == 'Owner' || loggedUser.roles == 'Super' ? await Company.find({ _id: loggedUser.storeCompany }) : [];
+
+  //to find one company - to restrict to see Owner data
+ // const adminCompany = await Company.findOne({ admin: req.user.id }).populate('user');
+
   const allStores =
     req.user.roles == "Admin"
       ? await Store.find({ admin: req.user.id })
@@ -29,27 +37,32 @@ const getAllEmployees = async (req, res) => {
       : req.user.roles == "Manager"
       ? await Store.findOne({ user: req.user.id }).populate('admin')
       : req.user.roles == "Owner"
-      ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" })
+      ? await Store.find({storeCompany: loggedUser.storeCompany }).populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" })
+      : req.user.roles == "Super" 
+      ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" }) 
       : [];
 
-  const allPositions = await Position.find().populate('admin');
 
-  const companies = await Company.find();
-  const adminCompanies = await Company.find({ admin: req.user.id })
+  const allPositions = await Position.find().populate('storeCompany');
+
+  const filteredPositions = !req.user.storeCompany ? [] : allPositions.filter(position =>  position.storeCompany._id.toString() == loggedUser.storeCompany._id.toString());
 
   const allUsers =
     req.user.roles == "Admin"
-      ? (await User.find().sort({ userName: "asc" })).filter(
+      ? (await User.find().populate('storeCompany').sort({ userName: "asc" })).filter(
           (user) => user.admin == req.user.id || user.id == req.user.id
         )
       : req.user.roles == "Manager"
-      ? await User.find({ store: allStores ? allStores.id : [] })
+      ? await User.find({ store: allStores ? allStores.id : [] }).populate('storeCompany')
       : req.user.roles == "Owner"
-      ? await User.find().sort({ userName: "asc" })
+      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate('storeCompany').sort({ userName: "asc" })
+      : req.user.roles == "Super" 
+      ? await User.find().populate('storeCompany').sort({ userName: "asc" })
       : [];
 
+
   const allEmployees =
-    req.user.roles == "Admin" || req.user.roles == "Owner"
+    req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super"  
       ? await Employee.find().populate("store").sort({ lastName: "asc" })
       : req.user.roles == "Manager" && !allStores == []
       ? await Employee.find({ store: allStores._id })
@@ -61,6 +74,7 @@ const getAllEmployees = async (req, res) => {
     (emp) => emp.store.admin == req.user.id
   );
 
+  console.log(loggedUser.storeCompany);
 
   if (allEmployees == []) {
     return res.render("../views/pages/employees", {
@@ -74,15 +88,17 @@ const getAllEmployees = async (req, res) => {
   }
   res.render("../views/pages/employees", {
     msg: false,
-    data:
-      req.user.roles == "Owner" || req.user.roles == "Manager"
-        ? allEmployees
+    data: !req.user.storeCompany 
+        ? allEmployees 
+        : req.user.roles == "Owner" || req.user.roles == "Manager" || req.user.roles == "Super" 
+        ? allEmployees.filter( emp => emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString())
         : adminEmployees,
     user: req.user,
     users:
       req.user.roles == "Admin" ||
       req.user.roles == "Manager" ||
-      req.user.roles == "Owner"
+      req.user.roles == "Owner" ||
+      req.user.roles == "Super"
         ? allUsers
         : [],
     managers:
@@ -92,9 +108,9 @@ const getAllEmployees = async (req, res) => {
               (user.active && user.roles == "Manager") || user.roles == "Admin"
           )
         : [],
-    stores: allStores == null ? "" : allStores,
-    positions: allPositions,
-    companies: req.user.roles == 'Owner' ? companies : adminCompanies,
+    stores: allStores == null ? [] : allStores,
+    positions: filteredPositions,
+    companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' ? adminCompanies : [],
     mapal: [], 
     message: req.flash("message"),
   });
@@ -117,7 +133,7 @@ const getEmployee = async (req, res) => {
           .sort({ storeName: "asc" })
       : [];
 
-  const allPositions = await Position.find().populate('admin');
+  const allPositions = await Position.find().populate('storeCompany');
 
   const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate("store").populate("position");
 
@@ -193,12 +209,7 @@ const createEmployee = async (req, res) => {
     return res.redirect("/employee");
   }
 
-  const duplicateStartDate = await Employee.findOne({ contractStartDate: newEmployee.contractStartDate });
-
-  if (duplicateStartDate) {
-    req.flash("message", "Employee already exists with provided contract start date.");
-    return res.redirect("/employee");
-  }
+ 
 
   try {
     
@@ -211,6 +222,7 @@ const createEmployee = async (req, res) => {
     const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
     const newUser = {
       admin: store.admin._id,
+      storeCompany: store.storeCompany,
       store: result.store,
       employee: result._id,
       userName: `${result.firstName} ${result.lastName}`,
@@ -275,6 +287,7 @@ const deleteEmployee = async (req, res) => {
       message: req.flash("message"),
     });
   }
+
   //GETTING EMPLOYEE WITH USER REFERENCE
   const employee = await Employee.findOne({ _id: req.params.id }).populate("user");
 
@@ -285,6 +298,21 @@ const deleteEmployee = async (req, res) => {
 // HERE NEED TO DELETE THE ASSOCIATED USER AS WELL 
 // GET THE USER
   const user = await User.findOne({ _id: employee.user._id });
+
+  //CHECK IF THE EMPLOYEES USER IS USING A STORE OR MANGES A STORE
+
+  const store = await Store.findOne({user: employee.user._id}).populate('user');
+
+  console.log(store);
+
+  if (store) {
+    req.flash(
+      "message",
+      `Employee ${store.user.userName} cannot be deleted bacause is the manager of the ${store.storeName} store .`
+    );
+    return res.redirect("/employee");
+  }
+
 
   try{
   const result = await employee.deleteOne({ _id: req.params.id });
@@ -727,16 +755,16 @@ const sendEmployeeEmail = async (req, res) => {
 
 const createPosition = async (req, res)=>{
   console.log(req.body);
-  console.log(req.user._id);
+  console.log(req.user.storeCompany);
 
   const newPosition = {
     position: req.body.position,
-    admin: req.user._id
+    storeCompany: req.user.storeCompany
   };
 
   if (
     !newPosition.position ||
-    !newPosition.admin
+    !newPosition.storeCompany
   ) {
     req.flash("message", "Please provide a position name.");
     return res.redirect("/employee");
@@ -772,6 +800,8 @@ const deletePosition = async (req, res)=>{
     req.flash("message", "Please provide the correct ID.");
     return res.redirect("/pages/404");
   }
+
+
   const result = await Position.deleteOne({ _id: req.params.id });
 
   req.flash(
@@ -874,14 +904,30 @@ const deleteCompany = async (req, res)=>{
     req.flash("message", "Please provide the correct ID.");
     return res.redirect("/pages/404");
   }
-  const result = await Company.deleteOne({ _id: req.params.id });
 
-  req.flash(
-    "message",
-    `Company was deleted.`
-  );
+  const user = await User.find({ storeCompany: oneCompany._id });
+  const store = await Store.find( {storeCompany: oneCompany._id});
 
-  res.redirect("/employee");
+  if (user || store) {
+    req.flash(
+      "message",
+      `Company cannot be deleted bacause one or more stores or users are assigned to it.`
+    );
+  
+    return res.redirect("/employee");
+  } else {
+
+    const result = await Company.deleteOne({ _id: req.params.id });
+
+    req.flash(
+      "message",
+      `Company was deleted.`
+    );
+  
+    return res.redirect("/employee");
+
+  }
+  
 
 }
 

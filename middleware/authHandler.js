@@ -25,7 +25,8 @@ function checkAdmin(req, res, next) {
   if (
     req.user.roles == "Admin" ||
     req.user.roles == "Manager" ||
-    req.user.roles == "Owner"
+    req.user.roles == "Owner" ||
+    req.user.roles == "Super"
   ) {
     next();
   } else {

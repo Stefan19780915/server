@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const positionSchema = new Schema({
-  admin: {
+  storeCompany: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "User",
+    ref: "Company",
   },
   position: {
     type: String,

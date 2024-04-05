@@ -2,7 +2,7 @@ const Store = require("../model/Store");
 const Employee = require("../model/Employee");
 
 const createStore = async (req, res) => {
-  console.log(req.body);
+ // console.log(req.body);
   const newStore = {
     admin: req.body.admin,
     user: req.body.user,
@@ -14,6 +14,11 @@ const createStore = async (req, res) => {
     storeRGM: req.body.storeRGM,
     storeCompany: req.body.storeCompany,
   };
+
+  if (req.body.storeCompany == 0) {
+    req.flash("message", "Please select a company.");
+    return res.redirect("/employee");
+  }
 
   if (newStore.user == 0) {
     req.flash("message", "Please select a store user.");
@@ -53,7 +58,7 @@ const updateStore = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
-  console.log(req.body);
+ // console.log(req.body);
   const store = await Store.findOne({ _id: req.params.id }).exec();
 
   if (!store) {
@@ -104,7 +109,7 @@ const deleteStore = async (req, res) => {
   if (employees.length > 0) {
     req.flash(
       "message",
-      `The store ${store.storeName} cannot be deleted because there are employees assiciated with it.`
+      `The store ${store.storeName} cannot be deleted because there are employees associated with it.`
     );
     return res.redirect("/employee");
   }

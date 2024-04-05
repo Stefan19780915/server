@@ -752,3 +752,180 @@ Cannot read properties of null (reading 'userName')
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+20/03/2024	09:24:17	6e39e636-5f1c-4c08-947f-daf7b99f7fb3	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>  
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+20/03/2024	09:28:44	9e093309-50fe-4478-8b36-c9912440d0d8	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:289
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+ >> 289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+    290|       </p>
+    291| 
+    292|         <label for="storeName">Store name</label>
+
+Cannot read properties of null (reading 'userName')
+20/03/2024	09:40:41	7d600df2-bb38-4c9f-aae3-5ec746d1416c	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>  
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+20/03/2024	09:43:26	afa89e04-266b-446d-a0f9-6866af7dc1b6	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:250
+    248|           <div class="d-flex-visible space-between">
+    249|             <a> <%= store.storeName %> </a>  
+ >> 250|             <a> <%= store.user.userName %> </a>
+    251|           </div>
+    252|         </h4>
+    253|       </div>
+
+Cannot read properties of null (reading 'userName')
+20/03/2024	09:43:42	b92272b4-006c-4d46-910f-a646b3b26a2d	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:289
+    287|       </p>
+    288|       <p style="font-weight: bolder">
+ >> 289|            <%= `The manager of the store is ${ store.user.userName }.` %>
+    290|       </p>
+    291| 
+    292|         <label for="storeName">Store name</label>
+
+Cannot read properties of null (reading 'userName')
+21/03/2024	10:51:54	af6715e8-59f9-41ae-8226-691e27e5cea8	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${  userHere.storeCompany.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	10:55:25	608bb157-1ec9-4f4a-921c-aae0550bc4b7	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ userHere.storeCompany.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	10:57:21	b3c9beb5-42ff-405e-8c9e-b7c6c7f88f13	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ userHere.storeCompany.admin.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'admin')
+21/03/2024	10:57:37	e78911aa-33e3-468a-8254-27979ab4cc1e	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ userHere.storeCompany.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	10:59:05	3a6f2d9d-0a48-431d-a619-cfde4124e6a2	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ userHere.storeCompany.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	11:01:46	79d5560b-5316-4cf3-b4d1-a02f38b95df3	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ !userHere.storeCompany.companyName ? '' : userHere.storeCompany.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	11:01:48	918e66c6-3ec0-4b1e-bdaa-a5201cebcd5d	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ !userHere.storeCompany.companyName ? '' : userHere.storeCompany.companyName }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	11:02:13	ee784780-69d5-4b45-84bd-5a5e8aff878a	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ !userHere.storeCompany.companyName ? '' : userHere.storeCompany }.` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+21/03/2024	11:05:42	6b94be3e-563a-4de0-9c65-108f29de2588	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63| 
+    64|       <p style="font-weight: bolder">
+ >> 65|            <%= `Company: ${ !userHere.storeCompany.companyName ? '' : userHere.storeCompany.companyName }` %>
+    66|       </p>
+    67| 
+    68|         <label for="userName">User name</label>
+
+Cannot read properties of undefined (reading 'companyName')
+27/03/2024	16:43:39	aa1e3f35-1c07-4fa3-b8d0-8a3afef941d5	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:263
+    261|     </section>
+    262| 
+ >> 263|     <% stores.forEach((store)=>{ %>
+    264|     <section class="sub-cat">
+    265|       <div class="container">
+    266|         <h4>
+
+stores.forEach is not a function
+27/03/2024	16:46:18	cecaddda-b84d-43ee-8b8c-e7981df1dfaa	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:263
+    261|     </section>
+    262| 
+ >> 263|     <% stores.forEach((store)=>{ %>
+    264|     <section class="sub-cat">
+    265|       <div class="container">
+    266|         <h4>
+
+stores.forEach is not a function
+27/03/2024	16:47:19	a7d1bdb5-e718-4696-9236-238f52470468	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:263
+    261|     </section>
+    262| 
+ >> 263|     <% stores.forEach((store)=>{ %>
+    264|     <section class="sub-cat">
+    265|       <div class="container">
+    266|         <h4>
+
+stores.forEach is not a function
+27/03/2024	16:49:04	dd3074c8-7b85-49c5-bdbb-6a8696e1f7f2	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:263
+    261|     </section>
+    262| 
+ >> 263|     <% stores.forEach((store)=>{ %>
+    264|     <section class="sub-cat">
+    265|       <div class="container">
+    266|         <h4>
+
+stores.forEach is not a function
+27/03/2024	16:51:02	3250b6dc-0634-4260-ae9b-5fbe4730d9d4	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:263
+    261|     </section>
+    262| 
+ >> 263|     <% stores.forEach((store)=>{ %>
+    264|     <section class="sub-cat">
+    265|       <div class="container">
+    266|         <h4>
+
+stores.forEach is not a function
+28/03/2024	11:39:02	c3439acb-6875-431c-8752-71d5846e3374	Error: Could not find matching close tag for "<%=".
+28/03/2024	11:39:21	94b5b70b-f8fa-4aa3-8668-4a9b3f67d580	SyntaxError: Unexpected token 'if' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

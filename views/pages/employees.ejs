@@ -17,11 +17,11 @@
     </div>
   </section>
   <% } %> <% if (user.roles == 'Admin' || user.roles == 'Manager' || user.roles
-  == 'Owner') { %>
+  == 'Owner' || user.roles == 'Super') { %>
   <a style="display: block" class="head">
     <div class="container">
       <h2 class="name" style="text-align: center">
-        <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+        <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
         <div class="atag">ADMIN AREA</div>
         <% } %> <% if(user.roles == 'Manager') { %>
         <div class="atag">MANAGER AREA</div>
@@ -60,6 +60,11 @@
         method="POST"
         class="flow"
       >
+
+      <p style="font-weight: bolder">
+           <%= `Company: ${ !userHere.storeCompany ? '' : userHere.storeCompany.companyName }` %>
+      </p>
+
         <label for="userName">User name</label>
         <input
           autocomplete="off"
@@ -74,7 +79,7 @@
           name="userEmail"
           value="<%= userHere.userEmail %>"
         />
-        <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+        <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
         <label for="roles">Role</label>
         <input
           autocomplete="off"
@@ -82,6 +87,20 @@
           name="roles"
           value="<%= userHere.roles%>"
         />
+
+        <% } %>
+
+        <% if(user.roles == 'Owner' || user.roles == 'Super') { %>
+
+          <label for="storeCompany">Store Company</label>
+          <div class="custom-select" style="width: 200px">
+            <select name="storeCompany">
+              <option value="0">Select company:</option>
+              <% companies.forEach((company)=>{ %>
+              <option value="<%= company._id %>"><%= company.companyName %></option>
+              <% }) %>
+            </select>
+          </div>
 
         <% } %>
 
@@ -102,7 +121,7 @@
   <section class="contact-tab tab">
     <div class="container flow">
       <span></span>
-      <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+      <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
       <h3 style="margin-bottom: 16px">Stores</h3>
       <% } %> <% if(user.roles == 'Manager') { %>
       <h3 style="margin-bottom: 16px">Store details</h3>
@@ -177,7 +196,7 @@
 
     <% } %> 
     
-    <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+    <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
 
     <section class="secondary-section">
       <div class="container flow">
@@ -190,18 +209,37 @@
           action="/store"
           style="max-height: 0px"
         >
+
+         <!-- 
           <input
             autocomplete="off"
             type="hidden"
             name="admin"
             value="<%=user.id%>"
           />
+          -->
+
+          <label for="storeAdmin">Store Area Coach</label>
+          <div class="custom-select" style="width: 200px">
+            <select name="admin">
+              <option value="0">Select Area Coach:</option>
+              <% users.forEach((user)=>{ %>
+                <% if(user.roles == 'Admin') { %>
+                  <option value="<%= user._id %>"><%= user.userName %></option>
+                <% } %>
+              <% }) %>
+            </select>
+          </div>
+
+
           <label for="storeUser">Store Manager</label>
           <div class="custom-select" style="width: 200px">
             <select name="user">
               <option value="0">Select manager:</option>
               <% users.forEach((user)=>{ %>
+                <% if(user.roles == 'Manager') { %>
               <option value="<%= user._id %>"><%= user.userName %></option>
+              <% } %>
               <% }) %>
             </select>
           </div>
@@ -353,7 +391,7 @@
     </div>
 
 
-   <%  if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+   <%  if(user.roles == 'Owner' || user.roles == 'Super') { %>
 
 
 
@@ -368,6 +406,8 @@
           action="/employee/company"
           style="max-height: 0px"
         >
+
+    
           <input
             autocomplete="off"
             type="hidden"
@@ -419,14 +459,14 @@
         <div><%= position.position %></div>
         <a
         class="btn-secondary"
-    href="/position/<%= position._id %>"
+    href="/employee/position/<%= position._id %>"
     >Delete</a
   >
 </div>
 
 <% }); %>
 
-      <form action="/position" method="POST">
+      <form action="/employee/position" method="POST">
         <label for="position">Create Work Position</label>
         <input autocomplete="off" type="text" name="position" />
         <button class="btn-primary">Save</button>
@@ -569,7 +609,7 @@
 
 
   <% } %> <% if(user.roles == 'Manager' || user.roles == 'Admin' || user.roles
-  == 'Owner') { %>
+  == 'Owner' || user.roles == 'Super') { %>
   <section class="mid-section">
     <div class="container d-flex-visible center flow">
       <span></span>
@@ -585,13 +625,13 @@
   </section>
 
   <% if (user.roles == 'Manager' && stores || user.roles == 'Admin' ||
-  user.roles == 'Owner' ) { %>
+  user.roles == 'Owner' || user.roles == 'Super') { %>
   <section class="secondary-section">
     <div class="container flow">
       <div class="new-employee">
         <h4>
           CREATE NEW EMPLOYEE <%= user.roles == 'Manager' || user.roles ==
-          'Owner' ? stores.storeName : '' %>
+          'Owner' || user.roles == 'Super' ? stores.storeName : '' %>
         </h4>
       </div>
       <form
@@ -622,7 +662,7 @@
             </div>
           </div>
           <div>
-            <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
             <div class="custom-select" style="width: 200px">
               <select name="store" required>
                 <option value="0">Select store:</option>
@@ -730,7 +770,7 @@
           <div class="atag">
             <small style="font-size: 13px">
               <%= user.roles == "Admin" || user.roles == "Owner" || user.roles
-              == "Manager" ? employee.store.storeName : 'No Store'%>
+              == "Manager" || user.roles == 'Super' ? employee.store.storeName : 'No Store'%>
             </small>
           </div>
         </div>
