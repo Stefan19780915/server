@@ -929,3 +929,12 @@ stores.forEach is not a function
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+09/04/2024	12:05:43	084238f0-d6b4-4bb7-8c31-cea4c11e6805	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:337
+    335|       </p>
+    336|       <p style="font-weight: bolder">
+ >> 337|            <%= `The Area Coach of the store is ${  store.admin.userName }.` %>
+    338|       </p>
+    339|       <p style="font-weight: bolder">
+    340|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')

@@ -24,7 +24,7 @@ const getAllEmployees = async (req, res) => {
   const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
 
   const companies = await Company.find();
-  const adminCompanies = loggedUser.roles == 'Owner' || loggedUser.roles == 'Super' ? await Company.find({ _id: loggedUser.storeCompany }) : [];
+  const adminCompanies = loggedUser.roles == 'Owner' || loggedUser.roles == 'Admin' ? await Company.find({ _id: loggedUser.storeCompany }) : [];
 
   //to find one company - to restrict to see Owner data
  // const adminCompany = await Company.findOne({ admin: req.user.id }).populate('user');
@@ -109,8 +109,8 @@ const getAllEmployees = async (req, res) => {
           )
         : [],
     stores: allStores == null ? [] : allStores,
-    positions: filteredPositions,
-    companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' ? adminCompanies : [],
+    positions: req.user.roles == 'Super' ? allPositions : filteredPositions,
+    companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' || req.user.roles == 'Admin'  ? adminCompanies : [],
     mapal: [], 
     message: req.flash("message"),
   });
@@ -914,7 +914,9 @@ const deleteCompany = async (req, res)=>{
   const user = await User.find({ storeCompany: oneCompany._id });
   const store = await Store.find( {storeCompany: oneCompany._id});
 
-  if (user || store) {
+  console.log(user, store)
+
+  if (user.length > 0 || store.lengh > 0) {
     req.flash(
       "message",
       `Company cannot be deleted bacause one or more stores or users are assigned to it.`

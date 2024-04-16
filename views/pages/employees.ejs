@@ -302,7 +302,9 @@
           <select name="user">
             <option value="0">Upadate manager:</option>
             <% users.forEach((user)=>{ %>
-            <option value="<%= user._id %>"><%= user.userName %></option>
+              <% if(user.roles == 'Manager') { %>
+              <option value="<%= user._id %>"><%= user.userName %></option>
+              <% } %>
             <% }) %>
           </select>
         </div>
@@ -315,6 +317,17 @@
             <% }) %>
           </select>
         </div>
+
+          <div class="custom-select" style="width: 200px">
+            <select name="admin">
+              <option value="0">Update Area Coach:</option>
+              <% users.forEach((user)=>{ %>
+                <% if(user.roles == 'Admin') { %>
+                  <option value="<%= user._id %>"><%= user.userName %></option>
+                <% } %>
+              <% }) %>
+            </select>
+          </div>
 
         <p style="font-weight: bolder">
         <%= ` ${store.storeName} is currently assigned to

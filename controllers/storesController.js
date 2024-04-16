@@ -78,6 +78,12 @@ const updateStore = async (req, res) => {
     store.storeCompany;
   }
 
+  if(req.body.admin != 0){
+    store.admin = req.body.admin;
+  } else {
+    store.admin;
+  }
+
   if (req.body.storeName) store.storeName = req.body.storeName;
   if (req.body.storeEmail) store.storeEmail = req.body.storeEmail;
   if (req.body.storeStreet) store.storeStreet = req.body.storeStreet;

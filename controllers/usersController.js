@@ -150,27 +150,35 @@ const deleteUser = async (req, res) => {
     return res.redirect("/employee");
   }
 
-
-  const store = await Store.findOne({ user: req.params.id });
-
-
-  if (store) {
+// Check if there is a user of the store assigned
+  const storeManager = await Store.findOne({ user: req.params.id });
+  if (storeManager) {
     req.flash(
       "message",
-      `User ${user.userName} cannot be deleted bacause it is assigned to store ${store.storeName}.`
+      `User ${user.userName} cannot be deleted bacause it is assigned to store ${storeManager.storeName}.`
     );
     return res.redirect("/employee");
   }
 
-  const users = await User.find({ roles: "Admin" });
-
-  if (users.length < 2 && user.roles == "Admin") {
+  // Check if there is one more Super User
+  const users = await User.find({ roles: "Super" });
+  if (users.length < 2 && user.roles == "Super") {
     req.flash(
       "message",
-      `The user ${user.userName} cannot be deleted because the user is the only Administrator. Please assign another users Admin rights as well.`
+      `The user ${user.userName} cannot be deleted because the user is the only Super Administrator. Please assign another users Super rights as well.`
     );
     return res.redirect("/employee");
   }
+  
+  //Check if the user is assigned as Area Coach of the store
+const storeAdmin = await Store.findOne({ admin: req.params.id });
+if (storeAdmin) {
+  req.flash(
+    "message",
+    `User ${user.userName} cannot be deleted bacause it is assigned as Area Coach to store ${storeAdmin.storeName}.`
+  );
+  return res.redirect("/employee");
+}
 
   if (!user) {
     req.flash("message", "Please provide the correct ID.");
