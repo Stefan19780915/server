@@ -42,16 +42,13 @@ const getAllEmployees = async (req, res) => {
       ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" }) 
       : [];
 
-
   const allPositions = await Position.find().populate('storeCompany');
 
   const filteredPositions = !req.user.storeCompany ? [] : allPositions.filter(position =>  position.storeCompany._id.toString() == loggedUser.storeCompany._id.toString());
 
   const allUsers =
     req.user.roles == "Admin"
-      ? (await User.find().populate('storeCompany').sort({ userName: "asc" })).filter(
-          (user) => user.admin == req.user.id || user.id == req.user.id
-        )
+      ? (await User.find().populate("store").sort({ userName: "asc" }))
       : req.user.roles == "Manager"
       ? await User.find({ store: allStores ? allStores.id : [] }).populate('storeCompany')
       : req.user.roles == "Owner"
@@ -59,7 +56,6 @@ const getAllEmployees = async (req, res) => {
       : req.user.roles == "Super" 
       ? await User.find().populate('storeCompany').sort({ userName: "asc" })
       : [];
-
 
   const allEmployees =
     req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super"  
@@ -73,6 +69,10 @@ const getAllEmployees = async (req, res) => {
   const adminEmployees = allEmployees.filter(
     (emp) => emp.store.admin == req.user.id
   );
+
+  const adminUsers = allUsers.filter( 
+    (user)=> user.store ? user.store.admin == req.user.id : "" 
+  )
 
   //console.log(loggedUser.storeCompany);
 
@@ -95,7 +95,8 @@ const getAllEmployees = async (req, res) => {
         : adminEmployees,
     user: req.user,
     users:
-      req.user.roles == "Admin" ||
+      req.user.roles == "Admin" ?
+      adminUsers :
       req.user.roles == "Manager" ||
       req.user.roles == "Owner" ||
       req.user.roles == "Super"
@@ -310,7 +311,17 @@ const deleteEmployee = async (req, res) => {
 
   const store = await Store.findOne({user: employee.user._id}).populate('user');
 
-  console.log(store);
+  // CHECK IF THE EMPLOYEE IS AND AREA COACH OF ANY OF THE SOTORES
+
+  const storeArea = await Store.findOne({admin: employee.user._id}).populate('user');
+
+  if (storeArea) {
+    req.flash(
+      "message",
+      `Employee ${store.user.userName} cannot be deleted bacause is the Area Coach of the ${store.storeName} store .`
+    );
+    return res.redirect("/employee");
+  }
 
   if (store) {
     req.flash(
@@ -394,10 +405,11 @@ const deleteChild = async (req, res) => {
 const updateEmployeePersonal = async (req, res) => {
   
   if (!req.params.id) {
-    req.flash("message", "Id parameter is rewuired");
+    req.flash("message", "Id parameter is required");
     return res.redirect("/pages/404");
   }
 
+  // UPDATE EMPLOYEE STORE 
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
   if (!employee) {
@@ -409,6 +421,21 @@ const updateEmployeePersonal = async (req, res) => {
   if (req.body.store && req.body.store != 0) {
     employee.store = req.body.store;
   }
+
+  //UPDATE USER STORE AS WELL
+  const user = await User.findOne({employee: req.params.id}).exec();
+
+  //UPDATE USER ADMIN AS WELL WITH THE STORE ADMIN
+  const storeAdmin = await Store.findOne({ _id: req.body.store });
+  //console.log(storeAdmin.admin);
+  //console.log(user.admin);
+
+  if(user.store && storeAdmin){
+    user.store = req.body.store;
+    user.admin = storeAdmin.admin;
+  }
+
+  const resultUser = await user.save();
 
   if (!req.body.employeeState) {
     employee.employeeState = false;
@@ -432,7 +459,7 @@ const updateEmployeePersonal = async (req, res) => {
 
   const result = await employee.save();
 
-  if (result != undefined) {
+  if (result != undefined && resultUser != undefined) {
     req.flash(
       "message",
       `Personal data of ${result.firstName} ${result.lastName} was updated successfully.`

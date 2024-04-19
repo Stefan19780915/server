@@ -128,7 +128,7 @@
       <% } %>
     </div>
 
-    <% if(user.roles == 'Manager' && stores) { %>
+    <% if(user.roles == 'Manager' && stores.length > 0 ) { %>
 
     <section class="sub-cat">
       <div class="container">
@@ -224,7 +224,7 @@
             <select name="admin">
               <option value="0">Select Area Coach:</option>
               <% users.forEach((user)=>{ %>
-                <% if(user.roles == 'Admin') { %>
+                <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
                   <option value="<%= user._id %>"><%= user.userName %></option>
                 <% } %>
               <% }) %>
@@ -237,7 +237,7 @@
             <select name="user">
               <option value="0">Select manager:</option>
               <% users.forEach((user)=>{ %>
-                <% if(user.roles == 'Manager') { %>
+                <% if(user.roles == 'Manager' || user.roles == 'Owner') { %>
               <option value="<%= user._id %>"><%= user.userName %></option>
               <% } %>
               <% }) %>
@@ -637,7 +637,7 @@
     </div>
   </section>
 
-  <% if (user.roles == 'Manager' && stores || user.roles == 'Admin' ||
+  <% if (user.roles == 'Manager' && stores.length > 0 || user.roles == 'Admin' ||
   user.roles == 'Owner' || user.roles == 'Super') { %>
   <section class="secondary-section">
     <div class="container flow">

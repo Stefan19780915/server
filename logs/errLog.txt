@@ -938,3 +938,58 @@ Or, if you meant to create an async function, pass `async: true` as an option.
     340|            <%= `The manager of the store is ${ store.user.userName }.` %>
 
 Cannot read properties of null (reading 'userName')
+16/04/2024	10:30:12	b299a5cd-1b0f-4c1c-a99b-88b442e20539	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:337
+    335|       </p>
+    336|       <p style="font-weight: bolder">
+ >> 337|            <%= `The Area Coach of the store is ${  store.admin.userName }.` %>
+    338|       </p>
+    339|       <p style="font-weight: bolder">
+    340|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+16/04/2024	10:35:10	8cc51d4a-6a3a-40eb-9b4c-a7393a4087ef	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:337
+    335|       </p>
+    336|       <p style="font-weight: bolder">
+ >> 337|            <%= `The Area Coach of the store is ${  store.admin.userName }.` %>
+    338|       </p>
+    339|       <p style="font-weight: bolder">
+    340|            <%= `The manager of the store is ${ store.user.userName }.` %>
+
+Cannot read properties of null (reading 'userName')
+16/04/2024	11:40:29	66102de9-6b05-4ecd-b0d9-702e629c8715	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:138
+    136|           <div class="d-flex-visible space-between">
+    137|             <a> <%= stores.storeName %> </a>
+ >> 138|             <a> <%= stores.user.userName %> </a>
+    139|           </div>
+    140|         </h4>
+    141|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+16/04/2024	11:43:43	9ac5c28f-8e50-42bf-90d1-735a70b5dbf0	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:138
+    136|           <div class="d-flex-visible space-between">
+    137|             <a> <%= stores.storeName %> </a>
+ >> 138|             <a> <%= stores.user.userName %> </a>
+    139|           </div>
+    140|         </h4>
+    141|       </div>
+
+Cannot read properties of undefined (reading 'userName')
+16/04/2024	11:48:21	b2a53389-a7e7-4cd3-88e0-4aa14a7aa2a3	SyntaxError: Invalid left-hand side in assignment in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+16/04/2024	11:48:38	57d80d5f-0ea1-459c-ae55-28d3a1eb3983	SyntaxError: Invalid left-hand side in assignment in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+16/04/2024	11:50:51	870d45d3-f58f-444a-8de5-2874c4474b7c	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:138
+    136|           <div class="d-flex-visible space-between">
+    137|             <a> <%= stores.storeName %> </a>
+ >> 138|             <a> <%= stores.user.userName %> </a>
+    139|           </div>
+    140|         </h4>
+    141|       </div>
+
+Cannot read properties of undefined (reading 'userName')
