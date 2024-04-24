@@ -48,7 +48,14 @@
         <h4>
           <div class="d-flex-visible space-between">
             <a><%= userHere.userName %></a>
-            <a style="font-size: 16px"><small><%= userHere.roles%></small></a>
+              <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+                <small><%= userHere.roles%></small>
+                <% if ( Array.isArray(stores) ) { %> 
+                  <%  stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+                  <small class="width-d-flex-half"><%= store.storeName %> </small> 
+                  <% } ) %>
+                <% } else { %> <small class="width-d-flex-half"><%= stores.storeName %> </small> <% } %>
+              </a> 
           </div>
         </h4>
       </div>
@@ -128,7 +135,7 @@
       <% } %>
     </div>
 
-    <% if(user.roles == 'Manager' && stores.length > 0 ) { %>
+    <% if(user.roles == 'Manager' ) { %>
 
     <section class="sub-cat">
       <div class="container">
@@ -637,7 +644,7 @@
     </div>
   </section>
 
-  <% if (user.roles == 'Manager' && stores.length > 0 || user.roles == 'Admin' ||
+  <% if (user.roles == 'Manager' || user.roles == 'Admin' ||
   user.roles == 'Owner' || user.roles == 'Super') { %>
   <section class="secondary-section">
     <div class="container flow">

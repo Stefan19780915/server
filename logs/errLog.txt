@@ -993,3 +993,66 @@ Or, if you meant to create an async function, pass `async: true` as an option.
     141|       </div>
 
 Cannot read properties of undefined (reading 'userName')
+24/04/2024	13:30:44	a7b3f882-5b45-4520-b7e0-237ef0eadf81	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <% stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+    54|                   <small class="width-d-flex-half"><%= store.storeName %> </small> 
+    55|                 <% } ) %> 
+    56|               </a> 
+
+stores.filter is not a function
+24/04/2024	13:32:38	471361ce-1017-4805-ad8e-4679cc326ce7	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <% store.length > 0 ? stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+    54|                   <small class="width-d-flex-half"><%= store.storeName %> </small> 
+    55|                 <% } ) : store.storeName %> 
+    56|               </a> 
+
+store is not defined
+24/04/2024	13:33:23	d84543ab-43be-4fb6-9ce4-8418e0bad9f0	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <% stores.length > 0 ? stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+    54|                   <small class="width-d-flex-half"><%= store.storeName %> </small> 
+    55|                 <% } ) : store.storeName %> 
+    56|               </a> 
+
+store is not defined
+24/04/2024	13:38:09	db4ef3f9-632d-48dc-8f5e-66fa37e9ce7d	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <% Array.isArray(stores) ? stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+    54|                   <small class="width-d-flex-half"><%= store.storeName %> </small> 
+    55|                 <% } ) : store.storeName %> 
+    56|               </a> 
+
+store is not defined
+24/04/2024	13:50:38	8bc24b7b-22f9-46ee-b3b8-e0d9ca9f0df1	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <% user.roles != 'Manager' ? stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+    54|                   <small class="width-d-flex-half"><%= store.storeName %> </small> 
+    55|                 <% } ) : store.storeName %> 
+    56|               </a> 
+
+store is not defined
+24/04/2024	13:51:02	ed395cfb-86aa-4042-a5f7-81cc73b91e46	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <% user.roles != 'Manager' ? stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
+    54|                   <small class="width-d-flex-half"><%= store.storeName %> </small> 
+    55|                 <% } ) : store.storeName %> 
+    56|               </a> 
+
+store is not defined
+24/04/2024	13:53:34	080dce1b-7ec1-462d-89b0-3c15c9182133	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:143
+    141|           <div class="d-flex-visible space-between">
+    142|             <a> <%= stores.storeName %> </a>
+ >> 143|             <a> <%= stores.user.userName %> </a>
+    144|           </div>
+    145|         </h4>
+    146|       </div>
+
+Cannot read properties of undefined (reading 'userName')

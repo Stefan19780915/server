@@ -32,10 +32,10 @@ const getAllEmployees = async (req, res) => {
   const allStores =
     req.user.roles == "Admin"
       ? await Store.find({ admin: req.user.id })
-          .populate("user").populate('storeCompany').populate('admin')
+          .populate("user").populate('storeCompany').populate('admin').populate('user')
           .sort({ storeName: "asc" })
       : req.user.roles == "Manager"
-      ? await Store.findOne({ user: req.user.id }).populate('admin')
+      ? await Store.findOne({ user: req.user.id }).populate('admin').populate('user')
       : req.user.roles == "Owner"
       ? await Store.find({storeCompany: loggedUser.storeCompany }).populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" })
       : req.user.roles == "Super" 
