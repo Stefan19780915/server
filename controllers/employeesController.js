@@ -48,22 +48,22 @@ const getAllEmployees = async (req, res) => {
 
   const allUsers =
     req.user.roles == "Admin"
-      ? (await User.find().populate("store").sort({ userName: "asc" }))
+      ? (await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" }))
       : req.user.roles == "Manager"
       ? await User.find({ store: allStores ? allStores.id : [] }).populate('storeCompany')
       : req.user.roles == "Owner"
-      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate('storeCompany').sort({ userName: "asc" })
+      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Super" 
-      ? await User.find().populate('storeCompany').sort({ userName: "asc" })
+      ? await User.find().populate('storeCompany').sort({ roles: "asc" })
       : [];
 
   const allEmployees =
     req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super"  
-      ? await Employee.find().populate("store").sort({ lastName: "asc" })
+      ? await Employee.find().populate("store").sort({ store: "asc" })
       : req.user.roles == "Manager" && !allStores == []
       ? await Employee.find({ store: allStores._id })
           .populate("store")
-          .sort({ lastName: "asc" })
+          .sort({ store: "asc" })
       : [];
 
   const adminEmployees = allEmployees.filter(
@@ -75,6 +75,8 @@ const getAllEmployees = async (req, res) => {
   )
 
   //console.log(loggedUser.storeCompany);
+  //console.log(adminUsers)
+  
 
   if (allEmployees == []) {
     return res.render("../views/pages/employees", {
@@ -143,6 +145,8 @@ const getEmployee = async (req, res) => {
 
   const allPositions = await Position.find().populate('storeCompany');
 
+  const filteredPositions = !req.user.storeCompany ? [] : allPositions.filter(position =>  position.storeCompany._id.toString() == loggedUser.storeCompany._id.toString());
+
   const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate("store").populate("position");
 
   const date = Date.now();
@@ -156,7 +160,7 @@ const getEmployee = async (req, res) => {
       user: req.user,
       message: req.flash("message"),
       stores: allStores,
-      positions: allPositions,
+      positions: req.user.roles == 'Super' ? allPositions : filteredPositions,
       position: oneEmployee.position ? oneEmployee.position.position : "No position"
     });
   } else {
@@ -224,9 +228,9 @@ const createEmployee = async (req, res) => {
     //create employee
     const result = await Employee.create(newEmployee);
     const store = await Store.findOne( {_id: result.store._id} ).populate('admin');
-    //console.log(store.admin._id);
+    //console.log(store.storeCompany);
 
-    //creat user
+    //create user
     const hashedPassword = await bcrypt.hash(newEmployee.password, 10);
     const newUser = {
       admin: store.admin._id,

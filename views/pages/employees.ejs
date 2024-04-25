@@ -50,11 +50,17 @@
             <a><%= userHere.userName %></a>
               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
                 <small><%= userHere.roles%></small>
-                <% if ( Array.isArray(stores) ) { %> 
+                <% if ( Array.isArray(stores) && userHere.roles == 'Manager' ) { %> 
                   <%  stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
-                  <small class="width-d-flex-half"><%= store.storeName %> </small> 
+                  <small><%= store.storeName %> </small> 
                   <% } ) %>
-                <% } else { %> <small class="width-d-flex-half"><%= stores.storeName %> </small> <% } %>
+                <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+
+                  <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+                  <small><%= store.storeName %> </small> 
+                  <% } ) %>
+
+               <% } else { %> <small><%= stores.storeName %> </small> <% }  %>
               </a> 
           </div>
         </h4>
@@ -97,7 +103,7 @@
 
         <% } %>
 
-        <% if(user.roles == 'Owner' || user.roles == 'Super') { %>
+        <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
 
           <label for="storeCompany">Store Company</label>
           <div class="custom-select" style="width: 200px">
@@ -122,7 +128,7 @@
         </div>
       </form>
     </div>
-    <% }) %>
+    <% }); %>
   </section>
 
   <section class="contact-tab tab">
@@ -135,7 +141,7 @@
       <% } %>
     </div>
 
-    <% if(user.roles == 'Manager' ) { %>
+    <% if(user.roles == 'Manager' && stores.length > 0) { %>
 
     <section class="sub-cat">
       <div class="container">
