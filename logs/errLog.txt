@@ -1,0 +1,9 @@
+30/04/2024	15:57:36	247da3c6-73c2-4154-b0d0-f571b1dd385b	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:111
+    109|         <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
+    110| 
+ >> 111|           <label for="storeCompany">Store Company: <%= userHere.storeCompany.companyName %></label>
+    112|           <div class="custom-select" style="width: 200px">
+    113|             <select name="storeCompany">
+    114|               <option value="0">Select company:</option>
+
+Cannot read properties of undefined (reading 'companyName')

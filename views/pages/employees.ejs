@@ -92,20 +92,23 @@
           name="userEmail"
           value="<%= userHere.userEmail %>"
         />
-        <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
-        <label for="roles">Role</label>
-        <input
-          autocomplete="off"
-          type="text"
-          name="roles"
-          value="<%= userHere.roles%>"
-        />
+        <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
+
+          <label for="roles">Select Role: <p style="font-weight: bolder;"> Current role: <%= userHere.roles %> </p> </label>
+          <div class="custom-select" style="width: 200px">
+            <select name="roles">
+              <option value="0">Select role:</option>
+              <% roles.forEach((role)=>{ %>
+              <option value="<%= role %>"><%= role %></option>
+              <% }) %>
+            </select>
+          </div>
 
         <% } %>
 
         <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
 
-          <label for="storeCompany">Store Company</label>
+          <label for="storeCompany">Select Store Company</label>
           <div class="custom-select" style="width: 200px">
             <select name="storeCompany">
               <option value="0">Select company:</option>

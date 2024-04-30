@@ -210,7 +210,7 @@ async function student (req,res, next){
     }
     }
 
-    if(data.studentCompensation === false || data.contractType == 'TPP'){
+    if(data.studentCompensation === false || data.contractType == 'TPP' || data.contractType == 'DOPČ'){
       req.flash("message", 
     `Student compensation is not selected OR the constract type is not a STUDENT.
      Please select the Student Deductive Contribution Announcement OR Change the contract type to STUDENT.`);

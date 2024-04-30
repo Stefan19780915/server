@@ -18,6 +18,10 @@ const path = require('path');
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
 
+  const rolesAll = ['Owner', 'Super', 'User', 'Manager', 'Admin'];
+  const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
+  const rolesAdminManager = ['User', 'Manager'];
+
   //const mapalEmp = await getMapalEmployees();
   //console.log(mapalEmp.data);
 
@@ -116,6 +120,7 @@ const getAllEmployees = async (req, res) => {
     companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' || req.user.roles == 'Admin'  ? adminCompanies : [],
     mapal: [], 
     message: req.flash("message"),
+    roles: req.user.roles == 'Super' ? rolesAll : req.user.roles == 'Owner' ? rolesClient : req.user.roles == 'Admin' ? rolesAdminManager : [] 
   });
 };
 
@@ -701,6 +706,9 @@ const updateEmployeeContract = async (req, res) => {
     employee.contractStartDate = req.body.contractStartDate;
   if (req.body.contractEndDate)
     employee.contractEndDate = req.body.contractEndDate;
+    if (!req.body.contractEndDate)
+    employee.contractEndDate = '';
+
   if (req.body.contractSalaryType)
     employee.contractSalaryType = req.body.contractSalaryType;
   if (req.body.contractSalary)
@@ -713,7 +721,6 @@ const updateEmployeeContract = async (req, res) => {
     } else {
       employee.position;
     }
-
     if (!req.body.studentCompensation) {
       employee.studentCompensation = false;
     } else {
@@ -722,7 +729,9 @@ const updateEmployeeContract = async (req, res) => {
 
   if(req.body.compensationDateStart) employee.compensationDateStart = req.body.compensationDateStart;
 
-  console.log(req.body.studentCompensation);
+  if(!req.body.compensationDateStart) employee.compensationDateStart = '';
+
+  //console.log(req.body.studentCompensation);
 
   const result = await employee.save();
 
