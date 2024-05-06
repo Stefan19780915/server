@@ -771,7 +771,7 @@
           <label for="endDate">End date</label>
           <input autocomplete="off" id="endDate" type="date"
           name="contractEndDate" value="<%= data.contractEndDate%>" <% if
-          (data.contractEndDate == 'indefinite') { %> disabled <% } %> required
+          (data.contractEndDate == 'indefinite') { %> disabled <% } %>
           />
 
           <label for="indefinite">Idefinite period of time</label>
@@ -811,7 +811,7 @@
               name="contractSalary"
               value="<%= data.contractSalary%>"
               placeholder="€1.00"
-              required
+              
             />
           </div>
         </div>
@@ -844,7 +844,7 @@
               placeholder="00.00"
               name="contractWeeklyHours"
               step="0.01"
-              required
+              
             />
             </div>
 
