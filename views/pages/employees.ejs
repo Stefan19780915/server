@@ -50,17 +50,7 @@
             <a><%= userHere.userName %></a>
               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
                 <small><%= userHere.roles%></small>
-                <% if ( Array.isArray(stores) && userHere.roles == 'Manager' ) { %> 
-                  <%  stores.filter( (store)=> store.user.id == userHere.id ).forEach( (store)=> { %> 
-                  <small><%= store.storeName %> </small> 
-                  <% } ) %>
-                <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
-
-                  <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
-                  <small><%= store.storeName %> </small> 
-                  <% } ) %>
-
-               <% } else { %> <small><%= stores.storeName %> </small> <% }  %>
+                <small><%= userHere.store ? userHere.store.storeName : ''%></small>
               </a> 
           </div>
         </h4>

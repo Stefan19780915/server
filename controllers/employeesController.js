@@ -46,20 +46,25 @@ const getAllEmployees = async (req, res) => {
       ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" }) 
       : [];
 
+      
+
   const allPositions = await Position.find().populate('storeCompany');
 
   const filteredPositions = !req.user.storeCompany ? [] : allPositions.filter(position =>  position.storeCompany._id.toString() == loggedUser.storeCompany._id.toString());
 
   const allUsers =
     req.user.roles == "Admin"
-      ? (await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" }))
+      ? await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Manager"
-      ? await User.find({ store: allStores ? allStores.id : [] }).populate('storeCompany')
+      ? await User.find({ store: allStores ? allStores.id : [] }).populate('store')
       : req.user.roles == "Owner"
-      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate('storeCompany').sort({ roles: "asc" })
+      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate("store").sort({ roles: "asc" })
       : req.user.roles == "Super" 
-      ? await User.find().populate('storeCompany').sort({ roles: "asc" })
+      ? await User.find().populate('store').sort({ roles: "asc" })
       : [];
+   
+      // check if there is a property like that - then try to access
+   //console.log(allUsers.forEach( user => console.log(user.store ? user.store.storeName : !user.store ? '' : '') ))
 
   const allEmployees =
     req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super"  
@@ -87,7 +92,7 @@ const getAllEmployees = async (req, res) => {
       msg: "There are no employees created yet or no store is assigned to this account.",
       data: "",
       users:
-        req.user.roles == "Admin" || req.user.roles == "Owner" ? allUsers : [],
+        req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super" ? allUsers : [],
       user: req.user,
       message: req.flash("message"),
     });

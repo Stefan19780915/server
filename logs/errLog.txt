@@ -7,3 +7,193 @@
     114|               <option value="0">Select company:</option>
 
 Cannot read properties of undefined (reading 'companyName')
+03/05/2024	13:29:31	2488bdf6-adde-4917-b208-dd6729d53f1b	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:59
+    57|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    58| 
+ >> 59|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+    60|                   <small><%= store.storeName %> </small> 
+    61|                   <% } ) %>
+    62| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:39:37	76bb82fb-0803-47a7-8f3a-da86bb113dc0	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:65
+    63|                <% } else if (Array.isArray(stores) && user.roles == 'Super') { %>
+    64| 
+ >> 65|                 <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+    66|                   <small><%= store.storeName %> </small> 
+    67|                   <% } ) %>
+    68|                    
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:40:30	14f60950-0672-4732-8fcb-c8607823dfd5	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:59
+    57|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    58| 
+ >> 59|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+    60|                   <small><%= store.storeName %> </small> 
+    61|                   <% } ) %>
+    62| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:40:32	b71d20ac-c7ea-4e67-ae16-1ec49ab0cece	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:59
+    57|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    58| 
+ >> 59|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+    60|                   <small><%= store.storeName %> </small> 
+    61|                   <% } ) %>
+    62| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:40:40	f4ed0a3b-13a4-4a16-beae-b450487ec6ae	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:59
+    57|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    58| 
+ >> 59|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+    60|                   <small><%= store.storeName %> </small> 
+    61|                   <% } ) %>
+    62| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:41:26	872cb4be-ec28-4edc-8006-5a8d791bd51a	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:59
+    57|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    58| 
+ >> 59|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store ).forEach( (store)=> { %> 
+    60|                   <small><%= store.storeName %> </small> 
+    61|                   <% } ) %>
+    62| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:51:27	65df42fe-3a2c-4219-855f-6af31572033f	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    61| 
+ >> 62|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store || store == userHere.store).forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } ) %>
+    65| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	13:56:42	e7848a39-a1d6-4045-8c47-bb4f5492cc38	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    61| 
+ >> 62|                   <%  stores.filter( (store)=> store.id == userHere.store.id || store.id == userHere.store || store == userHere.store).forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } ) %>
+    65| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	14:01:22	4e504ebb-3866-4833-bd57-6d3efcfd6d3c	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+03/05/2024	14:02:59	ac843b5d-5c57-425f-a55c-6a3ba9e262d0	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    61| 
+ >> 62|                   <%stores.filter( (store)=> { store.id == userHere.store.id || store.id == userHere.store  } ).forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } )  %>
+    65| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	14:23:28	af608592-b844-4925-9c0c-e44a956b5767	SyntaxError: Unexpected token ')' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+03/05/2024	14:23:49	c28dde6d-9378-49ab-aa20-b173b862eb7e	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    61| 
+ >> 62|                   <%forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } )  %>
+    65| 
+
+forEach is not defined
+03/05/2024	14:23:50	d11a1927-4849-41d9-afc5-b3afa09ca1bd	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    61| 
+ >> 62|                   <%forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } )  %>
+    65| 
+
+forEach is not defined
+03/05/2024	14:28:50	b54fa275-489a-4632-b94e-6f81ff6416a4	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'User') { %>
+    61| 
+ >> 62|                   <% stores.filter( (store)=> store.user.id == userHere.store.user.id ).forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } )  %>
+    65| 
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	14:36:39	21acd5e2-2be4-4ca0-82cd-e86111eded91	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:62
+    60|                 <% } else if (Array.isArray(stores) && userHere.roles == 'Owner') { %>
+    61| 
+ >> 62|                   <% stores.filter( (store)=> store.storeName == userHere.store.storeName ).forEach( (store)=> { %> 
+    63|                   <small><%= store.storeName %> </small> 
+    64|                   <% } )  %>
+    65| 
+
+Cannot read properties of undefined (reading 'storeName')
+03/05/2024	14:40:13	70c134ae-7d7a-4925-98b9-dbb102e83586	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.storeName%></small>
+    54| 
+    55|                 <% if ( Array.isArray(stores) && userHere.roles == 'Manager' ) { %> 
+    56| 
+
+Cannot read properties of undefined (reading 'storeName')
+03/05/2024	14:41:18	46d61135-87ae-4a53-89c9-53cec5dc859b	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.storeName%></small>
+    54| 
+    55|                 <% if ( Array.isArray(stores) && userHere.roles == 'Manager' ) { %> 
+    56| 
+
+Cannot read properties of undefined (reading 'storeName')
+03/05/2024	14:45:14	8158139d-4b8e-4f76-8904-7feba52aefd2	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.id%></small>
+    54|               </a> 
+    55|           </div>
+    56|         </h4>
+
+Cannot read properties of undefined (reading 'id')
+03/05/2024	15:04:36	ed280228-7a6d-4214-a334-87e2309fca0c	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.storeName%></small>
+    54|               </a> 
+    55|           </div>
+    56|         </h4>
+
+Cannot read properties of undefined (reading 'storeName')
+03/05/2024	15:06:28	c21c6322-84bb-4ef8-a73a-130dcee4918a	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.store.storeName%></small>
+    54|               </a> 
+    55|           </div>
+    56|         </h4>
+
+Cannot read properties of undefined (reading 'storeName')
+03/05/2024	15:09:20	f9cf568d-6d49-4e47-b1e5-acec39b6b715	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.storeName%></small>
+    54|               </a> 
+    55|           </div>
+    56|         </h4>
+
+Cannot read properties of undefined (reading 'storeName')
+03/05/2024	15:10:23	0d021583-41a2-4afd-8300-152503c84f3a	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:53
+    51|               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
+    52|                 <small><%= userHere.roles%></small>
+ >> 53|                 <small><%= userHere.store.storeName%></small>
+    54|               </a> 
+    55|           </div>
+    56|         </h4>
+
+Cannot read properties of undefined (reading 'storeName')
