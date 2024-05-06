@@ -14,6 +14,7 @@ const { zhCN } = require("date-fns/locale");
 const sendEmail = require("../utils/sendEmployeeEmail");
 const fs = require('fs');
 const path = require('path');
+const {makeEmail} = require("../utils/email")
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
@@ -767,14 +768,8 @@ const sendEmployeeEmail = async (req, res) => {
     ? req.user.userEmail
     : userAdmin.admin.userEmail;
 
-  const html = `
-      <h1>Hello</h1>
-      <p>This is the body of the email.</p>
-      <label>Personal number</label>
-      <p>${oneEmployee.personalNumber}</p>
-      <label>Name and Surname</label>
-      <p>${oneEmployee.firstName} ${oneEmployee.lastName}</p>`;
-
+  const html = makeEmail(oneEmployee);
+      
   const subject = `Nástup - ${oneEmployee.lastName} ${oneEmployee.firstName} ${
     oneEmployee.store.storeName
   } ${oneEmployee.contractType} od: ${moment(
