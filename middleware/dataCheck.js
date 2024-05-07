@@ -58,7 +58,7 @@ async function dataCheck (req, res, next){
         res.redirect("/employee");
         break;
 
-        case !data.contractType || !data.contractEndDate || data.contractEndDate == 'indefinite':
+        case !data.contractType || !data.contractEndDate:
           req.flash(
             "message",
             `Please specify a contract type and contract end date for the employee.`

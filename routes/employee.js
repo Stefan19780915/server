@@ -3,6 +3,7 @@ const router = express.Router();
 const employeeController = require("../controllers/employeesController");
 const { createUser } = require("../middleware/registerUserHandler");
 const { deleteDir } = require('../middleware/deleteDirHandler');
+const { dataCheck } = require('../middleware/dataCheck');
 
 router.get("/", employeeController.getAllEmployees);
 
@@ -36,7 +37,7 @@ router.put("/employee-tax/:id", employeeController.updateTax);
 
 router.put("/contract/:id", employeeController.updateEmployeeContract);
 
-router.get("/email/:id", employeeController.sendEmployeeEmail);
+router.get("/email/:id", dataCheck, employeeController.sendEmployeeEmail);
 
 
 router.post("/position", employeeController.createPosition);

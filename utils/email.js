@@ -9,7 +9,7 @@ function makeEmail (oneEmployee){
       
       <table style="width:50%">
         <tr>
-          <th style="width:25%; background-color: #D6EEEE">Peronal data</th>
+          <th style="width:50%; background-color: #D6EEEE">Peronal data</th>
           <th style="background-color: #D6EEEE">Employee</th>
         </tr>
         <tr>
@@ -106,6 +106,112 @@ function makeEmail (oneEmployee){
           <td>Address Postal Code</td>
           <td>${oneEmployee.postalCode}</td>
         </tr>
+
+        <tr>
+          <td>Address Temporary</td>
+          <td>${oneEmployee.streetTemp}</td>
+        </tr>
+
+        <tr>
+          <td>Address Temporary</td>
+          <td>${oneEmployee.houseNumberTemp}</td>
+        </tr>
+
+        <tr>
+          <td>Address Temporary</td>
+          <td>${oneEmployee.cityTemp}</td>
+        </tr>
+
+        <tr>
+          <td>Address Temporary</td>
+          <td>${oneEmployee.postalCodeTemp}</td>
+        </tr>
+
+        <tr>
+          <td>Spouse Name</td>
+          <td>${oneEmployee.spouseName}</td>
+        </tr>
+
+        <tr>
+          <td>Spouse Name</td>
+          <td>${oneEmployee.spouseSurname}</td>
+        </tr>
+
+        <tr>
+          <td>Spouse Date of Birth</td>
+          <td>${moment(
+            oneEmployee.spouseDateOfBirth
+          ).format("LL")}</td>
+        </tr>
+
+        <tr>
+          <td>Spouse Social Security Number</td>
+          <td>${oneEmployee.spouseSocialSecNumber}</td>
+        </tr>
+
+        <tr>
+          <td>Spouse Social Security Number</td>
+          <td>${oneEmployee.publicHealthInsuranceName}</td>
+        </tr>
+
+        <tr>
+          <td>ZTP/Dochodca</td>
+          <td>${oneEmployee.ztpDochodca}</td>
+        </tr>
+
+        <tr>
+          <td>Bank Name</td>
+          <td>${oneEmployee.bankName}</td>
+        </tr>
+
+        <tr>
+          <td>Account Number</td>
+          <td>${oneEmployee.accountNumber}</td>
+        </tr>
+
+        <tr>
+          <td>Bank Code</td>
+          <td>${oneEmployee.bankCode}</td>
+        </tr>
+
+        <tr>
+          <td>Contract Start Date</td>
+          <td>${moment(
+            oneEmployee.contractStartDate
+          ).format("LL")}</td>
+        </tr>
+
+        <tr>
+          <td>Contract End Date</td>
+          <td>${oneEmployee.contractEndDate == 'indefinite' ? "Indefinite period" : !oneEmployee.contractEndDate ? 'No end date specified.' : moment(
+            oneEmployee.contractEndDate
+          ).format("LL")}</td>
+        </tr>
+
+        <tr>
+          <td>Contract Salary Type</td>
+          <td>${oneEmployee.contractSalaryType}</td>
+        </tr>
+
+        <tr>
+          <td>Contract Salary</td>
+          <td>${oneEmployee.contractSalary} EUR</td>
+        </tr>
+
+        <tr>
+          <td>Contract Type</td>
+          <td>${oneEmployee.contractType}</td>
+        </tr>
+
+        <tr>
+          <td>Contract Weekly Hours</td>
+          <td>${oneEmployee.contractWeeklyHours}</td>
+        </tr>
+
+        <tr>
+        <td>Position</td>
+        <td>${oneEmployee.position.position == undefined ? "Position not specified" : oneEmployee.position.position}</td>
+      </tr>
 
 
       </table>

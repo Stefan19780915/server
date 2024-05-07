@@ -59,9 +59,9 @@ const getAllEmployees = async (req, res) => {
       : req.user.roles == "Manager"
       ? await User.find({ store: allStores ? allStores.id : [] }).populate('store')
       : req.user.roles == "Owner"
-      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate("store").sort({ roles: "asc" })
+      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Super" 
-      ? await User.find().populate('store').sort({ roles: "asc" })
+      ? await User.find().populate('store').populate('storeCompany').sort({ roles: "asc" })
       : [];
    
       // check if there is a property like that - then try to access
