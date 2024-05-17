@@ -50,7 +50,7 @@
             <a><%= userHere.userName %></a>
               <a class="d-flex-visible space-between width-d-flex-half" style="font-size: 16px">
                 <small><%= userHere.roles%></small>
-                <small><%= userHere.store ? userHere.store.storeName : ''%></small>
+                <small class="d-flex-visible space-between width-d-flex-half"><%= userHere.store ? userHere.store.storeName : ''%></small>
               </a> 
           </div>
         </h4>
@@ -290,8 +290,16 @@
       <div class="container">
         <h4>
           <div class="d-flex-visible space-between">
-            <a> <%= store.storeName %> </a>  
-            <a> <%= store.user.userName %> </a>
+
+
+            <a > <%= store.storeName %> </a>  
+            
+            <a class="d-flex-visible space-between width-stores" style="font-size: 16px">
+                <small><%= store.admin.userName %></small>
+                <small class="d-flex-visible space-between width-d-flex-half"><%= store.user.userName %></small>
+                </a> 
+            
+            
           </div>
         </h4>
       </div>

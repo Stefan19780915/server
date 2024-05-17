@@ -197,3 +197,33 @@ Cannot read properties of undefined (reading 'storeName')
     56|         </h4>
 
 Cannot read properties of undefined (reading 'storeName')
+15/05/2024	12:19:03	7c766cf8-d7f1-476b-af35-f43fbd6f8ffb	SyntaxError: Unexpected end of input in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+15/05/2024	14:07:40	aff38901-c974-4e91-b614-df39327d4f57	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+15/05/2024	14:25:40	fc277d7c-f7d8-4837-8c20-a92b2b10bdc4	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+15/05/2024	14:26:02	ccbf1958-9a64-4d0e-afd9-6ed4b924e2d3	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+15/05/2024	14:26:06	1c262589-a619-4653-ac93-c3f647834d5b	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+15/05/2024	14:26:34	4dc76745-e298-44e9-b0db-e5a0f637ca3d	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

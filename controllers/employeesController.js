@@ -419,6 +419,8 @@ const deleteChild = async (req, res) => {
 // UPDATE PERSONAL AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeePersonal = async (req, res) => {
   
+  console.log(req.body)
+
   if (!req.params.id) {
     req.flash("message", "Id parameter is required");
     return res.redirect("/pages/404");
@@ -427,21 +429,26 @@ const updateEmployeePersonal = async (req, res) => {
   // UPDATE EMPLOYEE STORE 
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
+  console.log(employee);
+
   if (!employee) {
     req.flash("message", "No employee found.");
     return res.redirect("/pages/404");
   }
 
 
-  if (req.body.store && req.body.store != 0) {
+ 
+
+  if (req.body.store != '0') {
     employee.store = req.body.store;
   }
+
 
   //UPDATE USER STORE AS WELL
   const user = await User.findOne({employee: req.params.id}).exec();
 
   //UPDATE USER ADMIN AS WELL WITH THE STORE ADMIN
-  const storeAdmin = await Store.findOne({ _id: req.body.store });
+  const storeAdmin = req.body.store != '0' ? await Store.findOne({ _id: req.body.store }) : false;
   //console.log(storeAdmin.admin);
   //console.log(user.admin);
 
@@ -451,6 +458,8 @@ const updateEmployeePersonal = async (req, res) => {
   }
 
   const resultUser = await user.save();
+
+
 
   if (!req.body.employeeState) {
     employee.employeeState = false;

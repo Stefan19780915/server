@@ -19,13 +19,20 @@
     <div class="container flow">
       <span></span>
       <h3>Personal data</h3>
-      <p>
-        Here you can manage all persoal data of the given employee. You can
+        <% if (user.roles == 'User') { %>
+          <p>
+        Here you can manage all your persoal data. You can
         update edit and save the following information.
-      </p>
+          </p>
+        <% } else { %>
+          <p>
+            Here you can manage all personal data of the given employee. You can
+            update edit and save the following information.
+          </p>
+        <% } %>  
       <p style="font-weight: bolder">
-        <%= ` ${data.firstName} ${data.lastName} is currently assigned to store
-        - ${data.store == null ? 'No Store' : data.store.storeName}.` %>
+        <%= ` ${ user.roles == 'User' ? `You are currently assigned to ${data.store == null ? 'No Store' : data.store.storeName}.` : ` ${data.firstName} ${data.lastName} is currently assigned to store
+        - ${data.store == null ? 'No Store' : data.store.storeName}.` } `%>
       </p>
       <form
         method="POST"
@@ -33,17 +40,19 @@
         action="/employee/personal/<%= data._id %>?_method=PUT"
       >
         <div class="flow">
-          <div>
-            <div class="d-flex-visible space-between">
-              <label for="employeeState">Employee active state</label>
-              <input autocomplete="off" type="checkbox" name="employeeState" <%
-              if(data.employeeState == true) { %> checked <% } else { %> <% } %>
-              />
+          <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+            <div>
+              <div class="d-flex-visible space-between">
+                <label for="employeeState">Employee active state</label>
+                <input autocomplete="off" type="checkbox" name="employeeState" <%
+                if(data.employeeState == true) { %> checked <% } else { %> <% } %>
+                />
+              </div>
             </div>
-          </div>
+          <% } %>
 
           <div>
-            <% if(user.roles == 'Admin' || user.roles == 'Owner') { %>
+            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super' ) { %>
             <div class="custom-select" style="width: 200px">
               <select name="store" >
                 <option value="0">Select store:</option>
@@ -56,13 +65,17 @@
           </div>
 
           <div>
-            <label for="personalNumber">Personal number</label>
+
+            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+              <label for="personalNumber">Personal number</label>
             <input
               autocomplete="off"
               type="number"
               name="personalNumber"
               value="<%= data.personalNumber %>"
             />
+            <% } %>
+
             <label for="firstName">First name</label>
             <input
               autocomplete="off"
@@ -183,10 +196,11 @@
           </div>
           <div class="d-flex-visible space-between">
             <button class="add-child btn-primary">Update</button>
-            <a class="btn-primary" href="/employee/personal/<%= data._id %>"
-              >Delete</a
-            >
-          </div>
+
+            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager') { %>
+              <a class="btn-primary" href="/employee/personal/<%= data._id %>">Delete</a> 
+            <% } %>
+            </div>
           <div style="height: 25px"></div>
         </div>
       </form>
@@ -197,10 +211,17 @@
     <div class="container flow">
       <span></span>
       <h3>Contatcs</h3>
-      <p>
-        Here you can manage all contact details of the given employee. You can
+      <% if (user.roles == 'User') { %>
+          <p>
+        Here you can manage all your contact data. You can
         update edit and save the following information.
-      </p>
+          </p>
+        <% } else { %>
+          <p>
+            Here you can manage all personal data of the given employee. You can
+            update edit and save the following information.
+          </p>
+        <% } %>  
       <form
         action="/employee/contact/<%= data.id %>?_method=PUT"
         class="contatc-data-form flow"
@@ -237,11 +258,17 @@
           />
         </div>
         <h4>Address</h4>
-        <p>
-          Here you can update the address of the give employee. Please orivide a
-          valid addres since this will be used for all correspondence towards
-          the employee.
-        </p>
+        <% if (user.roles == 'User') { %>
+          <p>
+        Here you can manage all your addresses. You can
+        update edit and save the following information.
+          </p>
+        <% } else { %>
+          <p>
+            Here you can manage all addresses of the given employee. You can
+            update edit and save the following information.
+          </p>
+        <% } %>  
         <h4>Permanent Address</h4>
         <div>
           <label for="street">Street</label>
@@ -316,11 +343,15 @@
     <div class="container flow">
       <span></span>
       <h3>Calendar</h3>
-      <p>
-        Here you can check the given porson calendar days - see vacations and
-        days the porson worked on. You can also add vacations or remove other
-        absences and edit the calendar.
-      </p>
+      <% if (user.roles == 'User') { %>
+          <p>
+            Here you can check your calendar days - see vacations. You can also add vacations or remove other absences and edit the calendar.
+          </p>
+        <% } else { %>
+          <p>
+            Here you can check the given porson calendar days - see vacations and days the porson worked on. You can also add vacations or remove other absences and edit the calendar.
+          </p>
+        <% } %>  
       <div class="calendar">
         <div class="decrement">Previous</div>
         <div class="month" value="1">September</div>
@@ -411,11 +442,20 @@
     <div class="container flow">
       <span></span>
       <h3>Profile Settings</h3>
-      <p class="mgb">
+      
+
+      <% if (user.roles == 'User') { %>
+        <p class="mgb">
+        Here you can set all settings regarding your employment profile.
+      </p>
+        <% } else { %>
+          <p class="mgb">
         Here you can set all settings regarding the given person profile,
         eployment type salary and other settins related to his role and
         position.
       </p>
+        <% } %>  
+
     </div>
 
     <section class="sub-cat">
@@ -438,10 +478,17 @@
 
       <% }); %>
 
-      <p>
-        Please give information about the employees children for tax
-        reimbruisement.
+      <% if (user.roles == 'User') { %>
+        <p >
+          Please give information about your children for tax reimbruisement.
       </p>
+        <% } else { %>
+          <p >
+            Please give information about the employees children for tax reimbruisement.
+      </p>
+        <% } %> 
+      
+
       <form
         method="POST"
         action="/employee/child/<%= data.id%>"
@@ -493,10 +540,15 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <p>
-        Please give information about the employees spouse for tax
-        reimbruisement.
+      <% if (user.roles == 'User') { %>
+        <p >
+          Please give information about your spouse for tax reimbruisement.
       </p>
+        <% } else { %>
+          <p >
+            Please give information about the employees spouse for tax reimbruisement.
+      </p>
+        <% } %> 
       <form
         method="POST"
         action="/employee/spouse/<%= data.id%>?_method=PUT"
@@ -541,10 +593,15 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <p>
-        What is the name of the public health insurance company in which the
-        employee is registered at?
+      <% if (user.roles == 'User') { %>
+        <p >
+          What is the name of the public health insurance company in which you are registered at?
       </p>
+        <% } else { %>
+          <p >
+            What is the name of the public health insurance company in which the employee is registered at?
+      </p>
+        <% } %> 
       <form
         class="public-health-data-form flow"
         method="POST"
@@ -552,8 +609,7 @@
       >
         <div>
           <label for="publicHealthInsuranceName"
-            >Public health insurance company name</label
-          >
+            >Public health insurance company name</label>
           <input
             autocomplete="off"
             type="text"
@@ -606,10 +662,15 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <p>
-        Please provide the bank account number to which the employee salary will
-        be set to.
+      <% if (user.roles == 'User') { %>
+        <p >
+          Please provide your bank account number to which your salary will be set to.
       </p>
+        <% } else { %>
+          <p >
+            Please provide the bank account number to which the employee salary will be set to.
+      </p>
+        <% } %> 
       <form
         class="bank-data-form flow"
         method="POST"
@@ -655,9 +716,15 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <p>
-        In case of a student, please provide the name and address of the school that the student is atteding. In case already eployed at another eployer please provide the name of the employer.
+      <% if (user.roles == 'User') { %>
+        <p >
+          In case of you are a student, please provide the name and address of the school that you are atteding. In case you are already employed at another eployer please provide the name of the employer.
       </p>
+        <% } else { %>
+          <p >
+            In case of a student, please provide the name and address of the school that the student is atteding. In case already eployed at another eployer please provide the name of the employer.
+      </p>
+        <% } %> 
       <form
         class="bank-data-form flow"
         method="POST"
@@ -697,9 +764,15 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <p>
-        In case the employee would like to papply for TAX bonus or TAX bonus after children then please specify here and select the appropriote box.
+      <% if (user.roles == 'User') { %>
+        <p >
+          In case you would like to papply for TAX bonus or TAX bonus after children then please specify here and select the appropriote box.
       </p>
+        <% } else { %>
+          <p >
+            In case the employee would like to papply for TAX bonus or TAX bonus after children then please specify here and select the appropriote box.
+      </p>
+        <% } %> 
       <form
         class="bank-data-form flow"
         method="POST"
@@ -734,7 +807,6 @@
       </form>
     </div>
 
-
     <section class="sub-cat">
       <div class="container flow">
         <h4><a>Cotract settings</a></h4>
@@ -742,14 +814,21 @@
     </section>
     <div class="container flow sub-cat-content">
       <span></span>
-      <p>Please provide the position name and set the employment type and start and end tades.</p>
+     <% if(user.roles == 'User') { %>
+      <p>Position name, employment type and start and end tades.</p>
+      <% } else { %>
+        <p>Please provide the position name and set the employment type and start and end tades.</p>
+      <% } %> 
+      
+      
       <form
         class="employent-form flow"
         method="POST"
         action="/employee/contract/<%= data.id%>?_method=PUT"
       >
-      <label for="positionName" style="font-weight: bolder">Employee's current position: <%= position %> </label>
+      <label for="positionName" style="font-weight: bolder">Current position: <%= position %> </label>
 
+      <% if (user.roles == 'Admin' || user.roles == 'Super' || user.roles == 'Manager' || user.roles == 'Owner') { %>
       <div class="custom-select" style="width: 200px">
               <select name="position" >
                 <option value="0">Select position:</option>
@@ -758,26 +837,46 @@
                 <% }) %>
               </select>
       </div>
+      <% } %>
             
       
         <div>
-          <label for="contractStartDate">Start date</label>
+          
+          <% if(user.roles == 'User') { %>
+            <div class="d-flex-visible space-between">
+            <label for="contractStartDate">Start date</label>
+            <p> <%= data.contractStartDate ?
+          data.contractStartDate.toISOString().split("T")[0]: ''%> </p></div>
+          <% } else { %>
+            <label for="contractStartDate">Start date</label>
           <input autocomplete="off" type="date" name="contractStartDate"
           value="<%= data.contractStartDate ?
           data.contractStartDate.toISOString().split("T")[0]: ''%>" />
+          <% } %>
         </div>
         
         <div>
-          <label for="endDate">End date</label>
+          
+          <% if(user.roles == 'User') { %> 
+          <% } else { %>
+            <label for="endDate">End date</label>
           <input autocomplete="off" id="endDate" type="date"
           name="contractEndDate" value="<%= data.contractEndDate%>" <% if
           (data.contractEndDate == 'indefinite') { %> disabled <% } %>
           />
-
-          <label for="indefinite">Idefinite period of time</label>
-          <input autocomplete="off" type="checkbox" id="check" value=" <% if
+          <% } %> 
+          <% if(user.roles == 'User') { %>
+            <div class="d-flex-visible space-between">
+            <label for="endDate">End date</label>
+            <p><%= !data.contractEndDate ? 'No end date specified' : data.contractEndDate %></p>
+            </div>
+            <input autocomplete="off" type="hidden" id="check" value="0"/>
+          <% } else { %>
+            <label for="indefinite">Idefinite period of time</label>
+            <input autocomplete="off" type="checkbox" id="check" value=" <% if
           (data.contractEndDate == 'indefinite') { %>0<% } else { %>1<% } %> "
           <% if (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
+          <% } %>
           <input
             autocomplete="off"
             type="hidden"
@@ -787,8 +886,22 @@
             disabled
           />
         </div>
+
+       
         
         <div class="flow">
+          <% if(user.roles == 'User') { %>
+            <div class="d-flex-visible space-between">
+            <p>Contrac salary type:</p>
+            <p> <%= data.contractSalaryType%> </p>
+            </div>
+
+            <div class="d-flex-visible space-between">
+            <p>Contrac salary:</p>
+            <p> <%= data.contractSalary%> EUR </p>
+            </div>
+
+            <% } else { %>
           <p>Please choose the salary type for the employee.</p>
           <div class="d-flex-visible gap">
             <input autocomplete="off" type="radio" name="contractSalaryType"
@@ -811,11 +924,18 @@
               name="contractSalary"
               value="<%= data.contractSalary%>"
               placeholder="€1.00"
-              
             />
           </div>
+          <% } %>
         </div>
+
         <div class="flow">
+          <% if(user.roles == 'User') { %> 
+            <div class="d-flex-visible space-between">
+            <p>Contract type:</p>
+            <p> <%= data.contractType %> </p>
+          </div>
+          <% } else { %> 
           <p>Please choose the contract type for the employee</p>
           <div class="d-flex-visible gap">
             <input autocomplete="off" type="radio" name="contractType"
@@ -835,7 +955,15 @@
             else { %> <% } %>/>
             <label for="DOPČ">Work Agreement</label>
           </div>
-          <div>
+          <% } %>
+
+          <% if(user.roles == 'User') { %> 
+            <div class="d-flex-visible space-between">
+              <label for="contractWeeklyHours">Weekly hours</label>
+              <p><%= data.contractWeeklyHours%></p>
+            </div>
+          <% } else { %> 
+            <div>
             <label for="contractWeeklyHours">Weekly hours</label>
             <input
               autocomplete="off"
@@ -844,12 +972,17 @@
               placeholder="00.00"
               name="contractWeeklyHours"
               step="0.01"
-              
             />
-            </div>
+          </div>
+          <% } %>
+          
 
             <div>
-            <p>If the student would like to apply for deductive contribution, then please tick the checkbox and specify the date the application should be valid.</p>
+              <% if(user.roles == "User") { %> 
+                <p>If you are a student and would like to apply for deductive contribution, then please tick the checkbox and specify the date the application should be valid.</p>
+                <% } else { %> 
+                  <p>If the student would like to apply for deductive contribution, then please tick the checkbox and specify the date the application should be valid.</p>
+                  <% } %>
             <label for="studentCompensation">Student Deductive Contribution Announcement</label>
             <input autocomplete="off" type="checkbox" name="studentCompensation"
              <% if(data.studentCompensation === true) { %> checked <% } else { %> <% } %>/>
@@ -871,12 +1004,23 @@
       </form>
     </div>
 
+    
+
+
+    
+    <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Manager') { %> 
     <section class="sub-cat">
       <div class="container">
         <h4><a>Send Employee Data</a></h4>
       </div>
     </section>
-    <div class="container flow sub-cat-content">
+
+    <% } %>
+
+
+    <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Manager') { %> 
+
+      <div class="container flow sub-cat-content">
       <span></span>
       <p>
         Here you can send all employee data to your email for further
@@ -915,8 +1059,20 @@
                                 >Electronic Communication Agreement</a>
   
       </div>
+    </div>
+
+    <% } else { %> 
+
+      <div class="container flow sub-cat-content">
+      <span></span>
       
     </div>
+      
+    <% } %>
+
+    
+
+
   </section>
 
   <script src="/js/employee.js"></script>

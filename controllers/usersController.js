@@ -118,7 +118,7 @@ const updateUser = async (req, res) => {
 
   if (req.body.userName) user.userName = req.body.userName;
   if (req.body.userEmail) user.userEmail = req.body.userEmail;
-  if (req.body.roles) user.roles = req.body.roles;
+  if (req.body.roles != '0') user.roles = req.body.roles;
   if (req.body.storeCompany != '0') user.storeCompany = company;
 
   const resultUser = await user.save();
