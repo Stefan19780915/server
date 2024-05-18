@@ -197,54 +197,55 @@ then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
 
 
-//Fetch Countries API
 
-const wrapper = () => {
 
-  displayCountries('hello');
-
+//Fertch Nationality API
+//Elements - API box must be the next element sibling of the search input field
+const nationalityInput = document.getElementById('nationalityInput')
+const nationalityBox = document.getElementById('nationalityBox');
+const loadNationalityApi = () => {
+  fetch('https://restcountries.com/v3.1/all?fields=demonyms')
+  .then( res => res.json())
+  .then(data => {
+    const nat = data.map(item=> {return {name: {common: item.demonyms.eng.m}}});
+    displayApiData(nat, 'name', 'common', nationalityInput, nationalityBox);
+  });
 }
 
+
+//Fetch Countries API
+//Elements - API box must be the next element sibling of the search input field
+const countryInput = document.getElementById('countryInput')
+const countryBox = document.getElementById('countryBox');
 const loadCountryApi = () => {
   fetch('https://restcountries.com/v3.1/all')
   .then( res => res.json())
-  .then(data => displayCountries(data));
+  .then(data => {
+    displayApiData(data, 'name', 'common', countryInput, countryBox);
+  });
 }
 
-const countryInput = document.getElementById('countryInput')
-const countryBox = document.getElementById('countyList');
-
-const displayCountries = countries =>{
-  const sortedContries = countries.sort( (a,b)=>{
-    if (a.name.common < b.name.common) {
-      return -1;
-    }
-    if (a.name.common > b.name.common) {
-      return 1;
-    }
-    return 0;
-  });
-  countryInput.addEventListener('keyup', (e)=>{
-    let matches = sortedContries.filter( item =>{
-      let itemChar = item.name.common.slice(0, e.target.value.length);
+//Displazing the API DATAS
+const displayApiData = (data, name, common, input, box) =>{
+  input.addEventListener('keyup', (e)=>{
+    let matches = data.filter( item =>{
+      let itemChar = item[name][common].slice(0, e.target.value.length);
       return itemChar.toUpperCase() == e.target.value.toUpperCase();
     })
-    const countryHTML = matches.map(country => getCountry(country));
-    countryBox.innerHTML = countryHTML.join('');
+    const HTML = matches.map(country => getCountry(country,name,common));
+    box.innerHTML = HTML.join('');
   })
-  
 }
 
 const updateInput = (e)=>{
-  countryInput.value = e.firstChild.textContent;
-  console.log(e.textContent)
-  countryBox.innerHTML = '';
+  e.parentElement.previousElementSibling.value = e.parentElement.firstChild.textContent;
+  e.parentElement.innerHTML = '';
 }
 
-const getCountry = country =>{
-    return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country.name.common}</a></h4>`
+const getCountry = (country, name, common) =>{
+    return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country[name][common]}</a></h4>`
 }
 
-
+//CALLING APIS
 loadCountryApi();
-
+loadNationalityApi();

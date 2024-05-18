@@ -169,16 +169,18 @@
               name="country"
               value="<%= data.country %>"
             />
-            <div id="countyList"></div>
+            <div id="countryBox"></div>
           </div>
           <div>
             <label for="nationality">Nationality</label>
             <input
+            id="nationalityInput"
               autocomplete="off"
               type="text"
               name="nationality"
               value="<%= data.nationality %>"
             />
+            <div id="nationalityBox"></div>
           </div>
 
           <label for="maritalStatus">Marital status</label>
@@ -232,21 +234,21 @@
         <div>
           <label for="landLinePhone">Land line</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="tel"
             name="landLinePhone"
             value="<%= data.landLinePhone %>"
           />
           <label for="mobilePhone">Mobile</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="tel"
             name="mobilePhone"
             value="<%= data.mobilePhone %>"
           />
           <label for="email">Email</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="email"
             name="email"
             value="<%= data.email %>"
@@ -275,28 +277,28 @@
         <div>
           <label for="street">Street</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="text"
             name="street"
             value="<%= data.street %>"
           />
           <label for="houseNnumber">House number</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="text"
             name="houseNumber"
             value="<%= data.houseNumber %>"
           />
           <label for="city">City/Town</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="text"
             name="city"
             value="<%= data.city %>"
           />
           <label for="postalCode">Postal code</label>
           <input
-            autocomplete="off"
+            autocomplete="on"
             type="number"
             name="postalCode"
             value="<%= data.postalCode%>"
