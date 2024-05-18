@@ -225,7 +225,17 @@ const loadCountryApi = () => {
   });
 }
 
+
 //Displazing the API DATAS
+const updateInput = (e)=>{
+  e.parentElement.previousElementSibling.value = e.parentElement.firstChild.textContent;
+  e.parentElement.innerHTML = '';
+}
+
+const getCountry = (country, name, common) =>{
+  return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country[name][common]}</a></h4>`
+}
+
 const displayApiData = (data, name, common, input, box) =>{
   input.addEventListener('keyup', (e)=>{
     let matches = data.filter( item =>{
@@ -237,14 +247,9 @@ const displayApiData = (data, name, common, input, box) =>{
   })
 }
 
-const updateInput = (e)=>{
-  e.parentElement.previousElementSibling.value = e.parentElement.firstChild.textContent;
-  e.parentElement.innerHTML = '';
-}
 
-const getCountry = (country, name, common) =>{
-    return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country[name][common]}</a></h4>`
-}
+
+
 
 //CALLING APIS
 loadCountryApi();
