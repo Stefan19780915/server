@@ -76,6 +76,7 @@ const getAllEmployees = async (req, res) => {
           .sort({ store: "asc" })
       : [];
 
+    
   const adminEmployees = allEmployees.filter(
     (emp) => emp.store.admin == req.user.id
   );
@@ -436,10 +437,9 @@ const updateEmployeePersonal = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
+  //CHECK IF SORE IS BEING UPDATED
 
- 
-
-  if (req.body.store != '0') {
+  if (req.body.store != '0' && req.body.store) {
     employee.store = req.body.store;
   }
 
@@ -448,7 +448,8 @@ const updateEmployeePersonal = async (req, res) => {
   const user = await User.findOne({employee: req.params.id}).exec();
 
   //UPDATE USER ADMIN AS WELL WITH THE STORE ADMIN
-  const storeAdmin = req.body.store != '0' ? await Store.findOne({ _id: req.body.store }) : false;
+  //CHECK IF STORE IS BEING UPDATED
+  const storeAdmin = req.body.store != '0' && req.body.store ? await Store.findOne({ _id: req.body.store }) : false;
   //console.log(storeAdmin.admin);
   //console.log(user.admin);
 

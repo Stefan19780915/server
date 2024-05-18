@@ -59,9 +59,9 @@ allSubCat.forEach((item) => {
   item.addEventListener("click", (e) => {
     allSubCat.forEach((item) => {
       item == e.currentTarget
-        ? e.currentTarget.nextElementSibling.style.maxHeight === "1700px"
+        ? e.currentTarget.nextElementSibling.style.maxHeight === "1800px"
           ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-          : (e.currentTarget.nextElementSibling.style.maxHeight = "1700px")
+          : (e.currentTarget.nextElementSibling.style.maxHeight = "1800px")
         : (item.nextElementSibling.style.maxHeight = "0px");
     });
   });
@@ -75,9 +75,9 @@ const toggleVisibility = (e, trigClass, tarClass) => {
         .filter((tab) => tab.classList.contains("tab"))
         .forEach((item) => {
           item.classList.contains(tarClass)
-            ? item.style.maxHeight === "1600px"
+            ? item.style.maxHeight === "1800px"
               ? (item.style.maxHeight = "0px")
-              : (item.style.maxHeight = "1600px")
+              : (item.style.maxHeight = "1800px")
             : (item.style.maxHeight = "0px");
         })
     : "";
@@ -195,3 +195,56 @@ function closeAllSelect(elmnt) {
 /* If the user clicks anywhere outside the select box,
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
+
+
+//Fetch Countries API
+
+const wrapper = () => {
+
+  displayCountries('hello');
+
+}
+
+const loadCountryApi = () => {
+  fetch('https://restcountries.com/v3.1/all')
+  .then( res => res.json())
+  .then(data => displayCountries(data));
+}
+
+const countryInput = document.getElementById('countryInput')
+const countryBox = document.getElementById('countyList');
+
+const displayCountries = countries =>{
+  const sortedContries = countries.sort( (a,b)=>{
+    if (a.name.common < b.name.common) {
+      return -1;
+    }
+    if (a.name.common > b.name.common) {
+      return 1;
+    }
+    return 0;
+  });
+  countryInput.addEventListener('keyup', (e)=>{
+    let matches = sortedContries.filter( item =>{
+      let itemChar = item.name.common.slice(0, e.target.value.length);
+      return itemChar.toUpperCase() == e.target.value.toUpperCase();
+    })
+    const countryHTML = matches.map(country => getCountry(country));
+    countryBox.innerHTML = countryHTML.join('');
+  })
+  
+}
+
+const updateInput = (e)=>{
+  countryInput.value = e.firstChild.textContent;
+  console.log(e.textContent)
+  countryBox.innerHTML = '';
+}
+
+const getCountry = country =>{
+    return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country.name.common}</a></h4>`
+}
+
+
+loadCountryApi();
+
