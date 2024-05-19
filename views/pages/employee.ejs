@@ -274,21 +274,39 @@
           </p>
         <% } %>  
         <h4>Permanent Address</h4>
-        <div>
+        <div class="flow">
+          <label for="gooleAddress">Google Full Address</label>
+          <input
+          autocomplete="off"
+          type="text"
+          id="search-input"
+          placeholder="Type address..."
+          />
+          <input type="hidden" id="loc_lat" />
+          <input type="hidden" id="loc_long" />
+          <div class="latlong-view">
+          <p><b>Latitude:</b> <span id="latitude_view"></span></p>
+          <p><b>Longitude:</b> <span id="longitude_view"></span></p>
+          
+          </div>
           <label for="street">Street</label>
           <input
+          id="streetInput"
             autocomplete="on"
             type="text"
             name="street"
             value="<%= data.street %>"
           />
+          <div id="streetBox"></div>
           <label for="houseNnumber">House number</label>
           <input
+            it="houseNumberInput"
             autocomplete="on"
             type="text"
             name="houseNumber"
             value="<%= data.houseNumber %>"
           />
+          <div id="houseNumberBox"></div>
           <label for="city">City/Town</label>
           <input
           id="cityInput"
@@ -300,11 +318,13 @@
           <div id="cityBox"></div>
           <label for="postalCode">Postal code</label>
           <input
+            id="postalCodeInput"
             autocomplete="on"
             type="number"
             name="postalCode"
             value="<%= data.postalCode%>"
           />
+          <div id="postalCodeBox"></div>
         </div>
         <h4>Temporary Address</h4>
         <div>
@@ -1081,6 +1101,33 @@
 
   </section>
 
-  <script src="/js/employee.js"></script>
+  <script defer src="/js/employee.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyChl-0UPkagqLZC-M9sOoM2pm8cGLRCbGY"></script>
+  <script defer type="text/javascript">
+      var searchInput = 'search-input';
+          $(document).ready(function () {
+              var autocomplete;
+              autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                  types: ['geocode'],
+              });
+            
+              google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                  var near_place = autocomplete.getPlace();
+                  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+                  document.getElementById('loc_long').value = near_place.geometry.location.lng();
+              
+                  document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+                  document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+              });
+          });
+          $(document).on('change', '#'+searchInput, function () {
+            document.getElementById('latitude_input').value = '';
+            document.getElementById('longitude_input').value = '';
+          
+            document.getElementById('latitude_view').innerHTML = '';
+            document.getElementById('longitude_view').innerHTML = '';
+  });
+    </script>
 </body>
 <%- include('../partials/footer') %>
