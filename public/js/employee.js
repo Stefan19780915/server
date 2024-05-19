@@ -196,7 +196,6 @@ function closeAllSelect(elmnt) {
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
 
-
 //Fertch Nationality API
 //Elements - API box must be the next element sibling of the search input field
 const nationalityInput = document.getElementById('nationalityInput')
@@ -210,7 +209,6 @@ const loadNationalityApi = () => {
   });
 }
 
-
 //Fetch Countries API
 //Elements - API box must be the next element sibling of the search input field
 const countryInput = document.getElementById('countryInput')
@@ -223,7 +221,6 @@ const loadCountryApi = () => {
   });
 }
 
-
 //Displazing the API DATAS
 const updateInput = (e)=>{
   console.log(e.firstChild.textContent);
@@ -231,8 +228,6 @@ const updateInput = (e)=>{
   e.parentElement.previousElementSibling.value = e.firstChild.textContent;
   e.parentElement.innerHTML = '';
 }
-
-
 
 const displayApiData = (data, name, common, input, box) =>{
   input.addEventListener('keyup', (e)=>{
@@ -246,10 +241,8 @@ const displayApiData = (data, name, common, input, box) =>{
 }
 
 const getCountry = (country, name, common) =>{
-  return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country[name][common]}
-  </a></h4>`
+  return `<h4 class="sub-cat" onclick="updateInput(this)"><a style="margin-left:20px">${country[name][common]}</a></h4>`
 }
-
 
 //CALLING APIS
 loadCountryApi();
