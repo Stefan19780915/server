@@ -223,7 +223,6 @@ const loadCountryApi = () => {
 
 //Displazing the API DATAS
 const updateInput = (e)=>{
-  console.log(e.firstChild.textContent);
   e.parentElement.previousElementSibling.value = '';
   e.parentElement.previousElementSibling.value = e.firstChild.textContent;
   e.parentElement.innerHTML = '';

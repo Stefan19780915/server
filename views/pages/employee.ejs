@@ -227,6 +227,7 @@
           </p>
         <% } %>  
       <form
+        
         action="/employee/contact/<%= data.id %>?_method=PUT"
         class="contatc-data-form flow"
         method="POST"
@@ -282,54 +283,45 @@
           id="search-input"
           placeholder="Type address..."
           />
-          <input type="hidden" id="loc_lat" />
-          <input type="hidden" id="loc_long" />
-          <div class="latlong-view">
-          <p><b>Latitude:</b> <span id="latitude_view"></span></p>
-          <p><b>Longitude:</b> <span id="longitude_view"></span></p>
-          
           </div>
           <label for="street">Street</label>
           <input
-          id="streetInput"
-            autocomplete="on"
+            id="street"
+            autocomplete="off"
             type="text"
             name="street"
             value="<%= data.street %>"
           />
-          <div id="streetBox"></div>
           <label for="houseNnumber">House number</label>
           <input
-            it="houseNumberInput"
-            autocomplete="on"
+            id="houseNnumber"
+            autocomplete="off"
             type="text"
-            name="houseNumber"
+            name="houseNnumber"
             value="<%= data.houseNumber %>"
           />
-          <div id="houseNumberBox"></div>
           <label for="city">City/Town</label>
           <input
-          id="cityInput"
-            autocomplete="on"
+            id="city"
+            autocomplete="off"
             type="text"
             name="city"
             value="<%= data.city %>"
           />
-          <div id="cityBox"></div>
           <label for="postalCode">Postal code</label>
           <input
-            id="postalCodeInput"
-            autocomplete="on"
-            type="number"
+            id="postalCode"
+            autocomplete="off"
+            type="text"
             name="postalCode"
             value="<%= data.postalCode%>"
           />
-          <div id="postalCodeBox"></div>
         </div>
         <h4>Temporary Address</h4>
         <div>
           <label for="streetTemp">Street</label>
           <input
+          id="streetTemp"
             autocomplete="off"
             type="text"
             name="streetTemp"
@@ -1095,39 +1087,51 @@
     </div>
       
     <% } %>
-
-    
-
-
   </section>
 
-  <script defer src="/js/employee.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyChl-0UPkagqLZC-M9sOoM2pm8cGLRCbGY"></script>
-  <script defer type="text/javascript">
-      var searchInput = 'search-input';
-          $(document).ready(function () {
-              var autocomplete;
-              autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                  types: ['geocode'],
-              });
-            
-              google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                  var near_place = autocomplete.getPlace();
-                  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-                  document.getElementById('loc_long').value = near_place.geometry.location.lng();
-              
-                  document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
-                  document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
-              });
-          });
-          $(document).on('change', '#'+searchInput, function () {
-            document.getElementById('latitude_input').value = '';
-            document.getElementById('longitude_input').value = '';
+  <script src="/js/employee.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyChl-0UPkagqLZC-M9sOoM2pm8cGLRCbGY" defer></script>
+  <script type="text/javascript">
+    let searchInput = 'search-input'
+        $(document).ready(function () {
           
-            document.getElementById('latitude_view').innerHTML = '';
-            document.getElementById('longitude_view').innerHTML = '';
-  });
-    </script>
+          let address1Field = document.getElementById(searchInput);
+          var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((address1Field), {
+              fields: ["address_components", "geometry"],
+              types: ['address']
+            });
+                  google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    const place = autocomplete.getPlace();
+        
+                    for (const component of place.address_components) {
+                      const componentType = component.types[0];
+                      switch (componentType) {
+                        case "street_number": {
+                          document.getElementById('houseNnumber').value = `${component.long_name}`;
+                         break;
+                        }
+
+                        case "route": {
+                          document.getElementById('street').value = component.long_name;
+                         break;
+                        }
+                        case "sublocality_level_1": 
+                        case "locality": {
+                          document.getElementById('city').value = component.long_name;
+                         break;
+                        }
+                        case "postal_code": {
+                          document.getElementById('postalCode').value = component.long_name;
+                         break;
+                        }
+                      }
+                    }
+                  });
+        });
+</script>
+
+
+    
 </body>
 <%- include('../partials/footer') %>

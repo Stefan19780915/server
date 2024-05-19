@@ -641,7 +641,6 @@
     <div class="container d-flex-visible center flow">
       <span></span>
       <input
-        readonly onfocus="this.removeAttribute('readonly');"
         autocomplete="off"
         id="search"
         type="text"
@@ -758,17 +757,13 @@
           <div>
             <label for="email">Email</label>
             <input
-            readonly
-            onfocus="this.removeAttribute('readonly');"
-            autocomplete="false"
               type="email"
               name="email"
               value=" "
             />
             <label for="password">Temporary password</label>
             <input
-              readonly
-              onfocus="this.removeAttribute('readonly');"
+            autocomplete="on"
               type="password"
               name="password"
               value=""
