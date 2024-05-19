@@ -275,7 +275,7 @@
           </p>
         <% } %>  
         <h4>Permanent Address</h4>
-        <div class="flow">
+        <div>
           <label for="gooleAddress">Google Full Address</label>
           <input
           autocomplete="off"
@@ -317,11 +317,10 @@
             value="<%= data.postalCode%>"
           />
         </div>
+        <div class="container flow">
         <h4>Temporary Address</h4>
-        <div>
           <label for="streetTemp">Street</label>
           <input
-          id="streetTemp"
             autocomplete="off"
             type="text"
             name="streetTemp"
@@ -348,10 +347,8 @@
             name="postalCodeTemp"
             value="<%= data.postalCodeTemp%>"
           />
-        </div>
-
-
         <button class="add-child btn-primary">Update</button>
+      </div>
         <div style="height: 25px"></div>
       </form>
     </div>
