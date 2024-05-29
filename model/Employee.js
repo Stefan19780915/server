@@ -15,15 +15,14 @@ const childSchema = new Schema({
     type: Number,
   },
 });
-
 const employeesSchema = new Schema({
+  position: {
+    type: mongoose.Schema.Types.ObjectId,
+        ref: "Position",
+      },
   store: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Store",
-  },
-  position: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Position",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -146,9 +145,6 @@ const employeesSchema = new Schema({
   employerName: {
     type: String,
   },
-  contractStartDate: {
-    type: Date,
-  },
   taxBonus: {
     type: Boolean,
     default: false,
@@ -164,28 +160,31 @@ const employeesSchema = new Schema({
   taxStartDate: {
     type: Date,
   },
+  contractStartDate: {
+    type: Date,
+      },
   contractEndDate: {
     type: String,
-  },
+      },
   contractSalaryType: {
     type: String,
-  },
+      },
   contractSalary: {
     type: mongoose.Decimal128,
-  },
+      },
   contractType: {
     type: String,
-  },
+      },
   contractWeeklyHours: {
     type: mongoose.Decimal128,
-  },
+      },
   studentCompensation: {
     type: Boolean,
     default: false,
-  },
+      },
   compensationDateStart: {
     type: Date,
-  },
+      },  
 });
 
 module.exports = mongoose.model("Employee", employeesSchema);

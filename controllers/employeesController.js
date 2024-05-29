@@ -3,6 +3,7 @@ const Employee = require("../model/Employee");
 const Position = require("../model/Positions");
 const Company = require("../model/Company");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract')
 const Token = require("../model/token");
 const { getMapalEmployees } = require('../api/Mapal');
 const moment = require("moment");
@@ -135,6 +136,9 @@ const getAllEmployees = async (req, res) => {
 const getEmployee = async (req, res) => {
 
   const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
+  const contracts = await Contract.find({ employee: req.params.id }).populate('position').populate('store');
+
+  
 
   if (!req.params.id) {
     return res.render("../views/pages/404", {
@@ -173,7 +177,8 @@ const getEmployee = async (req, res) => {
       message: req.flash("message"),
       stores: allStores,
       positions: req.user.roles == 'Super' ? allPositions : filteredPositions,
-      position: oneEmployee.position ? oneEmployee.position.position : "No position"
+      position: oneEmployee.position ? oneEmployee.position.position : "No position",
+      contracts
     });
   } else {
     res.render("../views/pages/404", {

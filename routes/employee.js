@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const employeeController = require("../controllers/employeesController");
+const contractController = require("../controllers/contractController");
 const { createUser } = require("../middleware/registerUserHandler");
 const { deleteDir } = require('../middleware/deleteDirHandler');
 const { dataCheck } = require('../middleware/dataCheck');
@@ -35,7 +36,7 @@ router.put("/school-employer/:id", employeeController.updateEmployeeSchool);
 
 router.put("/employee-tax/:id", employeeController.updateTax);
 
-router.put("/contract/:id", employeeController.updateEmployeeContract);
+//router.put("/contract/:id", employeeController.updateEmployeeContract);
 
 router.get("/email/:id", dataCheck, employeeController.sendEmployeeEmail);
 
@@ -50,5 +51,7 @@ router.post("/company", employeeController.createCompany);
 router.put("/company/:id", employeeController.updateCompany);
 router.get("/company/:id", employeeController.deleteCompany);
 
+router.post("/contract/:id", contractController.createContract);
+router.put("/contract/:id", contractController.updateContract);
 
 module.exports = router;

@@ -1,19 +1,24 @@
 const currentDate = new Date();
 
-//Haldle Contract End Date
-document.getElementById("check").addEventListener("change", (e) => {
-  //console.log(e.target.value);
-  if (e.target.value == 1) {
-    document.getElementById("hidden").disabled = false;
-    document.getElementById("hidden").value = "indefinite";
-    document.getElementById("endDate").disabled = true;
-    e.target.value = 0;
-  } else {
-    e.target.value = 1;
-    document.getElementById("endDate").disabled = false;
-    document.getElementById("hidden").disabled = true;
-  }
-});
+
+//Handle All end dates + infinitive checkbox
+const checks = Array.from(document.getElementsByClassName("check"));
+checks.forEach( (check)=>{
+  check.addEventListener("change", (e)=>{
+    if (e.target.value == 1) {
+      //console.log(e.target.previousElementSibling.previousElementSibling);
+      e.target.nextElementSibling.disabled = false;
+      e.target.nextElementSibling.value = "indefinite";
+      e.target.previousElementSibling.previousElementSibling.disabled = true;
+      e.target.value = 0;
+    } else {
+      e.target.value = 1;
+      e.target.previousElementSibling.previousElementSibling.disabled = false;
+      e.target.nextElementSibling.disabled = true;
+    }
+  })
+})
+
 
 //Handle Helath Card End Date
 
@@ -53,15 +58,27 @@ allNames.forEach((item) => {
   });
 });
 
+// CREATE NEW EMPLOYEE DROP DOWN
+const dropDowns = document.querySelectorAll(".new-employee");
+
+dropDowns.forEach((dropDown) => {
+  dropDown.addEventListener("click", (e) => {
+    console.log(e.currentTarget.nextElementSibling.style.maxHeight);
+    e.currentTarget.nextElementSibling.style.maxHeight == "0px"
+      ? (e.currentTarget.nextElementSibling.style.maxHeight = "2500px")
+      : (e.currentTarget.nextElementSibling.style.maxHeight = "0px");
+  });
+});
+
 //SUB CAT
 const allSubCat = document.querySelectorAll(".sub-cat");
 allSubCat.forEach((item) => {
   item.addEventListener("click", (e) => {
     allSubCat.forEach((item) => {
       item == e.currentTarget
-        ? e.currentTarget.nextElementSibling.style.maxHeight === "1800px"
+        ? e.currentTarget.nextElementSibling.style.maxHeight === "2800px"
           ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-          : (e.currentTarget.nextElementSibling.style.maxHeight = "1800px")
+          : (e.currentTarget.nextElementSibling.style.maxHeight = "2800px")
         : (item.nextElementSibling.style.maxHeight = "0px");
     });
   });
