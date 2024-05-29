@@ -336,3 +336,30 @@ contract.contractEndDate.toISOString is not a function
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+29/05/2024	17:24:26	5a7456c5-813e-4a75-963a-68dbcb3224a0	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1180
+    1178|               autocomplete="off"
+    1179|               type="date"
+ >> 1180|               value="<%= contract.compensationDateStart ?
+    1181|               data.compensationDateStart.toISOString().split("T")[0]: ''%>"
+    1182|               name="compensationDateStart"
+    1183|             />
+
+Cannot read properties of null (reading 'toISOString')
+29/05/2024	17:26:50	e2422384-8d8c-41ae-8675-b9c993392ae3	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1180
+    1178|               autocomplete="off"
+    1179|               type="date"
+ >> 1180|               value="<%= contract.compensationDateStart ?
+    1181|               data.compensationDateStart.toISOString().split("T")[0]: ''%>"
+    1182|               name="compensationDateStart"
+    1183|             />
+
+Cannot read properties of null (reading 'toISOString')
+29/05/2024	17:36:20	220f7872-fc51-44f2-ad84-154007bff5c2	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1180
+    1178|               autocomplete="off"
+    1179|               type="date"
+ >> 1180|               value="<%= contract.compensationDateStart ?
+    1181|               data.compensationDateStart.toISOString().split("T")[0]: ''%>"
+    1182|               name="compensationDateStart"
+    1183|             />
+
+Cannot read properties of null (reading 'toISOString')

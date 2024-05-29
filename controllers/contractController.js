@@ -69,6 +69,8 @@ const updateContract = async (req, res) => {
   }
   const contract = await Contract.findOne({ _id: req.params.id }).populate('position').populate('store').populate('employee').exec();
 
+//console.log(req.body)
+
   if (!contract) {
     req.flash("message", "No Contract found.");
     return res.redirect("/pages/404");
@@ -99,7 +101,7 @@ const updateContract = async (req, res) => {
       contract.studentCompensation = true;
     }
 
-  if(req.body.compensationDateStart) Contract.compensationDateStart = req.body.compensationDateStart;
+  if(req.body.compensationDateStart) contract.compensationDateStart = req.body.compensationDateStart;
 
   if(!req.body.compensationDateStart) contract.compensationDateStart = '';
 

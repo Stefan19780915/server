@@ -138,7 +138,7 @@ const getEmployee = async (req, res) => {
   const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
   const contracts = await Contract.find({ employee: req.params.id }).populate('position').populate('store');
 
-  
+  console.log(contracts)
 
   if (!req.params.id) {
     return res.render("../views/pages/404", {
