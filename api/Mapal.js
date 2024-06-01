@@ -11,8 +11,8 @@ const qs = require('qs');
           'Authorization': `Bearer ${process.env.API_TOKEN}`
         }
       };
-  const token = await axios.request(config);
-  return token;
+  const employees = await axios.request(config);
+  return employees;
   }
 
   

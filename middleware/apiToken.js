@@ -20,7 +20,6 @@ let data = qs.stringify({
   };
 
 const apiToken = async (req, res, next) => {
-
   if(process.env.API_TOKEN == 'token'){
     const token = await axios.request(config)
       .then((response) => {
@@ -39,6 +38,23 @@ const apiToken = async (req, res, next) => {
   }
 }
 
+const apiTokenAutomate = async (req, res, next) => {
+  if(process.env.API_TOKEN == 'token'){
+    const token = await axios.request(config)
+      .then((response) => {
+          const token = response.data.access_token;
+          console.log('New token generated');
+          process.env.API_TOKEN = token;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    console.log('Token already exists');
+  }
+}
+
 module.exports = {
-    apiToken
+    apiToken,
+    apiTokenAutomate,
 }

@@ -122,7 +122,34 @@ const updateContract = async (req, res) => {
 };
 
 
+const deleteContract = async (req, res)=>{
+
+  console.log(req.params.id);
+
+  const contract = await Contract.findOne({_id: req.params.id}).populate('employee');
+
+  console.log(contract.contractStartDate);
+
+  try {
+    const result = await contract.deleteOne({ _id: req.params.id });
+    if(result){
+      req.flash(
+        "message",
+        `Contract data for ${contract.employee.firstName} ${contract.employee.lastName} was deleted successfully.`
+      );
+      res.redirect("/employee");
+    }
+  } catch (err) {
+    req.flash("message", `Contract data was not deleted.. because of the ${err} error.`);
+    return res.redirect("/pages/404");
+    console.log(err);
+  }
+
+}
+
+
 module.exports = {
     createContract,
-    updateContract
+    updateContract,
+    deleteContract
   };

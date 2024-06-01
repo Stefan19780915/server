@@ -1,3 +1,16 @@
+//- JUST FOR TESTING FETCH TEST ENDPOINT THAT RETURS JSON - url - http://localhost:3500/test/respond
+async function fetchURL(param) {
+  const response = await fetch(`http://localhost:3500/test/${param}`);
+  const content = await response.json();
+  displayContent(content);
+}
+
+const displayContent = (content)=>{
+  console.log(content.response);
+} 
+//fetchURL('Hello from the parameter');
+
+
 
 // CREATE NEW EMPLOYEE DROP DOWN
 const dropDowns = document.querySelectorAll(".new-employee");

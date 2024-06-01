@@ -53,5 +53,6 @@ router.get("/company/:id", employeeController.deleteCompany);
 
 router.post("/contract/:id", contractController.createContract);
 router.put("/contract/:id", contractController.updateContract);
+router.get('/contract/:id', contractController.deleteContract);
 
 module.exports = router;

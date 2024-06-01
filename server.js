@@ -21,6 +21,7 @@ const { connect } = require("http2");
 const flash = require("express-flash");
 const passport = require("passport");
 const { apiToken } = require('./middleware/apiToken');
+const Bree = require('bree');
 
 
 const PORT = process.env.PORT || 3500;
@@ -52,6 +53,31 @@ app.use("/employee", checkAuthUser, require("./routes/employee"));
 app.use("/chat", checkAuthUser, require("./routes/chat"));
 app.use("/pdf", checkAuthUser, require("./routes/pdf"));
 app.use("/store", checkAuthUser, require("./routes/store"));
+
+
+
+//JUST TO TEST A REQUEST - ALSO FROM TERMINAL WITH CURL -  curl http://localhost:3500/test/typeAnyWordHere
+app.get('/test/:word', (req, res)=>{
+  if(!req.params.word){
+    res.status(400).json({ error: 'Invalid input' });
+  }
+  //SEND AS JSON
+  res.json({ response: `This is the JSON request parameter content: ${req.params.word}` });
+  //SEND AS TEXT
+  //res.send(`This is the reqest parameter passed ${req.params.word}`);
+})
+
+
+//RUN A SCHEDULER JOB
+const bree = new Bree({
+    jobs: [
+        {
+            name: 'birthDayEmail',
+            cron : '0 8 * * *'
+        }
+    ]
+})
+bree.start();
 
 
 app.all("*", (req, res) => {

@@ -363,3 +363,12 @@ Cannot read properties of null (reading 'toISOString')
     1183|             />
 
 Cannot read properties of null (reading 'toISOString')
+31/05/2024	14:48:24	54cf41df-ae68-4b75-9c0e-1ec99a2b40b9	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:605
+    603|       <span></span>
+    604|       <div>
+ >> 605|         <% mapal.forEach((emp)=>{ %>
+    606|           
+    607|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
+    608|             
+
+mapal.forEach is not a function
