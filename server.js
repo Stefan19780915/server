@@ -69,7 +69,7 @@ app.get('/test/:word', (req, res)=>{
 
 
 //RUN A SCHEDULER JOB
-/*
+
 const bree = new Bree({
     jobs: [
         {
@@ -79,7 +79,7 @@ const bree = new Bree({
     ]
 })
 bree.start();
-*/
+
 
 app.all("*", (req, res) => {
   res.render("pages/404", {
