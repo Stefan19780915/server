@@ -512,6 +512,7 @@ const updateEmployeeContact = async (req, res) => {
     return res.redirect("/pages/404");
   }
 
+  console.log(req.body.houseNumber);
   //HERE WE SHOULD ALSO REGISTER THE EMPLOYEE AS USER AND SEND AN EMAIL TO THE USERS EMAIL WITH THE LINK.
 
   if (req.body.landLinePhone) employee.landLinePhone = req.body.landLinePhone;

@@ -292,12 +292,12 @@
             name="street"
             value="<%= data.street %>"
           />
-          <label for="houseNnumber">House number</label>
+          <label for="houseNumber">House number</label>
           <input
-            id="houseNnumber"
+            id="houseNumber"
             autocomplete="off"
             type="text"
-            name="houseNnumber"
+            name="houseNumber"
             value="<%= data.houseNumber %>"
           />
           <label for="city">City/Town</label>
@@ -1281,7 +1281,7 @@
                       const componentType = component.types[0];
                       switch (componentType) {
                         case "street_number": {
-                          document.getElementById('houseNnumber').value = `${component.long_name}`;
+                          document.getElementById('houseNumber').value = `${component.long_name}`;
                          break;
                         }
 
