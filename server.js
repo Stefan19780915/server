@@ -74,7 +74,7 @@ const bree = new Bree({
     jobs: [
         {
             name: 'birthDayEmail',
-            cron : '5 * * * *'
+            cron : '*/5 * * * *'
         }
     ]
 })
