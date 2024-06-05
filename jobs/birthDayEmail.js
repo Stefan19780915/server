@@ -25,7 +25,7 @@ const job1 = async ()=>{
             const subject = 'KFC Employees who will have birthday tomorrow.'
                      
             const info = await sendEmail(
-                'stefan_csomor@hotmail.com',
+                'stefan.csomor@qweurope.com',
                 [],
                 subject,
                 html
