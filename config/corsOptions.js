@@ -1,7 +1,7 @@
 const whiteList = [
   "http://localhost:3500",
   "http://192.168.100.6:3500",
-  "https://server-qrmg.onrender.com",
+  "https://server-a72a.onrender.com",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
