@@ -373,3 +373,107 @@ Cannot read properties of null (reading 'toISOString')
 
 mapal.forEach is not a function
 05/06/2024	13:05:27	a3c860ef-79f7-4bb6-bc28-8e9286b6f033	Error: Could not find matching close tag for "<%".
+06/06/2024	15:54:52	08b05c59-0b68-450e-8524-9260fe8b6a48	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1017
+    1015|       >
+    1016|       
+ >> 1017|       <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position.position %> </label>
+    1018| 
+    1019|       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+    1020|             <div>
+
+Cannot read properties of undefined (reading 'position')
+06/06/2024	15:56:45	1cfa85db-ce21-4fdd-bc33-767e8abf6a21	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1017
+    1015|       >
+    1016|       
+ >> 1017|       <label for="positionName" style="font-weight: bolder">Current position: <%= constract.position ? 'no Position' : contract.position.position %> </label>
+    1018| 
+    1019|       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+    1020|             <div>
+
+constract is not defined
+06/06/2024	15:57:15	cfae11c9-fe69-4d5e-adbd-22ad1a16c593	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1017
+    1015|       >
+    1016|       
+ >> 1017|       <label for="positionName" style="font-weight: bolder">Current position: <%= constract.position ? 'no Position' : contract.position.position %> </label>
+    1018| 
+    1019|       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+    1020|             <div>
+
+constract is not defined
+06/06/2024	15:57:49	64418d2f-6f73-45e4-bde9-7aec1dd9deb5	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1017
+    1015|       >
+    1016|       
+ >> 1017|       <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position ? 'no Position' : contract.position.position %> </label>
+    1018| 
+    1019|       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+    1020|             <div>
+
+Cannot read properties of undefined (reading 'position')
+06/06/2024	15:58:09	37880a93-3dd4-4fdb-8c54-cfe6ae6658fb	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1017
+    1015|       >
+    1016|       
+ >> 1017|       <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position ? 'no Position' : contract.position.position %> </label>
+    1018| 
+    1019|       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+    1020|             <div>
+
+Cannot read properties of undefined (reading 'position')
+06/06/2024	16:03:15	6c84c97c-0f0c-49b4-a507-374c3f4639ba	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:1017
+    1015|       >
+    1016|       
+ >> 1017|       <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position ? 'no Position' : contract.position.position %> </label>
+    1018| 
+    1019|       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+    1020|             <div>
+
+Cannot read properties of undefined (reading 'position')
+06/06/2024	17:17:15	64ec6fc9-7bfa-4163-bf2d-c5b024aa885d	SyntaxError: Unexpected token 'if' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+06/06/2024	17:18:37	67a71eff-91ab-4f5a-9c46-c6f81432370d	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:994
+    992|           <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
+    993|             <a><%= `${contract.contractType}`%> </a>
+ >> 994|            <% if(contact.contractState) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else {  %> <% } %>
+    995|             </div>
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+
+contact is not defined
+06/06/2024	17:20:22	cd2d877c-ceec-4a28-93d0-ec506a8ab90b	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:994
+    992|           <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
+    993|             <a><%= `${contract.contractType}`%> </a>
+ >> 994|            <% if (contact.contractState == true) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else { %> <% } %>
+    995|             </div>
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+
+contact is not defined
+06/06/2024	17:20:53	559a5f32-f10d-4c66-8f76-6950298bad00	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:994
+    992|           <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
+    993|             <a><%= `${contract.contractType}`%> </a>
+ >> 994|            <% if (contact.contractState == true) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else { %> <% } %>
+    995|             </div>
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+
+contact is not defined
+06/06/2024	17:21:35	51e2f016-dcec-41db-a53b-4b5a2eb17b4e	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:994
+    992|           <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
+    993|             <a><%= `${contract.contractType}`%> </a>
+ >> 994|            <% if (conract.contractState == true) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else { %> <% } %>
+    995|             </div>
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+
+conract is not defined
+06/06/2024	17:22:21	4ff3fd53-9104-4444-b629-aefec5b62c49	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:994
+    992|           <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
+    993|             <a><%= `${contract.contractType}`%> </a>
+ >> 994|            <% if (conract.contractState == true) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else { %> <% } %>
+    995|             </div>
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+
+conract is not defined

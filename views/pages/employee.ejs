@@ -510,7 +510,7 @@
       <div>
               <div class="d-flex-visible space-between">
                 <label for="employeeState">Contract state</label>
-                <input autocomplete="off" type="checkbox" name="contractState" checked
+                <input autocomplete="off" type="checkbox" name="contractState"
                 />
               </div>
             </div>
@@ -989,14 +989,16 @@
       <div class="container flow">
         <h4>
           <div class="d-flex-visible space-between">
-          <a><%= `${contract.contractType}`%> </a>
+          <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
+            <a><%= `${contract.contractType}`%> </a>
+           <% if (contract.contractState == true) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else { %> <% } %>
+            </div>
           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
             <small class="d-flex-visible space-between width-d-flex-half">End: <%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': contract.contractEndDate}`%></small>
           </a>
           </div>
         </h4>
-
       </div>
     </section>
 
@@ -1014,7 +1016,7 @@
         action="/employee/contract/<%= contract._id%>?_method=PUT"
       >
       
-      <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position.position %> </label>
+      <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position == undefined ? 'no Position' : contract.position.position %> </label>
 
       <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
             <div>

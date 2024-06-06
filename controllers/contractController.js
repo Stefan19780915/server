@@ -10,9 +10,9 @@ const createContract = async (req, res) => {
 
     const employeeContracts = await Contract.find({ employee: req.params.id, contractState: true});
 
-    console.log(employeeContracts);
+    
 
-  if (employeeContracts.length > 0) {
+  if (employeeContracts.length > 0 && req.body.contractState) {
     req.flash("message", "More contracts have ACTIVE STATE - Only 1 contract can have active state. Please disable active states on other contracts.");
     return res.redirect("/employee");
   }
@@ -34,6 +34,7 @@ const createContract = async (req, res) => {
 
      if (
       !newContract.contractStartDate ||
+      !newContract.position ||
       !newContract.contractEndDate ||
       !newContract.contractSalaryType ||
       !newContract.contractSalary ||
@@ -44,7 +45,8 @@ const createContract = async (req, res) => {
                             Contract End date, 
                             Salary Type, 
                             Salary, 
-                            Contract type, 
+                            Contract type,
+                            Contract position,
                             Weekly hours are required.`);
       return res.redirect("/employee");
     }
@@ -78,11 +80,14 @@ const updateContract = async (req, res) => {
   }
   const contract = await Contract.findOne({ _id: req.params.id }).populate('position').populate('store').populate('employee').exec();
 
-  const employeeContracts = await Contract.find({ _id: req.params.id, contractState: true });
+  const employeeContracts = await Contract.find({ employee: contract.employee._id, contractState: true });
 
-  if (employeeContracts.length > 0) {
-    req.flash("message", "More contracts have ACTIVE STATE - Only 1 contract can have active state. Please disable active states on other contracts.");
-    return res.redirect("/employee");
+
+  if(employeeContracts.length){
+    if (req.body.contractState && employeeContracts[0]._id != req.params.id) {
+      req.flash("message", "More contracts have ACTIVE STATE - Only 1 contract can have active state. Please disable active states on other contracts.");
+      return res.redirect("/employee");
+    }
   }
 
 //console.log(req.body)

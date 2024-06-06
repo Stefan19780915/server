@@ -40,12 +40,17 @@ a {
     color: var(--clr-table-dark);
 }
 
+
 .width-d-flex-half {
     width: 50%;
 }
 
+.width-d-flex-25{
+    width: 40%;
+}
+
 .width-d-flex-quarter {
-    width: 70%;
+    width: 80%;
 }
 
 .width-stores {
@@ -384,6 +389,10 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
 }
 
 .sub-cat:hover.sub-cat a{
+    color: var(--clr-table-secondary);
+}
+
+.sub-cat:hover.sub-cat .active{
     color: var(--clr-table-secondary);
 }
 
