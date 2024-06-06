@@ -78,7 +78,7 @@ const bree = new Bree({
         }
     ]
 })
-bree.start();
+
 
 
 app.all("*", (req, res) => {
