@@ -45,7 +45,7 @@ const job1 = async ()=>{
 
             const info = await sendEmail(
                 'stefan.csomor@qweurope.com',
-                ['stefan.csomor@qweurope.com'],
+                [],
                 subject,
                 html
               );
