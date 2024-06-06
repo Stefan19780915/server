@@ -8,6 +8,15 @@ const createContract = async (req, res) => {
     const employee = await Employee.findOne({_id: req.params.id}).populate('store').populate('position');
     const position = req.body.position != '0' ? await Positions.findOne({ _id: req.body.position }) : '';
 
+    const employeeContracts = await Contract.find({ employee: req.params.id, contractState: true});
+
+    console.log(employeeContracts);
+
+  if (employeeContracts.length > 0) {
+    req.flash("message", "More contracts have ACTIVE STATE - Only 1 contract can have active state. Please disable active states on other contracts.");
+    return res.redirect("/employee");
+  }
+
      const newContract = {
        employee: employee._id,
        position: req.body.position == '0' ? employee.position : position,
@@ -69,11 +78,24 @@ const updateContract = async (req, res) => {
   }
   const contract = await Contract.findOne({ _id: req.params.id }).populate('position').populate('store').populate('employee').exec();
 
+  const employeeContracts = await Contract.find({ _id: req.params.id, contractState: true });
+
+  if (employeeContracts.length > 0) {
+    req.flash("message", "More contracts have ACTIVE STATE - Only 1 contract can have active state. Please disable active states on other contracts.");
+    return res.redirect("/employee");
+  }
+
 //console.log(req.body)
 
   if (!contract) {
     req.flash("message", "No Contract found.");
     return res.redirect("/pages/404");
+  }
+
+  if (!req.body.contractState) {
+    contract.contractState = false;
+  } else {
+    contract.contractState = true;
   }
 
   if (req.body.contractStartDate)

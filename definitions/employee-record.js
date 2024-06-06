@@ -2,6 +2,7 @@ const pdfmake = require('pdfmake');
 const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 
@@ -20,17 +21,19 @@ async function employeeRecord (req,res,next){
     
     const data = await Employee.findOne({ _id: req.params.id }).populate(
         "store"
-      ).populate("position");
+      );
 
-    let position = data.position ? data.position.position : "No position"
+    const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
-    const newDate = new Date(data.contractStartDate);
+    let position = contract.position ? contract.position.position : "No position"
 
-    let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+    const newDate = new Date(contract.contractStartDate);
 
-    let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
-                       data.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
-                       data.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
+    let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
+
+    let contractType = contract.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
+                       contract.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
+                       contract.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
 
     let docDefinition = {
         content: [{text: `Dotazník pre ${contractType}`, style: 'header'},
@@ -112,11 +115,11 @@ docDefinition.content[1].table.body.push([{text: 'Ak ste zamestnaný v inej firm
 docDefinition.content[1].table.body.push([{text:'1',border:[true,true,false,true],color: 'white',style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,false,true],style: 'table'},{text:'',border:[false,true,true,true],style: 'table'}]);
 
 docDefinition.content[1].table.body.push( [{text: 'Doplňujúce údaje zamestnávateľa:', bold:true,style: 'table'},{text: '', style:'table'},{text:'Zastúpený RGM:', bold: true,style: 'table'},{text: data.store.storeRGM,style:'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Dátum nástupu do zamestnania:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: moment(data.contractStartDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Dátum ukončenia:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: data.contractEndDate == 'indefinite' ? 'neurčito' : moment(data.contractEndDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Predpokladaná výška mzdy:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: `${data.contractSalary ? data.contractSalary.toString(): ''} EUR`,border: [false,false,true,true],style:'table'}]);
-docDefinition.content[1].table.body.push([{text: 'Druh mzdy (hodinová, mesačná, úkolová):', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: data.contractSalaryType == 'taskBased' ? 'Ukolová' : data.contractSalaryType == 'monthlySalary' ? 'Mesačná' : data.contractSalaryType == 'hourlyRate' ? 'Hodinová' : '',border: [false,false,true,true],style:'table'}]);
-docDefinition.content[1].table.body.push( [{text: 'Druh pracovného pomeru:', bold:true,style: 'table'},{text: data.contractType, style:'table'},{text:'Týždený počet hodín:', bold: true,style: 'table'},{text: data.contractWeeklyHours ? data.contractWeeklyHours.toString() : '',style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Dátum nástupu do zamestnania:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: moment(contract.contractStartDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Dátum ukončenia:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: data.contractEndDate == 'indefinite' ? 'neurčito' : moment(contract.contractEndDate).format('LL') ,border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Predpokladaná výška mzdy:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: `${contract.contractSalary ? contract.contractSalary.toString(): ''} EUR`,border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push([{text: 'Druh mzdy (hodinová, mesačná, úkolová):', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},{text: contract.contractSalaryType == 'taskBased' ? 'Ukolová' : contract.contractSalaryType == 'monthlySalary' ? 'Mesačná' : contract.contractSalaryType == 'hourlyRate' ? 'Hodinová' : '',border: [false,false,true,true],style:'table'}]);
+docDefinition.content[1].table.body.push( [{text: 'Druh pracovného pomeru:', bold:true,style: 'table'},{text: contract.contractType, style:'table'},{text:'Týždený počet hodín:', bold: true,style: 'table'},{text: contract.contractWeeklyHours ? contract.contractWeeklyHours.toString() : '',style:'table'}]);
 docDefinition.content[1].table.body.push([{text: 'Stredisko:', bold:true,style: 'table'},{text: '', border: [false,false,false,true], style:'table'},{text:'',border:[false,false,false,true],style: 'table'},
 
 {text: `${data.store.storeName}, ${data.store.storeStreet} ${data.store.storeStreetNumber}
@@ -131,7 +134,7 @@ docDefinition.content[1].table.body.push([{text:'1',border:[false,false,false,fa
 docDefinition.content[1].table.body.push([{text:'Podpis zamestnanca',alignment: 'center',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'',border:[false,false,false,false],style: 'table'},{text:'Podpis zamestnávateľa',alignment: 'center',border:[false,false,false,false],style: 'table'}]);
 
 
-    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} personal data.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} personal data.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

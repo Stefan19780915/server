@@ -372,3 +372,4 @@ Cannot read properties of null (reading 'toISOString')
     608|             
 
 mapal.forEach is not a function
+05/06/2024	13:05:27	a3c860ef-79f7-4bb6-bc28-8e9286b6f033	Error: Could not find matching close tag for "<%".

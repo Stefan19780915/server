@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 
@@ -12,8 +13,10 @@ function pdfRead (fileName){
         const data = await Employee.findOne({ _id: req.params.id }).populate(
             "store"
           ).populate("position");
+
+          const contract = await Contract.findOne({ employee: data._id });
     
-        const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} ${fileName}.pdf`);
+        const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} ${fileName}.pdf`);
         
     
         const file = fs.readFileSync(`${filePath}`);

@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 
@@ -21,15 +22,17 @@ async function health (req,res,next){
     
   const data = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
-  ).populate("position");
+  );
+
+  const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
   const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-  let position = data.position ? data.position.position : "No position"
+  let position = contract.position ? contract.position.position : "No position"
 
-  const newDate = new Date(data.contractStartDate);
+  const newDate = new Date(contract.contractStartDate);
 
-  let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+  let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
 
     let docDefinition = {
         content: [{text: `Bezpečnosť pri práci`, style: 'header'},
@@ -427,14 +430,14 @@ async function health (req,res,next){
               {
 
                 width: '45%',
-                columns: [{text:`Dátum školenia:`,bold: true},{text:moment(data.contractStartDate).format('LL'),alignment: 'left'}],
+                columns: [{text:`Dátum školenia:`,bold: true},{text:moment(contract.contractStartDate).format('LL'),alignment: 'left'}],
                 alignment: 'left',
                 fontSize: 8
               },
               {
 
                 width: '45%',
-                columns: [{text:`Dátum nástupu do práce:`,bold: true},{text:moment(data.contractStartDate).format('LL'),alignment: 'left'}],
+                columns: [{text:`Dátum nástupu do práce:`,bold: true},{text:moment(contract.contractStartDate).format('LL'),alignment: 'left'}],
                 alignment: 'left',
                 fontSize: 8
               }
@@ -497,7 +500,7 @@ async function health (req,res,next){
     }
     }
 
-    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} health.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} health.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

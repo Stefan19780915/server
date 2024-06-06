@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 
@@ -21,29 +22,31 @@ async function contractEndProbationPost (req, res, next){
     
   const data = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
-  ).populate("position");
+  );
+
+  const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
   const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-  let position = data.position ? data.position.position : "No position"
+  let position = contract.position ? contract.position.position : "No position"
 
-  const newDate = new Date(data.contractStartDate);
-  const newDateEnd = new Date(data.contractEndDate);
+  const newDate = new Date(contract.contractStartDate);
+  const newDateEnd = new Date(contract.contractEndDate);
 
-  let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+  let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
 
-  let signatureDateEnd = !data.contractEndDate ? '' : moment(newDateEnd.setDate(newDateEnd.getDate()-1)).format('LL');
+  let signatureDateEnd = !contract.contractEndDate ? '' : moment(newDateEnd.setDate(newDateEnd.getDate()-1)).format('LL');
 
-  let terminationType = data.contractType == 'TPP' ? 'Skončenie pracovného pomeru v skúšobnej dobe' :
-                     data.contractType == 'DOBPŠ' ? 'Výpoveď dohody o brigádnickej práci študenta' :
-                     data.contractType == 'DOPČ' ? 'Výpoveď dohody o pracovnej činnosti' : '';
+  let terminationType = contract.contractType == 'TPP' ? 'Skončenie pracovného pomeru v skúšobnej dobe' :
+                     contract.contractType == 'DOBPŠ' ? 'Výpoveď dohody o brigádnickej práci študenta' :
+                     contract.contractType == 'DOPČ' ? 'Výpoveď dohody o pracovnej činnosti' : '';
 
-  let terminationText = data.contractType == 'TPP' ? 
-  `Podľa § 72 Zákonníka práce sa pracovný vzťah dohodnutý medzi zamestnávateľom a zamestnancom pracovnou zmluvou zo dňa ${signatureDate} s nástupom do práce dňa ${moment(data.contractStartDate).format("LL")} sa skončí v rámci skúšobnej doby dňa ${moment(data.contractEndDate).format('LL')}` :
-  data.contractType == 'DOBPŠ' ? 
-  `Podľa § 228 Zákonníka práce Vám týmto vypovedám Vašu dohodu o brigádnickej práci študenta zo dňa ${signatureDate} s nástupom do práce dňa ${moment(data.contractStartDate).format("LL")}. Pracovnoprávny vzťah končí 15 dní po doručení tejto výpovede.` :
-  data.contractType == 'DOPČ' ?
-  `Podľa § 228 Zákonníka práce Vám týmto vypovedám Vašu dohodu o pracovnej činnosti zo dňa ${signatureDate} s nástupom do práce dňa ${moment(data.contractStartDate).format("LL")}. Pracovnoprávny vzťah končí 15 dní po doručení tejto výpovede.` : '';
+  let terminationText = contract.contractType == 'TPP' ? 
+  `Podľa § 72 Zákonníka práce sa pracovný vzťah dohodnutý medzi zamestnávateľom a zamestnancom pracovnou zmluvou zo dňa ${signatureDate} s nástupom do práce dňa ${moment(contract.contractStartDate).format("LL")} sa skončí v rámci skúšobnej doby dňa ${moment(contract.contractEndDate).format('LL')}` :
+  contract.contractType == 'DOBPŠ' ? 
+  `Podľa § 228 Zákonníka práce Vám týmto vypovedám Vašu dohodu o brigádnickej práci študenta zo dňa ${signatureDate} s nástupom do práce dňa ${moment(contract.contractStartDate).format("LL")}. Pracovnoprávny vzťah končí 15 dní po doručení tejto výpovede.` :
+  contract.contractType == 'DOPČ' ?
+  `Podľa § 228 Zákonníka práce Vám týmto vypovedám Vašu dohodu o pracovnej činnosti zo dňa ${signatureDate} s nástupom do práce dňa ${moment(contract.contractStartDate).format("LL")}. Pracovnoprávny vzťah končí 15 dní po doručení tejto výpovede.` : '';
   
     let docDefinition = {
         content: [{text: terminationType, style: 'header'},
@@ -196,7 +199,7 @@ async function contractEndProbationPost (req, res, next){
     }
     }
 
-    if (data.contractEndDate == 'indefinite'){
+    if (contract.contractEndDate == 'indefinite'){
 
       req.flash("message", 
       `No contract end date spcified.
@@ -205,7 +208,7 @@ async function contractEndProbationPost (req, res, next){
   
       } else {
         
-      const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} contract end probation post.pdf`);
+      const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} contract end probation post.pdf`);
       const pdfFile = printer.createPdfKitDocument(docDefinition); 
       pdfFile.pipe(fs.createWriteStream(filePath));
       pdfFile.end();

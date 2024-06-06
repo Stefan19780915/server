@@ -2,6 +2,8 @@ const pdfmake = require('pdfmake');
 const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
+const Contract = require('../model/Contract');
+const Store = require("../model/Store");
 const moment = require("moment");
 moment.locale("sk");
 
@@ -20,17 +22,21 @@ async function gdpr (req, res, next){
     
   const data = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
-  ).populate("position");
+  );
 
-let position = data.position ? data.position.position : "No position"
+const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
-const newDate = new Date(data.contractStartDate);
+const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+let position = contract.position ? contract.position.position : "No position"
 
-let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
-                   data.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
-                   data.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
+const newDate = new Date(contract.contractStartDate);
+
+let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
+
+let contractType = contract.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
+                   contract.contractType == 'DOBPŠ' ? 'Dohodu o brigádnickej práci študenta' :
+                   contract.contractType == 'DOPČ' ? 'Dohodu o pracovnej činnosti' : '';
 
     let docDefinition = {
         content: [{text: `Oznámenie informácií dotknutej osobe o spracúvaní osobných údajov`, style: 'header'},
@@ -50,7 +56,7 @@ let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
                   },
                   {
                     width: '90%',
-                    text: 'Prevádzkovateľom je spoločnosť Queensway Restaurants Slovakia, s.r.o., so sídlom EUROVEA Central 1, Pribinova 4, 811 09 Bratislava, IČO 35 852 143, zapísaná v Obchodnom registri Okresného súdu Bratislava I, oddiel Sro, vložka č. 28229/B, zastúpená: Naushad Nurdin Jivraj, konateľ (ďalej len „prevádzkovateľ“).',
+                    text: ` ${company.storeCompany.companyStreet}, ${company.storeCompany.companyStreetNumber}, ${company.storeCompany.companyCity}, ${company.storeCompany.companyCountry}, ${company.storeCompany.companyBusinessRegister}, IČO: ${company.storeCompany.companyTaxId} zastúpený: ${company.storeRGM} ďalej len prevádzkovateľ.`,
                     alignment: 'justify'
                   }
               ],
@@ -451,7 +457,7 @@ let contractType = data.contractType == 'TPP' ? 'Hlavný pracovný pomer' :
     }
     }
 
-    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} gdpr.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} gdpr.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

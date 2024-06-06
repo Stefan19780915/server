@@ -19,7 +19,7 @@ checks.forEach( (check)=>{
   })
 })
 
-
+/*
 //Haldle Contract End Date
 document.getElementById("check").addEventListener("change", (e) => {
   //console.log(e.target.value);
@@ -34,7 +34,7 @@ document.getElementById("check").addEventListener("change", (e) => {
     document.getElementById("hidden").disabled = true;
   }
 });
-
+*/
 
 //Handle Helath Card End Date
 

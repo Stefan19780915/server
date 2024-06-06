@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 
@@ -21,19 +22,23 @@ async function contract (req, res, next){
     
     const data = await Employee.findOne({ _id: req.params.id }).populate(
       "store"
-    ).populate("position");
+    );
+
+    const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
     const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-    let position = data.position ? data.position.position : "No position"
+    let position = contract.position ? contract.position.position : "No position";
 
-    const newDate = new Date(data.contractStartDate);
+    console.log(data.position);
 
-    let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+    const newDate = new Date(contract.contractStartDate);
 
-    let contractType = data.contractType == 'TPP' ? 'Pracovná zmluva' :
-                       data.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
-                       data.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
+    let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
+
+    let contractType = contract.contractType == 'TPP' ? 'Pracovná zmluva' :
+                       contract.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
+                       contract.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
 
     let docDefinition = {
         content: [{text: contractType, style: 'header'},
@@ -114,7 +119,7 @@ async function contract (req, res, next){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Deň nástupu do práce je '},{text: `${moment(data.contractStartDate).format("LL")}`,bold:true, background: 'lightgray'},{text: ' Týmto dňom vzniká medzi zamestnávateľom a zamestnancom pracovný pomer.'}],
+                    text: [{text:'Deň nástupu do práce je '},{text: `${moment(contract.contractStartDate).format("LL")}`,bold:true, background: 'lightgray'},{text: ' Týmto dňom vzniká medzi zamestnávateľom a zamestnancom pracovný pomer.'}],
                     alignment: 'justify'
                   }
               ],
@@ -148,7 +153,7 @@ async function contract (req, res, next){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Funkcia/ typ práce: pracovník reštauračnej prevádzky. Zamestnanec bude pre zamestnávateľa vykonávať práce súvisiace s prípravou jedál a nápojov, obsluhou zákazníkov a predajom pri pokladni, zásobovaním a upratovaním.'}],
+                    text: [{text:`Funkcia / typ práce: ${position}.`,bold:true, background: 'lightgray'}, {text: " Zamestnanec bude pre zamestnávateľa vykonávať práce súvisiace s prípravou jedál a nápojov, obsluhou zákazníkov a predajom pri pokladni, zásobovaním a upratovaním."}],
                     alignment: 'justify'
                   }
               ],
@@ -165,7 +170,7 @@ async function contract (req, res, next){
                   },
                   {
                     width: '90%',
-                    text: [{text:`Pracovný pomer sa dojednáva na dobu`}, { text: `${data.contractEndDate == 'indefinite'? ' neurčitú.' : ' určitú do: '}`,bold:true, background: 'lightgray'},{text: data.contractEndDate == 'indefinite' ? '' : moment(data.contractEndDate).format('LL'),bold:true, background: 'lightgray'},{text: ' Skúšobná doba trvá 3 mesiace.'}],
+                    text: [{text:`Pracovný pomer sa dojednáva na dobu`}, { text: `${contract.contractEndDate == 'indefinite'? ' neurčitú.' : ' určitú do: '}`,bold:true, background: 'lightgray'},{text: contract.contractEndDate == 'indefinite' ? '' : moment(contract.contractEndDate).format('LL'),bold:true, background: 'lightgray'},{text: ' Skúšobná doba trvá 3 mesiace.'}],
                     alignment: 'justify'
                   }
               ],
@@ -181,7 +186,7 @@ async function contract (req, res, next){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Hrubá hodinová mzda zamestnanca je dohodnutá vo výške: '},{text: `${data.contractSalary} euro`,bold:true, background: 'lightgray'},{text: ' a bude vyplácaná bezhotovostne mesačne do 15.dňa nasledujúceho kalendárneho mesiaca na zamestnancom zadaný osobný účet.'}],
+                    text: [{text:`Hrubá ${contract.contractSalaryType ==  'monthlySalary' ? 'mesačná' : 'hodinová' }`, bold:true, background: 'lightgray'}, "mzda zamestnanca je dohodnutá vo výške:",{text: `${contract.contractSalary} euro`,bold:true, background: 'lightgray'},{text: ' a bude vyplácaná bezhotovostne mesačne do 15.dňa nasledujúceho kalendárneho mesiaca na zamestnancom zadaný osobný účet.'}],
                     alignment: 'justify'
                   }
               ],
@@ -197,7 +202,7 @@ async function contract (req, res, next){
                   },
                   {
                     width: '90%',
-                    text: [{text:'Pracovný čas mimo práce nadčas je: '},{text: `${data.contractWeeklyHours} hodín.`,bold:true, background: 'lightgray'},{text: ' Prestávka v práci na jedenie a oddych sa nezapočítava do pracovného času.'}],
+                    text: [{text:'Pracovný čas mimo práce nadčas je: '},{text: `${contract.contractWeeklyHours} hodín.`,bold:true, background: 'lightgray'},{text: ' Prestávka v práci na jedenie a oddych sa nezapočítava do pracovného času.'}],
                     alignment: 'justify'
                   }
               ],
@@ -459,7 +464,7 @@ async function contract (req, res, next){
         }
     }
     }
-    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} contract.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} contract.pdf`);
 
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));

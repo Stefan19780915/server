@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
@@ -25,25 +26,27 @@ async function zdep (req, res, next){
     
     const data = await Employee.findOne({ _id: req.params.id }).populate(
       "store"
-    ).populate("position");
+    );
+
+    const contract = await Contract.findOne({ employee: data._id }).populate('position');    
 
     const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-    let position = data.position ? data.position.position : "No position"
+    let position = contract.position ? contract.position.position : "No position"
 
-    const newDate = new Date(data.contractStartDate);
+    const newDate = new Date(contract.contractStartDate);
 
-    let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+    let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
 
-    let contractType = data.contractType == 'TPP' ? 'Pracovná zmluva' :
-                       data.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
-                       data.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
+    let contractType = contract.contractType == 'TPP' ? 'Pracovná zmluva' :
+                       contract.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
+                       contract.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
 
 
   const existingPdfBytes = fs.readFileSync('./definitions/zdep.pdf');
 
 
-  if(!data.email) {
+  if(!data.store.storeEmail) {
 
     req.flash("message", `No email address specified for the employee. Please update the email field.`);
     return res.redirect("/employee");
@@ -132,7 +135,7 @@ async function zdep (req, res, next){
                 color: rgb(0.1, 0.1, 0.1)
             });
 
-            secondPage.drawText(`${moment(data.contractStartDate).format('LL')}`, {
+            secondPage.drawText(`${moment(contract.contractStartDate).format('LL')}`, {
                 x: 150,
                 y: 646,
                 size: 10,
@@ -148,7 +151,7 @@ async function zdep (req, res, next){
                 color: rgb(0.1, 0.1, 0.1)
             });
 
-            secondPage.drawText(`${moment(data.contractStartDate).format('LL')}`, {
+            secondPage.drawText(`${moment(contract.contractStartDate).format('LL')}`, {
                 x: 410,
                 y: 646,
                 size: 10,
@@ -160,7 +163,7 @@ async function zdep (req, res, next){
       
       const pdfBytes = await pdfDoc.save();
       
-          const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} zdep.pdf`);
+          const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} zdep.pdf`);
          fs.writeFileSync(filePath,pdfBytes);
           next();
       

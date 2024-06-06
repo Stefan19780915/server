@@ -14,7 +14,7 @@ const contractSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
         ref: "Store",
       },
-  ccontractState: {
+  contractState: {
       type: Boolean,
       default: true,
       },

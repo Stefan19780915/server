@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
@@ -25,19 +26,21 @@ async function nzdc (req, res, next){
     
     const data = await Employee.findOne({ _id: req.params.id }).populate(
       "store"
-    ).populate("position");
+    );
+
+    const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
     const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-    let position = data.position ? data.position.position : "No position"
+    let position = contract.position ? contract.position.position : "No position"
 
-    const newDate = new Date(data.contractStartDate);
+    const newDate = new Date(contract.contractStartDate);
 
-    let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+    let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
 
-    let contractType = data.contractType == 'TPP' ? 'Pracovná zmluva' :
-                       data.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
-                       data.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
+    let contractType = contract.contractType == 'TPP' ? 'Pracovná zmluva' :
+                       contract.contractType == 'DOBPŠ' ? 'Dohoda o brigádnickej práci študenta' :
+                       contract.contractType == 'DOPČ' ? 'Dohoda o pracovnej činnosti' : '';
 
 
   const existingPdfBytes = fs.readFileSync('./definitions/nzdc.pdf');
@@ -216,7 +219,7 @@ async function nzdc (req, res, next){
       
       const pdfBytes = await pdfDoc.save();
       
-          const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} nzdc.pdf`);
+          const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} nzdc.pdf`);
          fs.writeFileSync(filePath,pdfBytes);
           next();
       

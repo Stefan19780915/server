@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
 const Store = require("../model/Store");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
 
@@ -21,15 +22,17 @@ async function medical (req, res, next){
     
   const data = await Employee.findOne({ _id: req.params.id }).populate(
     "store"
-  ).populate("position");
+  );
 
   const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-  let position = data.position ? data.position.position : "No position"
+  const contract = await Contract.findOne({ employee: data._id }).populate('position');
 
-  const newDate = new Date(data.contractStartDate);
+  let position = contract.position ? contract.position.position : "No position"
 
-  let signatureDate = !data.contractStartDate ? '' : moment(newDate.setDate(data.contractStartDate.getDate()-1)).format('LL');
+  const newDate = new Date(contract.contractStartDate);
+
+  let signatureDate = !contract.contractStartDate ? '' : moment(newDate.setDate(contract.contractStartDate.getDate()-1)).format('LL');
 
     //console.log(allData.join("\r\n"));
 
@@ -391,7 +394,7 @@ async function medical (req, res, next){
     }
     }
 
-    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")} medical.pdf`);
+    const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} medical.pdf`);
     const pdfFile = printer.createPdfKitDocument(docDefinition); 
     pdfFile.pipe(fs.createWriteStream(filePath));
     pdfFile.end();

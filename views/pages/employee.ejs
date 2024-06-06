@@ -529,7 +529,7 @@
           />
           
             <label for="indefinite">Idefinite period of time</label>
-            <input autocomplete="off" type="checkbox" id="check" checked 
+            <input autocomplete="off" type="checkbox" class="check" checked 
           />
          
           <input
@@ -981,8 +981,10 @@
     </div>
 
 
+
   <% contracts.forEach( (contract)=>{ %>  
     
+
     <section class="sub-cat">
       <div class="container flow">
         <h4>
@@ -1013,6 +1015,17 @@
       >
       
       <label for="positionName" style="font-weight: bolder">Current position: <%= contract.position.position %> </label>
+
+      <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
+            <div>
+              <div class="d-flex-visible space-between">
+                <label for="contractState">Contract state</label>
+                <input autocomplete="off" type="checkbox" name="contractState" <%
+                if(contract.contractState == true) { %> checked <% } else { %> <% } %>
+                />
+              </div>
+            </div>
+          <% } %>
 
       <% if (user.roles == 'Admin' || user.roles == 'Super' || user.roles == 'Manager' || user.roles == 'Owner') { %>
       <div class="custom-select" style="width: 200px">
@@ -1184,6 +1197,7 @@
           </div>
 
         </div>
+        
         <div class="d-flex-visible space-between">
           <button class="add-bank btn-primary">Update</button>
           <a class="btn-primary" href="/employee/contract/<%= contract._id%>">Delete</a>
@@ -1196,7 +1210,7 @@
   <% })%>
 
   
-    
+  
   
     
     <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Manager') { %> 
