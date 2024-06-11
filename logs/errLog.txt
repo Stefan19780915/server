@@ -477,3 +477,94 @@ conract is not defined
     997|             <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
 
 conract is not defined
+11/06/2024	10:18:44	d531959e-bd7a-4619-91e1-6cbbb3e00eda	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	10:23:27	f7943b99-ee3d-473c-b1ad-343bf1cc488f	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	10:28:08	95d1e886-86d7-46bc-bc56-22e78b50119e	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	10:31:41	2defa52e-e15a-4ca8-a0c7-c6d682cbc9be	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	10:54:56	eb2eb656-b31e-43cc-8a15-eb9a9e353f34	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	10:58:40	0e00db33-b81f-480a-ad24-3affb04a9b72	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	11:00:09	59e29797-dab5-41e3-9c93-23fc67110598	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL') }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment is not defined
+11/06/2024	11:21:48	8a92a334-1e85-4222-9082-a524dac6b529	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:998
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+    997|             <small><%=`${ moment(contract.contractStartDate).format('LL')}`%></small>
+ >> 998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL').lang("uk") }`%></small>
+    999|           </a>
+    1000|           </div>
+    1001|         </h4>
+
+moment(...).format(...).lang is not a function
+11/06/2024	11:27:55	6da93cd6-b090-48de-a195-eb648e906fe2	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs:997
+    995|             </div>
+    996|           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
+ >> 997|             <small><%=`${ moment(contract.contractStartDate).format('LL').locale("en-gb")}`%></small>
+    998|             <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).format('LL').locale("en-gb") }`%></small>
+    999|           </a>
+    1000|           </div>
+
+moment(...).format(...).locale is not a function
+11/06/2024	11:32:14	a53bb2c2-4280-482e-988e-854e20cfb0a3	SyntaxError: Missing } in template expression in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+11/06/2024	11:33:17	9a71f67f-3da9-4f2d-9356-2ba965ab32c2	SyntaxError: Missing } in template expression in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employee.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

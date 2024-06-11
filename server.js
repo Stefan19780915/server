@@ -22,6 +22,8 @@ const flash = require("express-flash");
 const passport = require("passport");
 const { apiToken } = require('./middleware/apiToken');
 const Bree = require('bree');
+const moment = require("moment");
+
 
 
 const PORT = process.env.PORT || 3500;
@@ -45,6 +47,7 @@ app.use(sessionMiddleware);
 io.use(wrap(sessionMiddleware));
 app.use(passport.initialize());
 app.use(passport.session());
+app.locals.moment = moment;
 
 
 //ROUTES

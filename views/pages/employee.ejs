@@ -991,11 +991,11 @@
           <div class="d-flex-visible space-between">
           <div class="d-flex-visible space-between width-d-flex-25" style="font-size: 16px">
             <a><%= `${contract.contractType}`%> </a>
-           <% if (contract.contractState == true) { %> <div class="active" style="margin-right: 10px">Active</div> <% } else { %> <% } %>
+           <% if (contract.contractState == true) { %> <div class="active" style="margin-right: 10px">Active:</div> <% } else { %> <% } %>
             </div>
           <a class="d-flex-visible space-between width-d-flex-quarter" style="font-size: 16px">
-            <small>Start: <%=`${contract.contractStartDate.toISOString().split("T")[0]}`%></small>
-            <small class="d-flex-visible space-between width-d-flex-half">End: <%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': contract.contractEndDate}`%></small>
+            <small><%=`${moment(contract.contractStartDate).locale('en-gb').format('LL')}`%></small>
+            <small class="d-flex-visible space-between width-d-flex-half"><%=`${contract.contractEndDate == 'indefinite' ? 'indefinite': moment(contract.contractEndDate).locale('en-gb').format('LL') }`%></small>
           </a>
           </div>
         </h4>
@@ -1044,8 +1044,8 @@
           <% if(user.roles == 'User') { %>
             <div class="d-flex-visible space-between">
             <label for="contractStartDate">Start date</label>
-            <p> <%= contract.contractStartDate ?
-          contract.contractStartDate.toISOString().split("T")[0]: ''%> </p></div>
+            <p> <%= contract.contractStartDate ? moment(contract.contractStartDate).locale('en-gb').format('LL')
+          : ''%> </p></div>
           <% } else { %>
             <label for="contractStartDate">Start date</label>
           <input autocomplete="off" type="date" name="contractStartDate"
@@ -1068,7 +1068,7 @@
           <% if(user.roles == 'User') { %>
             <div class="d-flex-visible space-between">
             <label for="endDate">End date</label>
-            <p><%= !contract.contractEndDate ? 'No end date specified' : contract.contractEndDate %></p>
+            <p><%= !contract.contractEndDate ? 'No end date specified' : moment(contract.contractEndDate).locale('en-gb').format('LL') %></p>
             </div>
             <input autocomplete="off" type="hidden" value="0"/>
           <% } else { %>
