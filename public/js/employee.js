@@ -79,7 +79,7 @@ const dropDowns = document.querySelectorAll(".new-employee");
 
 dropDowns.forEach((dropDown) => {
   dropDown.addEventListener("click", (e) => {
-    console.log(e.currentTarget.nextElementSibling.style.maxHeight);
+   // console.log(e.currentTarget.nextElementSibling.style.maxHeight);
     e.currentTarget.nextElementSibling.style.maxHeight == "0px"
       ? (e.currentTarget.nextElementSibling.style.maxHeight = "2500px")
       : (e.currentTarget.nextElementSibling.style.maxHeight = "0px");

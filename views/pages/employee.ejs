@@ -795,7 +795,7 @@
             >(please leave blank if employee has no gastro card)</i
           >
           <input autocomplete="off" type="date" name="gastroHealthCard"
-          id="cardEndDate" value="<%= data.gastroHealthCard%>" <% if
+          id="cardEndDate" value="<%= data.gastroHealthCard == 'indefinite' ? '' : data.gastroHealthCard %>" <% if
           (data.gastroHealthCard == 'indefinite') { %> disabled <% } %> />
           <label for="indefiniteHealthCard"
             >Gastro card idefinite period of time</label
@@ -1050,7 +1050,7 @@
             <label for="contractStartDate">Start date</label>
           <input autocomplete="off" type="date" name="contractStartDate"
           value="<%= contract.contractStartDate ?
-          contract.contractStartDate.toISOString().split("T")[0]: ''%>" />
+          contract.contractStartDate.toISOString().split("T")[0]: contract.contractStartDate == 'indefinite' ? '' : ''%>" />
           <% } %>
       </div>
 
