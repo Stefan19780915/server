@@ -24,7 +24,7 @@ async function payslip (req, res, next){
     "store"
   );
 
-const contract = await Contract.findOne({ employee: data._id }).populate('position');
+const contract = await Contract.findOne({ employee: data._id, contractState: true  }).populate('position');
 
 let position = contract.position ? contract.position.position : "No position"
 

@@ -24,7 +24,7 @@ async function contractEnd (req, res, next){
     "store"
   );
 
-  const contract = await Contract.findOne({ employee: data._id });
+  const contract = await Contract.findOne({ employee: data._id, contractState: true  });
 
   const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 

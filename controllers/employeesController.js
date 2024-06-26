@@ -5,7 +5,7 @@ const Company = require("../model/Company");
 const Store = require("../model/Store");
 const Contract = require('../model/Contract')
 const Token = require("../model/token");
-const { getMapalEmployees } = require('../api/Mapal');
+const { getMapalEmployees, getOneEmployee } = require('../api/Mapal');
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
@@ -24,8 +24,10 @@ const getAllEmployees = async (req, res) => {
   const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
   const rolesAdminManager = ['User', 'Manager'];
 
-  //const mapalEmp = await getMapalEmployees();
-  //console.log(mapalEmp.data);
+  //const mapalEmp = await getMapalEmployees(); THIS WORKS
+  //getOneEmployee();
+
+  //console.log(mapalOneEmployee.data);
 
   const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
 
@@ -195,8 +197,6 @@ const createEmployee = async (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     birthName: req.body.birthName,
-    contractStartDate: req.body.contractStartDate,
-    contractEndDate: req.body.contractEndDate, 
     email: req.body.email,
     password: req.body.password,
   };
@@ -219,8 +219,6 @@ const createEmployee = async (req, res) => {
     !newEmployee.email ||
     !newEmployee.password ||
     !newEmployee.firstName ||
-    !newEmployee.contractStartDate ||
-    !newEmployee.contractEndDate ||
     !newEmployee.lastName
   ) {
     req.flash("message", "All fields are required.");
@@ -290,8 +288,6 @@ const createEmployee = async (req, res) => {
       "Please verify your email",
       html
     );
-
-    console.log(info);
 
     req.flash(
       "message",
@@ -423,7 +419,7 @@ const deleteChild = async (req, res) => {
 // UPDATE PERSONAL AND REDIRECT TO EMPLOYEE ROUTE
 const updateEmployeePersonal = async (req, res) => {
   
-  console.log(req.body)
+  
 
   if (!req.params.id) {
     req.flash("message", "Id parameter is required");
@@ -433,7 +429,7 @@ const updateEmployeePersonal = async (req, res) => {
   // UPDATE EMPLOYEE STORE 
   const employee = await Employee.findOne({ _id: req.params.id }).exec();
 
-  console.log(employee);
+  //console.log(employee);
 
   if (!employee) {
     req.flash("message", "No employee found.");

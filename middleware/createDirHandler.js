@@ -11,7 +11,7 @@ async function createDir (req, res, next){
             "store"
           ).populate("position");
 
-          const contract = await Contract.findOne({ employee: data._id });
+          const contract = await Contract.findOne({ employee: data._id, contractState: true });
     
         // Multilevel directory 
 const dirPath = `./data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/`; 

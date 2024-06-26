@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
+const Contract = require('../model/Contract');
 const moment = require("moment");
 moment.locale("sk");
     
@@ -9,9 +10,11 @@ async function deleteDir (req, res, next){
         const data = await Employee.findOne({ _id: req.params.id }).populate(
             "store"
           ).populate("position");
+
+          const contract = await Contract.findOne({ employee: data._id, contractState: true });
     
         // Multilevel directory 
-const dirPath = `./data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(data.contractStartDate).format("LL")}/`; 
+const dirPath = `./data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/`; 
   
 fs.access(dirPath, (error) => { 
   

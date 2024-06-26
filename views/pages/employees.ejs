@@ -734,26 +734,7 @@
           <input autocomplete="off" type="date" name="contractStartDate" />
         </div>
 
-        <div>
-          <label for="endDate">End date</label>
-          <input autocomplete="off" id="endDate" type="date"
-          name="contractEndDate" required
-          />
-
-          <label for="indefinite">Idefinite period of time</label>
-          <input autocomplete="off" type="checkbox" id="check" value=" <% if
-          (data.contractEndDate == 'indefinite') { %>0<% } else { %>1<% } %> "
-          <% if (data.contractEndDate == 'indefinite') { %> checked <% } %>/>
-          <input
-            autocomplete="off"
-            type="hidden"
-            id="hidden"
-            name="contractEndDate"
-            value="0"
-            disabled
-          />
-        </div>
-
+      
           <div>
             <label for="email">Email</label>
             <input

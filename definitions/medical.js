@@ -26,7 +26,7 @@ async function medical (req, res, next){
 
   const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
-  const contract = await Contract.findOne({ employee: data._id }).populate('position');
+  const contract = await Contract.findOne({ employee: data._id, contractState: true  }).populate('position');
 
   let position = contract.position ? contract.position.position : "No position"
 

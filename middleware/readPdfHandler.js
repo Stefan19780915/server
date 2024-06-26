@@ -14,7 +14,7 @@ function pdfRead (fileName){
             "store"
           ).populate("position");
 
-          const contract = await Contract.findOne({ employee: data._id });
+          const contract = await Contract.findOne({ employee: data._id, contractState: true });
     
         const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} ${fileName}.pdf`);
         

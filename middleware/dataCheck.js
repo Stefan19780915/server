@@ -9,13 +9,14 @@ async function dataCheck (req, res, next){
         "store"
       ).populate("position");
 
-      const contract = await Contract.findOne({ employee: data._id });
+      const contract = await Contract.findOne({ employee: data._id, contractState: true});
 
       if(!contract) {
 
         req.flash(
           "message",
-          `There is no ACTIVE contract for ${data.firstName} ${data.lastName}`
+          `There is no ACTIVE contract for ${data.firstName} ${data.lastName}. 
+          Please create a new contract or activate an existing one.`
         );
         res.redirect("/employee");
 

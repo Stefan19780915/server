@@ -159,32 +159,7 @@ const employeesSchema = new Schema({
   },
   taxStartDate: {
     type: Date,
-  },
-  contractStartDate: {
-    type: Date,
-      },
-  contractEndDate: {
-    type: String,
-      },
-  contractSalaryType: {
-    type: String,
-      },
-  contractSalary: {
-    type: mongoose.Decimal128,
-      },
-  contractType: {
-    type: String,
-      },
-  contractWeeklyHours: {
-    type: mongoose.Decimal128,
-      },
-  studentCompensation: {
-    type: Boolean,
-    default: false,
-      },
-  compensationDateStart: {
-    type: Date,
-      },  
+  }
 });
 
 module.exports = mongoose.model("Employee", employeesSchema);

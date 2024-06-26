@@ -28,7 +28,7 @@ async function nzdc (req, res, next){
       "store"
     );
 
-    const contract = await Contract.findOne({ employee: data._id }).populate('position');
+    const contract = await Contract.findOne({ employee: data._id, contractState: true  }).populate('position');
 
     const company = await Store.findOne({ _id: data.store._id}).populate('storeCompany');
 
