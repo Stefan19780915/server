@@ -68,6 +68,34 @@
            <%= `Company: ${ !userHere.storeCompany ? '' : userHere.storeCompany.companyName }` %>
       </p>
 
+      <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
+
+<label for="roles">Select Role: <p style="font-weight: bolder;"> Current role: <%= userHere.roles %> </p> </label>
+<div class="custom-select" style="width: 200px">
+  <select name="roles">
+    <option value="0">Select role:</option>
+    <% roles.forEach((role)=>{ %>
+    <option value="<%= role %>"><%= role %></option>
+    <% }) %>
+  </select>
+</div>
+
+<% } %>
+
+<% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
+
+<label for="storeCompany">Select Store Company</label>
+<div class="custom-select" style="width: 200px">
+  <select name="storeCompany">
+    <option value="0">Select company:</option>
+    <% companies.forEach((company)=>{ %>
+    <option value="<%= company._id %>"><%= company.companyName %></option>
+    <% }) %>
+  </select>
+</div>
+
+<% } %>
+
         <label for="userName">User name</label>
         <input
           autocomplete="off"
@@ -82,33 +110,7 @@
           name="userEmail"
           value="<%= userHere.userEmail %>"
         />
-        <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
-
-          <label for="roles">Select Role: <p style="font-weight: bolder;"> Current role: <%= userHere.roles %> </p> </label>
-          <div class="custom-select" style="width: 200px">
-            <select name="roles">
-              <option value="0">Select role:</option>
-              <% roles.forEach((role)=>{ %>
-              <option value="<%= role %>"><%= role %></option>
-              <% }) %>
-            </select>
-          </div>
-
-        <% } %>
-
-        <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
-
-          <label for="storeCompany">Select Store Company</label>
-          <div class="custom-select" style="width: 200px">
-            <select name="storeCompany">
-              <option value="0">Select company:</option>
-              <% companies.forEach((company)=>{ %>
-              <option value="<%= company._id %>"><%= company.companyName %></option>
-              <% }) %>
-            </select>
-          </div>
-
-        <% } %>
+        
 
         <div class="d-flex-visible space-between">
           <label for="ctive">Active</label>
@@ -421,7 +423,7 @@
    <%  if(user.roles == 'Owner' || user.roles == 'Super') { %>
 
 
-
+  
     <section class="secondary-section">
       <div class="container flow">
         <div class="new-employee">
@@ -728,26 +730,19 @@
               required
             />
           </div>
-
-          <div>
-          <label for="contractStartDate">Start date</label>
-          <input autocomplete="off" type="date" name="contractStartDate" />
-        </div>
-
       
           <div>
             <label for="email">Email</label>
             <input
+              autocomplete="off"
               type="email"
               name="email"
-              value=" "
             />
             <label for="password">Temporary password</label>
             <input
-            autocomplete="on"
+            autocomplete="off"
               type="password"
               name="password"
-              value=""
             />
           </div>
 

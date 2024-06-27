@@ -32,7 +32,9 @@ const getAllEmployees = async (req, res) => {
   const loggedUser = await User.findOne({ _id: req.user.id }).populate('storeCompany');
 
   const companies = await Company.find();
-  const adminCompanies = loggedUser.roles == 'Owner' || loggedUser.roles == 'Admin' ? await Company.find({ _id: loggedUser.storeCompany }) : [];
+  const adminCompanies = loggedUser.roles == 'Admin' ? await Company.find({ _id: loggedUser.storeCompany }) : loggedUser.roles == 'Owner' ? await Company.find({ admin: loggedUser.id }) : [];
+
+  //console.log(adminCompanies)
 
   //to find one company - to restrict to see Owner data
  // const adminCompany = await Company.findOne({ admin: req.user.id }).populate('user');
@@ -45,7 +47,7 @@ const getAllEmployees = async (req, res) => {
       : req.user.roles == "Manager"
       ? await Store.findOne({ user: req.user.id }).populate('admin').populate('user')
       : req.user.roles == "Owner"
-      ? await Store.find({storeCompany: loggedUser.storeCompany }).populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" })
+      ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" })
       : req.user.roles == "Super" 
       ? await Store.find().populate("admin").populate('storeCompany').populate('user').sort({ storeName: "asc" }) 
       : [];
@@ -62,13 +64,13 @@ const getAllEmployees = async (req, res) => {
       : req.user.roles == "Manager"
       ? await User.find({ store: allStores ? allStores.id : [] }).populate('store')
       : req.user.roles == "Owner"
-      ? await User.find({ storeCompany: loggedUser.storeCompany}).populate("store").populate('storeCompany').sort({ roles: "asc" })
+      ? await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Super" 
       ? await User.find().populate('store').populate('storeCompany').sort({ roles: "asc" })
       : [];
    
       // check if there is a property like that - then try to access
-   //console.log(allUsers.forEach( user => console.log(user.store ? user.store.storeName : !user.store ? '' : '') ))
+   //allUsers.forEach( user => console.log(user));
 
   const allEmployees =
     req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super"  
@@ -79,6 +81,7 @@ const getAllEmployees = async (req, res) => {
           .sort({ store: "asc" })
       : [];
 
+      allEmployees.forEach( (emp)=> console.log( emp.store.storeCompany ) )
     
   const adminEmployees = allEmployees.filter(
     (emp) => emp.store.admin == req.user.id
@@ -106,18 +109,17 @@ const getAllEmployees = async (req, res) => {
     msg: false,
     data: !req.user.storeCompany 
         ? allEmployees 
-        : req.user.roles == "Owner" || req.user.roles == "Manager" || req.user.roles == "Super" 
+        :  req.user.roles == "Manager" 
         ? allEmployees.filter( emp => emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString())
-        : adminEmployees,
+        : req.user.roles == "Owner" ? allEmployees.filter( emp => emp.store.storeCompany.admin == loggedUser._id) : adminEmployees,
     user: req.user,
     users:
       req.user.roles == "Admin" ?
       adminUsers :
       req.user.roles == "Manager" ||
-      req.user.roles == "Owner" ||
       req.user.roles == "Super"
         ? allUsers
-        : [],
+        : req.user.roles == "Owner" ? allUsers.filter( (user)=> user.storeCompany ? user.storeCompany.admin == loggedUser.id : false ) : [],
     managers:
       req.user.roles == "Admin" || req.user.roles == "Owner"
         ? allUsers.filter(
@@ -125,7 +127,7 @@ const getAllEmployees = async (req, res) => {
               (user.active && user.roles == "Manager") || user.roles == "Admin"
           )
         : [],
-    stores: allStores == null ? [] : allStores,
+    stores: allStores == null ? [] : req.user.roles == 'Owner' ? allStores.filter( (store)=> store.storeCompany.admin == loggedUser.id ) : allStores,
     positions: req.user.roles == 'Super' ? allPositions : filteredPositions,
     companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' || req.user.roles == 'Admin'  ? adminCompanies : [],
     mapal: [], 
@@ -810,8 +812,8 @@ const sendEmployeeEmail = async (req, res) => {
 // CRUD POSITION
 
 const createPosition = async (req, res)=>{
-  console.log(req.body);
-  console.log(req.user.storeCompany);
+  //console.log(req.body);
+ // console.log(req.user.storeCompany);
 
   const newPosition = {
     position: req.body.position,
