@@ -1,20 +1,14 @@
 <% if(msg) { %>
 <section class="msg">
   <div class="container flow">
-    <h4><%= msg%></h4>
-    <p><%= body%></p>
-    <form action="/employee">
-      <button class="add-child btn-primary">OK</button>
-    </form>
+    <a class="add-child btn-primary" href="/employee">OK</a>
   </div>
 </section>
 <% } %> <% if(message.length > 0) { %>
 <section class="msg">
   <div class="container flow">
     <h4><%= message%></h4>
-    <form action="/employee">
-      <button class="add-child btn-primary">OK</button>
-    </form>
+    <a class="add-child btn-primary" href="<%= link? link : '/employee' %>">OK</a>
   </div>
 </section>
 <% } %>

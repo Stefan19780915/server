@@ -1,6 +1,5 @@
 const axios = require('axios').default;
 const qs = require('qs');
-const request = require('request');
 
   const getMapalEmployees = async ()=>{
     let config = {

@@ -62,7 +62,7 @@ const getAllEmployees = async (req, res) => {
     req.user.roles == "Admin"
       ? await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Manager"
-      ? await User.find({ store: allStores ? allStores.id : [] }).populate('store')
+      ? await User.find({ store: allStores ? allStores.id : [], $or:[{roles: "User"},{roles:"Manager"}] }).populate('store')
       : req.user.roles == "Owner"
       ? await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Super" 
@@ -78,10 +78,10 @@ const getAllEmployees = async (req, res) => {
       : req.user.roles == "Manager" && !allStores == []
       ? await Employee.find({ store: allStores._id })
           .populate("store")
+          .populate('user')
           .sort({ store: "asc" })
       : [];
 
-      allEmployees.forEach( (emp)=> console.log( emp.store.storeCompany ) )
     
   const adminEmployees = allEmployees.filter(
     (emp) => emp.store.admin == req.user.id
@@ -110,8 +110,13 @@ const getAllEmployees = async (req, res) => {
     data: !req.user.storeCompany 
         ? allEmployees 
         :  req.user.roles == "Manager" 
-        ? allEmployees.filter( emp => emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString())
-        : req.user.roles == "Owner" ? allEmployees.filter( emp => emp.store.storeCompany.admin == loggedUser._id) : adminEmployees,
+        ? allEmployees.filter( (emp) => {
+          console.log(emp.user.roles);
+          return emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString() && emp.user.roles != 'Admin' })
+        : req.user.roles == "Owner" ? allEmployees.filter( async ( emp) => {
+          const comp = await Company.find( { _id: emp.store.storeCompany } );
+          comp.admin == loggedUser._id;
+        } ) : adminEmployees,
     user: req.user,
     users:
       req.user.roles == "Admin" ?
@@ -132,7 +137,8 @@ const getAllEmployees = async (req, res) => {
     companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' || req.user.roles == 'Admin'  ? adminCompanies : [],
     mapal: [], 
     message: req.flash("message"),
-    roles: req.user.roles == 'Super' ? rolesAll : req.user.roles == 'Owner' ? rolesClient : req.user.roles == 'Admin' ? rolesAdminManager : [] 
+    roles: req.user.roles == 'Super' ? rolesAll : req.user.roles == 'Owner' ? rolesClient : req.user.roles == 'Admin' ? rolesAdminManager : [] ,
+    link: ''
   });
 };
 
@@ -492,7 +498,7 @@ const updateEmployeePersonal = async (req, res) => {
     );
     res.redirect("/employee");
   } else {
-    req.flash("message", "Personal data eas not updated.");
+    req.flash("message", "Personal data is not updated.");
     return res.redirect("/pages/404");
   }
 };
@@ -814,6 +820,8 @@ const sendEmployeeEmail = async (req, res) => {
 const createPosition = async (req, res)=>{
   //console.log(req.body);
  // console.log(req.user.storeCompany);
+
+ //CREATE A SELECT FOR THE COMPANY - WHICH COMPANY
 
   const newPosition = {
     position: req.body.position,

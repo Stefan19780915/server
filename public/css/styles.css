@@ -40,6 +40,9 @@ a {
     color: var(--clr-table-dark);
 }
 
+.aPrimary {
+    color: var(--clr-table-secondary);
+}
 
 .width-d-flex-half {
     width: 50%;

@@ -5,15 +5,15 @@
     <div class="container flow">
       <span></span>
       <div class="login">
-        <h2>Login</h2>
+        <h2>Send reset password link</h2>
         <% if (messages.error) { %>
         <p><%= messages.error %></p>
         <% } %>
       </div>
-      <form method="POST" class="login-form flow" action="/">
+      <form method="POST" class="login-form flow" action="/resetpasslink">
         <div class="flow">
           <div>
-            <label for="userEmail">Email</label>
+            <label for="userEmail">Your Email</label>
             <input
               autocomplete="off"
               type="email"
@@ -22,22 +22,10 @@
               required
             />
           </div>
-          <div>
-            <label for="password">Password</label>
-            <input
-              autocomplete="off"
-              type="password"
-              name="password"
-              value=""
-              required
-            />
-            <a class="aPrimary" href="/forgotpass">Forgot your password?</a>
-          </div>
         </div>
         <div class="flow">
           <div class="d-flex-visible space-between">
-            <button class="btn-primary dark-outline">Login</button>
-            <a class="btn-primary dark-outline" href="/register">Register</a>
+            <button class="btn-primary dark-outline">Send</button>
           </div>
           <div style="height: 25px"></div>
         </div>

@@ -17,8 +17,11 @@ initializePassport(
   usersController.getUserById
 );
 
+//TO RENDER
 router.get("/register", checkNotAuthUser, usersController.register);
 router.get("/", checkNotAuthUser, usersController.login);
+router.get("/forgotpass", checkNotAuthUser,  usersController.forgotPass);
+router.get("/reset/:id/:token", checkNotAuthUser, usersController.resetPassPage);
 
 //verify email route
 router.get(
@@ -46,6 +49,10 @@ router.delete("/logout", (req, res, next) => {
 });
 
 router.post("/register", usersController.registerUser);
+
+router.post("/resetpasslink", usersController.resetPassLink);
+
+router.put("/resetpass/:id/:token", usersController.resetPass);
 
 router.put("/user/:id", checkAuthUser, checkAdmin, usersController.updateUser);
 

@@ -16,6 +16,7 @@ const job1 = async ()=>{
     await apiTokenAutomate();
     const employees = await getMapalEmployees();
     
+    
     try {
         const empWhoHasBDTomorrow = empBDTomorrow(employees);
         const empWhoHasBDIn7Days = upCommingBirthdays(employees);
@@ -39,10 +40,12 @@ const job1 = async ()=>{
               
         } else {
             const empWhoHasBDIn7Days = upCommingBirthdays(employees);
+
             if(empWhoHasBDIn7Days.length){
                 const html = makeBirthDayEmailin7Days(empWhoHasBDIn7Days);
-                const subject = 'KFC Employees who will have birthday in the new 7 days.'
+                const subject = 'KFC Employees who will have birthday in the next 7 days.'
 
+                
             const info = await sendEmail(
                 'stefan.csomor@qweurope.com',
                 [],
@@ -55,7 +58,7 @@ const job1 = async ()=>{
               } else {
                 console.log("Message was not sent");
               } 
-
+                
             } 
 
 

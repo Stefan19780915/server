@@ -568,3 +568,582 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+02/07/2024	17:12:24	05760031-edec-4b8e-8c81-feb0ae61e299	Error: Failed to lookup view "../viws/pages/forgotpass" in views directory "C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views"
+03/07/2024	11:11:58	a14c7a84-3b92-48dc-bd7b-e390201bec86	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\resetpass.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <form action="/employee">
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+body is not defined
+03/07/2024	11:53:06	00295b6d-75c1-4724-b157-3532f3102a88	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:15
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+ >> 15|     <form <% if(!body) { %> action="/employee" <% } else { %> action=<%= body%> <% } %> >
+    16|       <button class="add-child btn-primary">OK</button>
+    17|     </form>
+    18|   </div>
+
+body is not defined
+03/07/2024	11:57:43	6490d443-33df-4648-b2d4-b45cb43146d1	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:15
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+ >> 15|     <form <% if(!body) { %> action="/employee" <% } else { %>  <% } %> >
+    16|       <button class="add-child btn-primary">OK</button>
+    17|     </form>
+    18|   </div>
+
+body is not defined
+03/07/2024	11:58:17	77c4a605-ef6f-4dc7-9487-a0bab7ee19cd	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:15
+    13|   <div class="container flow">
+    14|     <h4><%= message%></h4>
+ >> 15|     <form <% if(!body) { %> action="/employee" <% } else { %>  <% } %> >
+    16|       <button class="add-child btn-primary">OK</button>
+    17|     </form>
+    18|   </div>
+
+body is not defined
+03/07/2024	13:51:06	cebe29ce-71a7-4c29-bcd6-21eb75f0b5b2	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\resetpass.ejs:41
+    39|             type="hidden"
+    40|             name="id"
+ >> 41|             value="<%=id%>"
+    42|           />
+    43|           <input
+    44|             autocomplete="off"
+
+id is not defined
+03/07/2024	14:15:17	f79cc54b-0b72-4bec-8dfc-466f1cd354bc	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <form Action="/reset/<%=id%>/<%=token%>" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+    9|   </div>
+
+id is not defined
+03/07/2024	14:15:34	ceb44dcd-c87a-48d9-a69f-63bc000410f7	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <form Action="/reset/<%=id%>/<%=token%>" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+    9|   </div>
+
+id is not defined
+03/07/2024	14:16:32	3368b231-3dd9-4ce2-8897-6f1033d03320	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <form Action="/reset/<%=id%>/<%=token%>" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+    9|   </div>
+
+id is not defined
+03/07/2024	14:16:38	cda3fc7d-9171-4a65-97e7-f75d0cde4981	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <form Action="/reset/<%=id%>/<%=token%>" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+    9|   </div>
+
+id is not defined
+03/07/2024	14:17:57	64915c4c-ab58-4b5f-9cdd-cf0aa6a110ca	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <form Action="/reset/<%=id%>/<%=token%>" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+    9|   </div>
+
+id is not defined
+03/07/2024	14:19:34	1f83635f-18a7-45a6-90b7-7397dbcd4d5f	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/reset/<%=id%>/<%=token%>" >
+    9|       <button class="add-child btn-primary">OK</button>
+
+id is not defined
+03/07/2024	14:21:05	92380974-94d5-4018-b103-aeffb1dbfb79	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/reset/<%=id%>/<%=token%>" >
+    9|       <button class="add-child btn-primary">OK</button>
+
+id is not defined
+03/07/2024	14:24:58	53e2eb56-e8c8-4e2d-9826-fce42f3821cb	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/reset/<%=id%>/<%=token%>" >
+    9|       <button class="add-child btn-primary">OK</button>
+
+id is not defined
+03/07/2024	14:40:16	18a11c43-7958-4df0-a1cd-b5c5de21fec3	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/employee" >
+    9|       <button class="add-child btn-primary">OK</button>
+
+id is not defined
+03/07/2024	14:41:34	46f8d429-6f3e-457d-9d71-0b32b187f79e	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/employee" >
+    9|       <button class="add-child btn-primary">OK</button>
+
+id is not defined
+03/07/2024	14:45:38	5c078886-72d1-4824-aa84-829b87b899b5	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= body%></p>
+    6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/employee" >
+
+body is not defined
+03/07/2024	14:45:38	528b5dc3-6475-43ae-a7e1-3687976f96fb	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     <p><%= body%></p>
+ >> 6|     <p><%= id%></p>
+    7|     <p><%= token%></p>
+    8|     <form Action="/employee" >
+    9|       <button class="add-child btn-primary">OK</button>
+
+id is not defined
+03/07/2024	14:48:53	1ae68939-a5c4-4da0-a853-0e0b60b8b742	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= test%></p>
+    6|     <form Action="/employee" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+test is not defined
+03/07/2024	14:49:35	645dd0ce-17cf-4fef-b670-7f13a82638e2	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= test%></p>
+    6|     <form Action="/employee" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+test is not defined
+03/07/2024	14:50:33	b870d11d-502d-4abb-8bd1-8d20f054804d	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= test%></p>
+    6|     <form Action="/employee" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+test is not defined
+03/07/2024	14:51:32	883eb442-0049-40d3-af86-2f0b41d813bf	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= test%></p>
+    6|     <form Action="/employee" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+test is not defined
+03/07/2024	14:51:32	11af78bc-83b1-4d5b-9a1d-a3bcd3abe6dc	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= test%></p>
+    6|     <form Action="/employee" >
+    7|       <button class="add-child btn-primary">OK</button>
+    8|     </form>
+
+test is not defined
+03/07/2024	14:59:08	d7db3ddc-9d9e-4e15-820e-860d18c3b926	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:14
+    12|   <div class="container flow">
+    13|     <h4><%= message%></h4>
+ >> 14|     <p><%= id%></p>
+    15|     <p><%= token%></p>
+    16| 
+    17|     <form Action="/employee" >
+
+id is not defined
+03/07/2024	15:01:00	16218521-2cc3-4155-8644-fe247a49f532	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:14
+    12|   <div class="container flow">
+    13|     <h4><%= message%></h4>
+ >> 14|     <p><%= id%></p>
+    15|     <p><%= token%></p>
+    16| 
+    17|     <form Action="/employee" >
+
+id is not defined
+03/07/2024	15:02:01	d682c5f4-0026-4d7f-aefe-835f15b2c311	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:14
+    12|   <div class="container flow">
+    13|     <h4><%= message%></h4>
+ >> 14|     <p><%= id%></p>
+    15|     <p><%= token%></p>
+    16| 
+    17|     <form Action="/employee" >
+
+id is not defined
+03/07/2024	15:10:40	4e3fea06-406a-480b-a2f2-ad97c0cb5ba7	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:1
+ >> 1| <% if(msg) { %>
+    2| <section class="msg">
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+
+msg is not defined
+03/07/2024	15:11:50	9eb89ab0-717d-4669-9d12-591e8c2bcf44	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\header.ejs:8
+    6|           <a href="/employee">HR</a>
+    7|         </h1>
+ >> 8|         <% if (user) { %>
+    9| 
+    10|         <a class="btn-secondary" href="/employee/<%=user.employee%> "
+    11|           ><%= user.userName%></a
+
+user is not defined
+03/07/2024	15:12:02	d0a6e7b6-8144-47e3-9414-b92ecbc1559f	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\login.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section class="secondary-section d-flex-center">
+    5|     <div class="container flow">
+    6|       <span></span>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\header.ejs:8
+    6|           <a href="/employee">HR</a>
+    7|         </h1>
+ >> 8|         <% if (user) { %>
+    9| 
+    10|         <a class="btn-secondary" href="/employee/<%=user.employee%> "
+    11|           ><%= user.userName%></a
+
+user is not defined
+04/07/2024	16:16:35	a082bd20-b3f3-4705-9628-34a26e1f6e42	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= link%></p>
+    6|     <a class="add-child btn-primary" href="<%= link? '/employee' : link %>">OK</a>
+    7|   </div>
+    8| </section>
+
+link is not defined
+04/07/2024	16:17:34	b4c6254a-f8b8-4612-969d-022510ec383c	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:5
+    3|   <div class="container flow">
+    4|     <h4><%= msg%></h4>
+ >> 5|     <p><%= link%></p>
+    6|     <a class="add-child btn-primary" href="<%= link? '/employee' : link %>">OK</a>
+    7|   </div>
+    8| </section>
+
+link is not defined
+04/07/2024	16:20:11	76cba302-b5f0-4c92-a185-cbc410962b9c	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     
+ >> 6|     <a class="add-child btn-primary" href="<%= link? '/employee' : link %>">OK</a>
+    7|   </div>
+    8| </section>
+    9| <% } %> <% if(message.length > 0) { %>
+
+link is not defined
+04/07/2024	16:20:33	a3e4c14f-80df-452a-9cf5-05b34eb69d42	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\404.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %>
+    4|   <section>
+    5|     <div class="container">
+    6|       <h1>404</h1>
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:6
+    4|     <h4><%= msg%></h4>
+    5|     
+ >> 6|     <a class="add-child btn-primary" href="<%= link? '/employee' : link %>">OK</a>
+    7|   </div>
+    8| </section>
+    9| <% } %> <% if(message.length > 0) { %>
+
+link is not defined
+04/07/2024	16:43:03	494a1044-11eb-49ca-9343-a3372c94c789	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\resetpass.ejs:41
+    39|             type="hidden"
+    40|             name="id"
+ >> 41|             value="<%=id%>"
+    42|           />
+    43|           <input
+    44|             autocomplete="off"
+
+id is not defined
+04/07/2024	16:45:09	ee6c72a6-be5e-47b8-9350-10cfb3ed7342	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\resetpass.ejs:41
+    39|             type="hidden"
+    40|             name="id"
+ >> 41|             value="<%=id%>"
+    42|           />
+    43|           <input
+    44|             autocomplete="off"
+
+id is not defined
+04/07/2024	17:05:54	be974898-2d72-4e04-b2b3-5d10dd1fdd1f	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\resetpass.ejs:13
+    11|         <% } %>
+    12|       </div>
+ >> 13|       <form method="POST" class="login-form flow" action="/resetpass/<%= id%>/<%=token%>?_method=PUT">
+    14|         <div class="flow">
+    15|           <div>
+    16|             <label for="password">New Password</label>
+
+id is not defined
+04/07/2024	17:29:40	8f803fe6-34f5-447a-b9f0-4914f3dffd00	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:3
+    1| <%- include('../partials/head') %>
+    2| <body>
+ >> 3|   <%- include('../partials/msg') %> <%- include('../partials/header') %> <%
+    4|   if(user.roles == "User") { %>
+    5|   <section class="secondary-section">
+    6|     <div class="container d-flex-col center gap">
+
+C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\partials\msg.ejs:11
+    9|   <div class="container flow">
+    10|     <h4><%= message%></h4>
+ >> 11|     <a class="add-child btn-primary" href="<%= link? link : '/employee' %>">OK</a>
+    12|   </div>
+    13| </section>
+    14| <% } %>
+
+link is not defined

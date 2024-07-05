@@ -5,25 +5,15 @@
     <div class="container flow">
       <span></span>
       <div class="login">
-        <h2>Login</h2>
+        <h2>Please reset your password here</h2>
         <% if (messages.error) { %>
         <p><%= messages.error %></p>
         <% } %>
       </div>
-      <form method="POST" class="login-form flow" action="/">
+      <form method="POST" class="login-form flow" action="/resetpass/<%= id%>/<%=token%>?_method=PUT">
         <div class="flow">
           <div>
-            <label for="userEmail">Email</label>
-            <input
-              autocomplete="off"
-              type="email"
-              name="userEmail"
-              value=""
-              required
-            />
-          </div>
-          <div>
-            <label for="password">Password</label>
+            <label for="password">New Password</label>
             <input
               autocomplete="off"
               type="password"
@@ -31,13 +21,22 @@
               value=""
               required
             />
-            <a class="aPrimary" href="/forgotpass">Forgot your password?</a>
+            
+          </div>
+          <div>
+            <label for="passwordConfirm">Confirm New Password</label>
+            <input
+              autocomplete="off"
+              type="password"
+              name="passwordConfirm"
+              value=""
+              required
+            />
           </div>
         </div>
         <div class="flow">
           <div class="d-flex-visible space-between">
-            <button class="btn-primary dark-outline">Login</button>
-            <a class="btn-primary dark-outline" href="/register">Register</a>
+            <button class="btn-primary dark-outline">Reset</button>
           </div>
           <div style="height: 25px"></div>
         </div>

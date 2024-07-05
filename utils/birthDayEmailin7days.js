@@ -7,6 +7,7 @@ function makeBirthDayEmailin7Days (employeesIn7Days){
     //console.log(`tomorrow ${tomorrow}`);
 
     const sevenDayList = employeesIn7Days.map( (employee)=>{
+      
         return `<tr>
         <td>${employee.unit}</td>
         <td>${employee.name} ${employee.last_name}</td>
