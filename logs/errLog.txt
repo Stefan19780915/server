@@ -1147,3 +1147,53 @@ C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\p
     14| <% } %>
 
 link is not defined
+09/07/2024	15:27:34	be518ab6-7117-46fe-a893-df72bd1d5202	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:610
+    608|           
+    609|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p> <p> <%= emp.email  %> </p></div>
+ >> 610|             <div class="d-flex-visible space-between"> <%emp.time.forEach( (time)=>{ %>
+    611|                   <p> <%= moment(time.business_date).format('LL') %> </p> <p> <%= parseFloat((time.payable_time/3600).toFixed(2)) %> </p>
+    612|             <% }) %> </div>  
+    613|             
+
+Cannot read properties of undefined (reading 'forEach')
+09/07/2024	15:29:23	235fdac1-fea8-491e-805c-4ac560f62478	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:610
+    608|           
+    609|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p> <p> <%= emp.email  %> </p></div>
+ >> 610|             <div class="d-flex-visible space-between"> <%emp.time.forEach( (t)=>{ %>
+    611|                   <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2)) %> </p>
+    612|             <% }) %> </div>  
+    613|             
+
+Cannot read properties of undefined (reading 'forEach')
+09/07/2024	15:49:04	d4fa0fb1-97c4-4ac7-ad83-432dc0a20548	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:610
+    608|           
+    609|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
+ >> 610|             <div class="d-flex-visible space-between"> <% emp.time.forEach( (t)=>{ %>
+    611|               <p> <%= t %> </p>
+    612|             <% }) %> </div> 
+    613|             
+
+emp.time.forEach is not a function
+09/07/2024	15:50:04	1a8b503e-f54e-4bda-9988-e7a3dc18d777	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:610
+    608|           
+    609|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
+ >> 610|             <div class="d-flex-visible space-between"> <% emp.time.forEach( (t)=>{ %>
+    611|               <p> <%= t %> </p>
+    612|             <% }) %> </div> 
+    613|             
+
+Cannot read properties of undefined (reading 'forEach')
+09/07/2024	15:51:47	5cb7df32-8ec7-445d-a055-61a35d7ebab4	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:610
+    608|           
+    609|             <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
+ >> 610|             <div class="d-flex-visible space-between"> <% emp.time.forEach( (t)=>{ %>
+    611|               <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2)) %> </p>
+    612|             <% }) %> </div> 
+    613|             
+
+Cannot read properties of undefined (reading 'forEach')
+09/07/2024	23:35:23	e91f41ea-96b8-433a-82ae-000cc905527e	SyntaxError: Unexpected token '(' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

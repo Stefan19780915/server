@@ -5,7 +5,7 @@ const Company = require("../model/Company");
 const Store = require("../model/Store");
 const Contract = require('../model/Contract')
 const Token = require("../model/token");
-const { getMapalEmployees, getOneEmployee } = require('../api/Mapal');
+const { getMapalEmployees, empWithTime} = require('../api/Mapal');
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
@@ -24,8 +24,16 @@ const getAllEmployees = async (req, res) => {
   const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
   const rolesAdminManager = ['User', 'Manager'];
 
-  //const mapalEmp = await getMapalEmployees(); THIS WORKS
-  //getOneEmployee();
+  //const mapalEmp = await getMapalEmployees();
+  const mapalEt = await empWithTime();
+  
+
+  ///const mapalOneEmployee = await getOneEmployee();
+  ///console.log(mapalOneEmployee, mapalEmp);
+ // const mapalClockings = await getClockings();
+ // mapalClockings.forEach( (time)=>{
+//      console.log(moment(time.business_date).format('LL'),parseFloat((time.payable_time/3600).toFixed(2)));
+//  } )
 
   //console.log(mapalOneEmployee.data);
 
@@ -135,7 +143,7 @@ const getAllEmployees = async (req, res) => {
     stores: allStores == null ? [] : req.user.roles == 'Owner' ? allStores.filter( (store)=> store.storeCompany.admin == loggedUser.id ) : allStores,
     positions: req.user.roles == 'Super' ? allPositions : filteredPositions,
     companies: req.user.roles == 'Super' ? companies : req.user.roles == 'Owner' || req.user.roles == 'Admin'  ? adminCompanies : [],
-    mapal: [], 
+    mapal: mapalEt, 
     message: req.flash("message"),
     roles: req.user.roles == 'Super' ? rolesAll : req.user.roles == 'Owner' ? rolesClient : req.user.roles == 'Admin' ? rolesAdminManager : [] ,
     link: ''

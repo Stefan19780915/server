@@ -50,9 +50,9 @@ allSubCat.forEach((item) => {
   item.addEventListener("click", (e) => {
     allSubCat.forEach((item) => {
       item == e.currentTarget
-        ? e.currentTarget.nextElementSibling.style.maxHeight === "1500px"
+        ? e.currentTarget.nextElementSibling.style.maxHeight === "5500px"
           ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-          : (e.currentTarget.nextElementSibling.style.maxHeight = "1500px")
+          : (e.currentTarget.nextElementSibling.style.maxHeight = "5500px")
         : (item.nextElementSibling.style.maxHeight = "0px");
     });
   });
@@ -67,9 +67,9 @@ const toggleVisibility = (e, trigClass, tarClass) => {
         .forEach((item) => {
           //console.log(item);
           item.classList.contains(tarClass)
-            ? item.style.maxHeight === "1500px"
+            ? item.style.maxHeight === "5500px"
               ? (item.style.maxHeight = "0px")
-              : (item.style.maxHeight = "1500px")
+              : (item.style.maxHeight = "5500px")
             : (item.style.maxHeight = "0px");
         })
     : "";

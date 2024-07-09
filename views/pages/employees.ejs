@@ -597,26 +597,24 @@
     </div>
     <section class="sub-cat">
       <div class="container">
-        <h4><a>Emplyoees</a></h4>
+        <h4><a>Mapal Employees</a></h4>
       </div>
     </section>
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <div>
+      <div class="flow">
         <% mapal.forEach((emp)=>{ %>
-          
-            <div class="d-flex-visible space-between"><p> <%= emp.name  %> <%= emp.last_name  %></p><p> <%= emp.email  %> </p></div> 
-            
-
+          <div>
+            <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+            <% emp.time.sort((a, b) => new Date(a.business_date).getDate() - new Date(b.business_date).getDate()).forEach( (t)=>{ %>
+              <div class="d-flex-visible space-between">
+                <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+              </div>  
+            <% }) %>
+          </div>
           <% }) %>
-        
         </div>
-      <form action="">
-        <label for="storeName">User name</label>
-        <input autocomplete="off" type="text" name="storeName" />
-        <button class="btn-primary">Save</button>
-      </form>
     </div>
 
     <section class="sub-cat">
