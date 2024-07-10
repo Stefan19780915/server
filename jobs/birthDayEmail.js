@@ -71,7 +71,7 @@ const job1 = async ()=>{
 
 
 const empBDTomorrow = (employees)=>{
-    const result = employees.data.filter( (emp)=>{
+    const result = employees.filter( (emp)=>{
        return new Date(emp.birth_date).getDate() == new Date(tomorrow).getDate() && new Date(emp.birth_date).getMonth() == new Date(tomorrow).getMonth();
         ///console.log(emp.last_name);
     });
