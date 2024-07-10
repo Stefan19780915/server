@@ -607,14 +607,31 @@
         <% mapal.forEach((emp)=>{ %>
           <div>
             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
-            <% emp.time.sort((a, b) => new Date(a.business_date).getDate() - new Date(b.business_date).getDate()).forEach( (t)=>{ %>
-              <div class="d-flex-visible space-between">
-                <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
-              </div>  
-            <% }) %>
+            <div class="container flow">
+                <div class="calendar">
+                  <div class="decrement"></div>
+                  <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
+                  <div class="increment"></div>
+                  <div class="week-day">Mon</div>
+                  <div class="week-day">Tue</div>
+                  <div class="week-day">Wed</div>
+                  <div class="week-day">Thr</div>
+                  <div class="week-day">Fri</div>
+                  <div class="week-day">Sat</div>
+                  <div class="week-day">Sun</div>
+
+                  <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+                  <div class="day">
+                    <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+                    <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+                  </div>
+                  <% }) %>
+                </div>
+            </div>
+            <div style="height: 25px"></div>
           </div>
           <% }) %>
-        </div>
+      </div>
     </div>
 
     <section class="sub-cat">

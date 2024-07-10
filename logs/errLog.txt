@@ -1197,3 +1197,75 @@ Cannot read properties of undefined (reading 'forEach')
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+10/07/2024	14:48:43	ea1280b8-73e2-47e7-9c40-091e04c8b45d	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	15:21:59	cf0dbf67-7699-4df8-815f-d7331e6890ba	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	15:36:08	7cb6be5f-4b03-486b-8921-a0b545c24a09	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	15:41:56	9b3fe0ee-b5ac-4513-a06d-4fbed17c7d83	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	15:48:16	4567a3a7-539e-4470-8875-45f91e817341	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	15:50:28	0f1d15b2-cb07-4b7d-9670-d3f871bd2e18	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	15:54:06	429a3bd5-e376-4654-901d-fa937ed45c8a	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moment(t.business_date).format('LL') %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+10/07/2024	22:00:56	d2e651fc-5792-419c-81a8-865bcc437964	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:617
+    615| 
+    616|               <div class="d-flex-visible space-between">
+ >> 617|                 <p> <%= moments(new Date(t.business_date)).format("LL")  %> </p> <p> <%= parseFloat((t.payable_time/3600).toFixed(2))   %> </p>
+    618|               </div>
+    619| 
+    620|             <% }) %>
+
+moments is not defined
