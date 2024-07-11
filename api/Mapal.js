@@ -100,7 +100,6 @@ const qs = require('qs');
     });
 
     emp.time = output;
-    console.log(output);
     emp.reqMonth = date;
 
     return emp;

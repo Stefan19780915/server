@@ -48,7 +48,7 @@ const job1 = async ()=>{
                 
             const info = await sendEmail(
                 'stefan.csomor@qweurope.com',
-                ['stefan_csomor@hotmail.com','eur@qweurope.com'],
+                ['stefan_csomor@hotmail.com', 'eur@qweurope.com'],
                 subject,
                 html
               );
@@ -80,7 +80,7 @@ const empBDTomorrow = (employees)=>{
 
 const upCommingBirthdays = (employees)=>{
     //console.log ( today, seveDays ,today.year());
-    const result = employees.data.filter( (emp)=>{
+    const result = employees.filter( (emp)=>{
         const empBD = moment(emp.birth_date).set({'year': today.year()});
         return empBD > today && empBD < seveDays; 
     })
@@ -88,9 +88,9 @@ const upCommingBirthdays = (employees)=>{
 }
 
 
-
-
 job1();
+
+
 
 
 
