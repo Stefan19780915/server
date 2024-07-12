@@ -57,12 +57,23 @@ const qs = require('qs');
   }
 
   //Combine Emp and clockigs
-  const empWithTime = async ()=>{
-    const date = new Date('2024-05-01T07:00:00');
+  const empWithTime = async (req, res)=>{
+    const dateNavigation = req.body.calendar;
+    const appState = req.body.appState;
+    const now = new Date(Date.now());
+    
+    console.log(dateNavigation, appState);
+
+    const date = dateNavigation == 'next' 
+    ? new Date(now.getFullYear(), now.getMonth()+1, 1 ) 
+    : dateNavigation == 'previous' 
+    ? new Date(now.getFullYear(), now.getMonth()-1, 1 )
+    : new Date(now.getFullYear(), now.getMonth(), 1 );
+
     const firstDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()-date.getDay());
     const daysCount = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
     const lastDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()+daysCount-1);
-    console.log(date, lastDay, firstDay);
+    
     const employees = await getMapalEmployees();
 
     const result = await Promise.all( employees.map( async (emp)=>{
@@ -101,11 +112,10 @@ const qs = require('qs');
 
     emp.time = output;
     emp.reqMonth = date;
-
     return emp;
 
     }));
-    return result.sort();
+    return result;
   }
 
   module.exports = {

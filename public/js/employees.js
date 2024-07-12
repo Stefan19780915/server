@@ -100,6 +100,21 @@ iconBars.forEach((bar) => {
   });
 });
 
+
+//Track user click to get back to the same App state
+const appStateSettingsMapalEmp = ()=>{
+  const iconBar = document.getElementsByClassName('icon-bar');
+  const iconSettings = document.getElementsByClassName('settings');
+  const settingsTab = document.getElementsByClassName('settings-tab');
+  iconBar[0].setAttribute('style', 'height: 60px;');
+  iconSettings[0].classList.add('selected');
+  settingsTab[0].setAttribute('style', 'max-height: 9500px;');
+  settingsTab[0].children[2].setAttribute('style', 'max-height: 9500px;');
+}
+
+//appStateSettingsMapalEmp();
+
+
 //CUSTOM SELECT
 
 var x, i, j, l, ll, selElmnt, a, b, c;

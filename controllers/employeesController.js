@@ -17,6 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const {makeEmail} = require("../utils/email")
 
+
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
 
@@ -24,9 +25,9 @@ const getAllEmployees = async (req, res) => {
   const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
   const rolesAdminManager = ['User', 'Manager'];
 
-  //const mapalEmp = await getMapalEmployees();
-  const mapalEt = await empWithTime();
-  
+  //to turn on mapal emp just de-comment the other mapalEl
+ // const mapalEt = [];
+ let mapalEt = await empWithTime(req,res);
 
   ///const mapalOneEmployee = await getOneEmployee();
   ///console.log(mapalOneEmployee, mapalEmp);
@@ -146,7 +147,8 @@ const getAllEmployees = async (req, res) => {
     mapal: mapalEt, 
     message: req.flash("message"),
     roles: req.user.roles == 'Super' ? rolesAll : req.user.roles == 'Owner' ? rolesClient : req.user.roles == 'Admin' ? rolesAdminManager : [] ,
-    link: ''
+    link: '',
+    appState: req.body.appState == undefined ? false : req.body.appState,  
   });
 };
 

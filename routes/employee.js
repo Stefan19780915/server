@@ -8,6 +8,8 @@ const { dataCheck } = require('../middleware/dataCheck');
 
 router.get("/", employeeController.getAllEmployees);
 
+router.post("/", employeeController.getAllEmployees);
+
 router.get("/:id", employeeController.getEmployee);
 
 router.post("/personal", employeeController.createEmployee);

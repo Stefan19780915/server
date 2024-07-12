@@ -1269,3 +1269,72 @@ Cannot read properties of undefined (reading 'business_date')
     620|             <% }) %>
 
 moments is not defined
+11/07/2024	11:22:23	86229374-0005-4b81-b559-912cefc0bcc6	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:634
+    632|           </div>
+    633|           <% }) %>
+ >> 634|           <% mapal.length > 0 ? appStateSettingsMapalEmp() : '' %>
+    635|       </div>
+    636|     </div>
+    637| 
+
+appStateSettingsMapalEmp is not defined
+11/07/2024	11:24:50	14f13e78-9432-4509-81ba-80148b02bd73	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:634
+    632|           </div>
+    633|           <% }) %>
+ >> 634|           <% 
+    635|           window.addEventListener('DOMContentLoaded', (event) => {
+    636|           console.log('DOM fully loaded and parsed');
+    637|           mapal.length > 0 ? appStateSettingsMapalEmp() : ''
+
+window is not defined
+11/07/2024	11:25:12	5af9b678-008d-435f-8896-74e936410202	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:634
+    632|           </div>
+    633|           <% }) %>
+ >> 634|           <% 
+    635|           window.addEventListener('DOMContentLoaded', (event) => {
+    636|           console.log('DOM fully loaded and parsed');
+    637|           mapal.length > 0 ? appStateSettingsMapalEmp() : ''
+
+window is not defined
+11/07/2024	13:42:49	02cb7584-d1a9-4394-9b0a-ec8f8e240cac	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:623
+    621|                   <div class="week-day">Sun</div>
+    622| 
+ >> 623|                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    624|                   <div class="day">
+    625|                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+    626|                     <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+
+Cannot read properties of undefined (reading 'sort')
+11/07/2024	15:01:39	79b8a3cb-66c9-4abd-99f8-d4e0ca9bfc65	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:39	88a4ec43-e4ff-4dc5-817f-0b6450da8a69	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:40	123c59fb-d29f-487b-a222-95e3da7c6d69	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:40	b8264c28-8bea-4f8e-bef5-a93d19fa091b	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:41	e5795108-f4e3-4805-8842-18f2cd060b6c	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:42	882d9f88-36d0-4122-a85c-a56a24fcdc0a	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:43	9bc664c0-f8e2-47bf-b5d1-2f40f63ee311	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:43	ce99d341-603a-48c1-b4d1-7f82724f7eed	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:44	396a9dd9-436a-47a6-8116-06bc2555cad3	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:44	67565b81-09a9-4583-bb9a-5aaad497cdb4	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:44	d0054253-ab5e-4e7a-9673-dbf9edfbbe25	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:45	fd55b619-adfa-4622-bd55-d258e234d0e9	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:45	4694d765-27a8-4214-b197-65b2cb5d1f28	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:46	c4b1dc58-ef62-4f79-8231-142e8a0ad538	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:47	4e022dfb-157d-472f-a75d-12205da07969	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:47	ad54dc31-1c1d-44e6-b318-b4294e494322	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:48	3bbe4704-7609-4685-9473-3ec5cdddcf56	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:48	4005199e-52ee-4af7-a50c-a55b90742ac3	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:49	5c59e0be-5415-4d0b-a1fa-d16c48ee532a	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:49	10feb4fa-9514-43b6-a9c9-f097992f687d	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:50	90704c97-5f4d-4299-9ad8-b4d5d8d980d7	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:50	e0fcce38-59ed-40e9-a42d-516a66ac4c6d	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:51	5f15a0cf-98d8-45d6-be3b-3a7c423359ee	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:51	94377ae1-b743-468a-a6dd-51882591b527	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:52	1e5af1ca-33aa-4ca2-8703-a678faa6cc64	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:52	e11e4e61-af0b-4c65-b5ec-464a1182745d	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:53	a4b2489b-8dd8-4129-833b-65cc66f69507	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:54	3c810495-8f8c-461b-80ac-22ed10a7d4be	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:54	e4d11474-9c8f-4427-84cb-2a3ee1ef2399	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:54	2445f5c8-ccca-4321-83fe-3f3e21b13283	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:55	ef015950-2f2b-4576-a4d5-adaaef6b2861	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:55	d2fc291d-7878-4975-bcf3-9c26ed2e4dd2	Error: Cannot set headers after they are sent to the client
+11/07/2024	15:01:56	28b62346-2b51-448e-9b1b-a4ba5591344d	Error: Cannot set headers after they are sent to the client
