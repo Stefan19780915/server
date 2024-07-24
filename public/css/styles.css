@@ -521,6 +521,33 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     padding: 0 .2em;
 }
 
+.PN {
+    background-color: darkgreen;
+}
+
+.D{
+    background-color: darkblue;
+}
+
+.P{
+    background-color: darkgoldenrod;
+}
+
+.MD{
+    background-color: lightcoral;
+}
+
+.RD{
+    background-color: darkorchid;
+}
+
+.A{
+    background-color: red;
+}
+
+
+
+
 .week-day{
    border: none;
    text-align: center;

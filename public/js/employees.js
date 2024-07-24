@@ -50,9 +50,9 @@ allSubCat.forEach((item) => {
   item.addEventListener("click", (e) => {
     allSubCat.forEach((item) => {
       item == e.currentTarget
-        ? e.currentTarget.nextElementSibling.style.maxHeight === "9500px"
+        ? e.currentTarget.nextElementSibling.style.maxHeight === "20000px"
           ? (e.currentTarget.nextElementSibling.style.maxHeight = "0px")
-          : (e.currentTarget.nextElementSibling.style.maxHeight = "9500px")
+          : (e.currentTarget.nextElementSibling.style.maxHeight = "20000px")
         : (item.nextElementSibling.style.maxHeight = "0px");
     });
   });
@@ -67,9 +67,9 @@ const toggleVisibility = (e, trigClass, tarClass) => {
         .forEach((item) => {
           //console.log(item);
           item.classList.contains(tarClass)
-            ? item.style.maxHeight === "9500px"
+            ? item.style.maxHeight === "20000px"
               ? (item.style.maxHeight = "0px")
-              : (item.style.maxHeight = "9500px")
+              : (item.style.maxHeight = "20000px")
             : (item.style.maxHeight = "0px");
         })
     : "";
@@ -108,8 +108,8 @@ const appStateSettingsMapalEmp = ()=>{
   const settingsTab = document.getElementsByClassName('settings-tab');
   iconBar[0].setAttribute('style', 'height: 60px;');
   iconSettings[0].classList.add('selected');
-  settingsTab[0].setAttribute('style', 'max-height: 9500px;');
-  settingsTab[0].children[2].setAttribute('style', 'max-height: 9500px;');
+  settingsTab[0].setAttribute('style', 'max-height: 20000px;');
+  settingsTab[0].children[2].setAttribute('style', 'max-height: 20000px;');
 }
 
 //appStateSettingsMapalEmp();

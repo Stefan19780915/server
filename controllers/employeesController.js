@@ -5,7 +5,7 @@ const Company = require("../model/Company");
 const Store = require("../model/Store");
 const Contract = require('../model/Contract')
 const Token = require("../model/token");
-const { getMapalEmployees, empWithTime} = require('../api/Mapal');
+const {empWithTime} = require('../api/Mapal');
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
@@ -24,6 +24,9 @@ const getAllEmployees = async (req, res) => {
   const rolesAll = ['Owner', 'Super', 'User', 'Manager', 'Admin'];
   const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
   const rolesAdminManager = ['User', 'Manager'];
+
+  //const oneEmpMapal = await getOneEmployee('001661');
+  //console.log(oneEmpMapal);
 
   //to turn on mapal emp just de-comment the other mapalEl
  // const mapalEt = [];

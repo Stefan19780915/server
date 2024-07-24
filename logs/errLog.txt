@@ -1338,3 +1338,48 @@ Cannot read properties of undefined (reading 'sort')
 11/07/2024	15:01:55	ef015950-2f2b-4576-a4d5-adaaef6b2861	Error: Cannot set headers after they are sent to the client
 11/07/2024	15:01:55	d2fc291d-7878-4975-bcf3-9c26ed2e4dd2	Error: Cannot set headers after they are sent to the client
 11/07/2024	15:01:56	28b62346-2b51-448e-9b1b-a4ba5591344d	Error: Cannot set headers after they are sent to the client
+20/07/2024	14:23:57	cd6efbdf-ea2a-49e6-b8cc-17d59d2787b8	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:623
+    621|                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    622|                   <div class="day">
+ >> 623|                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+    624|                     <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+    625|                   </div>
+    626|                   <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+20/07/2024	14:29:18	31835b60-247c-4248-8efb-bc7dfde02bd9	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:623
+    621|                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    622|                   <div class="day">
+ >> 623|                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+    624|                     <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+    625|                   </div>
+    626|                   <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+20/07/2024	14:32:23	99733a17-ed79-4abd-a1ac-cd17c0debb45	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:623
+    621|                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    622|                   <div class="day">
+ >> 623|                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+    624|                     <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+    625|                   </div>
+    626|                   <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+20/07/2024	14:35:18	77180d69-dc55-4c47-948f-175c5e53425c	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:623
+    621|                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    622|                   <div class="day">
+ >> 623|                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+    624|                     <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+    625|                   </div>
+    626|                   <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+20/07/2024	14:39:02	18feda44-b539-4ca1-8779-730af7e03085	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:623
+    621|                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    622|                   <div class="day">
+ >> 623|                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+    624|                     <div class="day-con"><%= t.payable_time ? parseFloat((t.payable_time/3600).toFixed(2)) : '' %></div>
+    625|                   </div>
+    626|                   <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
