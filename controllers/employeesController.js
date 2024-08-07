@@ -123,7 +123,7 @@ const getAllEmployees = async (req, res) => {
         ? allEmployees 
         :  req.user.roles == "Manager" 
         ? allEmployees.filter( (emp) => {
-          console.log(emp.user.roles);
+          //console.log(emp.user.roles);
           return emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString() && emp.user.roles != 'Admin' })
         : req.user.roles == "Owner" ? allEmployees.filter( async ( emp) => {
           const comp = await Company.find( { _id: emp.store.storeCompany } );

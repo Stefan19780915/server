@@ -1,4 +1,3 @@
-const PdfPrinter = require('pdfmake');
 const fs = require('fs');
 const path = require('path');
 const Employee = require("../model/Employee");
@@ -22,8 +21,6 @@ const fonts = {
 
 async function nzdc (req, res, next){
 
-
-    
     const data = await Employee.findOne({ _id: req.params.id }).populate(
       "store"
     );
@@ -52,8 +49,6 @@ async function nzdc (req, res, next){
     return res.redirect("/employee");
 
     } else {
-
-
 
         try{
             const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -222,8 +217,6 @@ async function nzdc (req, res, next){
           const filePath = path.join(__dirname,`../data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")} nzdc.pdf`);
          fs.writeFileSync(filePath,pdfBytes);
           next();
-      
-      
       
       
         } catch (err){

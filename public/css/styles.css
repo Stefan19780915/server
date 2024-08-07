@@ -476,8 +476,8 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
 
 .calendar{
     display: grid;
-    grid-template-columns: repeat(7, 48px);
-    grid-template-rows: 5;
+    grid-template-columns: repeat(7, 38px);
+    grid-template-rows: auto;
 
 }
 
@@ -497,8 +497,8 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
 
 .day{
     position: relative;
-    width: 48px;
-    height: 50px;
+    width: 38px;
+    height: 40px;
 }
 
 .day-num{
@@ -586,3 +586,6 @@ input[type=text], input[type=date], input[type=number], input[type=date], input[
     bottom: 0%;
 
 }
+
+/*MEDIA*/
+

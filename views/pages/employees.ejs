@@ -575,8 +575,6 @@
           value="<%= company.companyTaxId %>"
         />
 
-
-
         <div class="d-flex-visible space-between">
           <button class="btn-primary">Update</button>
           <a class="btn-primary" href="employee/company/<%= company._id%>">Delete</a>
@@ -588,8 +586,6 @@
     <% } %>
   </section>
 
-
-
   <section class="settings-tab tab">
     <div class="container flow">
       <span></span>
@@ -600,16 +596,15 @@
         <h4><a>Mapal Employees</a></h4>
       </div>
     </section>
-
     <div class="container flow sub-cat-content">
-      <span></span>
-      
+      <span></span> 
       <div class="flow">
         <h1>Managers</h1>
         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{ %>
           <div>
             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
                 <div class="calendar">
+
                   <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
                   <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
                   <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
@@ -620,6 +615,7 @@
                   <div class="week-day">Fri</div>
                   <div class="week-day">Sat</div>
                   <div class="week-day">Sun</div>
+
                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                   <div class="day">
                     <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
@@ -642,6 +638,7 @@
             <div>
               <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
                   <div class="calendar">
+
                     <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
                     <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
                     <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
@@ -652,6 +649,7 @@
                     <div class="week-day">Fri</div>
                     <div class="week-day">Sat</div>
                     <div class="week-day">Sun</div>
+
                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                     <div class="day">
                       <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
@@ -673,8 +671,10 @@
             <h1>Students</h1>
             <% mapal.filter(e=> e.contract.contract == 'DOBPS').forEach((emp)=>{ %>
               <div>
-                <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+                <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div>
+                      
                     <div class="calendar">
+                      
                       <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
                       <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
                       <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
@@ -685,6 +685,8 @@
                       <div class="week-day">Fri</div>
                       <div class="week-day">Sat</div>
                       <div class="week-day">Sun</div>
+
+
                       <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                       <div class="day">
                         <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
@@ -733,14 +735,13 @@
                   <div style="height: 25px"></div>
                 </div>
                 <% }) %>
-
-
-
       </div>
     </div>
+
     <% if (appState == 'calendar'){ %>
           <script>window.addEventListener('DOMContentLoaded', (event) => {appStateSettingsMapalEmp();});</script>
     <% } %>
+
     <form id="next" method="post" action="/employee">
                     <input type="hidden" name="appState" value="calendar">
                     <input type="hidden" name="calendar" value="next">

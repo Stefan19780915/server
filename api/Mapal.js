@@ -1,6 +1,7 @@
 const axios = require('axios').default;
 const { date } = require('date-fns/locale');
 const qs = require('qs');
+const Store = require("../model/Store");
 
   const getMapalEmployees = async ()=>{
     let config = {
@@ -100,12 +101,12 @@ const getContracts = async ()=>{
 }
 
   //getHiredEmployees
-  const getHiredEMployeesByUnit = async (workcenter_ids)=>{
+  const getHiredEMployeesByUnit = async (workcenter_ids, start, end)=>{
     const toDay = new Date().toDateString();
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Employee/getHiredEmployees?workcenter_ids=${workcenter_ids}&start_date=2005-01-01&end_date=${toDay}`,
+      url: `https://gotogir.com/wap/labor/Employee/getHiredEmployees?workcenter_ids=${workcenter_ids}&start_date=2005-01-01&end_date=${end.toDateString()}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -120,13 +121,36 @@ const getContracts = async ()=>{
 
   }
 
+  //get Stores
+  const getUnits = async()=>{
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://gotogir.com/wap/General/GetBusinessUnits',
+      headers: { 
+        'accept': 'text/plain', 
+        'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+    };
+
+    try{
+      const result = await axios.request(config);
+      return result.data;
+    } catch(err){
+      console.log(err);
+    }
+  }
+
   //attach contract to employee
-  const employeesWithContract = async ()=>{
+  const employeesWithContract = async (start, end ,storeId)=>{
+
+    const unitId = storeId == undefined ? '' : storeId;
+
     //getEmployees
     const employees = await getMapalEmployees();
     //console.log(employees);
 
-    const getHiredElmployeesByUnit = await getHiredEMployeesByUnit('1');
+    const getHiredElmployeesByUnit = await getHiredEMployeesByUnit(unitId, start, end);
     //console.log(getHiredElmployeesByUnit);
 
     //get Contracts
@@ -166,8 +190,21 @@ const getContracts = async ()=>{
     const dateNavigation = req.body.calendar;
     const appState = req.body.appState;
     const now = new Date(Date.now());
-    
-    //console.log(dateNavigation, appState);
+
+    //GET STORE ID BY COMPARING MAPAL STORE NAME TO LOCAL NAME store.storeName which in on the req.user
+    //getting local store name from req.user.store
+    const store = await Store.findById(req.user.store);
+    //console.log(store.storeName);
+    //getting mapal stores - arr
+    const allMapalStores = await getUnits();
+    //console.log(allMapalStores);
+    //filteringt to get the store that matches req.user.store.storeName - local storeName must be the same as in MAPAL
+    const mapalStore = allMapalStores.filter( (e) => {
+      //console.log(e.business_unit);
+     return store ? store.storeName == e.business_unit : [{business_unit_id: ''}];
+    });
+    //accessing the store id and passing on to employeesWithContract to get the specified store employees
+   //console.log(mapalStore[0].business_unit_id);
 
     const date = dateNavigation == 'next' 
     ? new Date(now.getFullYear(), now.getMonth()+1, 1 ) 
@@ -180,7 +217,7 @@ const getContracts = async ()=>{
     const lastDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()+daysCount-1);
 
     //getEmployees
-    const employees = await employeesWithContract();
+    const employees = await employeesWithContract(firstDay, lastDay, mapalStore[0].business_unit_id);
     //console.log(employees);
 
     //Create the employee with time and absences
