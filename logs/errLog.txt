@@ -1383,3 +1383,12 @@ Cannot read properties of undefined (reading 'business_date')
     626|                   <% }) %>
 
 Cannot read properties of undefined (reading 'business_date')
+29/08/2024	17:43:22	f68e51fe-cc2c-44f2-9af6-2bb8bbf2a6e7	ReferenceError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:605
+    603|         <div class="d-flex-visible space-between">
+    604|           <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
+ >> 605|           <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
+    606|           <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
+    607|         </div>
+    608|         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{ %>
+
+emp is not defined

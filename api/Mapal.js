@@ -199,10 +199,10 @@ const getContracts = async ()=>{
     const allMapalStores = await getUnits();
     //console.log(allMapalStores);
     //filteringt to get the store that matches req.user.store.storeName - local storeName must be the same as in MAPAL
-    const mapalStore = allMapalStores.filter( (e) => {
-      //console.log(e.business_unit);
-     return store ? store.storeName == e.business_unit : [{business_unit_id: ''}];
-    });
+    const mapalStore = allMapalStores.find( (e) => {
+      //console.log(e.business_unit, store.storeName);
+        return store && store.storeName == e.business_unit ? e.business_unit : '';
+      });
     //accessing the store id and passing on to employeesWithContract to get the specified store employees
    //console.log(mapalStore[0].business_unit_id);
 
@@ -216,8 +216,9 @@ const getContracts = async ()=>{
     const daysCount = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
     const lastDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()+daysCount-1);
 
+    if(mapalStore != undefined){
     //getEmployees
-    const employees = await employeesWithContract(firstDay, lastDay, mapalStore[0].business_unit_id);
+    const employees =  await employeesWithContract(firstDay, lastDay, mapalStore.business_unit_id);
     //console.log(employees);
 
     //Create the employee with time and absences
@@ -304,13 +305,15 @@ const getContracts = async ()=>{
     });
     emp.time = output;
     emp.reqMonth = date;
-    
     return emp;
     }));
+
     return result;
+    }else{
+      return [];
+    }
   }
 
-  
 
   module.exports = {
     getMapalEmployees,

@@ -7,11 +7,13 @@ moment.locale("sk");
     
 async function deleteDir (req, res, next){
 
-        const data = await Employee.findOne({ _id: req.params.id }).populate(
+          const contract = await Contract.findOne({_id: req.params.id}).populate('employee');
+
+          
+
+          const data = await Employee.findOne({ _id: contract.employee._id}).populate(
             "store"
           ).populate("position");
-
-          const contract = await Contract.findOne({ employee: data._id, contractState: true });
     
         // Multilevel directory 
 const dirPath = `./data/${data.store.storeName}/${data.lastName} ${data.firstName} ${moment(contract.contractStartDate).format("LL")}/`; 

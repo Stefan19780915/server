@@ -15,7 +15,7 @@ const { zhCN } = require("date-fns/locale");
 const sendEmail = require("../utils/sendEmployeeEmail");
 const fs = require('fs');
 const path = require('path');
-const {makeEmail} = require("../utils/email")
+const {makeEmail} = require("../utils/email");
 
 
 //DONE RENDER READ ALL EMPLOYEES
@@ -24,6 +24,10 @@ const getAllEmployees = async (req, res) => {
   const rolesAll = ['Owner', 'Super', 'User', 'Manager', 'Admin'];
   const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
   const rolesAdminManager = ['User', 'Manager'];
+
+  //Uploaded file attached to the req
+  const hrData = req.hrKpis ? req.hrKpis : [];
+  console.log(hrData);
 
   //const oneEmpMapal = await getOneEmployee('001661');
   //console.log(oneEmpMapal);
@@ -151,7 +155,8 @@ const getAllEmployees = async (req, res) => {
     message: req.flash("message"),
     roles: req.user.roles == 'Super' ? rolesAll : req.user.roles == 'Owner' ? rolesClient : req.user.roles == 'Admin' ? rolesAdminManager : [] ,
     link: '',
-    appState: req.body.appState == undefined ? false : req.body.appState,  
+    appState: req.body.appState == undefined ? false : req.body.appState,
+    hrData: hrData,  
   });
 };
 
@@ -351,12 +356,23 @@ const deleteEmployee = async (req, res) => {
 
   const storeArea = await Store.findOne({admin: employee.user._id}).populate('user');
 
+  //CHECK ID EMPLOYEE HAS CONTRACT ASSIGNED
+  const contract = await Contract.find({ employee: req.params.id });
+
   if (storeArea) {
     req.flash(
       "message",
       `Employee ${store.user.userName} cannot be deleted bacause is the Area Coach of the ${store.storeName} store .`
     );
     return res.redirect("/employee");
+  }
+
+  if(contract.length > 0){
+    req.flash(
+      'message',
+      `Employee ${store.user.userName} cannot be deleted bacause it has contracts assigned to it. Please delete all contracts.`
+    );
+    return res.redirect('/employee');
   }
 
   if (store) {

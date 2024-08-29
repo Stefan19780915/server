@@ -5,16 +5,22 @@ const contractController = require("../controllers/contractController");
 const { createUser } = require("../middleware/registerUserHandler");
 const { deleteDir } = require('../middleware/deleteDirHandler');
 const { dataCheck } = require('../middleware/dataCheck');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const {hrKpisUpload} = require('../controllers/uploadController')
 
 router.get("/", employeeController.getAllEmployees);
 
 router.post("/", employeeController.getAllEmployees);
 
+router.post("/upload", upload.single('file'), hrKpisUpload, employeeController.getAllEmployees);
+
 router.get("/:id", employeeController.getEmployee);
 
 router.post("/personal", employeeController.createEmployee);
 
-router.get("/personal/:id",  deleteDir, employeeController.deleteEmployee);
+router.get("/personal/:id", employeeController.deleteEmployee);
 
 router.post("/child/:id", employeeController.createChild);
 
@@ -54,7 +60,7 @@ router.put("/company/:id", employeeController.updateCompany);
 router.get("/company/:id", employeeController.deleteCompany);
 
 router.post("/contract/:id", contractController.createContract);
-router.put("/contract/:id", contractController.updateContract);
-router.get('/contract/:id', contractController.deleteContract);
+router.put("/contract/:id", deleteDir, contractController.updateContract);
+router.get('/contract/:id', deleteDir, contractController.deleteContract);
 
 module.exports = router;

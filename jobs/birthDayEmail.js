@@ -23,14 +23,18 @@ const job1 = async ()=>{
 
         if (empWhoHasBDTomorrow.length){
             const html = makeBirthDayEmail(empWhoHasBDTomorrow, empWhoHasBDIn7Days);
-            const subject = 'KFC Employees who will have birthday tomorrow.'
-                     
+            const subject = 'KFC Employees who will have birthday tomorrow and in the next 7 days.'
+               
+           // console.log(html)
+            
             const info = await sendEmail(
                 'stefan.csomor@qweurope.com',
-                [],
+                ['stefan_csomor@hotmail.com','eur@qweurope.com'],
                 subject,
                 html
               );
+              
+
 
               if (info.messageId) {
                 console.log("Message sent");
@@ -45,13 +49,16 @@ const job1 = async ()=>{
                 const html = makeBirthDayEmailin7Days(empWhoHasBDIn7Days);
                 const subject = 'KFC Employees who will have birthday in the next 7 days.'
 
-                
+                //console.log(html)
+
+               
             const info = await sendEmail(
                 'stefan.csomor@qweurope.com',
-                ['stefan_csomor@hotmail.com', 'eur@qweurope.com'],
+                ['stefan_csomor@hotmail.com','eur@qweurope.com'],
                 subject,
                 html
               );
+              
 
               if (info.messageId) {
                 console.log("Message sent");

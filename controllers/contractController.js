@@ -82,7 +82,6 @@ const updateContract = async (req, res) => {
 
   const employeeContracts = await Contract.find({ employee: contract.employee._id, contractState: true });
 
-
   if(employeeContracts.length){
     if (req.body.contractState && employeeContracts[0]._id != req.params.id) {
       req.flash("message", "More contracts have ACTIVE STATE - Only 1 contract can have active state. Please disable active states on other contracts.");
@@ -90,7 +89,7 @@ const updateContract = async (req, res) => {
     }
   }
 
-//console.log(req.body)
+console.log(req.body)
 
   if (!contract) {
     req.flash("message", "No Contract found.");
@@ -105,11 +104,13 @@ const updateContract = async (req, res) => {
 
   if (req.body.contractStartDate)
     contract.contractStartDate = req.body.contractStartDate;
+ 
   if (req.body.contractEndDate)
     contract.contractEndDate = req.body.contractEndDate;
-    if (!req.body.contractEndDate)
+/*
+  if (!req.body.contractEndDate)
     contract.contractEndDate = '';
-
+*/
   if (req.body.contractSalaryType)
     contract.contractSalaryType = req.body.contractSalaryType;
   if (req.body.contractSalary)
@@ -151,11 +152,11 @@ const updateContract = async (req, res) => {
 
 const deleteContract = async (req, res)=>{
 
-  console.log(req.params.id);
+  //console.log(req.params.id);
 
   const contract = await Contract.findOne({_id: req.params.id}).populate('employee');
 
-  console.log(contract.contractStartDate);
+  //console.log(contract.contractStartDate);
 
   try {
     const result = await contract.deleteOne({ _id: req.params.id });

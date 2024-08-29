@@ -593,7 +593,7 @@
     </div>
     <section class="sub-cat">
       <div class="container">
-        <h4><a>Mapal Employees</a></h4>
+        <h4><a>Employee Attendance</a></h4>
       </div>
     </section>
     <div class="container flow sub-cat-content">
@@ -603,27 +603,31 @@
         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{ %>
           <div>
             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
-                <div class="calendar">
-
-                  <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
-                  <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
-                  <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
-                  <div class="week-day">Mon</div>
-                  <div class="week-day">Tue</div>
-                  <div class="week-day">Wed</div>
-                  <div class="week-day">Thr</div>
-                  <div class="week-day">Fri</div>
-                  <div class="week-day">Sat</div>
-                  <div class="week-day">Sun</div>
-
+            <div class="d-flex-visible space-between">
+              <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
+              <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
+              <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
+            </div>
+            <div class="calendar">
+              <div class="week-day">Mon</div>
+              <div class="week-day">Tue</div>
+              <div class="week-day">Wed</div>
+              <div class="week-day">Thr</div>
+              <div class="week-day">Fri</div>
+              <div class="week-day">Sat</div>
+              <div class="week-day">Sun</div>
+              <div class="week-day">Mon</div>
+              <div class="week-day">Tue</div>
+            </div>
+            <div class="calendar">
                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                   <div class="day">
-                    <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+              <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
                     <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
                   </div>
                   <% }) %>
                 </div>
-            <div style="height: 50px">
+            <div style="height: 50px" class="d-flex-visible space-between">
               <p>Contract type: <strong> <%= emp.contract.contract%> </strong> </p>
               <p>Fixed weekly: <strong> <%= emp.contract.fixed_hours_weekly%> </strong> </p>
               <p>Fixed dayly: <strong> <%= emp.contract.workday_hours%> </strong> </p>
@@ -637,11 +641,12 @@
           <% mapal.filter(e=> e.contract.contract == 'TPP').forEach((emp)=>{ %>
             <div>
               <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
-                  <div class="calendar">
-
-                    <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
-                    <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
-                    <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
+              <div class="d-flex-visible space-between">
+                <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
+                <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
+                <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
+              </div>
+              <div class="calendar">
                     <div class="week-day">Mon</div>
                     <div class="week-day">Tue</div>
                     <div class="week-day">Wed</div>
@@ -649,15 +654,18 @@
                     <div class="week-day">Fri</div>
                     <div class="week-day">Sat</div>
                     <div class="week-day">Sun</div>
-
+                    <div class="week-day">Mon</div>
+                    <div class="week-day">Tue</div>
+              </div>
+                  <div class="calendar">
                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                     <div class="day">
-                      <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+                      <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
                       <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
                     </div>
                     <% }) %>
                   </div>
-              <div style="height: 50px">
+              <div style="height: 50px" class="d-flex-visible space-between">
                 <p>Contract type: <strong> <%= emp.contract.contract%> </strong> </p>
                 <p>Fixed weekly: <strong> <%= emp.contract.fixed_hours_weekly%> </strong> </p>
                 <p>Fixed dayly: <strong> <%= emp.contract.workday_hours%> </strong> </p>
@@ -672,29 +680,31 @@
             <% mapal.filter(e=> e.contract.contract == 'DOBPS').forEach((emp)=>{ %>
               <div>
                 <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div>
-                      
+                      <div class="d-flex-visible space-between">
+                        <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
+                        <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
+                        <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
+                      </div>
+                      <div class="calendar">
+                        <div class="week-day">Mon</div>
+                        <div class="week-day">Tue</div>
+                        <div class="week-day">Wed</div>
+                        <div class="week-day">Thr</div>
+                        <div class="week-day">Fri</div>
+                        <div class="week-day">Sat</div>
+                        <div class="week-day">Sun</div>
+                        <div class="week-day">Mon</div>
+                        <div class="week-day">Tue</div>
+                      </div>
                     <div class="calendar">
-                      
-                      <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
-                      <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
-                      <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
-                      <div class="week-day">Mon</div>
-                      <div class="week-day">Tue</div>
-                      <div class="week-day">Wed</div>
-                      <div class="week-day">Thr</div>
-                      <div class="week-day">Fri</div>
-                      <div class="week-day">Sat</div>
-                      <div class="week-day">Sun</div>
-
-
                       <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                       <div class="day">
-                        <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+                        <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
                         <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
                       </div>
                       <% }) %>
                     </div>
-                <div style="height: 50px">
+                <div style="height: 50px" class="d-flex-visible space-between">
                   <p>Contract type: <strong> <%= emp.contract.contract%> </strong> </p>
                   <p>Fixed weekly: <strong> <%= emp.contract.fixed_hours_weekly%> </strong> </p>
                   <p>Fixed dayly: <strong> <%= emp.contract.workday_hours%> </strong> </p>
@@ -709,10 +719,12 @@
               <% mapal.filter(e=> e.contract.contract == 'DOPC').forEach((emp)=>{ %>
                 <div>
                   <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+                    <div class="d-flex-visible space-between">
+                      <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
+                      <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
+                      <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
+                    </div>
                       <div class="calendar">
-                        <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
-                        <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
-                        <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
                         <div class="week-day">Mon</div>
                         <div class="week-day">Tue</div>
                         <div class="week-day">Wed</div>
@@ -720,14 +732,18 @@
                         <div class="week-day">Fri</div>
                         <div class="week-day">Sat</div>
                         <div class="week-day">Sun</div>
+                        <div class="week-day">Mon</div>
+                        <div class="week-day">Tue</div>
+                      </div>
+                      <div class="calendar">    
                         <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                         <div class="day">
-                          <div class="day-num"><%= new Date(t.business_date).getDate()  %></div>
+                          <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
                           <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
                         </div>
                         <% }) %>
                       </div>
-                  <div style="height: 50px">
+                  <div style="height: 50px" class="d-flex-visible space-between">
                     <p>Contract type: <strong> <%= emp.contract.contract%> </strong> </p>
                     <p>Fixed weekly: <strong> <%= emp.contract.fixed_hours_weekly%> </strong> </p>
                     <p>Fixed dayly: <strong> <%= emp.contract.workday_hours%> </strong> </p>
@@ -753,7 +769,7 @@
 
     <section class="sub-cat">
       <div class="container">
-        <h4><a>Users</a></h4>
+        <h4><a>Upload</a></h4>
       </div>
     </section>
 
@@ -764,7 +780,26 @@
         <input autocomplete="off" type="text" name="storeName" />
         <button class="btn-primary">Save</button>
       </form>
+      <h1>Upload XLSX File</h1>
+        <form action="employee/upload" method="post" enctype="multipart/form-data">
+          <input class="btn-primary" type="file" name="file" accept=".xlsx">
+          <button class="btn-primary" type="submit">Upload</button>
+        </form>
     </div>
+
+    <section class="sub-cat">
+      <div class="container">
+        <h4><a>Dashboard</a></h4>
+      </div>
+    </section>
+
+    <div class="container flow sub-cat-content">
+      <span></span>
+      <% hrData.forEach( (data)=> { %> 
+        <p><%= data.Store %></p>  
+      <% }) %>
+    </div>
+
   </section>
 
 

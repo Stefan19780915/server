@@ -24,7 +24,6 @@ const { apiToken } = require('./middleware/apiToken');
 const Bree = require('bree');
 const moment = require("moment");
 
-
 const PORT = process.env.PORT || 3500;
 
 //Start Chat
@@ -58,6 +57,7 @@ app.use("/store", checkAuthUser, require("./routes/store"));
 
 
 
+
 //JUST TO TEST A REQUEST - ALSO FROM TERMINAL WITH CURL -  curl http://localhost:3500/test/typeAnyWordHere
 app.get('/test/:word', (req, res)=>{
   if(!req.params.word){
@@ -68,6 +68,7 @@ app.get('/test/:word', (req, res)=>{
   //SEND AS TEXT
   //res.send(`This is the reqest parameter passed ${req.params.word}`);
 })
+
 
 
 //RUN A SCHEDULER JOB

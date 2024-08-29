@@ -30,7 +30,7 @@ function makeBirthDayEmailin7Days (employeesIn7Days){
           <th style="width:15%; background-color: #D6EEEE">Birth Date</th>
           <th style="width:25%; background-color: #D6EEEE">Age</th>
         </tr>
-        ${sevenDayList}
+        ${sevenDayList.join('')}
       </table>
       `;
   }
