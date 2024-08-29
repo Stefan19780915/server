@@ -190,7 +190,7 @@ const getContracts = async ()=>{
     const dateNavigation = req.body.calendar;
     const appState = req.body.appState;
     const now = new Date(Date.now());
-
+    console.log(now)
     //GET STORE ID BY COMPARING MAPAL STORE NAME TO LOCAL NAME store.storeName which in on the req.user
     //getting local store name from req.user.store
     const store = await Store.findById(req.user.store);
@@ -212,9 +212,11 @@ const getContracts = async ()=>{
     ? new Date(now.getFullYear(), now.getMonth()-1, 1 )
     : new Date(now.getFullYear(), now.getMonth(), 1 );
 
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()-date.getDay());
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()-1);
     const daysCount = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
     const lastDay = new Date(date.getFullYear(), date.getMonth(), date.getDate()+daysCount-1);
+
+    //console.log(firstDay, daysCount, lastDay)
 
     if(mapalStore != undefined){
     //getEmployees
@@ -237,8 +239,6 @@ const getContracts = async ()=>{
           };
           return d;
     });
-
-    //console.log(newDays)
     const sortedMApal = mapalEmpClockings
     .filter( d => d.payable_time > 0 )
     .sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime());

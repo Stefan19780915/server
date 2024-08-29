@@ -609,17 +609,6 @@
               <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
             </div>
             <div class="calendar">
-              <div class="week-day">Mon</div>
-              <div class="week-day">Tue</div>
-              <div class="week-day">Wed</div>
-              <div class="week-day">Thr</div>
-              <div class="week-day">Fri</div>
-              <div class="week-day">Sat</div>
-              <div class="week-day">Sun</div>
-              <div class="week-day">Mon</div>
-              <div class="week-day">Tue</div>
-            </div>
-            <div class="calendar">
                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                   <div class="day">
               <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
@@ -645,17 +634,6 @@
                 <a onclick="document.getElementById('previous').submit();" class="decrement"><div >Previous</div></a>
                 <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
                 <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
-              </div>
-              <div class="calendar">
-                    <div class="week-day">Mon</div>
-                    <div class="week-day">Tue</div>
-                    <div class="week-day">Wed</div>
-                    <div class="week-day">Thr</div>
-                    <div class="week-day">Fri</div>
-                    <div class="week-day">Sat</div>
-                    <div class="week-day">Sun</div>
-                    <div class="week-day">Mon</div>
-                    <div class="week-day">Tue</div>
               </div>
                   <div class="calendar">
                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
@@ -685,17 +663,6 @@
                         <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
                         <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
                       </div>
-                      <div class="calendar">
-                        <div class="week-day">Mon</div>
-                        <div class="week-day">Tue</div>
-                        <div class="week-day">Wed</div>
-                        <div class="week-day">Thr</div>
-                        <div class="week-day">Fri</div>
-                        <div class="week-day">Sat</div>
-                        <div class="week-day">Sun</div>
-                        <div class="week-day">Mon</div>
-                        <div class="week-day">Tue</div>
-                      </div>
                     <div class="calendar">
                       <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                       <div class="day">
@@ -724,17 +691,6 @@
                       <div class="month" value="1"><%= moment(new Date(emp.reqMonth)).format('MMMM') %> <%= moment(new Date(emp.reqMonth)).format('YYYY') %></div>
                       <a onclick="document.getElementById('next').submit();" class="increment"><div >Next</div></a>
                     </div>
-                      <div class="calendar">
-                        <div class="week-day">Mon</div>
-                        <div class="week-day">Tue</div>
-                        <div class="week-day">Wed</div>
-                        <div class="week-day">Thr</div>
-                        <div class="week-day">Fri</div>
-                        <div class="week-day">Sat</div>
-                        <div class="week-day">Sun</div>
-                        <div class="week-day">Mon</div>
-                        <div class="week-day">Tue</div>
-                      </div>
                       <div class="calendar">    
                         <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                         <div class="day">

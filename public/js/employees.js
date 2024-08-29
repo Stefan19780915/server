@@ -6,7 +6,7 @@ async function fetchURL(param) {
 }
 
 const displayContent = (content)=>{
-  console.log(content.response);
+  
 } 
 //fetchURL('Hello from the parameter');
 
@@ -17,7 +17,7 @@ const dropDowns = document.querySelectorAll(".new-employee");
 
 dropDowns.forEach((dropDown) => {
   dropDown.addEventListener("click", (e) => {
-    console.log(e.currentTarget.nextElementSibling.style.maxHeight);
+   // console.log(e.currentTarget.nextElementSibling.style.maxHeight);
     e.currentTarget.nextElementSibling.style.maxHeight == "0px"
       ? (e.currentTarget.nextElementSibling.style.maxHeight = "1500px")
       : (e.currentTarget.nextElementSibling.style.maxHeight = "0px");
@@ -203,7 +203,7 @@ function closeAllSelect(elmnt) {
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
 
-
+/*
 //Haldle Contract End Date
 document.getElementById("check").addEventListener("change", (e) => {
   //console.log(e.target.value);
@@ -218,3 +218,4 @@ document.getElementById("check").addEventListener("change", (e) => {
     document.getElementById("hidden").disabled = true;
   }
 });
+*/
