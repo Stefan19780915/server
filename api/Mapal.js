@@ -190,17 +190,18 @@ const getContracts = async ()=>{
     const dateNavigation = req.body.calendar;
     const appState = req.body.appState;
     const now = new Date(Date.now());
-    console.log(now)
+    //console.log(now)
     //GET STORE ID BY COMPARING MAPAL STORE NAME TO LOCAL NAME store.storeName which in on the req.user
     //getting local store name from req.user.store
     const store = await Store.findById(req.user.store);
+    //console.log(req.user.store);
     //console.log(store.storeName);
     //getting mapal stores - arr
     const allMapalStores = await getUnits();
     //console.log(allMapalStores);
     //filteringt to get the store that matches req.user.store.storeName - local storeName must be the same as in MAPAL
     const mapalStore = allMapalStores.find( (e) => {
-      //console.log(e.business_unit, store.storeName);
+     // console.log(e.business_unit, store.storeName);
         return store && store.storeName == e.business_unit ? e.business_unit : '';
       });
     //accessing the store id and passing on to employeesWithContract to get the specified store employees
@@ -225,10 +226,12 @@ const getContracts = async ()=>{
 
     //Create the employee with time and absences
     const result = await Promise.all( employees.map( async (emp)=>{
+     // console.log(emp.employee_code);
     //get Absences
     const getAb = await getAbsences(emp.employee_code,date, lastDay);
     //getCloskings
     const mapalEmpClockings = await getClockings(emp.employee_code, date, lastDay) 
+    
     //create new month
     const newDays = [...Array(daysCount+date.getDay()+1)].map( (d,i)=>{ 
         d = {

@@ -115,6 +115,7 @@ const appStateSettingsMapalEmp = ()=>{
 //appStateSettingsMapalEmp();
 
 
+
 //CUSTOM SELECT
 
 var x, i, j, l, ll, selElmnt, a, b, c;
@@ -158,6 +159,18 @@ for (i = 0; i < l; i++) {
         }
       }
       h.click();
+      //ON A CLICK OF AN ITEM IN STORE SELECT CALLING SBMIT ON A FORM TO SWAP A STORE
+      const swapStoreForm = document.getElementById('swapStoreForm');
+      const swapStoreInput = document.getElementById('swapStoreInput');
+      for (o = 0; o < s.children.length; o++){
+        if(s.id == 'swapStoreSelect'){
+          if(s.options[o].selected == true){
+            //console.log(s.options[o].value);
+            swapStoreInput.value = s.options[o].value;
+            swapStoreForm.submit();
+          }
+        }
+      }
     });
     b.appendChild(c);
   }

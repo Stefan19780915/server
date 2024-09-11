@@ -9,10 +9,11 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const {hrKpisUpload} = require('../controllers/uploadController')
+const {swapStore} = require('../middleware/swapStoreUser')
 
 router.get("/", employeeController.getAllEmployees);
 
-router.post("/", employeeController.getAllEmployees);
+router.post("/",swapStore, employeeController.getAllEmployees);
 
 router.post("/upload", upload.single('file'), hrKpisUpload, employeeController.getAllEmployees);
 
