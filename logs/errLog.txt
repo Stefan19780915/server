@@ -1392,3 +1392,57 @@ Cannot read properties of undefined (reading 'business_date')
     608|         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{ %>
 
 emp is not defined
+29/08/2024	23:36:54	66026cc5-380d-476e-8dd0-3f24e58ad315	SyntaxError: Unexpected token 'catch' in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:13:06	c9af69ae-81e0-4b0c-970d-5615d0ae160d	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:762
+    760|       </div>
+    761|       <% if(hrData.length > 0) {%> 
+ >> 762|           <script> <% console.log(hrData.filter( (e)=>{
+    763|               return (new Date(e.date).getFullYear() == 2024
+    764|                    && new Date(e.date).getMonth() == 3
+    765|             ).map( (e)=> e.store );
+
+(((intermediate value).getFullYear(...) == 2024) && ((intermediate value).getMonth(...) == 3)).map is not a function
+30/08/2024	00:32:40	0c92108e-4955-4152-93b7-e566fe399e49	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:32:42	033e9394-47cf-463f-b655-21b7ef66ddc0	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:35:48	7431145e-2e87-4b57-86db-08763f18869b	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:37:37	3e4eff18-a3f0-44ce-b4cb-71059ffa5dff	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:43:45	a01dd1cf-adee-4453-aff1-9d7b08713b47	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:44:18	9a4ec199-6dc5-4ff0-b2fe-1e8762d99980	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:58:42	0cb749c6-4dfb-4c02-b24b-945b1e85a43d	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+30/08/2024	00:59:36	c2fb024c-0642-4772-b13e-721599e7947c	SyntaxError: missing ) after argument list in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.

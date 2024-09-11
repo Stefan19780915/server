@@ -27,7 +27,7 @@ const getAllEmployees = async (req, res) => {
 
   //Uploaded file attached to the req
   const hrData = req.hrKpis ? req.hrKpis : [];
-  console.log(hrData);
+  //console.log(hrData);
 
   //const oneEmpMapal = await getOneEmployee('001661');
   //console.log(oneEmpMapal);

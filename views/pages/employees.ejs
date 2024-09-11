@@ -751,14 +751,45 @@
 
     <div class="container flow sub-cat-content">
       <span></span>
-      <% hrData.forEach( (data)=> { %> 
-        <p><%= data.Store %></p>  
-      <% }) %>
+      <div class="chart-container" style="position: relative; height:100%; width:100%">
+        <canvas id="myChart" style="background-color: var(--clr-table-dark);"></canvas>
+      </div>
+      <% if(hrData.length > 0) {%> 
+          <script> 
+              const lab = '<%=hrData.filter( e => new Date(e.date).getFullYear() == 2024 && new Date(e.date).getMonth() == 4).map( e => e.Store ) %>';
+              const data = '<%=hrData.filter( e => new Date(e.date).getFullYear() == 2024 && new Date(e.date).getMonth() == 3).map( e => e.Head_Count ) %>';
+              const data1 = '<%=hrData.filter( e => new Date(e.date).getFullYear() == 2024 && new Date(e.date).getMonth() == 4).map( e => e.Head_Count ) %>';
+              const ctx = document.getElementById('myChart');
+              console.log(lab,data);
+                new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: lab.split(','),
+                    datasets: [{
+                      label: 'Head Count April 2024',
+                      data: data.split(','),
+                      borderWidth: 1
+                    },
+                    {
+                      label: 'Head Count May 2024',
+                      data: data1.split(','),
+                      borderWidth: 1
+                    }
+                  ]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+          </script>
+      <%}%>
+  
     </div>
-
   </section>
-
-
 
   <% } %> <% if(user.roles == 'Manager' || user.roles == 'Admin' || user.roles
   == 'Owner' || user.roles == 'Super') { %>
