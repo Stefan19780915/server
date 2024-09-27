@@ -36,6 +36,8 @@ const getAllEmployees = async (req, res) => {
  // const mapalEt = [];
  let mapalEt = await empWithTime(req,res);
 
+
+
   ///const mapalOneEmployee = await getOneEmployee();
   ///console.log(mapalOneEmployee, mapalEmp);
  // const mapalClockings = await getClockings();
@@ -179,11 +181,15 @@ const getEmployee = async (req, res) => {
       ? await Store.find({ admin: req.user.id })
           .populate("user")
           .sort({ storeName: "asc" })
-      : req.user.roles == "Owner" || req.user.roles == "Super" 
+      : req.user.roles == "Owner"
       ?  await Store.find({ storeCompany: loggedUser.storeCompany })
       .populate("user")
       .sort({ storeName: "asc" })
-      : [];
+      : req.user.roles == "Super" 
+      ? await Store.find()
+      .populate("user")
+      .sort({ storeName: "asc" })
+      :[];
 
   const allPositions = await Position.find().populate('storeCompany');
 
@@ -362,7 +368,7 @@ const deleteEmployee = async (req, res) => {
   if (storeArea) {
     req.flash(
       "message",
-      `Employee ${store.user.userName} cannot be deleted bacause is the Area Coach of the ${store.storeName} store .`
+      `Employee ${user.userName} cannot be deleted bacause is the Area Coach of the ${store.storeName} store .`
     );
     return res.redirect("/employee");
   }
@@ -370,7 +376,7 @@ const deleteEmployee = async (req, res) => {
   if(contract.length > 0){
     req.flash(
       'message',
-      `Employee ${store.user.userName} cannot be deleted bacause it has contracts assigned to it. Please delete all contracts.`
+      `Employee ${user.userName} cannot be deleted bacause it has contracts assigned to it. Please delete all contracts.`
     );
     return res.redirect('/employee');
   }
@@ -913,8 +919,8 @@ const deletePosition = async (req, res)=>{
 
 
 const createCompany = async (req, res)=>{
-  console.log(req.body);
-  console.log(req.user._id);
+ // console.log(req.body);
+ // console.log(req.user._id);
 
   const newCompany = {
     admin: req.user._id,

@@ -1446,3 +1446,48 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+25/09/2024	17:08:03	bfb75d96-9d80-4ddf-bbc3-56d31ade9fa1	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:655
+    653|                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    654|                     <div class="day">
+ >> 655|                       <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
+    656|                       <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
+    657|                     </div>
+    658|                     <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+25/09/2024	17:09:45	97f3f226-7ddd-4d0a-8af3-58ae4a51f4b1	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:655
+    653|                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    654|                     <div class="day">
+ >> 655|                       <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
+    656|                       <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
+    657|                     </div>
+    658|                     <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+25/09/2024	17:17:04	0b035215-682b-48eb-8662-83c5ff18be0e	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:655
+    653|                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    654|                     <div class="day">
+ >> 655|                       <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
+    656|                       <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
+    657|                     </div>
+    658|                     <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+25/09/2024	17:19:53	ee93e284-ebbf-4b1f-bfd1-c8a1df7a2e8d	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:655
+    653|                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
+    654|                     <div class="day">
+ >> 655|                       <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
+    656|                       <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
+    657|                     </div>
+    658|                     <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')
+25/09/2024	17:27:12	e7fdf87c-6af3-4b51-9a35-78e7aff86546	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:655
+    653|                     <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ console.log(t) %>
+    654|                     <div class="day">
+ >> 655|                       <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
+    656|                       <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
+    657|                     </div>
+    658|                     <% }) %>
+
+Cannot read properties of undefined (reading 'business_date')

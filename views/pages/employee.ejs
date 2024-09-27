@@ -201,7 +201,7 @@
           <div class="d-flex-visible space-between">
             <button class="add-child btn-primary">Update</button>
 
-            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager') { %>
+            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Manager' || user.roles == 'Super') { %>
               <a class="btn-primary" href="/employee/personal/<%= data._id %>">Delete</a> 
             <% } %>
             </div>

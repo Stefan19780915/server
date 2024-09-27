@@ -40,11 +40,11 @@ const Store = require("../model/Store");
 
   
   //clockings
-  const getClockings = async (empCode,startDate,endDate)=>{
+  const getClockings = async (employee_id,startDate,endDate)=>{
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Clockings/GetClockingsByEmployee?employee_codes=${empCode}&start_date=${startDate.toDateString()}&end_date=${endDate.toDateString()}`,
+      url: `https://gotogir.com/wap/labor/Clockings/GetClockingsByEmployee?employee_ids=${employee_id}&start_date=${startDate.toDateString()}&end_date=${endDate.toDateString()}`,
       headers: { 
         'accept': 'text/plain',
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -60,11 +60,11 @@ const Store = require("../model/Store");
 
   //getAbsences
 
-  const getAbsences = async (employee_code, start_date, end_date)=>{
+  const getAbsences = async (employee_id, start_date, end_date)=>{
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?employee_codes=${employee_code}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
+      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?employee_ids=${employee_id}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -201,11 +201,11 @@ const getContracts = async ()=>{
     //console.log(allMapalStores);
     //filteringt to get the store that matches req.user.store.storeName - local storeName must be the same as in MAPAL
     const mapalStore = allMapalStores.find( (e) => {
-     // console.log(e.business_unit, store.storeName);
+      //console.log(e, req.user.store);
         return store && store.storeName == e.business_unit ? e.business_unit : '';
       });
     //accessing the store id and passing on to employeesWithContract to get the specified store employees
-   //console.log(mapalStore[0].business_unit_id);
+   //console.log(mapalStore);
 
     const date = dateNavigation == 'next' 
     ? new Date(now.getFullYear(), now.getMonth()+1, 1 ) 
@@ -226,16 +226,16 @@ const getContracts = async ()=>{
 
     //Create the employee with time and absences
     const result = await Promise.all( employees.map( async (emp)=>{
-     // console.log(emp.employee_code);
+      //console.log(emp);
     //get Absences
-    const getAb = await getAbsences(emp.employee_code,date, lastDay);
+    const getAb = await getAbsences(emp.employee_id,date, lastDay);
     //getCloskings
-    const mapalEmpClockings = await getClockings(emp.employee_code, date, lastDay) 
+    const mapalEmpClockings = await getClockings(emp.employee_id, date, lastDay) 
     
     //create new month
     const newDays = [...Array(daysCount+date.getDay()+1)].map( (d,i)=>{ 
         d = {
-            employee_code: emp.employee_code,
+            employee_id: emp.employee_id,
             id: i+1,
             business_date: new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate()+i+1),
             payable_time: '',
