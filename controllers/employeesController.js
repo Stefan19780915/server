@@ -35,10 +35,10 @@ const getAllEmployees = async (req, res) => {
   //to turn on mapal emp just de-comment the other mapalEl
  // const mapalEt = [];
  let mapalEt = await empWithTime(req,res);
+// mapalEt.forEach( (emp)=> emp.time.forEach( (t)=> console.log(t) ) );
 
 
-
-  ///const mapalOneEmployee = await getOneEmployee();
+  ///const mapalOneEmployee = await getOneEmployee()//;
   ///console.log(mapalOneEmployee, mapalEmp);
  // const mapalClockings = await getClockings();
  // mapalClockings.forEach( (time)=>{
@@ -90,14 +90,18 @@ const getAllEmployees = async (req, res) => {
       // check if there is a property like that - then try to access
    //allUsers.forEach( user => console.log(user));
 
+   
+
   const allEmployees =
-    req.user.roles == "Admin" || req.user.roles == "Owner" || req.user.roles == "Super"  
+      req.user.roles == "Admin" || req.user.roles == "Super"   
       ? await Employee.find().populate("store").sort({ store: "asc" })
       : req.user.roles == "Manager" && !allStores == []
       ? await Employee.find({ store: allStores._id })
           .populate("store")
           .populate('user')
           .sort({ store: "asc" })
+      : req.user.roles == "Owner" 
+      ? await Employee.find().populate("store").sort({ store: "asc" }) 
       : [];
 
     
@@ -125,16 +129,14 @@ const getAllEmployees = async (req, res) => {
   }
   res.render("../views/pages/employees", {
     msg: false,
-    data: !req.user.storeCompany 
+    data: !req.user.storeCompany && req.user.roles == "Super"
         ? allEmployees 
         :  req.user.roles == "Manager" 
         ? allEmployees.filter( (emp) => {
-          //console.log(emp.user.roles);
           return emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString() && emp.user.roles != 'Admin' })
-        : req.user.roles == "Owner" ? allEmployees.filter( async ( emp) => {
-          const comp = await Company.find( { _id: emp.store.storeCompany } );
-          comp.admin == loggedUser._id;
-        } ) : adminEmployees,
+        : req.user.roles == "Owner" 
+        ? allEmployees
+        :adminEmployees,
     user: req.user,
     users:
       req.user.roles == "Admin" ?

@@ -614,7 +614,7 @@
             <% } %>
           </div>  
         </div>
-        <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{ %>
+        <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{  %> 
           <div>
             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
             <div class="d-flex-visible space-between">
@@ -625,7 +625,7 @@
             <div class="calendar">
                   <% emp.time.sort((a, b) => new Date(a.business_date).getTime() - new Date(b.business_date).getTime()).forEach( (t)=>{ %>
                   <div class="day">
-              <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){%> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
+              <%if(new Date(t.business_date).getDay() == 0 || new Date(t.business_date).getDay() == 6 ){  %> <div class="day-num-color" >  <%}else{%> <div class="day-num" > <%}%> <%= new Date(t.business_date).getDate()  %></div>
                     <div class="day-con <%= t.payable_time %>"><%= typeof t.payable_time == 'number' ? parseFloat((t.payable_time/3600).toFixed(2)) : t.payable_time %></div>
                   </div>
                   <% }) %>
