@@ -820,8 +820,6 @@ const sendEmployeeEmail = async (req, res) => {
   populate('employee').
   populate('position');
 
-  console.log(oneContract);
-
   const userAdmin = req.user.admin
     ? await User.findOne({ _id: req.user.id }).populate("admin")
     : "";
