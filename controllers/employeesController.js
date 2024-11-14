@@ -811,9 +811,16 @@ const updateEmployeeContract = async (req, res) => {
 //GET ONE EMPLYEE AND SEND EMAIL
 
 const sendEmployeeEmail = async (req, res) => {
-  const oneEmployee = await Employee.findOne({ _id: req.params.id }).populate(
-    "store"
-  );
+  const oneEmployee = await Employee.findOne({ _id: req.params.id }).
+  populate("store").
+  populate('position');
+
+  const oneContract = await Contract.findOne({ employee: req.params.id }).
+  populate("store").
+  populate('employee').
+  populate('position');
+
+  console.log(oneContract);
 
   const userAdmin = req.user.admin
     ? await User.findOne({ _id: req.user.id }).populate("admin")
@@ -823,17 +830,17 @@ const sendEmployeeEmail = async (req, res) => {
     ? req.user.userEmail
     : userAdmin.admin.userEmail;
 
-  const html = makeEmail(oneEmployee);
+  const html = makeEmail(oneContract);
       
-  const subject = `Nástup - ${oneEmployee.lastName} ${oneEmployee.firstName} ${
-    oneEmployee.store.storeName
-  } ${oneEmployee.contractType} od: ${moment(
-    oneEmployee.contractStartDate
+  const subject = `Nástup - ${oneContract.employee.lastName} ${oneContract.employee.firstName} ${
+    oneContract.store.storeName
+  } ${oneContract.contractType} od: ${moment(
+    oneContract.contractStartDate
   ).format("LL")}`;
 
   const info = await sendEmail(
     req.user.userEmail,
-    [userAdminEmail, oneEmployee.store.storeEmail],
+    [userAdminEmail, oneContract.store.storeEmail],
     subject,
     html
   );
@@ -842,7 +849,7 @@ const sendEmployeeEmail = async (req, res) => {
     console.log("Message sent");
     req.flash(
       "message",
-      `Employee ${oneEmployee.firstName} ${oneEmployee.lastName} was sent via email id: ${info.messageId}.`
+      `Employee ${oneContract.employee.firstName} ${oneContract.employee.lastName} was sent via email id: ${info.messageId}.`
     );
     res.redirect("/employee");
   } else {

@@ -14,164 +14,164 @@ function makeEmail (oneEmployee){
         </tr>
         <tr>
           <td>Personal nuber</td>
-          <td>${oneEmployee.personalNumber}</td>
+          <td>${oneEmployee.employee.personalNumber}</td>
         </tr>
         <tr>
           <td>First Name</td>
-          <td>${oneEmployee.firstName}</td>
+          <td>${oneEmployee.employee.firstName}</td>
         </tr>
         <tr>
           <td>Last Name</td>
-          <td>${oneEmployee.lastName}</td>
+          <td>${oneEmployee.employee.lastName}</td>
         </tr>
 
         <tr>
           <td>Birth Name</td>
-          <td>${oneEmployee.birthName}</td>
+          <td>${oneEmployee.employee.birthName}</td>
         </tr>
 
         <tr>
           <td>Birth Date</td>
           <td>${moment(
-            oneEmployee.birthDate
+            oneEmployee.employee.birthDate
           ).format("LL")}</td>
         </tr>
 
         <tr>
           <td>Social Security Number</td>
-          <td>${oneEmployee.socialSecNumber}</td>
+          <td>${oneEmployee.employee.socialSecNumber}</td>
         </tr>
 
         <tr>
           <td>ID Number</td>
-          <td>${oneEmployee.idCardNumber}</td>
+          <td>${oneEmployee.employee.idCardNumber}</td>
         </tr>
 
         <tr>
           <td>Birth Place</td>
-          <td>${oneEmployee.birthPlace}</td>
+          <td>${oneEmployee.employee.birthPlace}</td>
         </tr>
 
         <tr>
           <td>Country</td>
-          <td>${oneEmployee.country}</td>
+          <td>${oneEmployee.employee.country}</td>
         </tr>
 
         <tr>
           <td>Nationality</td>
-          <td>${oneEmployee.nationality}</td>
+          <td>${oneEmployee.employee.nationality}</td>
         </tr>
 
         <tr>
           <td>Marital Status</td>
-          <td>${oneEmployee.maritalStatus}</td>
+          <td>${oneEmployee.employee.maritalStatus}</td>
         </tr>
 
         <tr>
           <td>Land Lie Phone</td>
-          <td>${oneEmployee.landLinePhone}</td>
+          <td>${oneEmployee.employee.landLinePhone}</td>
         </tr>
 
         <tr>
           <td>Mobile Phone</td>
-          <td>${oneEmployee.mobilePhone}</td>
+          <td>${oneEmployee.employee.mobilePhone}</td>
         </tr>
 
         <tr>
           <td>Email</td>
-          <td>${oneEmployee.email}</td>
+          <td>${oneEmployee.employee.email}</td>
         </tr>
 
         <tr>
           <td>Password</td>
-          <td>${oneEmployee.password}</td>
+          <td>${oneEmployee.employee.password}</td>
         </tr>
 
         <tr>
           <td>Address Street</td>
-          <td>${oneEmployee.street}</td>
+          <td>${oneEmployee.employee.street}</td>
         </tr>
 
         <tr>
           <td>Address House Number</td>
-          <td>${oneEmployee.houseNumber}</td>
+          <td>${oneEmployee.employee.houseNumber}</td>
         </tr>
 
         <tr>
           <td>Address City</td>
-          <td>${oneEmployee.city}</td>
+          <td>${oneEmployee.employee.city}</td>
         </tr>
 
         <tr>
           <td>Address Postal Code</td>
-          <td>${oneEmployee.postalCode}</td>
+          <td>${oneEmployee.employee.postalCode}</td>
         </tr>
 
         <tr>
           <td>Address Temporary</td>
-          <td>${oneEmployee.streetTemp}</td>
+          <td>${oneEmployee.employee.streetTemp}</td>
         </tr>
 
         <tr>
           <td>Address Temporary</td>
-          <td>${oneEmployee.houseNumberTemp}</td>
+          <td>${oneEmployee.employee.houseNumberTemp}</td>
         </tr>
 
         <tr>
           <td>Address Temporary</td>
-          <td>${oneEmployee.cityTemp}</td>
+          <td>${oneEmployee.employee.cityTemp}</td>
         </tr>
 
         <tr>
           <td>Address Temporary</td>
-          <td>${oneEmployee.postalCodeTemp}</td>
+          <td>${oneEmployee.employee.postalCodeTemp}</td>
         </tr>
 
         <tr>
           <td>Spouse Name</td>
-          <td>${oneEmployee.spouseName}</td>
+          <td>${oneEmployee.employee.spouseName}</td>
         </tr>
 
         <tr>
           <td>Spouse Name</td>
-          <td>${oneEmployee.spouseSurname}</td>
+          <td>${oneEmployee.employee.spouseSurname}</td>
         </tr>
 
         <tr>
           <td>Spouse Date of Birth</td>
           <td>${moment(
-            oneEmployee.spouseDateOfBirth
+            oneEmployee.employee.spouseDateOfBirth
           ).format("LL")}</td>
         </tr>
 
         <tr>
           <td>Spouse Social Security Number</td>
-          <td>${oneEmployee.spouseSocialSecNumber}</td>
+          <td>${oneEmployee.employee.spouseSocialSecNumber}</td>
         </tr>
 
         <tr>
           <td>Spouse Social Security Number</td>
-          <td>${oneEmployee.publicHealthInsuranceName}</td>
+          <td>${oneEmployee.employee.publicHealthInsuranceName}</td>
         </tr>
 
         <tr>
           <td>ZTP/Dochodca</td>
-          <td>${oneEmployee.ztpDochodca}</td>
+          <td>${oneEmployee.employee.ztpDochodca}</td>
         </tr>
 
         <tr>
           <td>Bank Name</td>
-          <td>${oneEmployee.bankName}</td>
+          <td>${oneEmployee.employee.bankName}</td>
         </tr>
 
         <tr>
           <td>Account Number</td>
-          <td>${oneEmployee.accountNumber}</td>
+          <td>${oneEmployee.employee.accountNumber}</td>
         </tr>
 
         <tr>
           <td>Bank Code</td>
-          <td>${oneEmployee.bankCode}</td>
+          <td>${oneEmployee.employee.bankCode}</td>
         </tr>
 
         <tr>

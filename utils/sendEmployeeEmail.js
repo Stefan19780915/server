@@ -5,10 +5,13 @@ const sendEmail = async (to, cc, subject, html) => {
   try {
     const transporter = nodeMailer.createTransport({
       service: process.env.SERVICE,
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        user: 'stefan_csomor@hotmail.com',
+        user: 'csomorstefan16@gmail.com',
         pass: process.env.PASS,
-      },
+      }
     });
 
     return await transporter.sendMail({
