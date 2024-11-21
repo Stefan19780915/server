@@ -1064,7 +1064,7 @@
           <% if(user.roles == 'User') { %>
             <div class="d-flex-visible space-between">
             <label for="endDate">End date</label>
-            <p><%= !contract.contractEndDate ? 'No end date specified' : moment(contract.contractEndDate).locale('en-gb').format('LL') %></p>
+            <p><%= !contract.contractEndDate ? 'No end date specified' : contract.contractEndDate == 'indefinite' ? 'indefinite' : moment(contract.contractEndDate).locale('en-gb').format('LL') %></p>
             </div>
             <input autocomplete="off" type="hidden" value="0"/>
           <% } else { %>
