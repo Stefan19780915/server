@@ -246,7 +246,7 @@ const getContracts = async ()=>{
 
     //console.log(firstDay, daysCount, lastDay)
 
-    if(mapalStore != undefined){
+    if(mapalStore != undefined && req.body.storeState){
     //getEmployees
     const employees =  await employeesWithContract(firstDay, lastDay, mapalStore.business_unit_id);
     //console.log(employees);

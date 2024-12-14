@@ -65,7 +65,7 @@
       >
 
       <p style="font-weight: bolder">
-           <%= `Company: ${ !userHere.storeCompany ? '' : userHere.storeCompany.companyName }` %>
+           <%= `Company: ${ !userHere.storeCompany ? 'no company' : userHere.storeCompany.companyName }` %>
       </p>
 
       <% if(user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Admin') { %>
@@ -602,13 +602,15 @@
         <div class="d-flex-visible space-between">
           <h1>Managers</h1>
           <div>
-            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super') { %>
+            <% if(user.roles == 'Admin' || user.roles == 'Owner' || user.roles == 'Super' || user.roles == 'Manager') { %>
             <div class="custom-select" style="width: 200px">
               <select id="swapStoreSelect" name="store" required>
                 <option value="0">Select store:</option>
-                <% stores.forEach((store)=>{ %>
-                <option value="<%= store._id %>"><%= store.storeName %></option>
-                <% }) %>
+                <% if(stores.length) {
+                  stores.forEach((store)=>{ %>
+                    <option value="<%= store._id %>"><%= store.storeName %></option>
+                    <% })
+                } else { %> <option value="<%= stores._id %>"><%= stores.storeName %></option>  <% } %>
               </select>
             </div>
             <% } %>

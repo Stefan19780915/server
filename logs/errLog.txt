@@ -1770,3 +1770,53 @@ Cannot read properties of undefined (reading 'business_date')
     631|                   <% }) %>
 
 Cannot read properties of undefined (reading 'business_date')
+14/12/2024	19:13:10	629fb804-8dcd-4065-bc64-dd58747b5e13	SyntaxError: Unexpected identifier in C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+14/12/2024	19:13:33	a5f4bcde-22db-4f18-abc6-b87259bbedb1	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:609
+    607|               <select id="swapStoreSelect" name="store" required>
+    608|                 <option value="0">Select store:</option>
+ >> 609|                 <% stores.forEach((store)=>{ %>
+    610|                 <option value="<%= store._id %>"><%= store.storeName %></option>
+    611|                 <% }) %>
+    612|               </select>
+
+stores.forEach is not a function
+14/12/2024	19:14:28	8967e91a-1c62-410f-af61-721897dd86ea	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:609
+    607|               <select id="swapStoreSelect" name="store" required>
+    608|                 <option value="0">Select store:</option>
+ >> 609|                 <% stores.forEach((store)=>{ %>
+    610|                 <option value="<%= store._id %>"><%= store.storeName %></option>
+    611|                 <% }) %>
+    612|               </select>
+
+stores.forEach is not a function
+14/12/2024	19:14:34	2251a9ea-1b28-4a8b-8c9c-2885516018fd	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:609
+    607|               <select id="swapStoreSelect" name="store" required>
+    608|                 <option value="0">Select store:</option>
+ >> 609|                 <% stores.forEach((store)=>{ %>
+    610|                 <option value="<%= store._id %>"><%= store.storeName %></option>
+    611|                 <% }) %>
+    612|               </select>
+
+stores.forEach is not a function
+14/12/2024	19:16:07	fda66971-1db0-4dd6-bc8d-4a11f3775882	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:609
+    607|               <select id="swapStoreSelect" name="store" required>
+    608|                 <option value="0">Select store:</option>
+ >> 609|                 <% stores.forEach((store)=>{ %>
+    610|                 <option value="<%= store._id %>"><%= store.storeName %></option>
+    611|                 <% }) %>
+    612|               </select>
+
+stores.forEach is not a function
+14/12/2024	19:37:51	ed40be13-ac4e-4fa1-ae9f-3c2b9d042602	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:619
+    617|           </div>  
+    618|         </div>
+ >> 619|         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{  %> 
+    620|           <div>
+    621|             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+    622|             <div class="d-flex-visible space-between">
+
+mapal.filter is not a function

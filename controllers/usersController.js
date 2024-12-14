@@ -47,7 +47,7 @@ const resetPassPage = async (req, res)=>{
       return res.redirect("/");
     }
 
-   console.log(user.id);
+   //console.log(user.id);
 
     res.render("../views/pages/resetpass", {
       msg: false,
@@ -247,14 +247,12 @@ const registerUser = async (req, res) => {
 // UPDATE USER AND REDIRECT TO EMPLOYEE ROUTE
 const updateUser = async (req, res) => {
 
-  //console.log(req.user.storeCompany);
-
   if (!req.params.id) {
     req.flash("message", "Please provide correct ID");
     return res.redirect("pages/404");
   }
 
-  const company = req.body.storeCompany != '0' ? await Company.findOne({ _id: req.body.storeCompany }).exec() : 0;
+  //const company = req.body.storeCompany != '0' ? await Company.findOne({ _id: req.body.storeCompany }).exec() : 0;
 
   const user = await User.findOne({ _id: req.params.id }).exec();
 
@@ -266,8 +264,8 @@ const updateUser = async (req, res) => {
 
   if (req.body.userName) user.userName = req.body.userName;
   if (req.body.userEmail) user.userEmail = req.body.userEmail;
-  if (req.body.roles != '0') user.roles = req.body.roles;
-  if (req.body.storeCompany != '0') user.storeCompany = company;
+  if (req.body.roles != '0' && req.body.roles) user.roles = req.body.roles;
+  if (req.body.storeCompany != '0' && req.body.storeCompany) user.storeCompany = req.body.storeCompany ;
 
   const resultUser = await user.save();
 

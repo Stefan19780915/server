@@ -165,7 +165,7 @@ for (i = 0; i < l; i++) {
       for (o = 0; o < s.children.length; o++){
         if(s.id == 'swapStoreSelect'){
           if(s.options[o].selected == true){
-            //console.log(s.options[o].value);
+            console.log(s.options[o].value);
             swapStoreInput.value = s.options[o].value;
             swapStoreForm.submit();
           }

@@ -80,7 +80,7 @@ const getAllEmployees = async (req, res) => {
     req.user.roles == "Admin"
       ? await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Manager"
-      ? await User.find({ store: allStores ? allStores.id : [], $or:[{roles: "User"},{roles:"Manager"}] }).populate('store')
+      ? await User.find({ store: allStores ? allStores.id : [], $or:[{roles: "User"},{roles:"Manager"}] }).populate('store').populate('storeCompany')
       : req.user.roles == "Owner"
       ? await User.find().populate("store").populate('storeCompany').sort({ roles: "asc" })
       : req.user.roles == "Super" 
@@ -113,6 +113,13 @@ const getAllEmployees = async (req, res) => {
     (user)=> user.store ? user.store.admin == req.user.id : "" 
   )
 
+  const ownerEmployees = allEmployees.filter( (e)=>{
+    //console.log(e.store.storeCompany, req.user.storeCompany);
+    return e.store.storeCompany._id.toString() == req.user.storeCompany._id.toString()
+  })
+
+  //console.log(ownerEmployees);
+
   //console.log(loggedUser.storeCompany);
   //console.log(adminUsers)
   
@@ -127,6 +134,7 @@ const getAllEmployees = async (req, res) => {
       message: req.flash("message"),
     });
   }
+
   res.render("../views/pages/employees", {
     msg: false,
     data: !req.user.storeCompany && req.user.roles == "Super"
@@ -135,7 +143,7 @@ const getAllEmployees = async (req, res) => {
         ? allEmployees.filter( (emp) => {
           return emp.store.storeCompany._id.toString() == loggedUser.storeCompany._id.toString() && emp.user.roles != 'Admin' })
         : req.user.roles == "Owner" 
-        ? allEmployees
+        ? ownerEmployees
         :adminEmployees,
     user: req.user,
     users:
