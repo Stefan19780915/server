@@ -115,7 +115,9 @@ const getAllEmployees = async (req, res) => {
 
   const ownerEmployees = allEmployees.filter( (e)=>{
     //console.log(e.store.storeCompany, req.user.storeCompany);
-    return e.store.storeCompany._id.toString() == req.user.storeCompany._id.toString()
+    if(req.user.storeCompany){
+      return e.store.storeCompany._id.toString() == req.user.storeCompany._id.toString();
+    }
   })
 
   //console.log(ownerEmployees);
