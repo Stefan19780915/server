@@ -21,7 +21,6 @@ function makeBirthDayEmail (employeesTomorrow, employeesIn7Days){
         return `<tr>
         <td>${employee.unit}</td>
         <td>${employee.name} ${employee.last_name}</td>
-        <td>${moment(employee.birth_date).year(moment().year()).format('LL')}</td>
         <td> will be ${ Math.abs( new Date(tomorrow - new Date(employee.birth_date)).getUTCFullYear() - 1970 ) } years old.</td>
       </tr>`
         
@@ -36,7 +35,6 @@ function makeBirthDayEmail (employeesTomorrow, employeesIn7Days){
         <tr>
         <th style="width:15%; background-color: #D6EEEE">Store</th>
           <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-          <th style="width:15%; background-color: #D6EEEE">Birth Date</th>
           <th style="width:25%; background-color: #D6EEEE">Age</th>
         </tr>
         ${tomorrowList.join('')}
@@ -49,7 +47,7 @@ function makeBirthDayEmail (employeesTomorrow, employeesIn7Days){
         <tr>
           <th style="width:15%; background-color: #D6EEEE">Store</th>
           <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-          <th style="width:15%; background-color: #D6EEEE">Birth Date</th>
+          <th style="width:15%; background-color: #D6EEEE">Birth Date On</th>
           <th style="width:25%; background-color: #D6EEEE">Age</th>
         </tr>
         ${sevenDayList.join('')}

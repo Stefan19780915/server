@@ -1820,3 +1820,5 @@ stores.forEach is not a function
     622|             <div class="d-flex-visible space-between">
 
 mapal.filter is not a function
+02/01/2025	17:19:51	8e987502-11f1-4759-b703-7e0d2008a4c9	TypeError: Cannot read properties of undefined (reading 'userName')
+02/01/2025	17:31:33	1d066069-d405-49ef-a1a0-e61ee5b065a0	TypeError: Cannot read properties of undefined (reading 'age')
