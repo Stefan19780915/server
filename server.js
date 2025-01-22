@@ -73,12 +73,18 @@ app.get('/test/:word', (req, res)=>{
 
 //RUN A SCHEDULER JOB
 
+
+
 const bree = new Bree({
     jobs: [
         {
             name: 'birthDayEmail',
             cron : '0 6 * * *'
-        }
+        },
+        {
+          name: 'seniorityEmail',
+          cron : '0 6 * * *'
+      }
     ]
 });
 bree.start();
