@@ -74,16 +74,7 @@ console.log(
             const html = makeSeniorityEmail(
                 curentMonth,
                 curentMonth1,
-                curentMonth2,
-                curentMonth3,
-                curentMonth4,
-                curentMonth5,
-                curentMonth6,
-                curentMonth7,
-                curentMonth8,
-                curentMonth9,
-                curentMonth10,
-                curentMonth11,
+                curentMonth2
             );
             const subject = 'KFC Employees who will celebrate their anniversary.'
                
@@ -120,5 +111,7 @@ return result;
 }
 
 
-job1();
+module.exports = {
+    job1
+}
 

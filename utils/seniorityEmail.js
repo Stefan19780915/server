@@ -1,6 +1,6 @@
 const moment = require("moment");
 
-function makeSeniorityEmail (month0, month1,month2,month3,month4,month5,month6, month7, month8,month9,month10,month11){
+function makeSeniorityEmail (month0, month1,month2){
 
     let now = new Date();
 
@@ -117,105 +117,6 @@ function makeSeniorityEmail (month0, month1,month2,month3,month4,month5,month6, 
               <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
             </tr>
             ${monthList(month2)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +3)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month3)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +4)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month4)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +5)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month5)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +6)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month6)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +7)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month7)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +8)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month8)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +9)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month9)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +10)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month10)}
-          </table>
-
-          <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +11)).format("MMMM")}</strong></p>
-          <table style="width:100%">
-            <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
-            </tr>
-            ${monthList(month11)}
           </table>
 
           `;
