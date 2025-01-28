@@ -111,7 +111,5 @@ return result;
 }
 
 
-module.exports = {
-    job1
-}
+job1();
 
