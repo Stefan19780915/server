@@ -8,9 +8,13 @@ function makeSeniorityEmail (month0, month1,month2){
     const monthList = function (month){
 
         const oneYearList = month.emp1.map( emp => {
+
+          //console.log(emp);
+
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
                     <td> will celebrate 1 year with the company </td>
                   </tr>`
@@ -20,8 +24,9 @@ function makeSeniorityEmail (month0, month1,month2){
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
-                    <td> will be celebrate 3 years with teh company.</td>
+                    <td> will be celebrate 3 years with the company.</td>
                   </tr>`
         })
     
@@ -29,8 +34,9 @@ function makeSeniorityEmail (month0, month1,month2){
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
-                    <td> will be celebrate 5 years with teh company.</td>
+                    <td> will be celebrate 5 years with the company.</td>
                   </tr>`
         })
 
@@ -38,8 +44,9 @@ function makeSeniorityEmail (month0, month1,month2){
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
-                    <td> will be celebrate 10 years with teh company.</td>
+                    <td> will be celebrate 10 years with the company.</td>
                   </tr>`
         })
 
@@ -47,8 +54,9 @@ function makeSeniorityEmail (month0, month1,month2){
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
-                    <td> will be celebrate 15 years with teh company.</td>
+                    <td> will be celebrate 15 years with the company.</td>
                   </tr>`
         })
 
@@ -56,8 +64,9 @@ function makeSeniorityEmail (month0, month1,month2){
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
-                    <td> will be celebrate 20 years with teh company.</td>
+                    <td> will be celebrate 20 years with the company.</td>
                   </tr>`
         })
 
@@ -65,8 +74,9 @@ function makeSeniorityEmail (month0, month1,month2){
             return `<tr>
                     <td>${emp.unit}</td>
                     <td>${emp.name} ${emp.last_name}</td>
+                    <td>${emp.job}</td>
                     <td>${moment(emp.hired_date).format('LL') }</td>
-                    <td> will be celebrate 25 years with teh company.</td>
+                    <td> will be celebrate 25 years with the company.</td>
                   </tr>`
         })
 
@@ -89,6 +99,7 @@ function makeSeniorityEmail (month0, month1,month2){
             <tr>
             <th style="width:15%; background-color: #D6EEEE">Store</th>
               <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
+              <th style="width:25%; background-color: #D6EEEE">Position</th>
               <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
               <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
             </tr>
@@ -102,6 +113,7 @@ function makeSeniorityEmail (month0, month1,month2){
             <tr>
               <th style="width:15%; background-color: #D6EEEE">Store</th>
               <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
+              <th style="width:25%; background-color: #D6EEEE">Position</th>
               <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
               <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
             </tr>
@@ -113,6 +125,7 @@ function makeSeniorityEmail (month0, month1,month2){
             <tr>
               <th style="width:15%; background-color: #D6EEEE">Store</th>
               <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
+              <th style="width:25%; background-color: #D6EEEE">Position</th>
               <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
               <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
             </tr>
