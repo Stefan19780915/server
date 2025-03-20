@@ -6,74 +6,65 @@ const { getDate } = require('date-fns');
 const sendEmail = require("../utils/sendEmployeeEmail");
 const {makeBirthDayEmail} = require("../utils/birthDayEmail")
 const {makeBirthDayEmailin7Days} = require("../utils/birthDayEmailin7days")
+const {getUnits} = require("../api/Mapal");
 
 let today = moment();
 let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 let seveDays = moment(today).add(7, 'days');
+
+
     
 const job1 = async ()=>{
     await apiTokenAutomate();
     const employees = await getMapalEmployees();
+    const units = await getUnits();
+   // console.log(units instanceof Array);
+    
     
     
     try {
-        const empWhoHasBDTomorrow = empBDTomorrow(employees);
-        const empWhoHasBDIn7Days = upCommingBirthdays(employees);
+
+      units.forEach( async (unit)=>{
+
+       // console.log(unit)
+
+        const empWhoHasBDTomorrow = empBDTomorrow(employees).filter(e => e.unit == unit.business_unit);
+     // console.log(empWhoHasBDTomorrow);
+        const empWhoHasBDIn7Days = upCommingBirthdays(employees).filter(e => e.unit == unit.business_unit);
+       // console.log(empWhoHasBDIn7Days)
+
 
         if (empWhoHasBDTomorrow.length){
             const html = makeBirthDayEmail(empWhoHasBDTomorrow, empWhoHasBDIn7Days);
             const subject = 'KFC Employees who will have birthday tomorrow and in the next 7 days.'
                
-           // console.log(html)
-            
+            console.log(unit.email)
+           const email = 'stefan.csomor@qweurope.com';
+
             const info = await sendEmail(
-                'stefan.csomor@qweurope.com',
-                ['stefan_csomor@hotmail.com','eur@qweurope.com'],
+              unit.email,
+                [email],
                 subject,
                 html
               );
-              
-
+  
 
               if (info.messageId) {
                 console.log("Message sent");
               } else {
                 console.log("Message was not sent");
               }
-              
-        } else {
-            const empWhoHasBDIn7Days = upCommingBirthdays(employees);
+        } 
 
-            if(empWhoHasBDIn7Days.length){
-                const html = makeBirthDayEmailin7Days(empWhoHasBDIn7Days);
-                const subject = 'KFC Employees who will have birthday in the next 7 days.'
-
-                //console.log(html)
-
-               
-            const info = await sendEmail(
-                'stefan.csomor@qweurope.com',
-                ['stefan_csomor@hotmail.com','eur@qweurope.com'],
-                subject,
-                html
-              );
-              
-
-              if (info.messageId) {
-                console.log("Message sent");
-              } else {
-                console.log("Message was not sent");
-              } 
-                
-            } 
-
-
-        }
+      });
 
     } catch (err) {
         console.log(err);
     }
+
+ 
+
 }
 
 
@@ -94,8 +85,9 @@ const upCommingBirthdays = (employees)=>{
     return result;
 }
 
+job1()
 
-job1();
+
 
 
 

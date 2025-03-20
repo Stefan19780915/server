@@ -369,5 +369,6 @@ const getContracts = async ()=>{
     getContracts,
     getClockings,
     empWithTime,
-    getOneEmployee
+    getOneEmployee,
+    getUnits
   }
