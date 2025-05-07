@@ -1822,3 +1822,21 @@ stores.forEach is not a function
 mapal.filter is not a function
 02/01/2025	17:19:51	8e987502-11f1-4759-b703-7e0d2008a4c9	TypeError: Cannot read properties of undefined (reading 'userName')
 02/01/2025	17:31:33	1d066069-d405-49ef-a1a0-e61ee5b065a0	TypeError: Cannot read properties of undefined (reading 'age')
+03/04/2025	15:31:02	a9cadd16-b270-4efb-93e8-9497dba2fe13	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:619
+    617|           </div>  
+    618|         </div>
+ >> 619|         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{  %> 
+    620|           <div>
+    621|             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+    622|             <div class="d-flex-visible space-between">
+
+Cannot read properties of undefined (reading 'contract')
+03/04/2025	15:40:36	bbd5583e-fd1b-4f41-b787-dbc42f0cba4f	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:619
+    617|           </div>  
+    618|         </div>
+ >> 619|         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{  %> 
+    620|           <div>
+    621|             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+    622|             <div class="d-flex-visible space-between">
+
+Cannot read properties of undefined (reading 'contract')

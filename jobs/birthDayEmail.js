@@ -7,6 +7,7 @@ const sendEmail = require("../utils/sendEmployeeEmail");
 const {makeBirthDayEmail} = require("../utils/birthDayEmail")
 const {makeBirthDayEmailin7Days} = require("../utils/birthDayEmailin7days")
 const {getUnits} = require("../api/Mapal");
+const {getMapalUsers} = require("../api/Mapal");
 
 let today = moment();
 let tomorrow = new Date();
@@ -19,12 +20,14 @@ const job1 = async ()=>{
     await apiTokenAutomate();
     const employees = await getMapalEmployees();
     const units = await getUnits();
-   // console.log(units instanceof Array);
-    
-    
+
+    const areaCoach = await getMapalUsers();
+
+    const ac = areaCoach.find(usr => {
+      return usr.user_id == '10a01dc0-ccb2-4055-9f39-eded7004861f';
+    });
     
     try {
-
       units.forEach( async (unit)=>{
 
        // console.log(unit)
@@ -39,12 +42,11 @@ const job1 = async ()=>{
             const html = makeBirthDayEmail(empWhoHasBDTomorrow, empWhoHasBDIn7Days);
             const subject = 'KFC Employees who will have birthday tomorrow and in the next 7 days.'
                
-            console.log(unit.email)
+           // console.log(unit.email)
            const email = 'stefan.csomor@qweurope.com';
-
             const info = await sendEmail(
               unit.email,
-                [email],
+                [email, ac.email],
                 subject,
                 html
               );
@@ -85,7 +87,9 @@ const upCommingBirthdays = (employees)=>{
     return result;
 }
 
-job1()
+
+ 
+    job1();
 
 
 

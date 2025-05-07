@@ -3,6 +3,22 @@ const { date } = require('date-fns/locale');
 const qs = require('qs');
 const Store = require("../model/Store");
 
+
+const getMapalUsers = async ()=>{
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'https://gotogir.com/wap/General/GetUsers',
+    headers: { 
+      'accept': 'text/plain', 
+      'Authorization': `Bearer ${process.env.API_TOKEN}`
+    }
+  };
+  const users = await axios.request(config);
+   return users.data;
+}
+
+
   const getMapalEmployees = async ()=>{
     let config = {
         method: 'get',
@@ -161,7 +177,6 @@ const getContracts = async ()=>{
       console.log(err);
     }
   }
-
   
 
   //attach contract to employee
@@ -171,7 +186,7 @@ const getContracts = async ()=>{
 
     //getEmployees
     const employees = await getMapalEmployees();
-    //console.log(employees);
+    
 
     const getHiredElmployeesByUnit = await getHiredEMployeesByUnit(unitId, start, end);
     //console.log(getHiredElmployeesByUnit);
@@ -179,9 +194,7 @@ const getContracts = async ()=>{
     //get Contracts
     const getCont = await getContracts();
     //console.log(getCont);
-
-    const labour = await getEmployeeLabourState(1272);
-    //console.log(labour)
+    
 
     //find employee
     const foundEmployee = (emp_id)=>{
@@ -189,8 +202,10 @@ const getContracts = async ()=>{
         //console.log(emp.employee_id, emp_id);
             return emp.employee_id == emp_id
       });
+      
       return result
     }
+
 
     //find contract
     const foundContract = (cont_id)=>{
@@ -204,6 +219,7 @@ const getContracts = async ()=>{
     const result = await Promise.all( employees.map( (emp)=>{
   
      const found = foundEmployee(emp.employee_id);
+     
            if(found != undefined){
               const contract = foundContract(found.contract_id);
               return {...emp, contract: contract};
@@ -225,6 +241,11 @@ const getContracts = async ()=>{
     //console.log(store.storeName);
     //getting mapal stores - arr
     const allMapalStores = await getUnits();
+    /*
+    allMapalStores.forEach(element => {
+      console.log(element.email, element.business_unit)
+    });
+    */
     //console.log(allMapalStores);
     //filteringt to get the store that matches req.user.store.storeName - local storeName must be the same as in MAPAL
     const mapalStore = allMapalStores.find( (e) => {
@@ -249,11 +270,15 @@ const getContracts = async ()=>{
     if(mapalStore != undefined && req.body.storeState){
     //getEmployees
     const employees =  await employeesWithContract(firstDay, lastDay, mapalStore.business_unit_id);
-    //console.log(employees);
+    
 
 
     //Create the employee with time and absences
     const result = await Promise.all( employees.map( async (emp)=>{
+
+
+    const labour = await getEmployeeLabourState(emp.employee_id);
+    //console.log(labour);
 
       //console.log(emp);
     //get Absences
@@ -370,5 +395,6 @@ const getContracts = async ()=>{
     getClockings,
     empWithTime,
     getOneEmployee,
-    getUnits
+    getUnits,
+    getMapalUsers
   }

@@ -6,6 +6,7 @@ const Store = require("../model/Store");
 const Contract = require('../model/Contract')
 const Token = require("../model/token");
 const {empWithTime} = require('../api/Mapal');
+const {getMapalUsers} = require('../api/Mapal');
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
@@ -36,6 +37,8 @@ const getAllEmployees = async (req, res) => {
  // const mapalEt = [];
  let mapalEt = await empWithTime(req,res);
 // mapalEt.forEach( (emp)=> emp.time.forEach( (t)=> console.log(t) ) );
+
+
 
 
   ///const mapalOneEmployee = await getOneEmployee()//;
