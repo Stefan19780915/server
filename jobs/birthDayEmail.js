@@ -22,6 +22,7 @@ const job1 = async ()=>{
     const units = await getUnits();
 
     const areaCoach = await getMapalUsers();
+    const areaCoachWest = 'peter.deak@qweurope.com';
 
     const ac = areaCoach.find(usr => {
       return usr.user_id == '10a01dc0-ccb2-4055-9f39-eded7004861f';
@@ -46,7 +47,7 @@ const job1 = async ()=>{
            const email = 'stefan.csomor@qweurope.com';
             const info = await sendEmail(
               unit.email,
-                [email, ac.email],
+                [email, ac.email,areaCoachWest],
                 subject,
                 html
               );
