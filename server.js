@@ -23,7 +23,7 @@ const passport = require("passport");
 const { apiToken } = require('./middleware/apiToken');
 const Bree = require('bree');
 const moment = require("moment");
-//const { job1 } = require("./jobs/birthDayEmail");
+
 
 const PORT = process.env.PORT || 3500;
 

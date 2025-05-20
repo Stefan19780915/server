@@ -1840,3 +1840,12 @@ Cannot read properties of undefined (reading 'contract')
     622|             <div class="d-flex-visible space-between">
 
 Cannot read properties of undefined (reading 'contract')
+20/05/2025	14:45:06	f066c3ed-9a93-49d0-92a1-3de75f87c37f	TypeError: C:\Users\stefan.csomor\OneDrive - Queensway Europe\Downloads\node\server\views\pages\employees.ejs:619
+    617|           </div>  
+    618|         </div>
+ >> 619|         <% mapal.filter(e=> e.contract.contract == 'TPPM').forEach((emp)=>{  %> 
+    620|           <div>
+    621|             <div class="d-flex-visible space-between"><strong><p> <%= emp.name  %> <%= emp.last_name  %></p> </strong> </div> 
+    622|             <div class="d-flex-visible space-between">
+
+Cannot read properties of undefined (reading 'contract')

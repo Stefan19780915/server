@@ -17,6 +17,20 @@ const getMapalUsers = async ()=>{
   const users = await axios.request(config);
    return users.data;
 }
+// getting all PLANNED shifts by employee by their unit in a specified time
+const getShifts = async (startDate, endDate)=>{
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/Schedules/getShiftsByEmployee?start_date=${startDate}&end_date=${endDate}`,
+  headers: { 
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+const shifts = await axios.request(config);
+ //console.log(employees)
+  return shifts.data;
+}
 
 
   const getMapalEmployees = async ()=>{
@@ -396,5 +410,6 @@ const getContracts = async ()=>{
     empWithTime,
     getOneEmployee,
     getUnits,
-    getMapalUsers
+    getMapalUsers,
+    getShifts
   }

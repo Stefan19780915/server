@@ -5,7 +5,6 @@ const moment = require("moment");
 const { getDate } = require('date-fns');
 const sendEmail = require("../utils/sendEmployeeEmail");
 const {makeBirthDayEmail} = require("../utils/birthDayEmail")
-const {makeBirthDayEmailin7Days} = require("../utils/birthDayEmailin7days")
 const {getUnits} = require("../api/Mapal");
 const {getMapalUsers} = require("../api/Mapal");
 

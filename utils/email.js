@@ -9,8 +9,8 @@ function makeEmail (oneEmployee){
       
       <table style="width:50%">
         <tr>
-          <th style="width:50%; background-color: #D6EEEE">Peronal data</th>
-          <th style="background-color: #D6EEEE">Employee</th>
+          <th style="width:50%; background-color: #C41230; color: #FFFFFF"">Peronal data</th>
+          <th style="background-color: #C41230; color: #FFFFFF"">Employee</th>
         </tr>
         <tr>
           <td>Personal nuber</td>

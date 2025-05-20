@@ -5,8 +5,6 @@ const Company = require("../model/Company");
 const Store = require("../model/Store");
 const Contract = require('../model/Contract')
 const Token = require("../model/token");
-const {empWithTime} = require('../api/Mapal');
-const {getMapalUsers} = require('../api/Mapal');
 const moment = require("moment");
 moment.locale("sk");
 const bcrypt = require("bcrypt");
@@ -17,6 +15,8 @@ const sendEmail = require("../utils/sendEmployeeEmail");
 const fs = require('fs');
 const path = require('path');
 const {makeEmail} = require("../utils/email");
+const {empWithTime} = require('../api/Mapal');
+//const { unitShiftHoursJob } = require("../jobs/unitShiftsHoursEmail");
 
 
 //DONE RENDER READ ALL EMPLOYEES
@@ -38,8 +38,9 @@ const getAllEmployees = async (req, res) => {
  let mapalEt = await empWithTime(req,res);
 // mapalEt.forEach( (emp)=> emp.time.forEach( (t)=> console.log(t) ) );
 
-
-
+// uncoment if you want to call unitShiftEmail
+ //await unitShiftHoursJob();
+ 
 
   ///const mapalOneEmployee = await getOneEmployee()//;
   ///console.log(mapalOneEmployee, mapalEmp);

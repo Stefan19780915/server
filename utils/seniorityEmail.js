@@ -97,11 +97,11 @@ function makeSeniorityEmail (month0, month1,month2){
           <p>Please find below all employees who will celebrate theri anniversary in <strong> ${moment(now).format("MMMM")}</strong>.</p>
           <table style="width:100%">
             <tr>
-            <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:25%; background-color: #D6EEEE">Position</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
+            <th style="width:15%; background-color: #C41230">Store</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Employee Name</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Position</th>
+              <th style="width:15%; background-color: #C41230; color: #FFFFFF">Hire Date On</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Anniversary</th>
             </tr>
             ${monthList(month0)}
           </table>
@@ -111,11 +111,11 @@ function makeSeniorityEmail (month0, month1,month2){
           <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +1)).format("MMMM")}</strong></p>
           <table style="width:100%">
             <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:25%; background-color: #D6EEEE">Position</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
+              <th style="width:15%; background-color: #C41230; color: #FFFFFF">Store</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Employee Name</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Position</th>
+              <th style="width:15%; background-color: #C41230; color: #FFFFFF">Hire Date On</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Anniversary</th>
             </tr>
             ${monthList(month1)}
           </table>
@@ -123,11 +123,11 @@ function makeSeniorityEmail (month0, month1,month2){
           <p>Please find below all employees who will celebrate theri anniversary in <strong>${moment(new Date().setMonth(new Date().getMonth() +2)).format("MMMM")}</strong></p>
           <table style="width:100%">
             <tr>
-              <th style="width:15%; background-color: #D6EEEE">Store</th>
-              <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-              <th style="width:25%; background-color: #D6EEEE">Position</th>
-              <th style="width:15%; background-color: #D6EEEE">Hire Date On</th>
-              <th style="width:25%; background-color: #D6EEEE">Anniversary</th>
+              <th style="width:15%; background-color: #C41230; color: #FFFFFF">Store</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Employee Name</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Position</th>
+              <th style="width:15%; background-color: #C41230; color: #FFFFFF">Hire Date On</th>
+              <th style="width:25%; background-color: #C41230; color: #FFFFFF">Anniversary</th>
             </tr>
             ${monthList(month2)}
           </table>

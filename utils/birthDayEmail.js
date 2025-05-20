@@ -32,9 +32,9 @@ function makeBirthDayEmail (employeesTomorrow, employeesIn7Days){
       <p>Please find below all employees who will celebrate their birthday <strong>tomorrow - on the ${moment(tomorrow).format("LL")}</strong>.</p>
       <table style="width:100%">
         <tr>
-        <th style="width:15%; background-color: #D6EEEE">Store</th>
-          <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-          <th style="width:25%; background-color: #D6EEEE">Age</th>
+        <th style="width:15%; background-color: #C41230; color: #FFFFFF"">Store</th>
+          <th style="width:25%; background-color: #C41230; color: #FFFFFF"">Employee Name</th>
+          <th style="width:25%; background-color: #C41230; color: #FFFFFF"">Age</th>
         </tr>
         ${tomorrowList.join('')}
       </table>
@@ -44,9 +44,9 @@ function makeBirthDayEmail (employeesTomorrow, employeesIn7Days){
       <p>Please find below all employees who will celebrate their <strong>birthday in the next 7 days</strong></p>
       <table style="width:100%">
         <tr>
-          <th style="width:15%; background-color: #D6EEEE">Store</th>
-          <th style="width:25%; background-color: #D6EEEE">Employee Name</th>
-          <th style="width:25%; background-color: #D6EEEE">Age</th>
+          <th style="width:15%; background-color: #C41230; color: #FFFFFF"">Store</th>
+          <th style="width:25%; background-color: #C41230; color: #FFFFFF"">Employee Name</th>
+          <th style="width:25%; background-color: #C41230; color: #FFFFFF"">Age</th>
         </tr>
         ${sevenDayList.join('')}
       </table>
