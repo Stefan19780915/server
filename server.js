@@ -23,7 +23,7 @@ const passport = require("passport");
 const { apiToken } = require('./middleware/apiToken');
 const Bree = require('bree');
 const moment = require("moment");
-const { unitShiftHoursJob } = require("./jobs/unitShiftsHoursEmail");
+//const { unitShiftHoursJob } = require("./jobs/unitShiftsHoursEmail");
 
 
 const PORT = process.env.PORT || 3500;
@@ -71,7 +71,7 @@ app.get('/test/:word', (req, res)=>{
   //res.send(`This is the reqest parameter passed ${req.params.word}`);
 })
 
-unitShiftHoursJob();
+//unitShiftHoursJob();
 
 //RUN A SCHEDULER JOB
 
@@ -87,7 +87,7 @@ const bree = new Bree({
         },
         {
           name: 'unitShiftsHoursEmail',
-          cron : '0 8 * * *'
+          cron : '0 9 * * *'
         }
     ]
 });
