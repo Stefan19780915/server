@@ -1,3 +1,4 @@
+const { apiTokenAutomate } = require('../middleware/apiToken');
 const { getUnits } = require('../api/Mapal');
 const { getShifts } = require('../api/Mapal');
 const { unitHeadCount } = require('../api/unitHeadCount');
@@ -8,7 +9,7 @@ const moment = require("moment");
 
 
 const unitShiftHoursJob = async () => {
-
+    await apiTokenAutomate();
    
     // Get the current date
     const currentDate = new Date();
