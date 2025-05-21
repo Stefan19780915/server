@@ -36,7 +36,7 @@ const unitShiftHoursJob = async () => {
         //console.log('Current Week:', weeks.currentWeek);
 
         
-        const currentWeekShifts = weeks.currentWeek.map( async (date)=>{
+        const currentWeekShiftsPromisses = weeks.currentWeek.map( async (date)=>{
 
             // If date is in 'YYYY/MM/DD' format:
             const [year, month, day] = date.split('/').map(Number);
@@ -67,7 +67,7 @@ const unitShiftHoursJob = async () => {
           };
         }) 
 
-        
+        const currentWeekShifts = await Promise.all(currentWeekShiftsPromisses);
 
         // Wait for all promises to resolve
         //const currentShifts = await Promise.all(currentWeekShifts);
@@ -77,7 +77,7 @@ const unitShiftHoursJob = async () => {
          return {
              unitId: unitId,
              unitName: unitName,
-             currentWeekShifts: await Promise.all(currentWeekShifts),
+             currentWeekShifts: currentWeekShifts,
   
          };
      });

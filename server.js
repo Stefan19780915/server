@@ -88,7 +88,7 @@ const bree = new Bree({
         },
         {
           name: 'unitShiftsHoursEmail',
-          cron : '30 9 * * *'
+          cron : '05 10 * * *'
         }
     ]
 });
