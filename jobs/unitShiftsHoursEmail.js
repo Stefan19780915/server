@@ -50,10 +50,10 @@ const unitShiftHoursJob = async () => {
         const totalHours = shifts.reduce((acc, shift) => {
             if (shift.business_unit_id !== unitId) return acc; // Skip if shift business unit id does not match unit id
             // Calculate the time difference in hours
-            let hoursWorked = calculateTimeDifference(moment(shift.entry).format('LT'), moment(shift.exit).format('LT')) < 6.5 
-            ?  calculateTimeDifference(moment(shift.entry).format('LT'), moment(shift.exit).format('LT'))
-            : calculateTimeDifference(moment(shift.entry).format('LT'), moment(shift.exit).format('LT'))-0.5;
-            //console.log('Hours Worked:', hoursWorked, 'From:',moment(shift.entry).format('LT') , 'To:',moment(shift.exit).format('LT'));
+            let hoursWorked = calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm')) < 6.5 
+            ?  calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm'))
+            : calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm'))-0.5;
+           // console.log('Hours Worked:', hoursWorked, 'From:',moment(shift.entry).format('LT') , 'To:',moment(shift.exit).format('LT'));
 
             return acc + hoursWorked;
             },0)
@@ -138,11 +138,12 @@ function calculateTimeDifference  (time1, time2)  {
         const num = parseInt(number, 10);
         return isNaN(num) ? 0 : num;
     });
-   // console.log('Time:', time1 ,hours1, minutes1, time2, hours2, minutes2);
+    //console.log('Time:', time1 ,hours1, minutes1, time2, hours2, minutes2);
 
 
     const date1 = new Date(0, 0, 0, hours1, minutes1);
     const date2 = new Date(0, 0, 0, hours2, minutes2);
+    //console.log('Date:', date1, date2);
 
     const diffInMilliseconds = Math.abs(date2 - date1);
     const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
@@ -229,6 +230,6 @@ unitShiftHoursJob();
 module.exports = {
     unitShiftHoursJob
 };
-*/
 
+*/
 
