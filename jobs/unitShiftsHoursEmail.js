@@ -15,16 +15,17 @@ const unitShiftHoursJob = async () => {
     const currentDate = new Date();
     const weekStart = moment(getStartOfWeek(currentDate)).format('YYYY/MM/DD');
     const weekEnd = moment(getEndOfWeek(currentDate)).format('YYYY/MM/DD');
-
-   try {
-   // const shifts = await getShifts(toDayFrom, toDayTo, '13'); 
+    // const shifts = await getShifts(toDayFrom, toDayTo, '13'); 
     const units = await getUnits();
-    //const filterUnits = units.filter(unit => unit.business_unit_id === 13);
-    //console.log('Units:', units.filter(unit => unit.business_unit_id === 13));
-
     //getting headCount for each unit//
     const employeeHeadCount = await unitHeadCount();
    // console.log('Employees:', employeeHeadCount);
+
+   try {
+   
+    //const filterUnits = units.filter(unit => unit.business_unit_id === 13);
+    //console.log('Units:', units.filter(unit => unit.business_unit_id === 13));
+
 
     //Loop throuth the units and get the shifts for each unit//
      const unitShiftsPromises = units.map(async (unit) => {
@@ -35,7 +36,6 @@ const unitShiftHoursJob = async () => {
         const weeks = getWeekDates();
         //console.log('Current Week:', weeks.currentWeek);
 
-        
         const currentWeekShiftsPromisses = weeks.currentWeek.map( async (date)=>{
 
             // If date is in 'YYYY/MM/DD' format:
@@ -44,7 +44,7 @@ const unitShiftHoursJob = async () => {
             //console.log('Next Day:', nextDay.toDateString(), date);
           
             const shifts = await getShifts(date, nextDay.toDateString());
-            //console.log('Shifts:', shifts);
+            console.log('Shifts:', shifts);
 
             //Looping through the shifts and reducing to sum of hours//
         const totalHours = shifts.reduce((acc, shift) => {
