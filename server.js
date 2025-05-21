@@ -74,6 +74,7 @@ app.get('/test/:word', (req, res)=>{
 //unitShiftHoursJob();
 
 //RUN A SCHEDULER JOB
+// + 2 hours because of time zone for render.com server 9 o clock is 11 o clock in US
 
 const bree = new Bree({
     jobs: [
@@ -87,7 +88,7 @@ const bree = new Bree({
         },
         {
           name: 'unitShiftsHoursEmail',
-          cron : '0 9 * * *'
+          cron : '30 9 * * *'
         }
     ]
 });
@@ -104,6 +105,9 @@ app.all("*", (req, res) => {
   });
 });
 app.use(errorHandler);
+
+console.log('Server time zone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
+console.log('Server local time:', new Date().toString());
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB.");

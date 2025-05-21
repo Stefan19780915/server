@@ -62,7 +62,8 @@ function makeUnitShiftEmail (unitShifts, headCount){
             </tr>
             <tr>
                 ${unitShift.currentWeekShifts.map( (shift) => {
-                    return `<td style="padding: 8px; text-align: center; font-weight: bold">${shift.totalHours}</td>`
+                  const hours = Number(shift.totalHours) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold">${hours}</td>`
                 }   
                 ).join('')}
             </tr>
