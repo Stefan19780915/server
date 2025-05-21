@@ -92,7 +92,7 @@ const unitShiftHoursJob = async () => {
     
     if (unitShifts.length) {
             const html = makeUnitShiftEmail(unitShifts, employeeHeadCount);
-            const subject = `KFC Units - Planned / Worked Hours - ${weekStart} - ${weekEnd}`;
+            const subject = `KFC Units - Planned / Worked Hours - Week Monday ${weekStart}`;
                
            // console.log(unit.email)
             const info = await sendEmail(
