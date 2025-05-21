@@ -44,7 +44,7 @@ const unitShiftHoursJob = async () => {
             //console.log('Next Day:', nextDay.toDateString(), date);
           
             const shifts = await getShifts(date, nextDay.toDateString());
-            console.log('Shifts:', shifts);
+            //console.log('Shifts:', shifts);
 
             //Looping through the shifts and reducing to sum of hours//
         const totalHours = shifts.reduce((acc, shift) => {
@@ -57,7 +57,7 @@ const unitShiftHoursJob = async () => {
 
             return acc + hoursWorked;
             },0)
-            
+           // console.log('Total Hours:', totalHours, 'Date:', date, 'Unit:', unitName);
         
           return {
             unit: unitName,
@@ -71,7 +71,7 @@ const unitShiftHoursJob = async () => {
 
         // Wait for all promises to resolve
         //const currentShifts = await Promise.all(currentWeekShifts);
-       // console.log('Current Shifts:', currentShifts.filter(shift => shift.unitName = 'KFC Aupark Bratislava'));	
+        //console.log('Current Shifts:', currentWeekShifts.filter(shift => shift.unitName = 'KFC Aupark Bratislava'));	
         
 
          return {
@@ -85,7 +85,8 @@ const unitShiftHoursJob = async () => {
      // Wait for all promises to resolve and filter out nulls
     const unitShifts = (await Promise.all(unitShiftsPromises)).filter(Boolean);
    
-   // console.log(makeUnitShiftEmail(unitShifts))
+   //makeUnitShiftEmail(unitShifts, employeeHeadCount);
+     //console.log('Unit Shifts:', unitShifts.filter(shift => shift.unitName = 'KFC Aupark Bratislava')[0]);
 
     //SEND EMAIL//
     
@@ -124,10 +125,21 @@ const unitShiftHoursJob = async () => {
 // This function calculates the difference in hours between two time strings in 'HH:mm' format
 
 function calculateTimeDifference  (time1, time2)  {
-    const [hours1, minutes1] = time1.split(':').map(Number);
-    const [hours2, minutes2] = time2.split(':').map(Number);
 
-   // console.log(hours1, minutes1, hours2, minutes2);
+    if (!time1 || !time2 || !time1.includes(':') || !time2.includes(':')) {
+        console.warn('Invalid time input:', time1, time2);
+        return 0;
+    }
+    const [hours1, minutes1] = time1.split(':').map( number => {
+        const num = parseInt(number, 10);
+        return isNaN(num) ? 0 : num;
+    });
+    const [hours2, minutes2] = time2.split(':').map( number => {
+        const num = parseInt(number, 10);
+        return isNaN(num) ? 0 : num;
+    });
+   // console.log('Time:', time1 ,hours1, minutes1, time2, hours2, minutes2);
+
 
     const date1 = new Date(0, 0, 0, hours1, minutes1);
     const date2 = new Date(0, 0, 0, hours2, minutes2);

@@ -11,6 +11,8 @@ function makeUnitShiftEmail (unitShifts, headCount){
 
     // Sort units alphabetically by unitName
    filteredUnits.sort((a, b) => a.unitName.localeCompare(b.unitName));
+   //console.log('Filtered Units:', filteredUnits);
+   //console.log('Unit Shifts:', filteredUnits.filter(shift => shift.unitName = 'KFC Aupark Bratislava')[0]);
 
     const unitShiftList = filteredUnits.map( (unitShift)=>{
         const TPP = headCount.find(unit => unit.unitName === unitShift.unitName).TPP;
