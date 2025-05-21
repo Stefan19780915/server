@@ -210,13 +210,13 @@ function getEndOfWeek(date) {
 
 
 //call the function
-unitShiftHoursJob();
+//unitShiftHoursJob();
 
 //not to export this function
-/*
+
 module.exports = {
-    unitShiftHours
+    unitShiftHoursJob
 };
-*/
+
 
 
