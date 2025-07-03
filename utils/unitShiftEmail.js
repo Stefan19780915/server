@@ -35,6 +35,7 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 <th style="width:12.5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">SL</th>
                 <th style="width:12.5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">ARGM</th>
                 <th style="width:12.5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">RGM</th>
+                <th style="width:12.5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)"></th>
                 <th style="width:12.5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">Spolu</th>
                 
                 
@@ -48,14 +49,15 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 <td style="padding: 8px; text-align: center">${SL}</td>
                 <td style="padding: 8px; text-align: center">${ARGM}</td>
                 <td style="padding: 8px; text-align: center">${RGM}</td>
+                <td style="padding: 8px; text-align: center"></td>
                 <td style="padding: 8px; text-align: center">${hc}</td>
             </tr>
             <tr>
-                <th style="padding: 8px" colspan="7">Aktuálný týždeň - Naplánované hodiny</th>
-                <th style="padding: 8px">Spolu</th>
+                <th style="padding: 8px" colspan="9">Aktuálný týždeň - Naplánované hodiny / Odpracované Hodiny</th>
+                
             </tr>
             <tr>
-                
+                <td style="padding: 8px">Dátum</td>
                 ${unitShift.currentWeekShifts.map( (shift) => {
                     return `<td style="padding: 8px; text-align: center; background-color:${bcWeekendColor(shift.date)}; color:${fontWeekendColor(shift.date)}">${shift.date}</td>`
                 }   
@@ -63,12 +65,42 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 
             </tr>
             <tr>
+                <td style="padding: 8px">Plán</td>
                 ${unitShift.currentWeekShifts.map( (shift) => {
                   const hours = Number(shift.totalHours) || 0;
-                    return `<td style="padding: 8px; text-align: center; font-weight: bold">${hours}</td>`
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${hours.toFixed(1)}</td>`
                 }   
                 ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalHoursSum.toFixed(1)}</td>
             </tr>
+            <tr>
+                <td style="padding: 8px">Odpracované</td>
+                ${unitShift.currentWeekShifts.map( (shift) => {
+                  const hours = Number(shift.totalClockings) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${hours.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalClockingsSum.toFixed(1)}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px">Tržba</td>
+                ${unitShift.currentWeekShifts.map( (shift) => {
+                  const sales = Number(shift.totalSales) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">€${sales.toFixed()}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px">Zákazníci</td>
+                ${unitShift.currentWeekShifts.map( (shift) => {
+                  const checks = Number(shift.totalChecks) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${checks.toFixed()}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+            </tr>
+            
           </table>
           <br>
           <br>
@@ -106,6 +138,18 @@ function makeUnitShiftEmail (unitShifts, headCount){
     }
   }
 
+  function bcToDayColor (day) {
+    const toDayObj = new Date();
+    const toDay = `${toDayObj.getFullYear()}-${toDayObj.getMonth() + 1}-${toDayObj.getDate()}`;
+   // console.log('toDay:', toDay);
+    const safeDay = day.replace(/\//g, '-');
+  //  console.log('safeDay:', safeDay);
+    if (safeDay === toDay) {
+      return '#D3D3D3'; // Light gray for today
+    } else {
+      return '#FFFFFF'; // other days white
+    }
+  }
  
 
   module.exports = {

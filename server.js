@@ -23,7 +23,8 @@ const passport = require("passport");
 const { apiToken } = require('./middleware/apiToken');
 const Bree = require('bree');
 const moment = require("moment");
-//const { unitShiftHoursJob } = require("./jobs/unitShiftsHoursEmail");
+
+//const { job1 } = require("./jobs/birthDayEmail");
 
 
 const PORT = process.env.PORT || 3500;
@@ -71,7 +72,8 @@ app.get('/test/:word', (req, res)=>{
   //res.send(`This is the reqest parameter passed ${req.params.word}`);
 })
 
-//unitShiftHoursJob();
+
+//job1();
 
 //RUN A SCHEDULER JOB
 // + 2 hours because of time zone for render.com server 9 o clock is 11 o clock in US

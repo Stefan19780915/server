@@ -4,6 +4,22 @@ const qs = require('qs');
 const Store = require("../model/Store");
 
 
+const getSales = async (startDate, endDate, unit)=>{
+// console.log('getSales', startDate, endDate, unit);
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&unitIds=${unit}&fromDate=${startDate}&toDate=${endDate}`,
+  
+  headers: { 
+    'api-version': '1.2', 
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+  const sales = await axios.request(config);
+   return sales.data;
+}
+
 const getMapalUsers = async ()=>{
   let config = {
     method: 'get',
@@ -31,6 +47,25 @@ const shifts = await axios.request(config);
  //console.log(employees)
   return shifts.data;
 }
+
+
+// getting all clocings
+const getClockingsByDate = async (startDate, endDate)=>{
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/Clockings/GetClockingsByBusinessUnit?start_date=${startDate}&end_date=${endDate}`,
+  headers: { 
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+const shifts = await axios.request(config);
+ //console.log(employees)
+  return shifts.data;
+}
+
+
+
 
 
   const getMapalEmployees = async ()=>{
@@ -108,6 +143,9 @@ const shifts = await axios.request(config);
       console.log(err);
     }
   }
+
+
+
 
   //getAbsences
 
@@ -407,9 +445,11 @@ const getContracts = async ()=>{
     getMapalEmployees,
     getContracts,
     getClockings,
+    getClockingsByDate,
     empWithTime,
     getOneEmployee,
     getUnits,
     getMapalUsers,
-    getShifts
+    getShifts,
+    getSales
   }

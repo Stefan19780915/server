@@ -25,28 +25,33 @@ const job1 = async ()=>{
 
     const ac = areaCoach.find(usr => {
       return usr.user_id == '10a01dc0-ccb2-4055-9f39-eded7004861f';
+
     });
+
+    
     
     try {
       units.forEach( async (unit)=>{
 
-       // console.log(unit)
+        
+
+        //console.log(unit)
 
         const empWhoHasBDTomorrow = empBDTomorrow(employees).filter(e => e.unit == unit.business_unit);
      // console.log(empWhoHasBDTomorrow);
         const empWhoHasBDIn7Days = upCommingBirthdays(employees).filter(e => e.unit == unit.business_unit);
-       // console.log(empWhoHasBDIn7Days)
+        //console.log(empWhoHasBDIn7Days)
 
-
-        if (empWhoHasBDTomorrow.length){
+       
+        if (empWhoHasBDTomorrow.length) {
             const html = makeBirthDayEmail(empWhoHasBDTomorrow, empWhoHasBDIn7Days);
             const subject = 'KFC Employees who will have birthday tomorrow and in the next 7 days.'
                
            // console.log(unit.email)
            const email = 'stefan.csomor@qweurope.com';
             const info = await sendEmail(
-              unit.email,
-                [email, ac.email,areaCoachWest],
+              email,unit.email
+                [areaCoachWest, ac.email],
                 subject,
                 html
               );
@@ -59,7 +64,11 @@ const job1 = async ()=>{
               }
         } 
 
+        
+
       });
+
+      
 
     } catch (err) {
         console.log(err);
@@ -88,10 +97,9 @@ const upCommingBirthdays = (employees)=>{
 }
 
 
- 
-    job1();
 
 
+job1();
 
 
 
