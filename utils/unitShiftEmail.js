@@ -52,6 +52,9 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 <td style="padding: 8px; text-align: center"></td>
                 <td style="padding: 8px; text-align: center">${hc}</td>
             </tr>
+
+
+            <!-- CURRENT WEEK -->
             <tr>
                 <th style="padding: 8px" colspan="9">Aktuálný týždeň - Naplánované hodiny / Odpracované Hodiny</th>
                 
@@ -100,6 +103,58 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 ).join('')}
                 <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
             </tr>
+
+
+            <!-- PREVIOUS WEEK -->
+            <tr>
+                <th style="padding: 8px" colspan="9">Minulý týždeň - Naplánované hodiny / Odpracované Hodiny</th>
+                
+            </tr>
+            <tr>
+                <td style="padding: 8px">Dátum</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                    return `<td style="padding: 8px; text-align: center; background-color:${bcWeekendColor(shift.date)}; color:${fontWeekendColor(shift.date)}">${shift.date}</td>`
+                }   
+                ).join('')}
+                
+            </tr>
+            <tr>
+                <td style="padding: 8px">Plán</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                  const hours = Number(shift.totalHours) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${hours.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalHoursSumPrev.toFixed(1)}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px">Odpracované</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                  const hours = Number(shift.totalClockings) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${hours.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalClockingsSumPrev.toFixed(1)}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px">Tržba</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                  const sales = Number(shift.totalSales) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">€${sales.toFixed()}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px">Zákazníci</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                  const checks = Number(shift.totalChecks) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${checks.toFixed()}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+            </tr>
+
             
           </table>
           <br>
