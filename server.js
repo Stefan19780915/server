@@ -82,15 +82,15 @@ const bree = new Bree({
     jobs: [
         {
             name: 'birthDayEmail',
-            cron : '0 8 * * *'
+            cron : '30 8 * * *'
         },
         {
           name: 'seniorityEmail',
-          cron : '0 8 * * *'
+          cron : '30 8 * * *'
         },
         {
           name: 'unitShiftsHoursEmail',
-          cron : '0 8 * * *'
+          cron : '30 8 * * *'
         }
     ]
 });
