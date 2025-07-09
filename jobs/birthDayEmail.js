@@ -35,7 +35,7 @@ const job1 = async ()=>{
 
         
 
-        //console.log(unit)
+        console.log(unit.email,areaCoachWest, ac.email);
 
         const empWhoHasBDTomorrow = empBDTomorrow(employees).filter(e => e.unit == unit.business_unit);
      // console.log(empWhoHasBDTomorrow);
@@ -49,9 +49,10 @@ const job1 = async ()=>{
                
            // console.log(unit.email)
            const email = 'stefan.csomor@qweurope.com';
+           const unitEmail = unit.email;
             const info = await sendEmail(
-              email,unit.email
-                [areaCoachWest, ac.email],
+              email,
+               [unitEmail, areaCoachWest, ac.email],
                 subject,
                 html
               );

@@ -17,6 +17,7 @@ const path = require('path');
 const {makeEmail} = require("../utils/email");
 const {empWithTime} = require('../api/Mapal');
 //const { unitShiftHoursJob } = require("../jobs/UnitShiftsHoursEmail");
+//const { job1 } = require("../jobs/birthDayEmail");
 
 
 //DONE RENDER READ ALL EMPLOYEES
@@ -40,6 +41,7 @@ const getAllEmployees = async (req, res) => {
 
 // uncoment if you want to call unitShiftEmail
 // await unitShiftHoursJob();
+  //await job1();
  
 
   ///const mapalOneEmployee = await getOneEmployee()//;
