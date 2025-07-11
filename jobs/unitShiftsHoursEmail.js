@@ -2,10 +2,11 @@ const { apiTokenAutomate } = require('../middleware/apiToken');
 const { getUnits } = require('../api/Mapal');
 const { getShifts } = require('../api/Mapal');
 const { getSales } = require('../api/Mapal');
+const { getClockingsByDate } = require('../api/Mapal');
 const { unitHeadCount } = require('../api/unitHeadCount');
 const sendEmail = require("../utils/sendEmployeeEmail");
 const { makeUnitShiftEmail } = require('../utils/unitShiftEmail');
-const { getClockingsByDate } = require('../api/Mapal');
+
 const moment = require("moment");
 
 
@@ -185,7 +186,58 @@ const unitShiftHoursJob = async () => {
             totalChecks: totalChecks,      
           };
         }) 
+
+
+        //Next week shifts promises
+        /*
+        const nextWeekShiftsPromisses = weeks.nextWeek.map( async (date)=>{
+
+            // If date is in 'YYYY/MM/DD' format:
+            const [year, month, day] = date.split('/').map(Number);
+            const nextDay = new Date(year, month - 1, day+1); // month is zero-based
+            //console.log('Next Day:', nextDay.toDateString(), date);
+
+
+          //  console.log( 'Date:', date,'Sales:', totalSales, 'Checks:', totalChecks, 'Unit:', unitName);
+
+          
+            const shifts = await getShifts(date, nextDay.toDateString());
+           // console.log('Shifts:', shifts);
+
+
+                //Looping through the shifts and reducing to sum of hours//
+            const totalHours = shifts.reduce((acc, shift) => {
+                if (shift.business_unit_id !== unitId) return acc; // Skip if shift business unit id does not match unit id
+                // Calculate the time difference in hours
+                let hoursWorked = calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm')) < 6.5 
+                ?  calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm'))
+                : calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm'))-0.5;
+                // console.log('Hours Worked:', hoursWorked, 'From:',moment(shift.entry).format('LT') , 'To:',moment(shift.exit).format('LT'));
+
+                return acc + hoursWorked;
+                },0)
+            // console.log('Total Hours:', totalHours, 'Date:', date, 'Unit:', unitName);
         
+          return {
+            unit: unitName,
+            date: date,
+            shifts: shifts,
+            totalHours: totalHours    
+          };
+        }) 
+
+        */
+        
+        /*
+        //Next WEEK SHifts promises
+        const nextWeekShifts = await Promise.all(nextWeekShiftsPromisses);
+
+        const totalHoursSumNext = previousWeekShifts.reduce((sum, shift) => {
+              return sum + (Number(shift.totalHours) || 0);
+                }, 0);
+
+                */
+
 
         //Previous WEEK SHifts promises
         const previousWeekShifts = await Promise.all(previousWeekShiftsPromisses);
@@ -242,12 +294,14 @@ const unitShiftHoursJob = async () => {
             const subject = `KFC Units - Planned / Worked Hours - Week Monday ${weekStart}`;
                
            // console.log(unit.email)
+           
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
                 ['radka.hrebickova@qweurope.com'],
                 subject,
                 html
               );
+              
   
 
               if (info.messageId) {
@@ -379,3 +433,4 @@ module.exports = {
 };
 
 */
+

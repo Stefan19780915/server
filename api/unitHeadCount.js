@@ -25,6 +25,7 @@ const unitHeadCount = async () => {
 
             // Filter employees by unitId
             const unitEmployees = employees.filter(employee => employee.unit_id === unitId);
+            //console.log(unitEmployees)
 
             return {
                 unitName: unitName,
@@ -36,7 +37,7 @@ const unitHeadCount = async () => {
                 ARGM: unitEmployees.filter(employee => employee.job === 'Assistant Restaurant General Manager').length,
                 RGM: unitEmployees.filter(employee => employee.job === 'Restaurant General Manager').length,
                 MNG: unitEmployees.filter(employee => employee.category_group === 'Manager').length,
-                employees : unitEmployees
+                employees : unitEmployees,
             };
         });
 

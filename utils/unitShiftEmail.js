@@ -9,6 +9,8 @@ function makeUnitShiftEmail (unitShifts, headCount){
         unit.unitName !== 'KFC Wörgl'
     );
 
+   // console.log(headCount);
+
     // Sort units alphabetically by unitName
    filteredUnits.sort((a, b) => a.unitName.localeCompare(b.unitName));
    //console.log('Filtered Units:', filteredUnits);
@@ -23,7 +25,7 @@ function makeUnitShiftEmail (unitShifts, headCount){
         const RGM = headCount.find(unit => unit.unitName === unitShift.unitName).RGM;
         const hc = headCount.find(unit => unit.unitName === unitShift.unitName).headCount;
         
-       // console.log('TPP:', TPP, 'Unit:', unitShift.unitName);
+        
 
 
         return `<table style="width:75%; border-collapse: collapse; border: 1px solid black;">
@@ -52,6 +54,10 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 <td style="padding: 8px; text-align: center"></td>
                 <td style="padding: 8px; text-align: center">${hc}</td>
             </tr>
+
+            <!-- NEXT WEEK -->
+            
+           
 
 
             <!-- CURRENT WEEK -->
@@ -155,7 +161,9 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
             </tr>
 
-            
+
+
+
           </table>
           <br>
           <br>
