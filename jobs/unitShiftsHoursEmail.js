@@ -297,7 +297,7 @@ const unitShiftHoursJob = async () => {
            
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
-                ['radka.hrebickova@qweurope.com'],
+                ['radka.hrebickova@qweurope.com','peter.gazo@qweurope.com'],
                 subject,
                 html
               );

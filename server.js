@@ -86,7 +86,7 @@ const bree = new Bree({
         },
         {
           name: 'seniorityEmail',
-          cron : '30 8 * * *'
+          cron : '0 0 * * 0'
         },
         {
           name: 'unitShiftsHoursEmail',

@@ -52,7 +52,7 @@ const job1 = async ()=>{
            const unitEmail = unit.email;
             const info = await sendEmail(
               email,
-               [unitEmail, areaCoachWest, ac.email],
+               [unitEmail, areaCoachWest, ac.email,'peter.gazo@qweurope.com'],
                 subject,
                 html
               );
