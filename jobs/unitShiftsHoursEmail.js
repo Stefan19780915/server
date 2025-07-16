@@ -9,8 +9,6 @@ const { makeUnitShiftEmail } = require('../utils/unitShiftEmail');
 
 const moment = require("moment");
 
-
-
 const unitShiftHoursJob = async () => {
     await apiTokenAutomate();
    
@@ -46,8 +44,9 @@ const unitShiftHoursJob = async () => {
 
             // If date is in 'YYYY/MM/DD' format:
             const [year, month, day] = date.split('/').map(Number);
-            const nextDay = new Date(year, month - 1, day+1); // month is zero-based
-            //console.log('Next Day:', nextDay.toDateString(), date);
+            const nextDay = new Date(year, month - 1, day + 1); // month is zero-based
+            const formattedNextDay = `${nextDay.getFullYear()}/${nextDay.getMonth() + 1}/${nextDay.getDate()}`;
+           // console.log(formattedNextDay, date); // "2025/6/16"
 
             const sales = await getSales(date, date, unitId);
             
@@ -62,12 +61,9 @@ const unitShiftHoursJob = async () => {
                 return acc + (Number(sale.checks) || 0);
             }, 0);
 
-            
-
           //  console.log( 'Date:', date,'Sales:', totalSales, 'Checks:', totalChecks, 'Unit:', unitName);
 
-          
-            const shifts = await getShifts(date, nextDay.toDateString());
+            const shifts = await getShifts(date, formattedNextDay);
            // console.log('Shifts:', shifts);
 
             //get Clockings for each unit//
@@ -117,10 +113,12 @@ const unitShiftHoursJob = async () => {
         //Previous week shifts promises
         const previousWeekShiftsPromisses = weeks.previousWeek.map( async (date)=>{
 
-            // If date is in 'YYYY/MM/DD' format:
+          // If date is in 'YYYY/MM/DD' format:
             const [year, month, day] = date.split('/').map(Number);
-            const nextDay = new Date(year, month - 1, day+1); // month is zero-based
-            //console.log('Next Day:', nextDay.toDateString(), date);
+            const nextDay = new Date(year, month - 1, day + 1); // month is zero-based
+            const formattedNextDay = `${nextDay.getFullYear()}/${nextDay.getMonth() + 1}/${nextDay.getDate()}`;
+           // console.log(formattedNextDay, date); // "2025/6/16"
+            
 
             const sales = await getSales(date, date, unitId);
             
@@ -140,7 +138,7 @@ const unitShiftHoursJob = async () => {
           //  console.log( 'Date:', date,'Sales:', totalSales, 'Checks:', totalChecks, 'Unit:', unitName);
 
           
-            const shifts = await getShifts(date, nextDay.toDateString());
+            const shifts = await getShifts(date, formattedNextDay);
            // console.log('Shifts:', shifts);
 
             //get Clockings for each unit//
@@ -188,55 +186,7 @@ const unitShiftHoursJob = async () => {
         }) 
 
 
-        //Next week shifts promises
-        /*
-        const nextWeekShiftsPromisses = weeks.nextWeek.map( async (date)=>{
-
-            // If date is in 'YYYY/MM/DD' format:
-            const [year, month, day] = date.split('/').map(Number);
-            const nextDay = new Date(year, month - 1, day+1); // month is zero-based
-            //console.log('Next Day:', nextDay.toDateString(), date);
-
-
-          //  console.log( 'Date:', date,'Sales:', totalSales, 'Checks:', totalChecks, 'Unit:', unitName);
-
-          
-            const shifts = await getShifts(date, nextDay.toDateString());
-           // console.log('Shifts:', shifts);
-
-
-                //Looping through the shifts and reducing to sum of hours//
-            const totalHours = shifts.reduce((acc, shift) => {
-                if (shift.business_unit_id !== unitId) return acc; // Skip if shift business unit id does not match unit id
-                // Calculate the time difference in hours
-                let hoursWorked = calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm')) < 6.5 
-                ?  calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm'))
-                : calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm'))-0.5;
-                // console.log('Hours Worked:', hoursWorked, 'From:',moment(shift.entry).format('LT') , 'To:',moment(shift.exit).format('LT'));
-
-                return acc + hoursWorked;
-                },0)
-            // console.log('Total Hours:', totalHours, 'Date:', date, 'Unit:', unitName);
         
-          return {
-            unit: unitName,
-            date: date,
-            shifts: shifts,
-            totalHours: totalHours    
-          };
-        }) 
-
-        */
-        
-        /*
-        //Next WEEK SHifts promises
-        const nextWeekShifts = await Promise.all(nextWeekShiftsPromisses);
-
-        const totalHoursSumNext = previousWeekShifts.reduce((sum, shift) => {
-              return sum + (Number(shift.totalHours) || 0);
-                }, 0);
-
-                */
 
 
         //Previous WEEK SHifts promises
@@ -297,7 +247,7 @@ const unitShiftHoursJob = async () => {
            
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
-                ['radka.hrebickova@qweurope.com','peter.gazo@qweurope.com'],
+                ['radka.hrebickova@qweurope.com', 'peter.gazo@qweurope.com'],
                 subject,
                 html
               );
