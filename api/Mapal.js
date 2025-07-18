@@ -4,12 +4,14 @@ const qs = require('qs');
 const Store = require("../model/Store");
 
 
-const getSales = async (startDate, endDate, unit)=>{
+const getSales = async (startDate, endDate, unitIds)=>{
+  const params = new URLSearchParams();
+  unitIds.forEach(id => params.append('unitIds', id));
 // console.log('getSales', startDate, endDate, unit);
   let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&unitIds=${unit}&fromDate=${startDate}&toDate=${endDate}`,
+  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&${params}&fromDate=${startDate}&toDate=${endDate}`,
   
   headers: { 
     'api-version': '1.2', 

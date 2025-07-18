@@ -98,7 +98,7 @@ function makeUnitShiftEmail (unitShifts, headCount){
                     return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">€${sales.toFixed()}</td>`
                 }   
                 ).join('')}
-                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">€${unitShift.totalSalesSum.toFixed(1)}</td>
             </tr>
             <tr>
                 <td style="padding: 8px">Zákazníci</td>
@@ -107,7 +107,7 @@ function makeUnitShiftEmail (unitShifts, headCount){
                     return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${checks.toFixed()}</td>`
                 }   
                 ).join('')}
-                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalChecksSum.toFixed(1)}</td>
             </tr>
 
 
@@ -149,7 +149,7 @@ function makeUnitShiftEmail (unitShifts, headCount){
                     return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">€${sales.toFixed()}</td>`
                 }   
                 ).join('')}
-                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">€${unitShift.totalSalesSumPrev.toFixed(1)}</td>
             </tr>
             <tr>
                 <td style="padding: 8px">Zákazníci</td>
@@ -158,7 +158,7 @@ function makeUnitShiftEmail (unitShifts, headCount){
                     return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${checks.toFixed()}</td>`
                 }   
                 ).join('')}
-                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)"></td>
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalChecksSumPrev.toFixed(1)}</td>
             </tr>
 
 
@@ -182,8 +182,8 @@ function makeUnitShiftEmail (unitShifts, headCount){
   }
 
   function bcWeekendColor (day) {
-    const safeDay = day.replace(/\//g, '-');
-    const dayOfWeek = moment(safeDay, "YYYY-MM-DD").day();
+    //const safeDay = day.replace(/\//g, '-');
+    const dayOfWeek = moment(day, "YYYY-MM-DD").day();
     if (dayOfWeek === 0 || dayOfWeek === 6) {
       return '#C41230'; // Light RED for weekends
     } else {
@@ -192,8 +192,8 @@ function makeUnitShiftEmail (unitShifts, headCount){
   }
 
   function fontWeekendColor (day) {
-    const safeDay = day.replace(/\//g, '-');
-    const dayOfWeek = moment(safeDay, "YYYY-MM-DD").day();
+   // const safeDay = day.replace(/\//g, '-');
+    const dayOfWeek = moment(day, "YYYY-MM-DD").day();
     if (dayOfWeek === 0 || dayOfWeek === 6) {
       return '#FFFFFF'; // White for weekends
     } else {
@@ -203,11 +203,9 @@ function makeUnitShiftEmail (unitShifts, headCount){
 
   function bcToDayColor (day) {
     const toDayObj = new Date();
-    const toDay = `${toDayObj.getFullYear()}-${toDayObj.getMonth() + 1}-${toDayObj.getDate()}`;
-   // console.log('toDay:', toDay);
-    const safeDay = day.replace(/\//g, '-');
-  //  console.log('safeDay:', safeDay);
-    if (safeDay === toDay) {
+    const toDay = `${toDayObj.getFullYear()}-${String(toDayObj.getMonth() + 1).padStart(2, '0')}-${String(toDayObj.getDate()).padStart(2, '0')}`;
+    //console.log('safeDay:', toDay, day);
+    if (day === toDay) {
       return '#D3D3D3'; // Light gray for today
     } else {
       return '#FFFFFF'; // other days white

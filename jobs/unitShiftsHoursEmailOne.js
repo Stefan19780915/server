@@ -10,84 +10,40 @@ const { makeUnitShiftEmail } = require('../utils/unitShiftEmail');
 const moment = require("moment");
 
 const unitShiftHoursJob = async () => {
-    await apiTokenAutomate();
+  await apiTokenAutomate();
    
     // Get the current date
-    const currentDate = new Date();
-    const weekStart = moment(getStartOfWeek(currentDate)).format('YYYY/MM/DD');
-    const weekEnd = moment(getEndOfWeek(currentDate)).format('YYYY/MM/DD');
+  const currentDate = new Date();
+  const weekStart = moment(getStartOfWeek(currentDate)).format('YYYY/MM/DD');
+  const weekEnd = moment(getEndOfWeek(currentDate)).format('YYYY/MM/DD');
     // const shifts = await getShifts(toDayFrom, toDayTo, '13'); 
-    const units = await getUnits();
+  const units = await getUnits();
     //getting headCount for each unit//
-    const employeeHeadCount = await unitHeadCount();
+  const employeeHeadCount = await unitHeadCount();
    // console.log('Employees:', employeeHeadCount);
 
-   try {
+   const weeks = getWeekDates();
+   const shiftsAll = await getShifts(weeks.previousWeek[0], weeks.nextWeek[6]); // Get all shifts
+   const clockingsAll = await getClockingsByDate(weeks.previousWeek[0], weeks.nextWeek[6]); // Get all clockings
    
-    const filterUnits = units.filter(unit => unit.business_unit_id === 1);
-  //  console.log('Filtered Units:', filterUnits.length, 'units found');
-
-
+   const unitIds = units.map(u => u.business_unit_id).filter(Boolean);
+   const salesAll = await getSales(weeks.previousWeek[0], weeks.nextWeek[6], unitIds); // Get all sales for the unit IDs
+   //console.log('Sales:', salesAll);
+ 
+   try {
     //Loop throuth the units and get the shifts for each unit//
      const unitShiftsPromises = units.map(async (unit) => {
          const unitId = unit.business_unit_id;
          if (unitId === undefined) return null; // Skip if unitId is undefined
          const unitName = unit.business_unit;
 
-        const weeks = getWeekDates();
-        //console.log('Current Week:', weeks.currentWeek);
-        const targetDate = "2025/06/15";
-        const filtered = weeks.currentWeek.filter(date => date === targetDate);
-        //console.log('Filtered Dates:', filtered);
-
         const currentWeekShiftsPromisses = weeks.currentWeek.map( async (date)=>{
-
-            // If date is in 'YYYY/MM/DD' format:
-            const [year, month, day] = date.split('/').map(Number);
-            const nextDay = new Date(year, month - 1, day + 1); // month is zero-based
-            const formattedNextDay = `${nextDay.getFullYear()}/${nextDay.getMonth() + 1}/${nextDay.getDate()}`;
-           // console.log(formattedNextDay, date); // "2025/6/16"
-
-            const sales = await getSales(date, date, unitId);
-            
-
-            const totalSales = sales.reduce((acc, sale) => {
-                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
-                return acc + (Number(sale.net_sale) || 0);
-            }, 0);
-
-            const totalChecks = sales.reduce((acc, sale) => {
-                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
-                return acc + (Number(sale.checks) || 0);
-            }, 0);
-
-          //  console.log( 'Date:', date,'Sales:', totalSales, 'Checks:', totalChecks, 'Unit:', unitName);
-
-            const shifts = await getShifts(date, formattedNextDay);
-           // console.log('Shifts:', shifts);
-
-            //get Clockings for each unit//
-            const clockings = await getClockingsByDate(date, date);
-           // console.log('Clockings:', clockings);
-           // const eurovea = clockings.filter(clock => clock.business_unit_id === unitId && clock.business_date === date);
-
-            const totalClockings = clockings.reduce((acc, clock) => {
-                if (clock.business_unit_id !== unitId) return acc; // Skip if clock business unit id does not match unit id
-            // console.log('Clock:', clock);
-                // Calculate the time difference in hours
-                let hoursWorked = calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm')) < 6.5
-                ?  calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))
-                : calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))-0.5;
-            // console.log('Hours Worked:', hoursWorked, 'From:',moment(clock.entry).format('HH:mm') , 'To:',moment(clock.exit).format('HH:mm'), 'Date:', clock.business_date, 'Unit:', unitName);
-                return acc + hoursWorked;
-                },0)
-            // console.log('Total Clockings:', totalClockings, 'Date:', date, 'Unit:', unitName);
-            // console.log(eurovea.filter(clock => clock.business_date == '2025-05-26T00:00:00'));
-
-            
-
-                //Looping through the shifts and reducing to sum of hours//
-            const totalHours = shifts.reduce((acc, shift) => {
+          const shifts = shiftsAll.filter(shift => {
+            // Filter shifts for the current unit and date
+           return shift.business_unit_id === unitId && moment(shift.entry).format('YYYY-MM-DD') === date});
+        
+          //Looping through the shifts and reducing to sum of hours//
+          const totalHours = shifts.reduce((acc, shift) => {
                 if (shift.business_unit_id !== unitId) return acc; // Skip if shift business unit id does not match unit id
                 // Calculate the time difference in hours
                 let hoursWorked = calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm')) < 6.5 
@@ -97,72 +53,57 @@ const unitShiftHoursJob = async () => {
 
                 return acc + hoursWorked;
                 },0)
-            // console.log('Total Hours:', totalHours, 'Date:', date, 'Unit:', unitName);
+           
+          const clockings = clockingsAll.filter(shift => {
+            // Filter shifts for the current unit and date
+           return shift.business_unit_id === unitId && moment(shift.entry).format('YYYY-MM-DD') === date});
+
+          const totalClockings = clockings.reduce((acc, clock) => {
+                            if (clock.business_unit_id !== unitId) return acc; // Skip if clock business unit id does not match unit id
+                        // console.log('Clock:', clock);
+                            // Calculate the time difference in hours
+                            let hoursWorked = calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm')) < 6.5
+                            ?  calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))
+                            : calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))-0.5;
+                        // console.log('Hours Worked:', hoursWorked, 'From:',moment(clock.entry).format('HH:mm') , 'To:',moment(clock.exit).format('HH:mm'), 'Date:', clock.business_date, 'Unit:', unitName);
+                            return acc + hoursWorked;
+                            },0)
         
+          const sales = salesAll.filter(sale => {
+            // Filter shifts for the current unit and date
+           return sale.unit_id === unitId && moment(sale.business_date).format('YYYY-MM-DD') === date});
+
+          const totalSales = sales.reduce((acc, sale) => {
+                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                return acc + (Number(sale.net_sale) || 0);
+            }, 0);
+
+          const totalChecks = sales.reduce((acc, sale) => {
+                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                return acc + (Number(sale.checks) || 0);
+            }, 0);
+        
+        
+
           return {
             unit: unitName,
             date: date,
             shifts: shifts,
             totalHours: totalHours,
             totalClockings: totalClockings,
+            totalChecks: totalChecks,
             totalSales: totalSales,
-            totalChecks: totalChecks,      
           };
         }) 
+        
 
-        //Previous week shifts promises
         const previousWeekShiftsPromisses = weeks.previousWeek.map( async (date)=>{
-
-          // If date is in 'YYYY/MM/DD' format:
-            const [year, month, day] = date.split('/').map(Number);
-            const nextDay = new Date(year, month - 1, day + 1); // month is zero-based
-            const formattedNextDay = `${nextDay.getFullYear()}/${nextDay.getMonth() + 1}/${nextDay.getDate()}`;
-           // console.log(formattedNextDay, date); // "2025/6/16"
-            
-
-            const sales = await getSales(date, date, unitId);
-            
-
-            const totalSales = sales.reduce((acc, sale) => {
-                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
-                return acc + (Number(sale.net_sale) || 0);
-            }, 0);
-
-            const totalChecks = sales.reduce((acc, sale) => {
-                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
-                return acc + (Number(sale.checks) || 0);
-            }, 0);
-
-            
-
-          //  console.log( 'Date:', date,'Sales:', totalSales, 'Checks:', totalChecks, 'Unit:', unitName);
-
-          
-            const shifts = await getShifts(date, formattedNextDay);
-           // console.log('Shifts:', shifts);
-
-            //get Clockings for each unit//
-            const clockings = await getClockingsByDate(date, date);
-           // console.log('Clockings:', clockings);
-           // const eurovea = clockings.filter(clock => clock.business_unit_id === unitId && clock.business_date === date);
-
-            const totalClockings = clockings.reduce((acc, clock) => {
-                if (clock.business_unit_id !== unitId) return acc; // Skip if clock business unit id does not match unit id
-            // console.log('Clock:', clock);
-                // Calculate the time difference in hours
-                let hoursWorked = calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm')) < 6.5
-                ?  calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))
-                : calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))-0.5;
-            // console.log('Hours Worked:', hoursWorked, 'From:',moment(clock.entry).format('HH:mm') , 'To:',moment(clock.exit).format('HH:mm'), 'Date:', clock.business_date, 'Unit:', unitName);
-                return acc + hoursWorked;
-                },0)
-            // console.log('Total Clockings:', totalClockings, 'Date:', date, 'Unit:', unitName);
-            // console.log(eurovea.filter(clock => clock.business_date == '2025-05-26T00:00:00'));
-
-            
-
-                //Looping through the shifts and reducing to sum of hours//
-            const totalHours = shifts.reduce((acc, shift) => {
+          const shifts = shiftsAll.filter(shift => {
+            // Filter shifts for the current unit and date
+           return shift.business_unit_id === unitId && moment(shift.entry).format('YYYY-MM-DD') === date});
+        
+          //Looping through the shifts and reducing to sum of hours//
+          const totalHours = shifts.reduce((acc, shift) => {
                 if (shift.business_unit_id !== unitId) return acc; // Skip if shift business unit id does not match unit id
                 // Calculate the time difference in hours
                 let hoursWorked = calculateTimeDifference(moment(shift.entry).format('HH:mm'), moment(shift.exit).format('HH:mm')) < 6.5 
@@ -172,32 +113,64 @@ const unitShiftHoursJob = async () => {
 
                 return acc + hoursWorked;
                 },0)
-            // console.log('Total Hours:', totalHours, 'Date:', date, 'Unit:', unitName);
+           
+          const clockings = clockingsAll.filter(shift => {
+            // Filter shifts for the current unit and date
+           return shift.business_unit_id === unitId && moment(shift.entry).format('YYYY-MM-DD') === date});
+
+          const totalClockings = clockings.reduce((acc, clock) => {
+                            if (clock.business_unit_id !== unitId) return acc; // Skip if clock business unit id does not match unit id
+                        // console.log('Clock:', clock);
+                            // Calculate the time difference in hours
+                            let hoursWorked = calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm')) < 6.5
+                            ?  calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))
+                            : calculateTimeDifference(moment(clock.entry).format('HH:mm'), moment(clock.exit).format('HH:mm'))-0.5;
+                        // console.log('Hours Worked:', hoursWorked, 'From:',moment(clock.entry).format('HH:mm') , 'To:',moment(clock.exit).format('HH:mm'), 'Date:', clock.business_date, 'Unit:', unitName);
+                            return acc + hoursWorked;
+                            },0)
         
+          const sales = salesAll.filter(sale => {
+            // Filter shifts for the current unit and date
+           return sale.unit_id === unitId && moment(sale.business_date).format('YYYY-MM-DD') === date});
+
+          const totalSales = sales.reduce((acc, sale) => {
+                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                return acc + (Number(sale.net_sale) || 0);
+            }, 0);
+
+          const totalChecks = sales.reduce((acc, sale) => {
+                if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                return acc + (Number(sale.checks) || 0);
+            }, 0);
+        
+        
+
           return {
             unit: unitName,
             date: date,
             shifts: shifts,
             totalHours: totalHours,
             totalClockings: totalClockings,
+            totalChecks: totalChecks,
             totalSales: totalSales,
-            totalChecks: totalChecks,      
           };
-        }) 
+        })
 
-
-        
 
 
         //Previous WEEK SHifts promises
         const previousWeekShifts = await Promise.all(previousWeekShiftsPromisses);
-
         const totalHoursSumPrev = previousWeekShifts.reduce((sum, shift) => {
               return sum + (Number(shift.totalHours) || 0);
                 }, 0);
-
         const totalClockingsSumPrev = previousWeekShifts.reduce((sum, shift) => {
             return sum + (Number(shift.totalClockings)  || 0); }, 0);
+
+        const totalSalesSumPrev = previousWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalSales) || 0); }, 0);
+        
+        const totalChecksSumPrev = previousWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalChecks) || 0); }, 0);
 
 
 
@@ -205,37 +178,44 @@ const unitShiftHoursJob = async () => {
         const currentWeekShifts = await Promise.all(currentWeekShiftsPromisses);
 
         const totalHoursSum = currentWeekShifts.reduce((sum, shift) => {
-              return sum + (Number(shift.totalHours) || 0);
-                }, 0);
+              return sum + (Number(shift.totalHours) || 0);}, 0);
 
         const totalClockingsSum = currentWeekShifts.reduce((sum, shift) => {
-            return sum + (Number(shift.totalClockings)  || 0); }, 0);                                       
+            return sum + (Number(shift.totalClockings)  || 0); }, 0);
 
-          //  console.log('Total hours for unit:', unitName, totalHoursSum, totalClockingsSum, totalChecks, totalSales);
-        // Wait for all promises to resolve
-        //const currentShifts = await Promise.all(currentWeekShifts);
-      //  console.log('Current Shifts:', currentWeekShifts.filter(shift => shift.unit	 === 'KFC Relaxx Bratislava'));
-
+        const totalSalesSum = currentWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalSales) || 0); }, 0);
         
-        
-
+        const totalChecksSum = currentWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalChecks) || 0); }, 0);
+            
+                                              
          return {
              unitId: unitId,
              unitName: unitName,
              currentWeekShifts: currentWeekShifts,
              totalHoursSum: totalHoursSum,
              totalClockingsSum: totalClockingsSum,
-                previousWeekShifts: previousWeekShifts,
-                totalHoursSumPrev: totalHoursSumPrev,
-                totalClockingsSumPrev: totalClockingsSumPrev,
+             totalSalesSum: totalSalesSum,
+             totalChecksSum: totalChecksSum,
+             previousWeekShifts: previousWeekShifts,
+             totalHoursSumPrev: totalHoursSumPrev,
+             totalClockingsSumPrev: totalClockingsSumPrev,
+             totalSalesSumPrev: totalSalesSumPrev,
+             totalChecksSumPrev: totalChecksSumPrev,
          };
      });
+
 
      // Wait for all promises to resolve and filter out nulls
     const unitShifts = (await Promise.all(unitShiftsPromises)).filter(Boolean);
    
    //makeUnitShiftEmail(unitShifts, employeeHeadCount);
-    // console.log('Unit Shifts:', unitShifts[0].currentWeekShifts);
+   /*
+     console.log('Unit Shifts Current:', unitShifts[0].currentWeekShifts, unitShifts[0].totalHours, unitShifts[0].totalClockings,
+                 'Unit Shifts Previous:', unitShifts[0].previousWeekShifts, unitShifts[0].totalHoursPrev, unitShifts[0].totalClockingsPrev,           
+     );
+   */
 
     //SEND EMAIL//
     
@@ -247,7 +227,7 @@ const unitShiftHoursJob = async () => {
            
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
-                [],
+                ['radka.hrebickova@qweurope.com', 'peter.gazo@qweurope.com'],
                 subject,
                 html
               );
@@ -263,7 +243,7 @@ const unitShiftHoursJob = async () => {
      
 
       
-    console.log('Area Coach Job executed successfully:', units);
+    console.log('Area Coach Job executed successfully:');
   } catch (error) {
     console.error('Error executing Area Coach Job:', error);
   }
@@ -314,9 +294,9 @@ function getWeekDates(referenceDate = new Date()) {
     const startOfWeek = new Date(date);
     startOfWeek.setDate(date.getDate() - mondayOffset);
 
-    // Helper to format date as YYYY/MM/DD
+    // Helper to format date as YYYY-MM-DD with 0 months and days
     const format = d => 
-        `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
     // Get dates for a week starting from a given date
     const getWeek = (start) => {
@@ -381,6 +361,7 @@ unitShiftHoursJob();
 module.exports = {
     unitShiftHoursJob
 };
-
 */
+
+
 
