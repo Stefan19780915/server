@@ -1,7 +1,8 @@
 const moment = require("moment");
+const { InvalidFieldNamePartError } = require("pdf-lib");
 
 
-function makeUnitShiftEmail (unitShifts, headCount){     
+function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){     
 
    // console.log('Unit Shifts:', unitShifts.filter(shift => shift.unitName = 'KFC Aupark Bratislava')[0]);
    const filteredUnits = unitShifts.filter(unit =>
@@ -16,6 +17,63 @@ function makeUnitShiftEmail (unitShifts, headCount){
    //console.log('Filtered Units:', filteredUnits);
    //console.log('Unit Shifts:', filteredUnits.filter(shift => shift.unitName = 'KFC Aupark Bratislava')[0]);
 
+   const sortedCompliance = compliance.sort((a, b)=> a.unitName.localeCompare(b.unitName));
+
+  const complianceOvertimeSum = sortedCompliance.reduce((sum, c) => sum + (Number(c.overtimeSum) || 0), 0);
+  const complianceMinusHoursSum = sortedCompliance.reduce((sum, c) => sum + (Number(c.minusHoursSum) || 0), 0);
+  const complianceOvertimeSumMng = sortedCompliance.reduce((sum, c) => sum + (Number(c.overtimeSumMng) || 0), 0);
+  const complianceMinusHoursSumMng = sortedCompliance.reduce((sum, c) => sum + (Number(c.minusHoursSumMng) || 0), 0);
+
+  const complianceSummary = sortedCompliance.map(c =>{
+              return `
+                <tr>
+                  <td style="padding: 8px; text-align: left">${c.unitName}</td>
+                  <td style="padding: 8px; text-align: center">${c.overtimeSum.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${c.minusHoursSum.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${c.overtimeSumMng.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${c.minusHoursSumMng.toFixed(2)}</td>
+                </tr>
+              `;
+
+            }).join('');
+
+    function hcSumTableUnits (tableDataNumStart,tableDataNumEnd){
+        const hcSumTables1rowUnit = filteredUnits.slice(tableDataNumStart, tableDataNumEnd).map(u => {
+      return `
+          <th style="width:12.5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">${u.unitName}</th>
+      `
+    }).join('');
+      return hcSumTables1rowUnit;
+    } 
+    
+    function hcSumTableTPP (tableDataNumStart, tableDataNumEnd) {
+      const hcSumTables2rowTPP = filteredUnits.slice(tableDataNumStart, tableDataNumEnd).map(u =>{
+      const emp = headCount.find((element) => element.unitName == u.unitName);
+      return `<td style="padding: 8px; text-align: center">${emp.TPP}</td>`;
+    }).join('');
+    return hcSumTables2rowTPP;
+    }
+
+    function hcSumTableMNG (tableDataNumStart, tableDataNumEnd) {
+      const hcSumTables3rowMNG = filteredUnits.slice(tableDataNumStart, tableDataNumEnd).map(u =>{
+        const emp = headCount.find((e)=> e.unitName == u.unitName);
+        const mng = (Number(emp.RGM || 0) + (Number(emp.ARGM) || 0) + (Number(emp.SL || 0)) );
+        return `<td style="padding: 8px; text-align: center">${mng}</td>`;
+      }).join('');
+      return hcSumTables3rowMNG;
+    }
+
+    function hcSumTableStudents (tableDataNumStart, tableDataNumEnd){
+      const hcSumTables4rowStudents = filteredUnits.slice(tableDataNumStart, tableDataNumEnd).map(u =>{
+        const emp = headCount.find((e)=> e.unitName == u.unitName);
+        const students = (Number(emp.DOBPS || 0) + Number(emp.DOPC || 0));
+        return `<td style="padding: 8px; text-align: center">${students}</td>`
+      }).join('');
+      return hcSumTables4rowStudents;
+    }
+
+     
+
     const unitShiftList = filteredUnits.map( (unitShift)=>{
         const TPP = headCount.find(unit => unit.unitName === unitShift.unitName).TPP;
         const DOBPS = headCount.find(unit => unit.unitName === unitShift.unitName).DOBPS;
@@ -24,9 +82,22 @@ function makeUnitShiftEmail (unitShifts, headCount){
         const ARGM = headCount.find(unit => unit.unitName === unitShift.unitName).ARGM;
         const RGM = headCount.find(unit => unit.unitName === unitShift.unitName).RGM;
         const hc = headCount.find(unit => unit.unitName === unitShift.unitName).headCount;
-        
-        
 
+      
+            const currentCompliance = compliance.find(c => c.unitId === unitShift.unitId);
+
+            //console.log(currentCompliance.unitName,currentCompliance.overtimeSum, currentCompliance.overtimeSumMng)
+      
+            const currentComplianceMng = currentCompliance.employees.filter(e =>{
+              const mng = e.state[0].contract == 'TPPM';
+              return mng;
+            })
+
+            const currentComplianceEmp = currentCompliance.employees.filter(e =>{
+              const emp = e.state[0].contract !== 'TPPM';
+              return emp;
+            })
+           // console.log(unitShift.unitName, 'Manegers:', currentComplianceMng, 'Employees:', currentComplianceEmp );
 
         return `<table style="width:75%; border-collapse: collapse; border: 1px solid black;">
             <tr>
@@ -161,14 +232,77 @@ function makeUnitShiftEmail (unitShifts, headCount){
                 <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalChecksSumPrev.toFixed(1)}</td>
             </tr>
 
+            <!-- COPLIANCE -->
+            <tr>
+                <th style="padding: 8px" colspan="3">${unitShift.unitName}</th>
+                <th style="padding: 8px" colspan="6">Compliance ----- From: ${monthStart} ----- To: ${unitShift.currentWeekShifts[6].date}</th>
+            </tr>
+            <tr>
+                  <td style="padding: 8px; text-align: center" colspan="3">Zamestnanec</td>
+                  <td style="padding: 8px; text-align: center">D, P, PN, OCR</td>
+                  <td style="padding: 8px; text-align: center">Pracovný Fond</td>
+                  <td style="padding: 8px; text-align: center">Uväzok</td>
+                  <td style="padding: 8px; text-align: center">Odpracované hodiny</td>
+                  <td style="padding: 8px; text-align: center">Nadčas</td>
+                  <td style="padding: 8px; text-align: center">Chýbajúce hodiny</td>    
+            </tr>
+
+
+            ${currentComplianceEmp.map(emp =>{
+              return  `
+                <tr>
+                  <td style="padding: 8px; text-align: center" colspan="3">${emp.employee}</td>
+                  <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
+                  <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
+                  <td style="padding: 8px; text-align: center">${emp.workedHours[0].total_time.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${(emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) > 0 ? (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) : ''}</td>
+                  <td style="padding: 8px; text-align: center; 
+                  background-color: ${bcMinusHoursColor((emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2))};
+                  color: ${fontMinusHoursColor((emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2))}
+                  ">${(emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) < 0 ? (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) : ''}</td>
+                </tr>
+                
+              `
+            }).join('')}
+            <tr>
+                  <th style="padding: 8px; text-align: center; font-weight: bold" colspan="3">S P O L U</th>
+                  <th style="padding: 8px; text-align: center" colspan="4"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSum.toFixed(2)}</th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSum.toFixed(2)}</th>
+            </tr>
+
+
+            ${currentComplianceMng.map(emp =>{
+              return  `
+                <tr>
+                  <td style="padding: 8px; text-align: center" colspan="3">${emp.employee}</td>
+                  <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
+                  <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
+                  <td style="padding: 8px; text-align: center">${emp.workedHours[0].total_time.toFixed(2)}</td>
+                  <td style="padding: 8px; text-align: center">${(emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) > 0 ? (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) : ''}</td>
+                  <td style="padding: 8px; text-align: center; 
+                  background-color: ${bcMinusHoursColor((emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2))};
+                  color: ${fontMinusHoursColor((emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2))}
+                  ">${(emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) < 0 ? (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) : ''}</td>
+                </tr>
+                
+              `
+            }).join('')}
+            <tr>
+                  <th style="padding: 8px; text-align: center; font-weight: bold" colspan="3">S P O L U</th>
+                  <th style="padding: 8px; text-align: center" colspan="4"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng.toFixed(2)}</th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng.toFixed(2)}</th>
+            </tr>
+
 
 
 
           </table>
-          <br>
-          <br>
-          <br>
-          <br>`
+          <br></br>
+          `
     })
 
 
@@ -176,7 +310,70 @@ function makeUnitShiftEmail (unitShifts, headCount){
       <h2>Good morning,</h2>
       <p>Please find below all units with their shifts and total hours planned / worked.</p>
 
-        ${unitShiftList.join('')}
+      <table style="width:100%; border-collapse: collapse; border: 1px solid black;">
+            <tr>
+            <th style="width:100%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)" colspan="5">Compliance Summary ----- From: ${monthStart} ----- To: ${filteredUnits[0].currentWeekShifts[6].date}</th>
+            </tr>
+            <tr>
+            <th style="text-align: left; padding: 8px">Unit</th>
+            <th style="text-align: center; padding: 8px">Overtime TPP</th>
+            <th style="text-align: center; padding: 8px">Minus Hour TPP</th>
+            <th style="text-align: center; padding: 8px">Overtime MNG</th>
+            <th style="text-align: center; padding: 8px">Minus Hour MNG</th>
+            </tr>
+            ${complianceSummary}
+           <tr>
+            <th style="text-align: left; font-weight: bold; padding: 8px">T O T A L</th>
+            <th style="text-align: center; font-weight: bold; padding: 8px">${complianceOvertimeSum.toFixed(2)}</th>
+            <th style="text-align: center; font-weight: bold; padding: 8px">${complianceMinusHoursSum.toFixed(2)}</th>
+            <th style="text-align: center; font-weight: bold; padding: 8px">${complianceOvertimeSumMng.toFixed(2)}</th>
+            <th style="text-align: center; font-weight: bold; padding: 8px">${complianceMinusHoursSumMng.toFixed(2)}</th>
+           </tr> 
+      </table>
+
+      <br></br>
+
+      <table style="width:100%; border-collapse: collapse; border: 1px solid black;">
+        <tr>
+          <th style="width:5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">Type</th>
+          ${hcSumTableUnits (0, 8)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">TPP</td>
+          ${hcSumTableTPP(0, 8)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">MNG</td>
+          ${hcSumTableMNG(0,8)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">Students</td>
+          ${hcSumTableStudents(0,8)}
+        </tr>
+      </table>
+
+      <table style="width:100%; border-collapse: collapse; border: 1px solid black;">
+        <tr>
+          <th style="width:5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">Type</th>
+          ${hcSumTableUnits (8, 15)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">TPP</td>
+          ${hcSumTableTPP(8, 15)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">MNG</td>
+          ${hcSumTableMNG(8,15)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">Students</td>
+          ${hcSumTableStudents(8,15)}
+        </tr>
+      </table>
+
+      <br></br>
+
+      ${unitShiftList.join('')}
 
       `;
   }
@@ -199,6 +396,17 @@ function makeUnitShiftEmail (unitShifts, headCount){
     } else {
       return 'rgb(0, 0, 0)'; // Black for weekdays
     }
+  }
+
+  //change color of cell if number is more than -15
+
+
+  function fontMinusHoursColor (num) {
+    return num < -8 ? '#FFFFFF' : 'rgb(0, 0, 0)';
+  }
+
+  function bcMinusHoursColor (num){
+    return num < -8 ? '#C41230' : '#FFFFFF';
   }
 
   function bcToDayColor (day) {

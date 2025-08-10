@@ -4,18 +4,29 @@ const { getShifts } = require('../api/Mapal');
 const { getSales } = require('../api/Mapal');
 const { getClockingsByDate } = require('../api/Mapal');
 const { unitHeadCount } = require('../api/unitHeadCount');
+const { labourCompliance } = require('../api/labourCompliance');
 const sendEmail = require("../utils/sendEmployeeEmail");
 const { makeUnitShiftEmail } = require('../utils/unitShiftEmail');
+const { makeStoreShiftEmail } = require('../utils/storeShiftEmail');
 
 const moment = require("moment");
 
-const unitShiftHoursJob = async () => {
+const unitShiftHoursJob = async (audience) => {
   await apiTokenAutomate();
    
     // Get the current date
   const currentDate = new Date();
   const weekStart = moment(getStartOfWeek(currentDate)).format('YYYY/MM/DD');
   const weekEnd = moment(getEndOfWeek(currentDate)).format('YYYY/MM/DD');
+
+  //get the current month firs day and last day
+  const toDayFrom = moment(currentDate).startOf('month').format('YYYY-MM-DD');
+  const toDayTo = moment(currentDate).endOf('month').format('YYYY-MM-DD');
+ // const toDayFrom = '2025/07/01';
+  //const toDayto = '2025/07/31';
+  //console.log('To Day From:', toDayFrom, 'To Day To:', toDayTo);
+
+
     // const shifts = await getShifts(toDayFrom, toDayTo, '13'); 
   const units = await getUnits();
     //getting headCount for each unit//
@@ -209,6 +220,13 @@ const unitShiftHoursJob = async () => {
 
      // Wait for all promises to resolve and filter out nulls
     const unitShifts = (await Promise.all(unitShiftsPromises)).filter(Boolean);
+    //compliance from beginning of teh month till the end of the current week
+    // console.log(toDayFrom, weeks.currentWeek[6])
+    const compliance = await labourCompliance(toDayFrom, weeks.currentWeek[6]);
+
+    //console.log(compliance)
+
+
    
    //makeUnitShiftEmail(unitShifts, employeeHeadCount);
    /*
@@ -216,23 +234,26 @@ const unitShiftHoursJob = async () => {
                  'Unit Shifts Previous:', unitShifts[0].previousWeekShifts, unitShifts[0].totalHoursPrev, unitShifts[0].totalClockingsPrev,           
      );
    */
+    // makeUnitShiftEmail(unitShifts, employeeHeadCount,compliance);
 
+    //makeUnitShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom);
     //SEND EMAIL//
+
+
     
-    if (unitShifts.length) {
-            const html = makeUnitShiftEmail(unitShifts, employeeHeadCount);
+    
+    if (unitShifts.length && audience == 'AC') {
+            const html = makeUnitShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom);
             const subject = `KFC Units - Planned / Worked Hours - Week Monday ${weekStart}`;
                
            // console.log(unit.email)
            
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
-                ['radka.hrebickova@qweurope.com', 'peter.gazo@qweurope.com','peter.deak@qweurope.com','peter.zidek@qweurope.com'],
+                ['peter.gazo@qweurope.com','peter.zidek@qweurope.com', 'peter.deak@qweurope.com', 'radka.hrebickova@qweurope.com'],
                 subject,
                 html
               );
-              
-  
 
               if (info.messageId) {
                 console.log("Message sent");
@@ -240,8 +261,37 @@ const unitShiftHoursJob = async () => {
                 console.log("Message was not sent");
               }
         } 
-     
 
+
+    if (unitShifts.length && audience == 'STORES') {
+      const filteredUnits = units.filter(u => u.business_unit_id == 1)
+      
+    //  console.log(filteredUnits[0]);
+
+      filteredUnits.forEach( async unit =>{
+        const html = makeStoreShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom, unit.business_unit_id);
+            const subject = `KFC Unit - ${unit.business_unit} Planned / Worked Hours - Week Monday ${weekStart}`;
+               
+            const info = await sendEmail(
+              unit.email,
+                ['stefan.csomor@qweurope.com'],
+                subject,
+                html
+              );
+            
+              if (info.messageId) {
+                console.log("Message sent");
+              } else {
+                console.log("Message was not sent");
+              }
+
+      })
+
+
+
+    }
+    
+      
       
     console.log('Area Coach Job executed successfully:');
   } catch (error) {
@@ -354,7 +404,9 @@ function getEndOfWeek(date) {
 
 
 //call the function
-unitShiftHoursJob();
+
+unitShiftHoursJob('AC');
+unitShiftHoursJob('STORES')
 
 //not to export this function
 /*

@@ -4,6 +4,86 @@ const qs = require('qs');
 const Store = require("../model/Store");
 
 
+const getContractedHours = async (startDate, endDate, ticks, empId)=>{
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/TimeEvaluation/ContractedFixedHours?DateFrom=${startDate.toDateString()}&DateTo=${endDate.toDateString()}&ticks=0&EmployeeId=${empId}`,
+  headers: { 
+      'api-version': '1.2', 
+      'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+  };
+  const fixedHours = await axios.request(config);
+    return fixedHours.data;
+  }
+
+const getHoursFondCompliance = async (startDate, endDate, employee_id)=>{
+  const params = new URLSearchParams();
+  employee_id.forEach(id => params.append('employee_id', id));
+    let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&${params}`,
+  headers: {
+    'api-version': '1.2',
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+
+    const compliance = await axios.request(config);
+    return compliance.data;
+
+}
+
+const getWorkedHours = async (startDate, endDate, id_employee)=>{
+    let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `https://gotogir.com/wap/labor/Employee/WorkedAndProjectedDistributionTime?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&id_employee=${id_employee}`,
+      headers: { 
+      'api-version': '1.2', 
+      'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+  };
+  const hours = await axios.request(config);
+    return hours.data;
+}
+
+
+const getTerminatedEmployees = async (start, end)=>{
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/Employee/getTerminatedEmployees?start_date=${start.toDateString()}&end_date=${end.toDateString()}`,
+  headers: { 
+      'api-version': '1.2', 
+      'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+  };
+  const termEmp = await axios.request(config);
+    return termEmp.data;
+
+}
+
+const getEmployeeData = async (empIds) =>{
+  const params = new URLSearchParams();
+  empIds.forEach(id => params.append('employee_ids', id));
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/Employee/getEmployeeData?${params}`,
+  headers: { 
+      'api-version': '1.2', 
+      'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+};
+
+  const empData = await axios.request(config);
+    return empData.data;
+}
+  
+
 const getSales = async (startDate, endDate, unitIds)=>{
   const params = new URLSearchParams();
   unitIds.forEach(id => params.append('unitIds', id));
@@ -86,11 +166,13 @@ const shifts = await axios.request(config);
   }
 
 
-  const getEmployeeLabourState = async (employee_id)=>{
+  const getEmployeeLabourState = async (employee_ids)=>{
+    const params = new URLSearchParams();
+    employee_ids.forEach(id => params.append('employee_ids', id));
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Employee/getActualLaborEmployeeState?employee_ids=${employee_id}`,
+      url: `https://gotogir.com/wap/labor/Employee/getActualLaborEmployeeState?${params}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -151,11 +233,13 @@ const shifts = await axios.request(config);
 
   //getAbsences
 
-  const getAbsences = async (employee_id, start_date, end_date)=>{
+  const getAbsences = async (employee_ids, start_date, end_date)=>{
+    const params = new URLSearchParams();
+    employee_ids.forEach(id => params.append('employee_ids', id));
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?employee_ids=${employee_id}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
+      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?${params}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -171,6 +255,7 @@ const shifts = await axios.request(config);
     }
 
   }
+
 
   //getContracts
 const getContracts = async ()=>{
@@ -453,5 +538,13 @@ const getContracts = async ()=>{
     getUnits,
     getMapalUsers,
     getShifts,
-    getSales
+    getSales,
+    getWorkedHours,
+    getEmployeeLabourState,
+    getContractedHours,
+    getAbsences,
+    getHiredEMployeesByUnit,
+    getHoursFondCompliance,
+    getTerminatedEmployees,
+    getEmployeeData
   }
