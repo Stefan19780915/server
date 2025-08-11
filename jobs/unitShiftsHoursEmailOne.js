@@ -264,7 +264,7 @@ const unitShiftHoursJob = async (audience) => {
 
 
     if (unitShifts.length && audience == 'STORES') {
-      const filteredUnits = units.filter(u => u.business_unit_id == 1)
+      const filteredUnits = units.filter(u => u.business_unit_id == 1 && u.business_unit_id == 9);
       
     //  console.log(filteredUnits[0]);
 
