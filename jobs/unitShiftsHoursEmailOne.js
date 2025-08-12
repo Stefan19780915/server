@@ -250,7 +250,7 @@ const unitShiftHoursJob = async (audience) => {
            
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
-                [],
+                ['peter.gazo@qweurope.com', 'peter.deak@qweurope.com','peter.zidek@qweurope.com','radka.hrebickova@qweurope.com'],
                 subject,
                 html
               );
@@ -289,8 +289,8 @@ const unitShiftHoursJob = async (audience) => {
             const subject = `KFC Unit - ${unit.business_unit} Planned / Worked Hours - Week Monday ${weekStart}`;
                
             const info = await sendEmail(
-              'stefan.csomor@qweurope.com',
-                [],
+              unit.email,
+                ['stefan.csomor@qweurope.com'],
                 subject,
                 html
               );
