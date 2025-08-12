@@ -18,7 +18,7 @@ const {makeEmail} = require("../utils/email");
 const {empWithTime} = require('../api/Mapal');
 //const { unitShiftHoursJob } = require("../jobs/unitShiftsHoursEmail");
 //const { job1 } = require("../jobs/birthDayEmail");
-const { unitShiftHoursJob } = require("../jobs/unitShiftsHoursEmailOne");
+//const { unitShiftHoursJob } = require("../jobs/unitShiftsHoursEmailOne");
 //const  { labourCompliance } = require('../api/labourCompliance');
 
 

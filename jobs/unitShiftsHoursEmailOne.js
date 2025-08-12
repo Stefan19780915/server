@@ -250,7 +250,7 @@ const unitShiftHoursJob = async (audience) => {
            
             const info = await sendEmail(
               'stefan.csomor@qweurope.com',
-                ['peter.gazo@qweurope.com','peter.zidek@qweurope.com', 'peter.deak@qweurope.com', 'radka.hrebickova@qweurope.com'],
+                [],
                 subject,
                 html
               );
@@ -264,7 +264,23 @@ const unitShiftHoursJob = async (audience) => {
 
 
     if (unitShifts.length && audience == 'STORES') {
-      const filteredUnits = units.filter(u => u.business_unit_id == 1 && u.business_unit_id == 9);
+      const filteredUnits = units.filter(u => 
+        u.business_unit_id !== 4 && 
+        u.business_unit_id !== 5 &&
+        u.business_unit_id !== 6 &&
+        u.business_unit_id !== 7 &&
+        u.business_unit_id !== 8 &&
+        u.business_unit_id !== 9 &&
+        u.business_unit_id !== 10 &&
+        u.business_unit_id !== 11 &&
+        u.business_unit_id !== 12 &&
+        u.business_unit_id !== 13 &&
+        u.business_unit_id !== 16 &&
+        u.business_unit_id !== 17 &&
+        u.business_unit_id !== 18 &&
+        u.business_unit_id !== 19 &&
+        u.business_unit_id !== 20
+      );
       
     //  console.log(filteredUnits[0]);
 
@@ -273,8 +289,8 @@ const unitShiftHoursJob = async (audience) => {
             const subject = `KFC Unit - ${unit.business_unit} Planned / Worked Hours - Week Monday ${weekStart}`;
                
             const info = await sendEmail(
-              unit.email,
-                ['stefan.csomor@qweurope.com'],
+              'stefan.csomor@qweurope.com',
+                [],
                 subject,
                 html
               );
@@ -413,7 +429,9 @@ unitShiftHoursJob('STORES')
 module.exports = {
     unitShiftHoursJob
 };
+
 */
+
 
 
 

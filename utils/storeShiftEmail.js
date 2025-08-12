@@ -250,8 +250,8 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold" colspan="3">S P O L U</th>
                   <th style="padding: 8px; text-align: center" colspan="4"></th>
-                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng}</th>
-                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng}</th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng.toFixed(2)}</th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng.toFixed(2)}</th>
             </tr>
           
 

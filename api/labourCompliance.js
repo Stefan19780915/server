@@ -17,12 +17,16 @@ const labourCompliance = async (date1, date2) => {
 
     const units = await getUnits();
     //console.log('Units:', units);
-   // const filteredUnits = units.filter(unit => unit.business_unit_id === 13);
+   //const filteredUnits = units.filter(unit => unit.business_unit_id === 13);
    
    const filteredUnits = units.filter(unit =>
         unit.business_unit !== 'KFC Office' &&
-        unit.business_unit !== 'KFC Wörgl'
+        unit.business_unit !== 'KFC Wörgl' &&
+        unit.business_unit !== 'KFC Lugner City' &&
+        unit.business_unit !== 'KFC Novum Prešov'
     );
+
+    
 
     //get terminated employees
      const termEmpInfo = await getTerminatedEmployees(start, end);
@@ -59,7 +63,7 @@ const labourCompliance = async (date1, date2) => {
     const employees = await getMapalEmployees();
     const allEmployees = [...terminated,...employees];
     const onlyTPP = allEmployees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
-    //const filteredEmployees = employees.filter(emp => emp.unit_id === 13);
+    //const filt = employees.filter(emp => emp.unit_id === 13);
     //console.log('Employees:', onlyTPP);
 
 
@@ -67,7 +71,7 @@ const labourCompliance = async (date1, date2) => {
 
         const filteredEmployees = onlyTPP.filter(emp => emp.unit_id === unit.business_unit_id);
         const employeeIds = filteredEmployees.map(emp => emp.employee_id);
-        //console.log('Employee IDs current:', employeeIdsCurr.length);
+       // console.log('Employee IDs current:', employeeIds.length);
         //const employeeIds = [...employeeIdsCurr,...termEmpIds];
         
         const empAbsences = await getAbsences(employeeIds, start, end);

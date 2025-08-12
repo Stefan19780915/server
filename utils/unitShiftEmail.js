@@ -7,7 +7,9 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
    // console.log('Unit Shifts:', unitShifts.filter(shift => shift.unitName = 'KFC Aupark Bratislava')[0]);
    const filteredUnits = unitShifts.filter(unit =>
         unit.unitName !== 'KFC Office' &&
-        unit.unitName !== 'KFC Wörgl'
+        unit.unitName !== 'KFC Wörgl' &&
+        unit.unitName !== 'KFC Lugner City' &&
+        unit.unitName !== 'KFC Novum Prešov'
     );
 
    // console.log(headCount);
@@ -86,7 +88,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
       
             const currentCompliance = compliance.find(c => c.unitId === unitShift.unitId);
 
-            //console.log(currentCompliance.unitName,currentCompliance.overtimeSum, currentCompliance.overtimeSumMng)
+           // console.log(currentCompliance.employees)
       
             const currentComplianceMng = currentCompliance.employees.filter(e =>{
               const mng = e.state[0].contract == 'TPPM';
