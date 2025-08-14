@@ -422,7 +422,7 @@ function getEndOfWeek(date) {
 //call the function
 
 unitShiftHoursJob('AC');
-unitShiftHoursJob('STORES')
+//unitShiftHoursJob('STORES')
 
 //not to export this function
 /*
