@@ -16,15 +16,12 @@ const fs = require('fs');
 const path = require('path');
 const {makeEmail} = require("../utils/email");
 const {empWithTime} = require('../api/Mapal');
-//const { unitShiftHoursJob } = require("../jobs/unitShiftsHoursEmail");
-//const { job1 } = require("../jobs/birthDayEmail");
-//const { unitShiftHoursJob } = require("../jobs/unitShiftsHoursEmailOne");
-//const  { labourCompliance } = require('../api/labourCompliance');
-
-
+//const { labourComplianceTPPM } = require('../api/labourComplianceTPPM');
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
+
+  //await labourComplianceTPPM(0, 10, 'stefan.csomor@qweurope.com');
 
   const rolesAll = ['Owner', 'Super', 'User', 'Manager', 'Admin'];
   const rolesClient = ['Owner', 'User', 'Manager', 'Admin'];
@@ -43,12 +40,6 @@ const getAllEmployees = async (req, res) => {
 // mapalEt.forEach( (emp)=> emp.time.forEach( (t)=> console.log(t) ) );
 
 // uncoment if you want to call unitShiftEmail
-//await unitShiftHoursJob('AC');
-//await unitShiftHoursJob('STORES');
-//const mapalEmp = await getMapalEmployees();
-  //await job1();
- // await labourCompliance();
- 
 
   ///const mapalOneEmployee = await getOneEmployee()//;
   ///console.log(mapalOneEmployee, mapalEmp);

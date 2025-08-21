@@ -12,8 +12,13 @@ const Employee = require('../model/Employee');
 const { get } = require('mongoose');
 
 const labourCompliance = async (date1, date2) => {
+    const currentDate = new Date();
     const start = new Date(date1);
     const end = new Date(date2);
+    //dates for the annual overtime of maangers
+    const startOfyear = new Date(moment(start).startOf('year').format('YYYY-MM-DD'));
+    const endOfCurrentmonth = new Date(moment(currentDate).endOf('month').format('YYYY-MM-DD'));
+   // console.log('Start YEAR:', startOfyear, 'End Date of Current Month:', endOfCurrentmonth);
 
     const units = await getUnits();
     //console.log('Units:', units);
@@ -62,14 +67,14 @@ const labourCompliance = async (date1, date2) => {
     //gets All hired employees to the current date
     const employees = await getMapalEmployees();
     const allEmployees = [...terminated,...employees];
-    const onlyTPP = allEmployees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
+    const onlyTPPandTPPM = allEmployees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
     //const filt = employees.filter(emp => emp.unit_id === 13);
     //console.log('Employees:', onlyTPP);
 
 
     const unitDataPromises = filteredUnits.map( async unit => {
 
-        const filteredEmployees = onlyTPP.filter(emp => emp.unit_id === unit.business_unit_id);
+        const filteredEmployees = onlyTPPandTPPM.filter(emp => emp.unit_id === unit.business_unit_id);
         const employeeIds = filteredEmployees.map(emp => emp.employee_id);
        // console.log('Employee IDs current:', employeeIds.length);
         //const employeeIds = [...employeeIdsCurr,...termEmpIds];
@@ -89,12 +94,14 @@ const labourCompliance = async (date1, date2) => {
                     workedHours.push(hours);
                 }
             }
-         
+
         //const workedHours = await getWorkedHours(start, end, unit.business_unit_id);
        // console.log('Worked Hours:', workedHours);
         const hoursFond = await getHoursFondCompliance(start, end, employeeIds);
         // console.log('Hours Fond:', hoursFond.length);
 
+        
+            
 /*
                 console.log(
                     'Unit:', unit.business_unit,
@@ -112,6 +119,8 @@ const labourCompliance = async (date1, date2) => {
            
             const filteredHoursFond = hoursFond.filter(fond => fond.employee_id === emp.employee_id);
 
+
+
             return {
                 employeeId: emp.employee_id,
                 unitId: emp.unit_id,
@@ -119,7 +128,7 @@ const labourCompliance = async (date1, date2) => {
                 absences: empAbsences.filter(abs => abs.employee_id === emp.employee_id),
                 state: empState.filter(state => state && state.employee_id === emp.employee_id),
                 workedHours: filteredWorkedHours.length ? filteredWorkedHours : [ { total_time: 0 } ],
-                hoursFond: filteredHoursFond.length ? filteredHoursFond : [ { result: 0 } ],
+                hoursFond: filteredHoursFond.length ? filteredHoursFond : [ { result: 0 } ]
             }
         });
                
@@ -192,11 +201,13 @@ const labourCompliance = async (date1, date2) => {
                     'State:', element.state[0].contract, 
                     'Worked Hours:', element.workedHours[0].total_time,
                     'Hours Fond:', element.hoursFond[0].result,
-                    'Overtime:', (element.workedHours[0].total_time - element.hoursFond[0].result).toFixed(2)
+                    'Overtime:', (element.workedHours[0].total_time - element.hoursFond[0].result).toFixed(2),
+                    'TPPM Worked Hours YTM:', element.TPPMworkedHoursYTM[0].total_time,
+                    'TPPM Hours Fond YTM:', element.TPPMhoursFondYTM[0].result,
             )}
     );
-    
-*/
+    */
+
     return unitData
 }
 

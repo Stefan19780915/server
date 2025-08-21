@@ -66,6 +66,21 @@ const getTerminatedEmployees = async (start, end)=>{
 
 }
 
+const getEmployeeDetails = async (empId)=>{
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/labor/Employee/EmployeeDetails?employeeId=${empId}`,
+  headers: { 
+      'api-version': '1.2', 
+      'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+   };
+  const empDetails = await axios.request(config);
+    return empDetails.data;
+
+}
+
 const getEmployeeData = async (empIds) =>{
   const params = new URLSearchParams();
   empIds.forEach(id => params.append('employee_ids', id));
@@ -546,5 +561,6 @@ const getContracts = async ()=>{
     getHiredEMployeesByUnit,
     getHoursFondCompliance,
     getTerminatedEmployees,
-    getEmployeeData
+    getEmployeeData,
+    getEmployeeDetails
   }

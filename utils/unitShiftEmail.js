@@ -1,5 +1,5 @@
 const moment = require("moment");
-const { InvalidFieldNamePartError } = require("pdf-lib");
+
 
 
 function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){     
@@ -357,19 +357,19 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
       <table style="width:100%; border-collapse: collapse; border: 1px solid black;">
         <tr>
           <th style="width:5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">Type</th>
-          ${hcSumTableUnits (8, 15)}
+          ${hcSumTableUnits (8, 16)}
         </tr>
         <tr>
           <td style="padding: 8px; text-align: center">TPP</td>
-          ${hcSumTableTPP(8, 15)}
+          ${hcSumTableTPP(8, 16)}
         </tr>
         <tr>
           <td style="padding: 8px; text-align: center">MNG</td>
-          ${hcSumTableMNG(8,15)}
+          ${hcSumTableMNG(8,16)}
         </tr>
         <tr>
           <td style="padding: 8px; text-align: center">Students</td>
-          ${hcSumTableStudents(8,15)}
+          ${hcSumTableStudents(8,16)}
         </tr>
       </table>
 

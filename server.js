@@ -89,12 +89,24 @@ const bree = new Bree({
           cron : '0 0 * * 0'
         },
         {
-          name: 'unitShiftsHoursEmailOne',
-          cron : '45 8 * * *'
+          name: 'unitShiftsHoursEmailJobAll',
+          cron : '40 12 * * *'
         },
         {
-          name: 'unitShiftsHoursEmailStores',
-          cron : '0 9 * * *'
+          name: 'unitShiftsHoursEmailJobStore_0_10',
+          cron : '48 12 * * *'
+        },
+        {
+          name: 'unitShiftsHoursEmailJobStore_11_16',
+          cron : '50 12 * * *'
+        },
+        {
+          name: 'mngOvertime_0_10',
+          cron : '53 12 * * *'
+        },
+        {
+          name: 'mngOvertime_11_16',
+          cron : '55 12 * * *'
         }
     ]
 });
