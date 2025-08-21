@@ -1,3 +1,4 @@
+const { apiTokenAutomate } = require('../middleware/apiToken');
 const { getUnits } = require('../api/Mapal');
 const { getMapalEmployees } = require('../api/Mapal');
 const { getWorkedHours } = require('../api/Mapal');
@@ -12,6 +13,7 @@ const Employee = require('../model/Employee');
 const { get } = require('mongoose');
 
 const labourCompliance = async (date1, date2) => {
+    await apiTokenAutomate();
     const currentDate = new Date();
     const start = new Date(date1);
     const end = new Date(date2);

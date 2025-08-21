@@ -270,7 +270,7 @@ const labourComplianceTPPM = async (start, end, email, cc= []) => {
     
     /*
    unitData.forEach(unit => {
-    unit.employees.filter(e => e.state[0].contract === 'TPPM').forEach(element => {
+    unit.employees.filter(e => e.state[0].contract === 'TPPM').forEach element => {
 
         console.log('Employee:', element.employee,
                     'State:', element.state[0].contract,
