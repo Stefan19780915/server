@@ -82,7 +82,7 @@ console.log(
             
             const info = await sendEmail(
                 'stefan.csomor@qweurope.com',
-                ['stefan_csomor@hotmail.com', 'peter.gazo@qweurope.com'],
+                ['peter.gazo@qweurope.com', 'peter.deak@qweurope.com','peter.zidek@qweurope.com','radka.hrebickova@qweurope.com'],
                 subject,
                 html
               );
