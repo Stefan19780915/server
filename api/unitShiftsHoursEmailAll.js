@@ -29,6 +29,7 @@ const unitShiftHoursJob = async (email, cc = []) => {
 
     // const shifts = await getShifts(toDayFrom, toDayTo, '13'); 
   const units = await getUnits();
+ // const filteredUnits = units.filter(unit => unit.business_unit_id === 13);
     //getting headCount for each unit//
   const employeeHeadCount = await unitHeadCount();
    // console.log('Employees:', employeeHeadCount);
@@ -240,8 +241,6 @@ const unitShiftHoursJob = async (email, cc = []) => {
 
     //makeUnitShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom);
     //SEND EMAIL//
-
-     
     
     
     if (unitShifts.length) {
@@ -263,11 +262,16 @@ const unitShiftHoursJob = async (email, cc = []) => {
                 console.log("Message was not sent");
               }
         } 
+
+    
       
     console.log('Area Coach Job executed successfully:');
   } catch (error) {
     console.error('Error executing Area Coach Job:', error);
   }
+
+
+
 }
 
 

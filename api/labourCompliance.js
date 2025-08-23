@@ -24,7 +24,7 @@ const labourCompliance = async (date1, date2) => {
 
     const units = await getUnits();
     //console.log('Units:', units);
-   //const filteredUnits = units.filter(unit => unit.business_unit_id === 13);
+  // const filteredUnits = units.filter(unit => unit.business_unit_id === 13);
    
    const filteredUnits = units.filter(unit =>
         unit.business_unit !== 'KFC Office' &&
@@ -84,7 +84,18 @@ const labourCompliance = async (date1, date2) => {
         const empAbsences = await getAbsences(employeeIds, start, end);
         //console.log('Absences:', empAbsences.length);
         const empState = await getEmployeeLabourState(employeeIds);
-       // console.log('State:', empState);
+        //console.log('State:', empState);
+
+        
+        const empStateNewEmpAndTerm = empState.filter(state =>{
+        const stateStart = moment(state.start_date).toDate();
+        const stateExpEnd = state.expected_termination_date ? moment(state.expected_termination_date).toDate() : null;
+        return (stateStart > start || (stateExpEnd && stateExpEnd <= end));
+       });
+      // console.log('New Employees and Terminated in the period:', empStateNewEmpAndTermIds);
+
+
+
        //need to loop through the employeeIds and get the hours one by one from getWorkedHours
         const workedHours = [];
             for (const empId of employeeIds) {
@@ -97,12 +108,33 @@ const labourCompliance = async (date1, date2) => {
                 }
             }
 
+    //filter out from employeeIds the ones which are in empStateNewEmpAndTermIds
+        const filteredEmployeeIds = employeeIds.filter(id => !empStateNewEmpAndTerm.some(state => state.employee_id === id));
+      //  console.log('Filtered Employee IDs (excluding new/terminated):', filteredEmployeeIds.length);
+
+
         //const workedHours = await getWorkedHours(start, end, unit.business_unit_id);
        // console.log('Worked Hours:', workedHours);
-        const hoursFond = await getHoursFondCompliance(start, end, employeeIds);
-        // console.log('Hours Fond:', hoursFond.length);
+        const hoursFond = await getHoursFondCompliance(start, end, filteredEmployeeIds);
+       //  console.log('Hours Fond wothout empStateNew and Term:', hoursFond);
 
-        
+        //get hours fond compliance for New Employees and Terminated in the period
+        const newAndTermHoursFond = [];
+        for (const state of empStateNewEmpAndTerm) {
+            const start = new Date(state.start_date);
+            // Use expected_termination_date if present and is less than date2, otherwise use date2
+            const end = state.expected_termination_date && new Date(state.expected_termination_date) < new Date(date2)  ? new Date(state.expected_termination_date) : new Date(date2);
+            const id = [state.employee_id];
+            // Fetch hours fond for this employee within the determined date range
+            const fond = await getHoursFondCompliance(start, end, id);
+            if (fond && fond.length) {
+                newAndTermHoursFond.push(...fond);
+            }
+        }
+        // add newAndTermHoursFond to hoursFond
+        hoursFond.push(...newAndTermHoursFond);
+
+        //console.log('New and Terminated Employees Hours Fond:', newAndTermHoursFond);
             
 /*
                 console.log(

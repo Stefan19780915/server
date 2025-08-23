@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const {makeEmail} = require("../utils/email");
 const {empWithTime} = require('../api/Mapal');
-//const { labourComplianceTPPM } = require('../api/labourComplianceTPPM');
+//const { unitShiftHoursJob } = require('../jobs/unitShiftsHoursEmailJobAll');
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
@@ -40,6 +40,7 @@ const getAllEmployees = async (req, res) => {
 // mapalEt.forEach( (emp)=> emp.time.forEach( (t)=> console.log(t) ) );
 
 // uncoment if you want to call unitShiftEmail
+//await unitShiftHoursJob('stefan.csomor@qweurope.com')
 
   ///const mapalOneEmployee = await getOneEmployee()//;
   ///console.log(mapalOneEmployee, mapalEmp);
