@@ -68,8 +68,10 @@ const labourCompliance = async (date1, date2) => {
     
     //gets All hired employees to the current date
     const employees = await getMapalEmployees();
-   // const allEmployees = [...terminated,...employees];
-    const onlyTPPandTPPM = employees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
+    // remove terminated from employees
+    const filteredEmployees = employees.filter(emp => !termEmpIds.includes(emp.employee_id));
+    const allEmployees = [...terminated,...filteredEmployees];
+    const onlyTPPandTPPM = allEmployees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
     //const filt = employees.filter(emp => emp.unit_id === 13);
     //console.log('Employees:', onlyTPP);
 
