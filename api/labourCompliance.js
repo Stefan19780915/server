@@ -38,7 +38,7 @@ const labourCompliance = async (date1, date2) => {
     //get terminated employees
      const termEmpInfo = await getTerminatedEmployees(start, end);
      const termEmpIds = termEmpInfo.map(emp => emp.employee_id);
-     //console.log('terminated Ids', termEmpInfo)
+    // console.log('terminated Ids', termEmpInfo)
     //only called if ther are term emoIds
      let employeeData = [];
         if (termEmpIds.length > 0) {
@@ -57,6 +57,7 @@ const labourCompliance = async (date1, date2) => {
             job: termInfo.category,
             name: emp.name,
             last_name: emp.last_name,
+            termination_date: termInfo.termination_date,
         }
 
      })
@@ -123,8 +124,6 @@ const labourCompliance = async (date1, date2) => {
         //get hours fond compliance for New Employees and Terminated in the period
         // empStateNewEmpAndTerm without the terminated employees in the period
         //const filtEmpStateNewEmpAndTerm = empStateNewEmpAndTerm.filter(state => !termEmpIds.includes(state.employee_id));
-        
-        
 
         const newAndTermHoursFond = [];
         for (const state of empStateNewEmpAndTerm) {
@@ -169,7 +168,8 @@ const labourCompliance = async (date1, date2) => {
                 absences: empAbsences.filter(abs => abs.employee_id === emp.employee_id),
                 state: empState.filter(state => state && state.employee_id === emp.employee_id),
                 workedHours: filteredWorkedHours.length ? filteredWorkedHours : [ { total_time: 0 } ],
-                hoursFond: filteredHoursFond.length ? filteredHoursFond : [ { result: 0 } ]
+                hoursFond: filteredHoursFond.length ? filteredHoursFond : [ { result: 0 } ],
+                termination_date: termEmpInfo.find(t => t.employee_id === emp.employee_id)?.termination_date || null
             }
         });
                

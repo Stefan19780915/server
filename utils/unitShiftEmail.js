@@ -240,7 +240,9 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
                 <th style="padding: 8px" colspan="6">Compliance ----- From: ${monthStart} ----- To: ${unitShift.currentWeekShifts[6].date}</th>
             </tr>
             <tr>
-                  <td style="padding: 8px; text-align: center" colspan="3">Zamestnanec</td>
+                  <td style="padding: 8px; text-align: center" >Zamestnanec</td>
+                  <td style="padding: 8px; text-align: center" >Nástup</td>
+                  <td style="padding: 8px; text-align: center" >Ukončenie</td>
                   <td style="padding: 8px; text-align: center">D, P, PN, OCR</td>
                   <td style="padding: 8px; text-align: center">Pracovný Fond</td>
                   <td style="padding: 8px; text-align: center">Uväzok</td>
@@ -253,7 +255,9 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
             ${currentComplianceEmp.map(emp =>{
               return  `
                 <tr>
-                  <td style="padding: 8px; text-align: center" colspan="3">${emp.employee}</td>
+                  <td style="padding: 8px; text-align: center">${emp.employee}</td>
+                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date) > new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
+                  <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
                   <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
                   <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
@@ -268,7 +272,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
               `
             }).join('')}
             <tr>
-                  <th style="padding: 8px; text-align: center; font-weight: bold" colspan="3">S P O L U</th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
                   <th style="padding: 8px; text-align: center" colspan="4"></th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSum.toFixed(2)}</th>
@@ -278,7 +282,9 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
             ${currentComplianceMng.map(emp =>{
               return  `
                 <tr>
-                  <td style="padding: 8px; text-align: center" colspan="3">${emp.employee}</td>
+                  <td style="padding: 8px; text-align: center">${emp.employee}</td>
+                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date) > new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
+                  <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
                   <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
                   <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
@@ -293,7 +299,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
               `
             }).join('')}
             <tr>
-                  <th style="padding: 8px; text-align: center; font-weight: bold" colspan="3">S P O L U</th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
                   <th style="padding: 8px; text-align: center" colspan="4"></th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng.toFixed(2)}</th>
