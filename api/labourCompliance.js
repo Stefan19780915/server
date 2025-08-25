@@ -68,8 +68,8 @@ const labourCompliance = async (date1, date2) => {
     
     //gets All hired employees to the current date
     const employees = await getMapalEmployees();
-    const allEmployees = [...terminated,...employees];
-    const onlyTPPandTPPM = allEmployees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
+   // const allEmployees = [...terminated,...employees];
+    const onlyTPPandTPPM = employees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
     //const filt = employees.filter(emp => emp.unit_id === 13);
     //console.log('Employees:', onlyTPP);
 
@@ -92,7 +92,7 @@ const labourCompliance = async (date1, date2) => {
         const stateExpEnd = state.expected_termination_date ? moment(state.expected_termination_date).toDate() : null;
         return (stateStart > start || (stateExpEnd && stateExpEnd <= end));
        });
-      // console.log('New Employees and Terminated in the period:', empStateNewEmpAndTermIds);
+      // console.log('New Employees and Terminated in the period:', empStateNewEmpAndTerm);
 
 
 
@@ -119,9 +119,14 @@ const labourCompliance = async (date1, date2) => {
        //  console.log('Hours Fond wothout empStateNew and Term:', hoursFond);
 
         //get hours fond compliance for New Employees and Terminated in the period
+        // empStateNewEmpAndTerm without the terminated employees in the period
+        //const filtEmpStateNewEmpAndTerm = empStateNewEmpAndTerm.filter(state => !termEmpIds.includes(state.employee_id));
+        
+        
+
         const newAndTermHoursFond = [];
         for (const state of empStateNewEmpAndTerm) {
-            const start = new Date(state.start_date);
+            const start = new Date(state.start_date) > new Date(date1) ? new Date(state.start_date) : new Date(date1);
             // Use expected_termination_date if present and is less than date2, otherwise use date2
             const end = state.expected_termination_date && new Date(state.expected_termination_date) < new Date(date2)  ? new Date(state.expected_termination_date) : new Date(date2);
             const id = [state.employee_id];
