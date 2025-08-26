@@ -273,7 +273,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
             }).join('')}
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
-                  <th style="padding: 8px; text-align: center" colspan="4"></th>
+                  <th style="padding: 8px; text-align: center" colspan="6"></th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSum.toFixed(2)}</th>
             </tr>
@@ -300,7 +300,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
             }).join('')}
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
-                  <th style="padding: 8px; text-align: center" colspan="4"></th>
+                  <th style="padding: 8px; text-align: center" colspan="6"></th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng.toFixed(2)}</th>
             </tr>
