@@ -101,6 +101,10 @@ const bree = new Bree({
           cron : '45 8 * * *'
         },
         {
+          name: 'salesEmailJobAll',
+          cron : '50 8 * * *'
+        },
+        {
           name: 'mngOvertime_0_10',
           cron : '0 0 * * 0'
         },

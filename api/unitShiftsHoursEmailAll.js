@@ -386,7 +386,10 @@ function getEndOfWeek(date) {
 //not to export this function
 
 module.exports = {
-    unitShiftHoursJob
+    unitShiftHoursJob,
+    getWeekDates,
+    getStartOfWeek,
+    getEndOfWeek
 };
 
 
