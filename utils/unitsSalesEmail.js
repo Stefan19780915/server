@@ -36,10 +36,10 @@ function makeUnitSalesEmail (unitSales,startOfWeek){
              <tr>
                   <td style="padding: 8px; text-align: center">${unit.unitName}</td>
                   ${unit.previousWeekSales.map(date=>{
-                    return `<td style="padding: 8px; text-align: center; background-color:${bcToDayColor(date.date)}">€${date.totalChecks.toFixed()}</td>`
+                    return `<td style="padding: 8px; text-align: center; background-color:${bcToDayColor(date.date)}">${date.totalChecks.toFixed()}</td>`
                   }).join('')}
                   ${unit.currentWeekSales.map(date=>{
-                    return `<td style="padding: 8px; text-align: center; background-color:${bcToDayColor(date.date)}">€${date.totalChecks.toFixed()}</td>`
+                    return `<td style="padding: 8px; text-align: center; background-color:${bcToDayColor(date.date)}">${date.totalChecks.toFixed()}</td>`
                   }).join('')}
              </tr>
         `
