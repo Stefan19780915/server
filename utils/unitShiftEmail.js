@@ -8,8 +8,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
    const filteredUnits = unitShifts.filter(unit =>
         unit.unitName !== 'KFC Office' &&
         unit.unitName !== 'KFC Wörgl' &&
-        unit.unitName !== 'KFC Lugner City' &&
-        unit.unitName !== 'KFC Novum Prešov'
+        unit.unitName !== 'KFC Lugner City'
     );
 
    // console.log(headCount);
@@ -273,9 +272,16 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
             }).join('')}
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
-                  <th style="padding: 8px; text-align: center" colspan="6"></th>
+                  <th style="padding: 8px; text-align: center" colspan="5"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.fullTimeHoursSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSum.toFixed(2)}</th>
+            </tr>
+            <tr>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">STUDENTS</th>
+                  <th style="padding: 8px; text-align: center" colspan="5"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.partTimeHoursSum.toFixed(2)}</th>
+
             </tr>
 
 
@@ -300,7 +306,8 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
             }).join('')}
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
-                  <th style="padding: 8px; text-align: center" colspan="6"></th>
+                  <th style="padding: 8px; text-align: center" colspan="5"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.mngHoursSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng.toFixed(2)}</th>
             </tr>
@@ -378,6 +385,26 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
           ${hcSumTableStudents(8,16)}
         </tr>
       </table>
+
+      <table style="width:100%; border-collapse: collapse; border: 1px solid black;">
+        <tr>
+          <th style="width:5%; background-color: #C41230; padding: 8px; color:rgb(255, 255, 255)">Type</th>
+          ${hcSumTableUnits (16, 17)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">TPP</td>
+          ${hcSumTableTPP(16, 17)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">MNG</td>
+          ${hcSumTableMNG(16, 17)}
+        </tr>
+        <tr>
+          <td style="padding: 8px; text-align: center">Students</td>
+          ${hcSumTableStudents(16, 17)}
+        </tr>
+      </table>
+
 
       <br></br>
 

@@ -24,13 +24,12 @@ const labourCompliance = async (date1, date2) => {
 
     const units = await getUnits();
     //console.log('Units:', units);
-  // const filteredUnits = units.filter(unit => unit.business_unit_id === 13);
+//  const filteredUnits = units.filter(unit => unit.business_unit_id === 10);
    
    const filteredUnits = units.filter(unit =>
         unit.business_unit !== 'KFC Office' &&
         unit.business_unit !== 'KFC Wörgl' &&
-        unit.business_unit !== 'KFC Lugner City' &&
-        unit.business_unit !== 'KFC Novum Prešov'
+        unit.business_unit !== 'KFC Lugner City'
     );
 
     
@@ -73,8 +72,9 @@ const labourCompliance = async (date1, date2) => {
     const filteredEmployees = employees.filter(emp => !termEmpIds.includes(emp.employee_id));
     const allEmployees = [...terminated,...filteredEmployees];
     const onlyTPPandTPPM = allEmployees.filter(emp => emp.job !== 'Student' && emp.job !== 'Part Timer');
-    //const filt = employees.filter(emp => emp.unit_id === 13);
-    //console.log('Employees:', onlyTPP);
+    const onlyPT = allEmployees.filter( emp => emp.job == 'Student' || emp.job == "Part Timer");
+    //const filt = onlyPT.filter(emp => emp.unit_id === 13);
+   //console.log('Employees:', filt);
 
 
     const unitDataPromises = filteredUnits.map( async unit => {
@@ -83,9 +83,15 @@ const labourCompliance = async (date1, date2) => {
         const employeeIds = filteredEmployees.map(emp => emp.employee_id);
        // console.log('Employee IDs current:', employeeIds.length);
         //const employeeIds = [...employeeIdsCurr,...termEmpIds];
+
+        //get part time Ids
+        const filteredPartTimeEmployees = onlyPT.filter( emp => emp.unit_id === unit.business_unit_id)
+        const partTimeIds = filteredPartTimeEmployees.map( emp => emp.employee_id);
+        //console.log(partTimeIds);
+
         
         const empAbsences = await getAbsences(employeeIds, start, end);
-        //console.log('Absences:', empAbsences.length);
+      //  console.log('Absences:', empAbsences);
         const empState = await getEmployeeLabourState(employeeIds);
         //console.log('State:', empState);
 
@@ -95,7 +101,7 @@ const labourCompliance = async (date1, date2) => {
         const stateExpEnd = state.expected_termination_date ? moment(state.expected_termination_date).toDate() : null;
         return (stateStart > start || (stateExpEnd && stateExpEnd <= end));
        });
-      // console.log('New Employees and Terminated in the period:', empStateNewEmpAndTerm);
+     //  console.log('New Employees and Terminated in the period:', empStateNewEmpAndTerm);
 
 
 
@@ -110,6 +116,20 @@ const labourCompliance = async (date1, date2) => {
                     workedHours.push(hours);
                 }
             }
+
+
+            //need to loop throuth the part time employees Ids to get their hors
+            const partTimeWorkedHours = [];
+            for (const partTimeId of partTimeIds){
+                const hours = await getWorkedHours(start, end , partTimeId);
+                if (Array.isArray(hours)) {
+                            partTimeWorkedHours.push(...hours);
+                        } else if (hours) {
+                            partTimeWorkedHours.push(hours);
+                        }
+            }
+            
+            
 
     //filter out from employeeIds the ones which are in empStateNewEmpAndTermIds
         const filteredEmployeeIds = employeeIds.filter(id => !empStateNewEmpAndTerm.some(state => state.employee_id === id));
@@ -172,6 +192,22 @@ const labourCompliance = async (date1, date2) => {
                 termination_date: termEmpInfo.find(t => t.employee_id === emp.employee_id)?.termination_date || null
             }
         });
+
+
+        const unitPartTimeData = filteredPartTimeEmployees.map(emp =>{
+
+            const filteredWorkedHours = partTimeWorkedHours.filter(hours => hours.id_employee === emp.employee_id);
+           // console.log( 'empId', emp.employee_id, 'hours:', filteredWorkedHours);
+            return {
+                employeeId: emp.employee_id,
+                unitId: emp.unit_id,
+                workedHours: filteredWorkedHours.length ? filteredWorkedHours : [ { total_time: 0 } ]
+            }
+
+        });
+
+        const partTimeData = await Promise.all(unitPartTimeData)
+      // console.log(partTimeData);
                
 
         const employeeData = await Promise.all(unitEmployeesData);
@@ -179,7 +215,32 @@ const labourCompliance = async (date1, date2) => {
         const mng = employeeData.filter(e => e.state[0].contract === 'TPPM');
         const emps = employeeData.filter(e => e.state[0].contract !== 'TPPM');
 
-       // console.log(emps);
+
+
+        const partTimeHoursSum = partTimeData.reduce((sum, emp)=>{
+            const hours = emp.workedHours[0].total_time;
+            if (hours > 0){
+                return sum + (Number(hours) || 0);
+            }
+            return sum;
+        }, 0);
+
+
+        const fullTimeHoursSum = emps.reduce((sum, emp)=>{
+            const hours = emp.workedHours[0].total_time;
+            if(hours > 0){
+                return sum + Number(hours) || 0;
+            }
+            return sum;
+        }, 0)
+
+        const mngHoursSum = mng.reduce((sum, emp)=>{
+            const hours = emp.workedHours[0].total_time;
+            if(hours > 0 ){
+                return sum + Number(hours) || 0;
+            }
+            return sum;
+        }, 0);
 
         const overtimeSum = emps.reduce((sum, emp) =>{
             const overtime = (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2);
@@ -225,7 +286,11 @@ const labourCompliance = async (date1, date2) => {
                 overtimeSum: overtimeSum,
                 minusHoursSum: minusHoursSum,
                 overtimeSumMng: overtimeSumMng,
-                minusHoursSumMng: minusHoursSumMng
+                minusHoursSumMng: minusHoursSumMng,
+                fullTimeHoursSum: fullTimeHoursSum,
+                mngHoursSum: mngHoursSum,
+                partTimeHoursSum: partTimeHoursSum
+
         };
 
 
