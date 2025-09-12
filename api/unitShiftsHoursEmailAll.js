@@ -227,8 +227,7 @@ const unitShiftHoursJob = async (email, cc = []) => {
     //if current week sunday is greater then current month last day then set to current month last day
     const compliance = await labourCompliance(toDayFrom, weeks.currentWeek[6] >= toDayTo ? toDayTo : weeks.currentWeek[6]);
 
-    //console.log(compliance)
-
+   // compliance[0].employees.forEach(e => console.log(e));
 
    
    //makeUnitShiftEmail(unitShifts, employeeHeadCount);

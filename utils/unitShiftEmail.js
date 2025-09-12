@@ -90,12 +90,14 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
            // console.log(currentCompliance.employees)
       
             const currentComplianceMng = currentCompliance.employees.filter(e =>{
-              const mng = e.state[0].contract == 'TPPM';
+
+              //check if the first 4 characters of  match e.state[0].contract "TPPM"
+              const mng = e.state[0].contract.substring(0, 4) == 'TPPM';
               return mng;
             })
 
             const currentComplianceEmp = currentCompliance.employees.filter(e =>{
-              const emp = e.state[0].contract !== 'TPPM';
+              const emp = e.state[0].contract.substring(0, 4) !== 'TPPM';
               return emp;
             })
            // console.log(unitShift.unitName, 'Manegers:', currentComplianceMng, 'Employees:', currentComplianceEmp );
@@ -255,7 +257,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
               return  `
                 <tr>
                   <td style="padding: 8px; text-align: center">${emp.employee}</td>
-                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date) > new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
+                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date.split("T")[0]) >= new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
                   <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
@@ -289,7 +291,7 @@ function makeUnitShiftEmail (unitShifts, headCount, compliance, monthStart){
               return  `
                 <tr>
                   <td style="padding: 8px; text-align: center">${emp.employee}</td>
-                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date) >= new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
+                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date.split("T")[0]) >= new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
                   <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>

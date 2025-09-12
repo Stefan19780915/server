@@ -24,7 +24,7 @@ const labourCompliance = async (date1, date2) => {
 
     const units = await getUnits();
     //console.log('Units:', units);
-//  const filteredUnits = units.filter(unit => unit.business_unit_id === 10);
+  //const filteredUnits = units.filter(unit => unit.business_unit_id === 18);
    
    const filteredUnits = units.filter(unit =>
         unit.business_unit !== 'KFC Office' &&
@@ -99,7 +99,7 @@ const labourCompliance = async (date1, date2) => {
         const empStateNewEmpAndTerm = empState.filter(state =>{
         const stateStart = moment(state.start_date).toDate();
         const stateExpEnd = state.expected_termination_date ? moment(state.expected_termination_date).toDate() : null;
-        return (stateStart > start || (stateExpEnd && stateExpEnd <= end));
+        return (stateStart >= start || (stateExpEnd && stateExpEnd <= end));
        });
      //  console.log('New Employees and Terminated in the period:', empStateNewEmpAndTerm);
 

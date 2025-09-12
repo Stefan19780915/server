@@ -42,7 +42,7 @@ const getAllEmployees = async (req, res) => {
 
 // uncoment if you want to call unitShiftEmail
 //await unitShiftHoursJob('stefan.csomor@qweurope.com')
-//  await unitsSalesEmailAll('stefan.csomor@qweurope.com');
+//await unitsSalesEmailAll('stefan.csomor@qweurope.com');
 
   ///const mapalOneEmployee = await getOneEmployee()//;
   ///console.log(mapalOneEmployee, mapalEmp);
