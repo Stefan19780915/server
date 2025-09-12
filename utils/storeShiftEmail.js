@@ -212,7 +212,7 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
               return  `
                 <tr>
                   <td style="padding: 8px; text-align: center">${emp.employee}</td>
-                 <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date) > new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
+                 <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date.split("T")[0]) > new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
                   <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
@@ -229,16 +229,23 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
             }).join('')}
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
-                  <th style="padding: 8px; text-align: center" colspan="6"></th>
+                  <th style="padding: 8px; text-align: center" colspan="5"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.fullTimeHoursSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSum.toFixed(2)}</th>
+            </tr>
+            <tr>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">STUDENTS</th>
+                  <th style="padding: 8px; text-align: center" colspan="5"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.partTimeHoursSum.toFixed(2)}</th>
+
             </tr>
             
             ${currentComplianceMng.map(emp =>{
               return  `
                 <tr>
                   <td style="padding: 8px; text-align: center">${emp.employee}</td>
-                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date) >= new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
+                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date.split("T")[0]) >= new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
                   <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
@@ -255,7 +262,8 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
             }).join('')}
             <tr>
                   <th style="padding: 8px; text-align: center; font-weight: bold">S P O L U</th>
-                  <th style="padding: 8px; text-align: center" colspan="6"></th>
+                  <th style="padding: 8px; text-align: center" colspan="5"></th>
+                  <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.mngHoursSum.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.overtimeSumMng.toFixed(2)}</th>
                   <th style="padding: 8px; text-align: center; font-weight: bold">${currentCompliance.minusHoursSumMng.toFixed(2)}</th>
             </tr>
