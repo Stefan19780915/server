@@ -20,7 +20,7 @@ const getContractedHours = async (startDate, endDate, ticks, empId)=>{
 
 const getHoursFondCompliance = async (startDate, endDate, employee_id)=>{
   const params = new URLSearchParams();
-  employee_id.forEach(id => params.append('employee_id', id));
+  employee_id.forEach(id => params.append('employee_ids', id));
     let config = {
   method: 'get',
   maxBodyLength: Infinity,
