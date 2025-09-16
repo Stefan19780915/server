@@ -81,7 +81,7 @@ const labourCompliance = async (date1, date2) => {
 
         const filteredEmployees = onlyTPPandTPPM.filter(emp => emp.unit_id === unit.business_unit_id);
         const employeeIds = filteredEmployees.map(emp => emp.employee_id);
-        console.log('Employee IDs current:', employeeIds.length);
+        console.log('Employee IDs current:', employeeIds);
         //const employeeIds = [...employeeIdsCurr,...termEmpIds];
 
         //get part time Ids

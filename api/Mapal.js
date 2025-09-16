@@ -251,6 +251,7 @@ const shifts = await axios.request(config);
   const getAbsences = async (employee_ids, start_date, end_date)=>{
     const params = new URLSearchParams();
     employee_ids.forEach(id => params.append('employee_ids', id));
+    console.log(params);
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
