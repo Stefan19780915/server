@@ -19,12 +19,13 @@ const getContractedHours = async (startDate, endDate, ticks, empId)=>{
   }
 
 const getHoursFondCompliance = async (startDate, endDate, employee_id)=>{
+  console.log('getHoursFondCompliance', startDate, endDate, employee_id);
   const params = new URLSearchParams();
   employee_id.forEach(id => params.append('employee_id', id));
     let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&${params}`,
+  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate}&date_to=${endDate}&${params}`,
   headers: {
     'api-version': '1.2',
     'Authorization': `Bearer ${process.env.API_TOKEN}`

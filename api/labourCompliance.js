@@ -133,13 +133,22 @@ const labourCompliance = async (date1, date2) => {
 
     //filter out from employeeIds the ones which are in empStateNewEmpAndTermIds
         const filteredEmployeeIds = employeeIds.filter(id => !empStateNewEmpAndTerm.some(state => state.employee_id === id));
-       //console.log('Filtered Employee IDs (excluding new/terminated):', filteredEmployeeIds.length);
+       console.log('Filtered Employee IDs (excluding new/terminated):', filteredEmployeeIds.length);
 
 
         //const workedHours = await getWorkedHours(start, end, unit.business_unit_id);
        // console.log('Worked Hours:', workedHours);
-        const hoursFond = await getHoursFondCompliance(start, end, filteredEmployeeIds);
+
+       // const hoursFond = await getHoursFondCompliance(start, end, filteredEmployeeIds);
        //  console.log('Hours Fond wothout empStateNew and Term:', hoursFond);
+
+       const hoursFond = filteredEmployeeIds.length > 0
+            ? await getHoursFondCompliance(
+            new Date(start).toISOString().slice(0, 10),
+            new Date(end).toISOString().slice(0, 10),
+            filteredEmployeeIds
+            )
+        : [];
 
         //get hours fond compliance for New Employees and Terminated in the period
         // empStateNewEmpAndTerm without the terminated employees in the period
@@ -152,7 +161,7 @@ const labourCompliance = async (date1, date2) => {
             const end = state.expected_termination_date && new Date(state.expected_termination_date) < new Date(date2)  ? new Date(state.expected_termination_date) : new Date(date2);
             const id = [state.employee_id];
             // Fetch hours fond for this employee within the determined date range
-            const fond = await getHoursFondCompliance(start, end, id);
+            const fond = await getHoursFondCompliance(new Date(start).toISOString().slice(0, 10), new Date(end).toISOString().slice(0, 10), id);
             if (fond && fond.length) {
                 newAndTermHoursFond.push(...fond);
             }
