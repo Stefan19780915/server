@@ -90,7 +90,7 @@ const bree = new Bree({
         },
         {
           name: 'unitShiftsHoursEmailJobAll',
-          cron : '10 8 * * *'
+          cron : '45 9 * * *'
         },
         {
           name: 'unitShiftsHoursEmailJobStore_0_10',
