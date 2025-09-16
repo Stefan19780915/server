@@ -106,7 +106,7 @@ const getSales = async (startDate, endDate, unitIds)=>{
   let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&${params}&fromDate=${startDate}&toDate=${endDate}`,
+  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&${params.toString()}&fromDate=${startDate}&toDate=${endDate}`,
   
   headers: { 
     'api-version': '1.2', 
@@ -187,7 +187,7 @@ const shifts = await axios.request(config);
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Employee/getActualLaborEmployeeState?${params}`,
+      url: `https://gotogir.com/wap/labor/Employee/getActualLaborEmployeeState?${params.toString()}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -254,7 +254,7 @@ const shifts = await axios.request(config);
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?${params}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
+      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?${params.toString()}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
