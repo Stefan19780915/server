@@ -24,7 +24,7 @@ const getHoursFondCompliance = async (startDate, endDate, employee_id)=>{
     let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&${params}`,
+  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&${params.toString()}`,
   headers: {
     'api-version': '1.2',
     'Authorization': `Bearer ${process.env.API_TOKEN}`
