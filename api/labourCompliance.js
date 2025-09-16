@@ -81,7 +81,7 @@ const labourCompliance = async (date1, date2) => {
 
         const filteredEmployees = onlyTPPandTPPM.filter(emp => emp.unit_id === unit.business_unit_id);
         const employeeIds = filteredEmployees.map(emp => emp.employee_id);
-        console.log('Employee IDs current:', employeeIds);
+       // console.log('Employee IDs current:', employeeIds);
         //const employeeIds = [...employeeIdsCurr,...termEmpIds];
 
         //get part time Ids
@@ -133,7 +133,7 @@ const labourCompliance = async (date1, date2) => {
 
     //filter out from employeeIds the ones which are in empStateNewEmpAndTermIds
         const filteredEmployeeIds = employeeIds.filter(id => !empStateNewEmpAndTerm.some(state => state.employee_id === id));
-       console.log('Filtered Employee IDs (excluding new/terminated):', filteredEmployeeIds.length);
+       //console.log('Filtered Employee IDs (excluding new/terminated):', filteredEmployeeIds.length);
 
 
         //const workedHours = await getWorkedHours(start, end, unit.business_unit_id);
