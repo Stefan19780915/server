@@ -24,7 +24,7 @@ const labourCompliance = async (date1, date2) => {
 
     const units = await getUnits();
     //console.log('Units:', units);
-  //const filteredUnits = units.filter(unit => unit.business_unit_id === 18);
+ // const filteredUnits = units.filter(unit => unit.business_unit_id === 18);
    
    const filteredUnits = units.filter(unit =>
         unit.business_unit !== 'KFC Office' &&

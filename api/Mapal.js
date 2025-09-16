@@ -20,11 +20,11 @@ const getContractedHours = async (startDate, endDate, ticks, empId)=>{
 
 const getHoursFondCompliance = async (startDate, endDate, employee_id)=>{
   const params = new URLSearchParams();
-  employee_id.forEach(id => params.append('employee_ids', id));
+  employee_id.forEach(id => params.append('employee_id', id));
     let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&${params.toString()}`,
+  url: `https://gotogir.com/wap/labor/TimeEvaluation/AccruedFixedHours?date_from=${startDate.toDateString()}&date_to=${endDate.toDateString()}&${params}`,
   headers: {
     'api-version': '1.2',
     'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -106,7 +106,7 @@ const getSales = async (startDate, endDate, unitIds)=>{
   let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&${params.toString()}&fromDate=${startDate}&toDate=${endDate}`,
+  url: `https://gotogir.com/wap/sales/Sales/SalesByUnitDateAndSource?source=1&${params}&fromDate=${startDate}&toDate=${endDate}`,
   
   headers: { 
     'api-version': '1.2', 
@@ -187,7 +187,7 @@ const shifts = await axios.request(config);
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Employee/getActualLaborEmployeeState?${params.toString()}`,
+      url: `https://gotogir.com/wap/labor/Employee/getActualLaborEmployeeState?${params}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -251,11 +251,10 @@ const shifts = await axios.request(config);
   const getAbsences = async (employee_ids, start_date, end_date)=>{
     const params = new URLSearchParams();
     employee_ids.forEach(id => params.append('employee_ids', id));
-    console.log(params.toString());
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?${params.toString()}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
+      url: `https://gotogir.com/wap/labor/Absences/GetAbsences?${params}&start_date=${start_date.toDateString()}&end_date=${end_date.toDateString()}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
