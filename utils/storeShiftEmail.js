@@ -202,9 +202,9 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                   <td style="padding: 8px; text-align: center" >Nástup</td>
                   <td style="padding: 8px; text-align: center" >Ukončenie</td>
                   <td style="padding: 8px; text-align: center">D, P, PN, OCR</td>
+                  <td style="padding: 8px; text-align: center">Pracovný Fond</td>
                   <td style="padding: 8px; text-align: center">Uväzok</td>
                   <td style="padding: 8px; text-align: center">Odpracované hodiny</td>
-                  <td style="padding: 8px; text-align: center">Pracovný Fond</td>
                   <td style="padding: 8px; text-align: center">Nadčas</td>
                   <td style="padding: 8px; text-align: center">Chýbajúce hodiny</td>    
             </tr>
@@ -215,9 +215,9 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                  <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date.split("T")[0]) > new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
+                  <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
                   <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
                   <td style="padding: 8px; text-align: center">${emp.workedHours[0].total_time.toFixed(2)}</td>
-                  <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
                   <td style="padding: 8px; text-align: center">${(emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) > 0 ? (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) : ''}</td>
                   <td style="padding: 8px; text-align: center; 
                   background-color: ${bcMinusHoursColor((emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2))};
@@ -248,9 +248,9 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                   <td style="padding: 8px; text-align: center">${ new Date(emp.state[0].start_date.split("T")[0]) >= new Date(monthStart) ? moment(emp.state[0].start_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.termination_date ? moment(emp.termination_date).format('L') : ''}</td>
                   <td style="padding: 8px; text-align: center">${emp.absences.length}</td>
+                  <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
                   <td style="padding: 8px; text-align: center">${emp.state[0].contract}</td>
                   <td style="padding: 8px; text-align: center">${emp.workedHours[0].total_time.toFixed(2)}</td>
-                  <td style="padding: 8px; text-align: center">${emp.hoursFond[0].result.toFixed(2)}</td>
                   <td style="padding: 8px; text-align: center">${(emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) > 0 ? (emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2) : ''}</td>
                   <td style="padding: 8px; text-align: center; 
                   background-color: ${bcMinusHoursColor((emp.workedHours[0].total_time - emp.hoursFond[0].result).toFixed(2))};

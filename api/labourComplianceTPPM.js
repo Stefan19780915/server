@@ -81,6 +81,7 @@ const labourComplianceTPPM = async (start, end, email, cc= []) => {
         const empDetails = employeeIds.map( async empId => {
             const emp = await getEmployeeDetails(empId);
             /*
+            HERE WE NEED TO CHECK THE CURRENT ACTIVE PERIOD LABORAL SITUATION - since we are taking only the [0] yero onef the active periods
             emp.active_periods[0].laboral_situation.forEach(period => {
                 console.log('Employee:', emp.name, emp.last_name, 'State:', period.contract_type, 'Start Date:', period.date);
             })
