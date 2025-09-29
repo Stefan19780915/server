@@ -99,6 +99,23 @@ const getEmployeeData = async (empIds) =>{
     return empData.data;
 }
   
+const getSalesBudgets = async (startDate, endDate, unitIds)=>{
+  const params = new URLSearchParams();
+  unitIds.forEach(id => params.append('UnitId', id)); 
+  // console.log('getSalesBudgets', startDate, endDate, unit);
+  let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: `https://gotogir.com/wap/sales/Sales/GetSalesBudget?${params}&StartDate=${startDate}&EndDate=${endDate}&BudgetId=1&DataSource=True&GroupingByDatesRange=day&FullDetail=true`,
+  headers: { 
+    'Api-version': '1.2', 
+    'Content-Type': 'application/json', 
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+}
+  const budget = await axios.request(config);
+   return budget.data;
+};
 
 const getSales = async (startDate, endDate, unitIds)=>{
   const params = new URLSearchParams();
@@ -299,6 +316,27 @@ const getContracts = async ()=>{
       method: 'get',
       maxBodyLength: Infinity,
       url: `https://gotogir.com/wap/labor/Employee/getHiredEmployees?workcenter_ids=${workcenter_ids}&start_date=2005-01-01&end_date=${end.toDateString()}`,
+      headers: { 
+        'accept': 'text/plain', 
+        'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
+    };
+    try{
+      const result = await axios.request(config);
+      return result.data;
+    } catch (err){
+      console.log(err);
+    }  
+
+  }
+
+  //getHiredEmployees
+  const getHiredEMployeesByDateRange = async (start, end)=>{
+    const toDay = new Date().toDateString();
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `https://gotogir.com/wap/labor/Employee/getHiredEmployees?start_date=${start}&end_date=${end}`,
       headers: { 
         'accept': 'text/plain', 
         'Authorization': `Bearer ${process.env.API_TOKEN}`
@@ -563,5 +601,7 @@ const getContracts = async ()=>{
     getHoursFondCompliance,
     getTerminatedEmployees,
     getEmployeeData,
-    getEmployeeDetails
+    getEmployeeDetails,
+    getSalesBudgets,
+    getHiredEMployeesByDateRange
   }

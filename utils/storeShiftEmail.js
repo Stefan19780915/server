@@ -1,7 +1,7 @@
 const moment = require("moment");
 
 
-function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, unitId){     
+function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, unitId, end){     
 
    // console.log('Unit Shifts:', unitShifts.filter(shift => shift.unitName = 'KFC Aupark Bratislava')[0]);
    const filteredUnits = unitShifts.filter(unit =>
@@ -46,6 +46,11 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
 
             const currentCompliance = compliance.find(c => c.unitId === unitShift.unitId);
 
+            const tppHrs = currentCompliance ? currentCompliance.fullTimeHoursSum : 0;
+            const studentsHrs = currentCompliance ? currentCompliance.partTimeHoursSum : 0;
+            const ratioTPP = (tppHrs / (tppHrs + studentsHrs)) * 100;
+            const ratioStudents = (studentsHrs / (tppHrs + studentsHrs)) * 100;
+
             const currentComplianceMng = currentCompliance.employees.filter(e =>{
               const mng = e.state[0].contract == 'TPPM';
               return mng;
@@ -86,6 +91,18 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                 <td style="padding: 8px; text-align: center">${hc}</td>
             </tr>
 
+            <tr>
+                <td style="padding: 8px">Hours</td>
+                <td style="padding: 8px; text-align: center; border: 1px solid black">${currentCompliance.fullTimeHoursSum.toFixed(2)}</td>
+                <td style="padding: 8px; text-align: center; border: 1px solid black" colspan="2">${currentCompliance.partTimeHoursSum.toFixed(2)}</td>
+                <td style="padding: 8px; text-align: center" colspan="5"></td>
+            </tr>
+
+            <tr>
+                <td style="padding: 8px">FT PT Ratio %</td>
+                <td style="padding: 8px; text-align: center">${ratioTPP.toFixed(0)} : ${ratioStudents.toFixed(0)}</td>
+            </tr>
+
             <!-- NEXT WEEK -->
             
            
@@ -104,8 +121,29 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                 ).join('')}
                 
             </tr>
+
             <tr>
-                <td style="padding: 8px">Plán</td>
+                <td style="padding: 8px">Plan Tržba</td>
+                ${unitShift.currentWeekShifts.map( (shift) => {
+                  const salesBudget = Number(shift.totalSalesBudget) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${salesBudget.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">€${unitShift.totalSalesBudget.toFixed(1)}</td>
+            </tr>
+
+            <tr>
+                <td style="padding: 8px">Plan Zákazníci</td>
+                ${unitShift.currentWeekShifts.map( (shift) => {
+                  const checksBudget = Number(shift.totalChecksBudget) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${checksBudget.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalChecksBudget.toFixed(1)}</td>
+            </tr>
+
+            <tr>
+                <td style="padding: 8px">Plán Hodiny</td>
                 ${unitShift.currentWeekShifts.map( (shift) => {
                   const hours = Number(shift.totalHours) || 0;
                     return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${hours.toFixed(1)}</td>`
@@ -155,8 +193,29 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                 ).join('')}
                 
             </tr>
+
+             <tr>
+                <td style="padding: 8px">Plan Tržba</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                  const salesBudget = Number(shift.totalSalesBudget) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${salesBudget.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">€${unitShift.totalSalesBudgetPrev.toFixed(1)}</td>
+            </tr>
+
             <tr>
-                <td style="padding: 8px">Plán</td>
+                <td style="padding: 8px">Plan Zákazníci</td>
+                ${unitShift.previousWeekShifts.map( (shift) => {
+                  const checksBudget = Number(shift.totalChecksBudget) || 0;
+                    return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${checksBudget.toFixed(1)}</td>`
+                }   
+                ).join('')}
+                <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalChecksBudgetPrev.toFixed(1)}</td>
+            </tr>
+
+            <tr>
+                <td style="padding: 8px">Plán Hodiny</td>
                 ${unitShift.previousWeekShifts.map( (shift) => {
                   const hours = Number(shift.totalHours) || 0;
                     return `<td style="padding: 8px; text-align: center; font-weight: bold; background-color:${bcToDayColor(shift.date)}">${hours.toFixed(1)}</td>`
@@ -164,6 +223,7 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
                 ).join('')}
                 <td style="padding: 8px; text-align: center; font-weight: bold; background-color:#C41230; color:rgb(255, 255, 255)">${unitShift.totalHoursSumPrev.toFixed(1)}</td>
             </tr>
+
             <tr>
                 <td style="padding: 8px">Odpracované</td>
                 ${unitShift.previousWeekShifts.map( (shift) => {
@@ -195,7 +255,7 @@ function makeStoreShiftEmail (unitShifts, headCount, compliance, monthStart, uni
             <!-- COPLIANCE -->
             <tr>
                 <th style="padding: 8px" colspan="3">${unitShift.unitName}</th>
-                <th style="padding: 8px" colspan="6">Compliance ----- From: ${monthStart} ----- To: ${unitShift.currentWeekShifts[6].date}</th>
+                <th style="padding: 8px" colspan="6">Compliance ----- From: ${monthStart} ----- To: ${end}</th>
             </tr>
             <tr>
                   <td style="padding: 8px; text-align: center" >Zamestnanec</td>

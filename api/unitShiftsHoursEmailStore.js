@@ -2,6 +2,7 @@ const { apiTokenAutomate } = require('../middleware/apiToken');
 const { getUnits } = require('./Mapal');
 const { getShifts } = require('./Mapal');
 const { getSales } = require('./Mapal');
+const { getSalesBudgets } = require('./Mapal');
 const { getClockingsByDate } = require('./Mapal');
 const { unitHeadCount } = require('./unitHeadCount');
 const { labourCompliance } = require('./labourCompliance');
@@ -41,6 +42,7 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
    const unitIds = units.map(u => u.business_unit_id).filter(Boolean);
    const salesAll = await getSales(weeks.previousWeek[0], weeks.nextWeek[6], unitIds); // Get all sales for the unit IDs
    //console.log('Sales:', salesAll);
+   const salesBudgets = await getSalesBudgets(weeks.previousWeek[0], weeks.nextWeek[6], unitIds); // Get all sales budgets for the unit IDs
  
    try {
     //Loop throuth the units and get the shifts for each unit//
@@ -94,6 +96,19 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
                 if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
                 return acc + (Number(sale.checks) || 0);
             }, 0);
+
+            const budgets = salesBudgets.filter(sale => sale.unit_id === unitId && moment(sale.business_date).format('YYYY-MM-DD') === date);
+            
+                      const totalSalesBudget = budgets.reduce((acc, budget) => {
+                            if (budget.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                            return acc + (Number(budget.net_sale) || 0);
+                        }, 0);
+            
+                      const totalChecksBudget = budgets.reduce((acc, budget) => {
+                            if (budget.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                            return acc + (Number(budget.tickets) || 0);
+                        }
+                        , 0);
         
         
 
@@ -105,6 +120,8 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
             totalClockings: totalClockings,
             totalChecks: totalChecks,
             totalSales: totalSales,
+            totalSalesBudget: totalSalesBudget,
+            totalChecksBudget: totalChecksBudget,
           };
         }) 
         
@@ -154,6 +171,19 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
                 if (sale.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
                 return acc + (Number(sale.checks) || 0);
             }, 0);
+
+            const budgets = salesBudgets.filter(sale => sale.unit_id === unitId && moment(sale.business_date).format('YYYY-MM-DD') === date);
+            
+                      const totalSalesBudget = budgets.reduce((acc, budget) => {
+                            if (budget.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                            return acc + (Number(budget.net_sale) || 0);
+                        }, 0);
+            
+                      const totalChecksBudget = budgets.reduce((acc, budget) => {
+                            if (budget.unit_id !== unitId) return acc; // Skip if sale business unit id does not match unit id
+                            return acc + (Number(budget.tickets) || 0);
+                        }
+                        , 0);
         
         
 
@@ -165,6 +195,8 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
             totalClockings: totalClockings,
             totalChecks: totalChecks,
             totalSales: totalSales,
+            totalSalesBudget: totalSalesBudget,
+            totalChecksBudget: totalChecksBudget,
           };
         })
 
@@ -184,6 +216,12 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
         const totalChecksSumPrev = previousWeekShifts.reduce((sum, shift) => {
             return sum + (Number(shift.totalChecks) || 0); }, 0);
 
+        const totalSalesBudgetPrev = previousWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalSalesBudget) || 0); }, 0);
+        
+        const totalChecksBudgetPrev = previousWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalChecksBudget) || 0); }, 0);
+
 
 
         //Current WEEK SHifts promises
@@ -200,6 +238,12 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
         
         const totalChecksSum = currentWeekShifts.reduce((sum, shift) => {
             return sum + (Number(shift.totalChecks) || 0); }, 0);
+
+        const totalSalesBudget = currentWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalSalesBudget) || 0); }, 0);
+        
+        const totalChecksBudget = currentWeekShifts.reduce((sum, shift) => {
+            return sum + (Number(shift.totalChecksBudget) || 0); }, 0);
             
                                               
          return {
@@ -215,6 +259,11 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
              totalClockingsSumPrev: totalClockingsSumPrev,
              totalSalesSumPrev: totalSalesSumPrev,
              totalChecksSumPrev: totalChecksSumPrev,
+             totalSalesBudget: totalSalesBudget,
+             totalChecksBudget: totalChecksBudget,
+             totalSalesBudgetPrev: totalSalesBudgetPrev,
+             totalChecksBudgetPrev: totalChecksBudgetPrev,
+
          };
      });
 
@@ -223,7 +272,11 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
     const unitShifts = (await Promise.all(unitShiftsPromises)).filter(Boolean);
     //compliance from beginning of teh month till the end of the current week
     // console.log(toDayFrom, weeks.currentWeek[6])
-    const compliance = await labourCompliance(toDayFrom, weeks.currentWeek[6] >= toDayTo ? toDayTo : weeks.currentWeek[6]);
+
+    const weekEndDate = new Date(weeks.currentWeek[6]);
+    const monthEndDate = new Date(toDayTo);
+   // console.log('Week End Date:', weekEndDate, 'Month End Date:', monthEndDate);
+    const compliance = await labourCompliance(toDayFrom, weekEndDate >= monthEndDate ? toDayTo : weeks.currentWeek[6]);
 
     //console.log(compliance)
 
@@ -249,7 +302,7 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
       ).slice(start, end);
 
           filteredUnits.forEach( async unit =>{
-        const html = makeStoreShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom, unit.business_unit_id);
+        const html = makeStoreShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom, unit.business_unit_id, weekEndDate >= monthEndDate ? toDayTo : weeks.currentWeek[6]);
             const subject = `KFC Unit - ${unit.business_unit} Planned / Worked Hours - Week Monday ${weekStart}`;
                
             const info = await sendEmail(

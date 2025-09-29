@@ -19,6 +19,7 @@ const {empWithTime} = require('../api/Mapal');
 //const { unitShiftHoursJob } = require('../api/unitShiftsHoursEmailAll');
 //const { unitShiftHoursJobStore } = require('../api/unitShiftsHoursEmailStore');
 //const { unitsSalesEmailAll } = require('../api/salesEmailAll')
+//const { newStarters} = require('../api/newStarters');
 
 //DONE RENDER READ ALL EMPLOYEES
 const getAllEmployees = async (req, res) => {
@@ -45,6 +46,7 @@ const getAllEmployees = async (req, res) => {
 //await unitShiftHoursJob('stefan.csomor@qweurope.com')
 //await unitsSalesEmailAll('stefan.csomor@qweurope.com');
 //await unitShiftHoursJobStore(10,16,'stefan.csomor@qweurope.com','stefan.csomor@qweurope.com');
+//await newStarters();
 
   ///const mapalOneEmployee = await getOneEmployee()//;
   ///console.log(mapalOneEmployee, mapalEmp);
