@@ -15,6 +15,7 @@ const { get } = require('mongoose');
 const { makeMngOvertimeEmail } = require('../utils/mngOvertimeEmail');
 const { ca } = require('date-fns/locale');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 
 const labourComplianceTPPM = async (start, end, email, cc= []) => {
     await apiTokenAutomate();
@@ -246,7 +247,7 @@ const labourComplianceTPPM = async (start, end, email, cc= []) => {
             const subject = `KFC Managers Overtime YTD - ${endOfCurrentmonth.toLocaleDateString()}`;
                
            // console.log(unit.email)
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
               email,
                 cc,
                 subject,

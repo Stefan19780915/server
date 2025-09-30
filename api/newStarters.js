@@ -6,6 +6,7 @@ const { getEmployeeData } = require('../api/Mapal');
 const { getWorkedHours } = require('../api/Mapal');
 const { makeNewStartersEmail } = require('../utils/newStartersEmail');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 
 const newStarters = async () => {
     await apiTokenAutomate();
@@ -76,7 +77,7 @@ const newStarters = async () => {
                
            // console.log(unit.email)
            
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
               'stefan.csomor@qweurope.com',
                 [],
                 subject,

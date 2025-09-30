@@ -7,6 +7,7 @@ const { getClockingsByDate } = require('./Mapal');
 const { unitHeadCount } = require('./unitHeadCount');
 const { labourCompliance } = require('./labourCompliance');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 const { makeUnitShiftEmail } = require('../utils/unitShiftEmail');
 const { makeStoreShiftEmail } = require('../utils/storeShiftEmail');
 
@@ -302,7 +303,7 @@ const unitShiftHoursJob = async (email, cc = []) => {
                
            // console.log(unit.email)
            
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
               email,
                 cc,
                 subject,

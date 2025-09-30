@@ -2,6 +2,7 @@ const { apiTokenAutomate } = require('../middleware/apiToken');
 const { getUnits } = require('./Mapal');
 const { getSales } = require('./Mapal');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 const moment = require("moment");
 const { getWeekDates } = require("../api/unitShiftsHoursEmailAll");
 const { getStartOfWeek, getEndOfWeek } = require("../api/unitShiftsHoursEmailAll");
@@ -104,7 +105,7 @@ const unitsSalesEmailAll = async (email, cc = []) => {
                
            // console.log(unit.email)
            
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
               email,
                 cc,
                 subject,

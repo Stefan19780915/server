@@ -1,6 +1,7 @@
 const { apiTokenAutomate } = require('../middleware/apiToken');
 const { getMapalEmployees } = require('../api/Mapal');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 const {makeSeniorityEmail} = require("../utils/seniorityEmail");
 
 
@@ -80,7 +81,7 @@ console.log(
                
            // console.log(html)
             
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
                 'stefan.csomor@qweurope.com',
                 ['peter.gazo@qweurope.com', 'peter.deak@qweurope.com','peter.zidek@qweurope.com','radka.hrebickova@qweurope.com'],
                 subject,

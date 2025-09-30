@@ -7,6 +7,7 @@ const { getClockingsByDate } = require('./Mapal');
 const { unitHeadCount } = require('./unitHeadCount');
 const { labourCompliance } = require('./labourCompliance');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 const { makeUnitShiftEmail } = require('../utils/unitShiftEmail');
 const { makeStoreShiftEmail } = require('../utils/storeShiftEmail');
 
@@ -305,7 +306,7 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
         const html = makeStoreShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom, unit.business_unit_id, weekEndDate >= monthEndDate ? toDayTo : weeks.currentWeek[6]);
             const subject = `KFC Unit - ${unit.business_unit} Planned / Worked Hours - Week Monday ${weekStart}`;
                
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
               email == '' ? unit.email : email,
                 cc,
                 subject,

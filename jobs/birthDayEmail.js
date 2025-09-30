@@ -4,6 +4,7 @@ const { getMapalEmployees } = require('../api/Mapal');
 const moment = require("moment");
 const { getDate } = require('date-fns');
 const sendEmail = require("../utils/sendEmployeeEmail");
+const sendEmailOffice = require("../utils/sendEmployeeEmailOffice");
 const {makeBirthDayEmail} = require("../utils/birthDayEmail")
 const {getUnits} = require("../api/Mapal");
 const {getMapalUsers} = require("../api/Mapal");
@@ -50,7 +51,7 @@ const job1 = async ()=>{
            // console.log(unit.email)
            const email = 'stefan.csomor@qweurope.com';
            const unitEmail = unit.email;
-            const info = await sendEmail(
+            const info = await sendEmailOffice(
               email,
                [unitEmail, areaCoachWest, ac.email,'peter.gazo@qweurope.com'],
                 subject,
