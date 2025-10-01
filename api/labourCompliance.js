@@ -17,6 +17,7 @@ const labourCompliance = async (date1, date2) => {
     const currentDate = new Date();
     const start = new Date(date1);
     const end = new Date(date2);
+    //console.log(start, end);
     //dates for the annual overtime of maangers
     const startOfyear = new Date(moment(start).startOf('year').format('YYYY-MM-DD'));
     const endOfCurrentmonth = new Date(moment(currentDate).endOf('month').format('YYYY-MM-DD'));
@@ -156,9 +157,14 @@ const labourCompliance = async (date1, date2) => {
 
         const newAndTermHoursFond = [];
         for (const state of empStateNewEmpAndTerm) {
-            const start = new Date(state.start_date) > new Date(date1) ? new Date(state.start_date) : new Date(date1);
+            let start = new Date(state.start_date) > new Date(date1) ? new Date(state.start_date) : new Date(date1);
             // Use expected_termination_date if present and is less than date2, otherwise use date2
-            const end = state.expected_termination_date && new Date(state.expected_termination_date) < new Date(date2)  ? new Date(state.expected_termination_date) : new Date(date2);
+            let end = state.expected_termination_date && new Date(state.expected_termination_date) < new Date(date2)  ? new Date(state.expected_termination_date) : new Date(date2);
+            
+            if (start > end) {
+            [start, end] = [end, start];
+            }
+            
             const id = [state.employee_id];
             // Fetch hours fond for this employee within the determined date range
             const fond = await getHoursFondCompliance(new Date(start).toISOString().slice(0, 10), new Date(end).toISOString().slice(0, 10), id);

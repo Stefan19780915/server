@@ -16,7 +16,8 @@ const moment = require("moment");
 const unitShiftHoursJob = async (email, cc = []) => {
   await apiTokenAutomate();
    
-    // Get the current date
+    // Get the current date // "1995-12-17T03:24:00"
+  //const testDate = '2025-09-29';
   const currentDate = new Date();
   const weekStart = moment(getStartOfWeek(currentDate)).format('YYYY/MM/DD');
   const weekEnd = moment(getEndOfWeek(currentDate)).format('YYYY/MM/DD');

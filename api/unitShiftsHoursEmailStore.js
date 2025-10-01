@@ -302,7 +302,9 @@ const unitShiftHoursJobStore = async (start, end, email, cc = []) => {
         u.business_unit_id !== 20
       ).slice(start, end);
 
-          filteredUnits.forEach( async unit =>{
+      const sortedUnits = filteredUnits.sort((a, b) => a.business_unit.localeCompare(b.business_unit));
+
+          sortedUnits.forEach( async unit =>{
         const html = makeStoreShiftEmail(unitShifts, employeeHeadCount,compliance,toDayFrom, unit.business_unit_id, weekEndDate >= monthEndDate ? toDayTo : weeks.currentWeek[6]);
             const subject = `KFC Unit - ${unit.business_unit} Planned / Worked Hours - Week Monday ${weekStart}`;
                
