@@ -122,7 +122,10 @@ const labourComplianceTPPM = async (start, end, email, cc= []) => {
             
            // console.log('Start of Month:', startOfMonth, 'End of Month:', endOfMonth);
 
-            const fondHours = await getHoursFondCompliance(startOfMonth, endOfMonth, employeeIds);
+           const formattedDateFrom = moment(startOfMonth).format('YYYY-MM-DD');
+            const formattedDateTo = moment(endOfMonth).format('YYYY-MM-DD');
+
+            const fondHours = await getHoursFondCompliance(formattedDateFrom, formattedDateTo, employeeIds);
                        // console.log('Fond:', fond.length, 'Employee ID:', empId);
                        
 
